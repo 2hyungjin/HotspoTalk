@@ -2,4 +2,7 @@
     <string name="app_name">HotspoTalk</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="chatting_room_name">채팅방명</string>
+    <string name="total_people_number">총 인원</string>
+    <string name="password">비밀번호</string>
 </resources>
