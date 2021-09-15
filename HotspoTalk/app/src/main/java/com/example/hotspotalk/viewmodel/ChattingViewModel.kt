@@ -1,4 +1,4 @@
-package com.example.hotspotalk
+package com.example.hotspotalk.viewmodel
 
 import androidx.lifecycle.ViewModel
 

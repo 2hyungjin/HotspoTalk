@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutDescription="@xml/chatting_fragment_xml_constraintlayout2_scene"
-        tools:context=".ChattingFragment">
+        tools:context=".view.fragment.ChattingFragment">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
