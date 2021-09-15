@@ -1,23 +1,25 @@
-package com.example.hotspotalk
+package com.example.hotspotalk.view.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.hotspotalk.R
 
 /**
- * 스플래시 프래그먼트
+ * 홈 프래그먼트
+ * 채팅 목록을 확인할 수 있음
  */
 
-class SplashFragment : Fragment() {
+class HomeFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_splash, container, false)
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
 }
