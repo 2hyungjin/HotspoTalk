@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="30dp"
     tools:context=".view.fragment.CreateRoomFragment">
 
     <androidx.appcompat.widget.Toolbar
@@ -15,182 +16,195 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/linearLayout2"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_create_room"
+        app:layout_constraintBottom_toTopOf="@+id/btn_create_room"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_create_room"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="15dp"
-            android:paddingHorizontal="20dp"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="5dp">
 
             <ImageView
-                android:src="@drawable/ic_red_dot"
                 android:layout_width="15dp"
-                android:layout_height="15dp"/>
+                android:layout_height="15dp"
+                android:src="@drawable/ic_red_dot" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <EditText
+                android:id="@+id/et_chatting_room_name_create_room"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                app:boxCornerRadiusTopStart="30dp"
-                app:boxCornerRadiusTopEnd="30dp"
-                app:boxCornerRadiusBottomStart="30dp"
-                app:boxCornerRadiusBottomEnd="30dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_chatting_room_name_create_room"
-                    android:hint="@string/chatting_room_name"
-                    android:maxLines="1"
-                    android:paddingStart="30dp"
-                    android:paddingEnd="30dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    tools:ignore="RtlSymmetry" />
-
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginStart="30dp"
+                android:background="@drawable/et_background"
+                android:hint="@string/chatting_room_name"
+                android:maxLines="1"
+                android:padding="10dp"
+                tools:ignore="RtlSymmetry" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="15dp"
-            android:paddingHorizontal="20dp"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="5dp">
 
             <ImageView
-                android:src="@drawable/ic_red_dot"
                 android:layout_width="15dp"
-                android:layout_height="15dp"/>
+                android:layout_height="15dp"
+                android:src="@drawable/ic_red_dot" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="150dp"
+            <EditText
+                android:id="@+id/et_total_number_create_room"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                app:boxCornerRadiusTopStart="30dp"
-                app:boxCornerRadiusTopEnd="30dp"
-                app:boxCornerRadiusBottomStart="30dp"
-                app:boxCornerRadiusBottomEnd="30dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_total_number_create_room"
-                    android:hint="@string/total_people_number"
-                    android:maxLines="1"
-                    android:paddingStart="30dp"
-                    android:paddingEnd="30dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    tools:ignore="RtlSymmetry" />
-
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginStart="30dp"
+                android:layout_weight="1"
+                android:background="@drawable/et_background"
+                android:hint="@string/total_people_number"
+                android:maxLines="1"
+                android:padding="10dp"
+                tools:ignore="RtlSymmetry" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="명"/>
+                android:text="명" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:src="@drawable/ic_user"/>
+                android:src="@drawable/ic_user" />
 
         </LinearLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <EditText
+            android:id="@+id/et_password_create_room"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginVertical="15dp"
-            app:boxCornerRadiusTopStart="30dp"
-            app:boxCornerRadiusTopEnd="30dp"
-            app:boxCornerRadiusBottomStart="30dp"
-            app:boxCornerRadiusBottomEnd="30dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_password_create_room"
-                android:hint="@string/password"
-                android:maxLines="1"
-                android:paddingStart="30dp"
-                android:paddingEnd="30dp"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:inputType="textPassword"
-                tools:ignore="RtlSymmetry" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginVertical="5dp"
+            android:layout_marginStart="75dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/et_background"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:padding="10dp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginVertical="15dp"
             android:layout_marginHorizontal="15dp"
-            android:background="@color/grey"/>
+            android:layout_marginVertical="5dp"
+            android:background="@color/grey" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginVertical="15dp"
-            android:layout_marginHorizontal="20dp">
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="5dp"
+            android:gravity="center">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:text="공개 범위"/>
+                android:text="공개 범위"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
 
             <RadioGroup
                 android:id="@+id/radioGroup_position"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginStart="10dp">
+                android:layout_marginStart="10dp"
+                android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/radioButton_distance"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
                     android:background="@drawable/btn_radio_background"
                     android:button="@null"
                     android:checked="true"
                     android:gravity="center"
-                    android:paddingHorizontal="20dp"
+                    android:paddingHorizontal="25dp"
                     android:text="거리별"
                     android:textColor="@color/btn_radio_text_color" />
 
                 <RadioButton
                     android:id="@+id/radioButton_area"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
                     android:layout_marginStart="10dp"
+                    android:background="@drawable/btn_radio_background"
                     android:button="@null"
                     android:gravity="center"
-                    android:padding="5dp"
-                    android:textColor="@color/btn_radio_text_color"
-                    android:background="@drawable/btn_radio_background"
-                    android:text="지역별"/>
+                    android:paddingHorizontal="25dp"
+                    android:text="지역별"
+                    android:textColor="@color/btn_radio_text_color" />
 
             </RadioGroup>
 
         </LinearLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/black"
+            android:gravity="center"
+            android:textColor="@color/white"
+            tools:text="지도" />
+
+        <SeekBar
+            android:id="@+id/seekbar_create_room"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="5dp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_distance_create_room"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_distance_create_room"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:text="500m"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_create_room"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
     </LinearLayout>
 
-    <SeekBar
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_create_room"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/btn_background"
+        android:text="방 만들기"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
