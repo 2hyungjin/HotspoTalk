@@ -5,4 +5,6 @@
     <string name="chatting_room_name">채팅방명</string>
     <string name="total_people_number">총 인원</string>
     <string name="password">비밀번호</string>
+    <string name="chatting">채팅</string>
+    <string name="create_room">방 만들기</string>
 </resources>
