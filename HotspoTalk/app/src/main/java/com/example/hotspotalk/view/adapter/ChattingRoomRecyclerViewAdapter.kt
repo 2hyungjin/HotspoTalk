@@ -48,7 +48,6 @@ class ChattingRoomRecyclerViewAdapter :
         // todo 이미지 글라이드
 
         binding.layoutRvItemChattingRoom.setOnClickListener {
-            // todo 잘되는지 체크하기
             setOnClickChattingRoomListener.onClick(position)
         }
     }

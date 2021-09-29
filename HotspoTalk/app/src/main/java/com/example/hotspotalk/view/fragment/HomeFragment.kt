@@ -1,11 +1,9 @@
 package com.example.hotspotalk.view.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -18,9 +16,6 @@ import com.example.hotspotalk.databinding.FragmentHomeBinding
 import com.example.hotspotalk.view.adapter.HomeViewPagerAdapter
 import com.example.hotspotalk.viewmodel.HomeViewModel
 import com.example.hotspotalk.viewmodel.factory.HomeViewModelFactory
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
-import kotlin.concurrent.thread
 
 /**
  * 홈 프래그먼트
@@ -56,7 +51,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun init() {
-        adapter.setList(listOf(ViewPagerItemHomeFragment(), ViewPagerItemHomeFragment()))
+        adapter.setList(listOf(HomeViewPagerItemFragment(), HomeViewPagerItemFragment()))
         binding.vpHome.adapter = adapter
 
         binding.vpHome.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
