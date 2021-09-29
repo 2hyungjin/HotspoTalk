@@ -21,7 +21,7 @@ class ChattingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.chatting_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_chatting, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
