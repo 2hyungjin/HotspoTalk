@@ -20,6 +20,7 @@ import com.example.hotspotalk.viewmodel.HomeViewModel
 import com.example.hotspotalk.viewmodel.factory.HomeViewModelFactory
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlin.concurrent.thread
 
 /**
  * 홈 프래그먼트
@@ -86,8 +87,18 @@ class HomeFragment : Fragment() {
         })
 
         binding.radioGroupHome.setOnCheckedChangeListener { _, checkedId ->
-            binding.vpHome.currentItem = Integer.parseInt(checkedId.toString().substring(9))
+            binding.vpHome.currentItem = when (checkedId) {
+                binding.radioButtonParticipateHome.id -> 0
+                binding.radioButtonTownChatHome.id -> 1
+                else -> 0
+            }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // 메모리에서 삭제
+        binding.vpHome.adapter = null
     }
 
     private fun navigateToCreateRoom() {

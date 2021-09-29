@@ -31,18 +31,10 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:textSize="20dp"
+                android:layout_marginBottom="50dp"
                 android:gravity="center"
                 android:text="참여중인 채팅방이 없어요." />
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:gravity="center"
-                android:minHeight="48dp"
-                android:padding="10dp"
-                android:text="채팅방 추가하기" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
