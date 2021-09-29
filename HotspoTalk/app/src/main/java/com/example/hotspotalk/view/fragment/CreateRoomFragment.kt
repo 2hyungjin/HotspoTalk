@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.hotspotalk.R
+import com.example.hotspotalk.databinding.FragmentCreateRoomBinding
 
 /**
  * 방 추가 프래그먼트
@@ -14,12 +16,37 @@ import com.example.hotspotalk.R
 
 class CreateRoomFragment : Fragment() {
 
+    private lateinit var binding: FragmentCreateRoomBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_create_room, container, false)
+    ): View {
+        binding = FragmentCreateRoomBinding.inflate(inflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        with(binding) {
+            radioGroupPosition.setOnCheckedChangeListener { group, checkedId ->
+                when (checkedId) {
+                    radioButtonDistance.id -> {
+                        mapCreateRoom.visibility = View.VISIBLE
+                        linearLayoutCreateRoom.visibility = View.GONE
+                    }
+                    radioButtonArea.id -> {
+                        linearLayoutCreateRoom.visibility = View.VISIBLE
+                        mapCreateRoom.visibility = View.GONE
+                    }
+                }
+            }
+
+            btnCreateRoom.setOnClickListener {
+                findNavController().navigateUp()
+            }
+        }
     }
 
 }
