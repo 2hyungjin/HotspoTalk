@@ -46,6 +46,10 @@ class CreateRoomFragment : Fragment() {
             btnCreateRoom.setOnClickListener {
                 findNavController().navigateUp()
             }
+
+            toolbarCreateRoom.setNavigationOnClickListener {
+                findNavController().navigateUp()
+            }
         }
     }
 

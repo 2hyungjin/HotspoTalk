@@ -27,15 +27,15 @@ class HomeFragment : Fragment() {
     private val navController: NavController by lazy { findNavController() }
 
     private val factory: HomeViewModelFactory by lazy { HomeViewModelFactory() }
-    private val viewModel: HomeViewModel by viewModels { factory }
+    private val viewModel: HomeViewModel by viewModels()
     private lateinit var binding: FragmentHomeBinding
 
-    private val adapter: HomeViewPagerAdapter by lazy { HomeViewPagerAdapter(this) }
+    private lateinit var adapter: HomeViewPagerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         return binding.root
     }
@@ -51,6 +51,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun init() {
+        adapter = HomeViewPagerAdapter(this)
         adapter.setList(listOf(HomeViewPagerItemFragment(), HomeViewPagerItemFragment()))
         binding.vpHome.adapter = adapter
 
