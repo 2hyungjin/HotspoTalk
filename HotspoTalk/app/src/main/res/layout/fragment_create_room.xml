@@ -24,7 +24,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+            app:layout_constraintBottom_toTopOf="@+id/btn_create_room"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,8 +51,8 @@
                     android:background="@drawable/et_background"
                     android:hint="@string/chatting_room_name"
                     android:maxLines="1"
-                    android:padding="10dp"
                     android:minHeight="48dp"
+                    android:padding="10dp"
                     tools:ignore="RtlSymmetry" />
 
             </LinearLayout>
@@ -78,8 +78,8 @@
                     android:background="@drawable/et_background"
                     android:hint="@string/total_people_number"
                     android:maxLines="1"
-                    android:padding="10dp"
                     android:minHeight="48dp"
+                    android:padding="10dp"
                     tools:ignore="RtlSymmetry" />
 
                 <TextView
@@ -173,10 +173,11 @@
                 android:layout_marginVertical="5dp">
 
                 <LinearLayout
-                    android:id="@+id/linearLayout_create_room"
+                    android:id="@+id/linearLayout_radio_create_room"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -188,7 +189,6 @@
                         android:text="ㅇㅇ도 ㅇㅇ시 ㅇㅇ동"
                         android:textColor="@color/black"
                         android:textSize="20sp"
-                        android:visibility="gone"
                         tools:text="ㅇㅇ도 ㅇㅇ시 ㅇㅇ동" />
 
                     <RadioGroup
@@ -211,58 +211,58 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/map_create_room"
+                <LinearLayout
+                    android:id="@+id/linearLayout_distance_create_room"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:background="@color/black"
-                    android:gravity="center"
-                    android:text="지도"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
 
+                    <com.naver.maps.map.MapView
+                        android:id="@+id/map_create_room"
+                        android:name="com.naver.maps.map.MapFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:background="@color/black"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <SeekBar
+                        android:id="@+id/seekbar_create_room"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="5dp"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_distance_create_room"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_distance_create_room"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:text="500m"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toTopOf="@+id/btn_create_room"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLayout3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="20dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/btn_create_room"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
 
-            <SeekBar
-                android:id="@+id/seekbar_create_room"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                app:layout_constraintBottom_toTopOf="@+id/tv_distance_create_room"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_distance_create_room"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:text="500m"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@+id/btn_create_room"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-        </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_create_room"

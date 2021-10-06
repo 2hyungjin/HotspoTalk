@@ -1,13 +1,42 @@
 package com.example.hotspotalk.view.fragment
 
+import android.Manifest
+import android.app.AlertDialog
+import android.content.Context
+import android.content.Context.LOCATION_SERVICE
+import android.content.DialogInterface
+import android.content.Intent
+import android.content.pm.ApplicationInfo
+import android.content.pm.PackageManager
+import android.location.LocationManager
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.fragment.app.findFragment
 import androidx.navigation.fragment.findNavController
 import com.example.hotspotalk.R
 import com.example.hotspotalk.databinding.FragmentCreateRoomBinding
+import com.naver.maps.geometry.BuildConfig.APPLICATION_ID
+import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.LocationSource
+import com.naver.maps.map.LocationTrackingMode
+import com.naver.maps.map.MapFragment
+import com.naver.maps.map.util.FusedLocationSource
+import com.naver.maps.map.CameraUpdate
+
+import com.naver.maps.map.overlay.LocationOverlay
+
+
+
 
 /**
  * 방 추가 프래그먼트
@@ -17,6 +46,7 @@ import com.example.hotspotalk.databinding.FragmentCreateRoomBinding
 class CreateRoomFragment : Fragment() {
 
     private lateinit var binding: FragmentCreateRoomBinding
+    private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,16 +59,52 @@ class CreateRoomFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+            if (it.all { permission -> permission.value == true })
+            else {
+                Toast.makeText(context, "권한 거부", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
         with(binding) {
-            radioGroupPosition.setOnCheckedChangeListener { group, checkedId ->
+            if (ActivityCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                permissionLauncher.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION))
+                return
+            } else {
+                val locationManager = getSystemService(requireContext(), LocationManager::class.java)
+                locationManager?.requestLocationUpdates(
+                    LocationManager.GPS_PROVIDER, 1000, 10f) { location ->
+
+                    val latLng = LatLng(location)
+
+                    mapCreateRoom.getMapAsync {
+                        val locationOverlay: LocationOverlay = it.locationOverlay
+                        locationOverlay.isVisible = true
+                        locationOverlay.position = latLng
+                        locationOverlay.bearing = location.bearing
+
+                        it.moveCamera(CameraUpdate.scrollTo(latLng))
+                    }
+                }
+            }
+
+            radioGroupPosition.setOnCheckedChangeListener { _, checkedId ->
                 when (checkedId) {
                     radioButtonDistance.id -> {
-                        mapCreateRoom.visibility = View.VISIBLE
-                        linearLayoutCreateRoom.visibility = View.GONE
+                        linearLayoutDistanceCreateRoom.visibility = View.VISIBLE
+                        linearLayoutRadioCreateRoom.visibility = View.GONE
                     }
                     radioButtonArea.id -> {
-                        linearLayoutCreateRoom.visibility = View.VISIBLE
-                        mapCreateRoom.visibility = View.GONE
+                        linearLayoutRadioCreateRoom.visibility = View.VISIBLE
+                        linearLayoutDistanceCreateRoom.visibility = View.GONE
                     }
                 }
             }
