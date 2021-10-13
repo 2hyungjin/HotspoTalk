@@ -8,6 +8,8 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
+import android.content.res.Resources
+import android.graphics.Color
 import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
@@ -16,11 +18,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.findFragment
 import androidx.navigation.fragment.findNavController
 import com.example.hotspotalk.R
@@ -32,10 +36,10 @@ import com.naver.maps.map.LocationTrackingMode
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.util.FusedLocationSource
 import com.naver.maps.map.CameraUpdate
+import com.naver.maps.map.overlay.CircleOverlay
 
 import com.naver.maps.map.overlay.LocationOverlay
-
-
+import com.naver.maps.map.overlay.Marker
 
 
 /**
@@ -44,6 +48,10 @@ import com.naver.maps.map.overlay.LocationOverlay
  */
 
 class CreateRoomFragment : Fragment() {
+
+    companion object {
+        private const val MAX_RADIUS = 500.0
+    }
 
     private lateinit var binding: FragmentCreateRoomBinding
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
@@ -60,10 +68,8 @@ class CreateRoomFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
-            if (it.all { permission -> permission.value == true })
-            else {
+            if (!it.all { permission -> permission.value == true })
                 Toast.makeText(context, "권한 거부", Toast.LENGTH_SHORT).show()
-            }
         }
 
 
@@ -86,12 +92,37 @@ class CreateRoomFragment : Fragment() {
                     val latLng = LatLng(location)
 
                     mapCreateRoom.getMapAsync {
-                        val locationOverlay: LocationOverlay = it.locationOverlay
-                        locationOverlay.isVisible = true
-                        locationOverlay.position = latLng
-                        locationOverlay.bearing = location.bearing
+
+                        val marker = Marker()
+                        with(marker) {
+                            position = latLng
+                            map = it
+                        }
 
                         it.moveCamera(CameraUpdate.scrollTo(latLng))
+
+                        val circle = CircleOverlay(latLng, MAX_RADIUS)
+                        seekbarCreateRoom.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
+                            override fun onProgressChanged(
+                                seekBar: SeekBar?,
+                                progress: Int,
+                                fromUser: Boolean
+                            ) {
+                                val radius = ((progress).toDouble() / (seekBar?.max!!).toDouble()) * MAX_RADIUS
+                                tvDistanceCreateRoom.text = "${radius.toInt()}m"
+                                with(circle) {
+                                    outlineColor = Color.BLACK
+                                    outlineWidth = 3
+                                    color = ResourcesCompat.getColor(resources, android.R.color.transparent, resources.newTheme())
+                                    map = it
+                                    setRadius(radius)
+                                }
+                            }
+                            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+                            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+
+                            }
+                        })
                     }
                 }
             }
