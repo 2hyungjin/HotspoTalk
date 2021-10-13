@@ -26,7 +26,6 @@ class HomeFragment : Fragment() {
 
     private val navController: NavController by lazy { findNavController() }
 
-    private val factory: HomeViewModelFactory by lazy { HomeViewModelFactory() }
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var binding: FragmentHomeBinding
 

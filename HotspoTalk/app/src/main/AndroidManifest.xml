@@ -3,6 +3,7 @@
     package="com.example.hotspotalk">
 <uses-permission android:name="android.permission.INTERNET"/>
     <application
+        android:usesCleartextTraffic="true"
         android:name=".di.application.HotspotalkApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
