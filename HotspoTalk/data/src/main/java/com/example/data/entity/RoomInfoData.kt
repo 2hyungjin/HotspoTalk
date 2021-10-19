@@ -1,6 +1,6 @@
-package entity.response
+package com.example.data.entity
 
-data class Rooms(
+data class RoomInfoData(
     val roomID: Int,
     val roomName: String,
     val roomPW: String?,

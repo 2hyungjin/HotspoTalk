@@ -1,11 +1,11 @@
 package com.example.hotspotalk.di.application
 
 import android.app.Application
-import com.example.data.NewMessageListener
+import com.example.data.network.NewMessageListener
+import com.example.hotspotalk.view.util.Preference
 import dagger.hilt.android.HiltAndroidApp
 import io.socket.client.IO
 import io.socket.client.Socket
-import org.json.JSONObject
 
 @HiltAndroidApp
 class HotspotalkApplication : Application() {
@@ -24,6 +24,7 @@ class HotspotalkApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        Preference.init(applicationContext)
     }
 
 }

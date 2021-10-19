@@ -45,6 +45,7 @@ class HomeViewPagerItemFragment : Fragment() {
     private fun init() {
         binding.rvChattingRoomVpItemHome.adapter = adapter
 
+        // 동네 챗팅
         if (adapter.list.isEmpty()) {
             binding.rvChattingRoomVpItemHome.visibility = GONE
             binding.layoutNoChatVpItemHome.visibility = VISIBLE
@@ -53,6 +54,7 @@ class HomeViewPagerItemFragment : Fragment() {
             binding.layoutNoChatVpItemHome.visibility = GONE
         }
 
+        // 참가한 챗팅
         if (participateAdapter.list.isEmpty()) {
             binding.rvParticipateChattingRoomVpItemHome.visibility = GONE
             binding.layoutNoChatVpItemHome.visibility = VISIBLE

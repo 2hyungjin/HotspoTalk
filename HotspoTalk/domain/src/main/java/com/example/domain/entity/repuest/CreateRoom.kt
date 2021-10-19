@@ -1,6 +1,6 @@
-package entity.repuest
+package com.example.domain.entity.repuest
 
-data class RoomRequest(
+data class CreateRoom(
     val name: String?,
     val password: String?,
     val memberLimit: Int?,

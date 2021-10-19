@@ -1,9 +1,7 @@
-package com.example.data
+package com.example.data.network
 
 import android.util.Log
 import io.socket.emitter.Emitter
-import org.json.JSONObject
-import kotlin.properties.Delegates
 
 class NewMessageListener() : Emitter.Listener {
     var eventHandler: ((String) -> Unit)? = null
