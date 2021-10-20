@@ -36,9 +36,9 @@ android {
 dependencies {
     implementation project(':domain');
 
-    // Dagger2
-    implementation 'com.google.dagger:dagger:2.37'
-    kapt 'com.google.dagger:dagger-compiler:2.37'
+    // dagger-hilt
+    implementation "com.google.dagger:hilt-android:2.37"
+    kapt "com.google.dagger:hilt-android-compiler:2.37"
 
     // Retrofit2
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
