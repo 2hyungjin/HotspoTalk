@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "805558542239",
+    "project_id": "hotspotalk",
+    "storage_bucket": "hotspotalk.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:805558542239:android:bc7926acc770cb2c7ca7aa",
+        "android_client_info": {
+          "package_name": "com.example.hostpotalk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "805558542239-dt1gl96p1t3mmhp7u8t91a08plukpjo3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOtZTRtveNBnYfzMN1VNIy6hiBQsiucuQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "805558542239-dt1gl96p1t3mmhp7u8t91a08plukpjo3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
