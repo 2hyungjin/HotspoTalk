@@ -21,13 +21,12 @@ object NetworkModule  {
             .addInterceptor(TokenInterceptor())
             .build()
 
-    // todo Set base url
     @Singleton
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
         Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("")
+            .baseUrl("http://10.80.161.222/")
             .client(okHttpClient)
             .build()
 }

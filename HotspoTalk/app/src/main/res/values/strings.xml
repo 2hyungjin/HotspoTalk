@@ -7,4 +7,8 @@
     <string name="password">비밀번호</string>
     <string name="chatting">채팅</string>
     <string name="create_room">방 만들기</string>
+    <string name="sign_up">회원가입</string>
+    <string name="id">아이디</string>
+    <string name="password_check">비밀번호 확인</string>
+    <string name="sign_in">로그인</string>
 </resources>

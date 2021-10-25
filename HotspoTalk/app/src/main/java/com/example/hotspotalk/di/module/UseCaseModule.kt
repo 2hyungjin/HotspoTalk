@@ -70,7 +70,7 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun provideGetRoomsEnterableUseCase(repository: RoomsRepository) =
+    fun provideGetRoomsEnterableUseCase(repository: RoomsRepository): GetRoomsEnterableUseCase =
         GetRoomsEnterableUseCase(repository)
 
     @Singleton

@@ -2,13 +2,15 @@ package com.example.domain.repository
 
 import com.example.domain.entity.repuest.Ban
 import com.example.domain.entity.repuest.Login
+import com.example.domain.entity.response.Msg
+import com.example.domain.entity.response.Token
 
 interface AccountRepository {
-    suspend fun postLogin(login: Login): String
+    suspend fun postLogin(login: Login): Token
 
-    suspend fun postSignUp(signUp: Login): String
+    suspend fun postSignUp(signUp: Login): Token
 
-    suspend fun getId(id: String): String
+    suspend fun getId(id: String): Msg
 
-    suspend fun deleteBan(ban: Ban): String
+    suspend fun deleteBan(ban: Ban): Msg
 }

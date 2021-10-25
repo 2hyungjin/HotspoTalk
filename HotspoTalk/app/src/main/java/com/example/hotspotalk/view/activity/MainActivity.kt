@@ -8,9 +8,12 @@ import com.example.hotspotalk.R
 import com.example.hotspotalk.context.HotspotalkApplication
 import com.example.hotspotalk.viewmodel.ChattingViewModel
 import com.google.firebase.messaging.FirebaseMessaging
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private val viewModel:ChattingViewModel by viewModels()
+    private val viewModel: ChattingViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

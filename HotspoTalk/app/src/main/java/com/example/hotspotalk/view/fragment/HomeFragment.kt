@@ -7,27 +7,32 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
+import com.example.domain.usecase.rooms.GetRoomsEnterableUseCase
+import com.example.domain.usecase.rooms.GetRoomsNotEnterableUseCase
 import com.example.hotspotalk.R
 import com.example.hotspotalk.databinding.FragmentHomeBinding
 import com.example.hotspotalk.view.adapter.HomeViewPagerAdapter
 import com.example.hotspotalk.viewmodel.HomeViewModel
-import com.example.hotspotalk.viewmodel.factory.HomeViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * 홈 프래그먼트
  * 채팅 목록을 확인할 수 있음
  */
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private val navController: NavController by lazy { findNavController() }
 
-    private val viewModel: HomeViewModel by viewModels()
     private lateinit var binding: FragmentHomeBinding
+    private val viewModel: HomeViewModel by activityViewModels()
 
     private lateinit var adapter: HomeViewPagerAdapter
 
@@ -36,6 +41,8 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        binding.vm = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -56,45 +63,32 @@ class HomeFragment : Fragment() {
 
         binding.vpHome.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                when (position) {
-                    0 -> {
-                        binding.radioButtonTownChatHome.apply {
-                            isChecked = false
-                            setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                        }
-                        binding.radioButtonParticipateHome.apply {
-                            isChecked = true
-                            setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                        }
-                    }
-                    1 -> {
-                        binding.radioButtonTownChatHome.apply {
-                            isChecked = true
-                            setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                        }
-                        binding.radioButtonParticipateHome.apply {
-                            isChecked = false
-                            setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                        }
-                    }
+                viewModel.isEnterableChecked.value = when (position) {
+                    0 -> false
+                    1 -> true
+                    else -> false
                 }
             }
         })
 
         binding.radioGroupHome.setOnCheckedChangeListener { _, checkedId ->
             binding.vpHome.currentItem = when (checkedId) {
-                binding.radioButtonParticipateHome.id -> 0
-                binding.radioButtonTownChatHome.id -> 1
+                binding.radioEnterableChatHome.id -> 0
+                binding.radioNotEnterableHome.id -> 1
                 else -> 0
             }
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        // 메모리에서 삭제
-        binding.vpHome.adapter = null
+    private fun observe() = with(viewModel) {
+
     }
+
+//    override fun onPause() {
+//        super.onPause()
+//        // 메모리에서 삭제
+//        binding.vpHome.adapter = null
+//    }
 
     private fun navigateToCreateRoom() {
         navController.navigate(R.id.action_homeFragment_to_createRoomFragment)

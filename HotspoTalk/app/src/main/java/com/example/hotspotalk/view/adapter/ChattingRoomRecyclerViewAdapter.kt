@@ -1,11 +1,10 @@
 package com.example.hotspotalk.view.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.domain.entity.response.RoomInfo
 import com.example.hotspotalk.databinding.FragmentHomeRvItemChattingRoomBinding
-import com.example.hotspotalk.view.model.ChattingRoom
 
 class ChattingRoomRecyclerViewAdapter :
     RecyclerView.Adapter<ChattingRoomRecyclerViewAdapter.ViewHolder>() {
@@ -24,7 +23,7 @@ class ChattingRoomRecyclerViewAdapter :
         }
     }
 
-    val list = mutableListOf<ChattingRoom>()
+    private val list = mutableListOf<RoomInfo>()
 
     private lateinit var binding: FragmentHomeRvItemChattingRoomBinding
 
@@ -36,27 +35,32 @@ class ChattingRoomRecyclerViewAdapter :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val data = list[position]
+        binding.data = list[position]
 
-        binding.tvRoomNameRvItemChattingRoom.text = data.roomName
-        binding.tvUserNicknameRvItemChattingRoom.text = data.nickname
-        binding.tvUserRvItemChattingRoom.text = data.user.toString()
+        binding.apply {
+//            tvUserNicknameRvItemChattingRoom.text = data.
+//            tvUserRvItemChattingRoom.text = data.user.toString()
 
-        if (data.isNotify) binding.cvNotifyRvItemChattingRoom.visibility = View.VISIBLE
-        if (data.isSecret) binding.ivSecretRvTemChattingRoom.visibility = View.VISIBLE
+//            if (data.isNotify) cvNotifyRvItemChattingRoom.visibility = View.VISIBLE
+//            if (data.isSecret) ivSecretRvTemChattingRoom.visibility = View.VISIBLE
 
-        // todo 이미지 글라이드
+//            Glide.with(ivProfileImgRvItemChattingRoom)
+//                .load(data.nickname)
 
-        binding.layoutRvItemChattingRoom.setOnClickListener {
-            setOnClickChattingRoomListener.onClick(position)
+            layoutRvItemChattingRoom.setOnClickListener {
+                setOnClickChattingRoomListener.onClick(position)
+            }
         }
+
     }
 
     override fun getItemCount(): Int = list.size
 
-    fun setList(list: List<ChattingRoom>) {
+    fun setList(list: List<RoomInfo>) {
         this.list.clear()
         this.list.addAll(list)
         notifyDataSetChanged()
     }
+
+    fun getList() = list
 }

@@ -23,13 +23,46 @@
     </style>
 
     <!-- TextView -->
+    <style name="TitleTextView" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="Base.Widget.AppCompat.TextView.BigTextView">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">20sp</item>
     </style>
 
+    <style name="Base.Widget.AppCompat.TextView.RegularTextView">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <style name="Base.Widget.AppCompat.TextView.SmallTextView">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">15sp</item>
+    </style>
+
+    <!-- TextInputLayout -->
+    <style name="MainTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="hintEnabled">false</item>
+        <item name="errorEnabled">true</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="boxCornerRadiusBottomEnd">40dp</item>
+        <item name="boxCornerRadiusBottomStart">40dp</item>
+        <item name="boxCornerRadiusTopEnd">40dp</item>
+        <item name="boxCornerRadiusTopStart">40dp</item>
+    </style>
+
+    <!-- EditText -->
+    <style name="MainTextInputEditText" parent="Widget.AppCompat.EditText">
+        <item name="maxLines">1</item>
+        <item name="singleLine">true</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:includeFontPadding">true</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
     </style>
 </resources>

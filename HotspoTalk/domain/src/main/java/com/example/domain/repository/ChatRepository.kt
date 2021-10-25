@@ -1,8 +1,7 @@
 package com.example.domain.repository
 
-import retrofit2.http.GET
-import retrofit2.http.Path
+import com.example.domain.entity.response.Msg
 
 interface ChatRepository {
-    suspend fun getChat(roomId: Int): String
+    suspend fun getChat(roomId: Int): Msg
 }
