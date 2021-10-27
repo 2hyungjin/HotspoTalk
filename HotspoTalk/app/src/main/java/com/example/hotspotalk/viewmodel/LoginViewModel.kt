@@ -29,10 +29,8 @@ class LoginViewModel @Inject constructor(): ViewModel() {
         viewModelScope.launch {
             val login = Login(id.value!!, pw.value!!, devToken)
 
-            try {
+            when {
 
-            } catch (e: Exception) {
-                _isFailure.postValue(e.message)
             }
         }
     }

@@ -11,9 +11,9 @@ import com.example.hotspotalk.data.entity.repuest.ModifyRoom
 import retrofit2.Response
 
 interface RoomsRepository {
-    suspend fun getRooms(): Response<List<RoomInfo>>
+    suspend fun getEnteredRooms(): Response<List<RoomInfo>>
 
-    suspend fun getRooms(latitude: Int, longitude: Int): Response<List<RoomInfo>>
+    suspend fun getRoomsByCoordinate(latitude: Int, longitude: Int): Response<List<RoomInfo>>
 
     suspend fun postEnterRoom(roomId: Int, enter: Enter): Response<Msg>
 
