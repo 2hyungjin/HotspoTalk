@@ -1,11 +1,11 @@
-package com.example.data.repository
+package com.example.data.repositoryImpl
 
 import com.example.data.datasource.RoomDataSource
-import com.example.domain.entity.repuest.*
-import com.example.domain.entity.response.MemberInfo
+import com.example.data.entity.repuest.*
+import com.example.data.entity.response.MemberInfo
+import com.example.data.entity.response.RoomInfo
+import com.example.data.repository.RoomsRepository
 import com.example.domain.entity.response.Msg
-import com.example.domain.entity.response.RoomInfo
-import com.example.domain.repository.RoomsRepository
 import javax.inject.Inject
 
 class RoomsRepositoryImpl @Inject constructor(

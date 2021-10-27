@@ -1,9 +1,8 @@
-package com.example.data.repository
+package com.example.data.repositoryImpl
 
 import com.example.data.datasource.ChatDataSource
-import com.example.data.entity.MsgData
+import com.example.data.repository.ChatRepository
 import com.example.domain.entity.response.Msg
-import com.example.domain.repository.ChatRepository
 import javax.inject.Inject
 
 class ChatRepositoryImpl @Inject constructor(

@@ -1,8 +1,8 @@
 package com.example.hotspotalk.di.module
 
-import com.example.domain.repository.AccountRepository
+import com.example.data.repository.AccountRepository
 import com.example.domain.repository.ChatRepository
-import com.example.domain.repository.RoomsRepository
+import com.example.data.repository.RoomsRepository
 import com.example.domain.usecase.account.DeleteBanUseCase
 import com.example.domain.usecase.account.GetIdUseCase
 import com.example.domain.usecase.account.PostLoginUseCase

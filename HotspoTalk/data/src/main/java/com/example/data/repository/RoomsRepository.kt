@@ -1,9 +1,9 @@
-package com.example.domain.repository
+package com.example.data.repository
 
-import com.example.domain.entity.repuest.*
-import com.example.domain.entity.response.MemberInfo
+import com.example.data.entity.repuest.*
+import com.example.data.entity.response.MemberInfo
+import com.example.data.entity.response.RoomInfo
 import com.example.domain.entity.response.Msg
-import com.example.domain.entity.response.RoomInfo
 import retrofit2.http.Body
 
 interface RoomsRepository {
