@@ -1,7 +1,7 @@
 package com.example.hotspotalk.di.module
 
 import com.example.hotspotalk.data.service.AccountService
-import com.example.hotspotalk.data.service.ChatService
+import com.example.hotspotalk.data.service.MessageService
 import com.example.hotspotalk.data.service.RoomService
 import dagger.Module
 import dagger.Provides
@@ -13,6 +13,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object ServiceModule {
+
     @Singleton
     @Provides
     fun provideAccountService(retrofit: Retrofit): AccountService =
@@ -20,8 +21,8 @@ object ServiceModule {
 
     @Singleton
     @Provides
-    fun provideChatService(retrofit: Retrofit): ChatService =
-        retrofit.create(ChatService::class.java)
+    fun provideChatService(retrofit: Retrofit): MessageService =
+        retrofit.create(MessageService::class.java)
 
     @Singleton
     @Provides

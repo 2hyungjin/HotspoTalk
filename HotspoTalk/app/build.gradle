@@ -39,7 +39,6 @@ android {
 }
 
 dependencies {
-
     // naver map api
     implementation("com.naver.maps:map-sdk:3.12.0")
 

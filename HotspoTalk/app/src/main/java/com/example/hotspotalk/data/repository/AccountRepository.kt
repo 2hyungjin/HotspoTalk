@@ -3,7 +3,7 @@ package com.example.hotspotalk.data.repository
 import com.example.hotspotalk.data.entity.repuest.Ban
 import com.example.hotspotalk.data.entity.repuest.Login
 import com.example.hotspotalk.data.entity.response.Token
-import com.example.hotspotalk.data.entity.response.Msg
+import com.example.hotspotalk.data.entity.response.Message
 import retrofit2.Response
 
 interface AccountRepository {
@@ -11,7 +11,7 @@ interface AccountRepository {
 
     suspend fun postSignUp(signUp: Login): Response<Token>
 
-    suspend fun getId(id: String): Response<Msg>
+    suspend fun getId(id: String): Response<Message>
 
-    suspend fun deleteBan(ban: Ban): Response<Msg>
+    suspend fun deleteBan(ban: Ban): Response<Message>
 }

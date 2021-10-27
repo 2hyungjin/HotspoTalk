@@ -15,7 +15,7 @@ interface RoomsRepository {
 
     suspend fun getRoomsByCoordinate(latitude: Int, longitude: Int): Response<List<RoomInfo>>
 
-    suspend fun getEnterRoom(roomId: Int, enter: Enter): Response<Msg>
+    suspend fun postEnterRoom(roomId: Int, enter: Enter): Response<Msg>
 
     suspend fun getMember(roomId: Int): Response<List<MemberInfo>>
 

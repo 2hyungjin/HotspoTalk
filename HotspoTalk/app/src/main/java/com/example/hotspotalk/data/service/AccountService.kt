@@ -3,7 +3,7 @@ package com.example.hotspotalk.data.service
 import com.example.hotspotalk.data.entity.repuest.Ban
 import com.example.hotspotalk.data.entity.repuest.Login
 import com.example.hotspotalk.data.entity.response.Token
-import com.example.hotspotalk.data.entity.response.Msg
+import com.example.hotspotalk.data.entity.response.Message
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -18,8 +18,8 @@ interface AccountService {
     suspend fun postSignUp(@Body login: Login): Response<Token>
 
     @GET("account/{id}")
-    suspend fun getId(@Path("id") id: String): Response<Msg>
+    suspend fun getId(@Path("id") id: String): Response<Message>
 
     @GET("/account/ban")
-    suspend fun deleteBan(@Body ban: Ban): Response<Msg>
+    suspend fun deleteBan(@Body ban: Ban): Response<Message>
 }
