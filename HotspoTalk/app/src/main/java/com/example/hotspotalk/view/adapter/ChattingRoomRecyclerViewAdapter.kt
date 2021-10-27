@@ -3,7 +3,7 @@ package com.example.hotspotalk.view.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.domain.entity.response.RoomInfo
+import com.example.hotspotalk.data.entity.response.RoomInfo
 import com.example.hotspotalk.databinding.FragmentHomeRvItemChattingRoomBinding
 
 class ChattingRoomRecyclerViewAdapter :

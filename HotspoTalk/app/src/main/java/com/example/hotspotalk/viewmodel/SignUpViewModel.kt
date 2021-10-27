@@ -3,12 +3,9 @@ package com.example.hotspotalk.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.entity.repuest.Login
-import com.example.domain.entity.response.Token
-import com.example.domain.usecase.account.PostSignUpUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.example.hotspotalk.data.entity.repuest.Login
+import com.example.hotspotalk.data.entity.response.Token
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class SignUpViewModel: ViewModel() {
 

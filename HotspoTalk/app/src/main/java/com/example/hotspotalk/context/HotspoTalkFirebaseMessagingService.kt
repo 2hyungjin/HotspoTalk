@@ -1,25 +1,17 @@
 package com.example.hotspotalk.context
 
-import android.content.Intent
-import android.util.Log
-import androidx.core.app.NotificationManagerCompat
-import com.example.hotspotalk.view.activity.MainActivity
-import com.google.firebase.messaging.FirebaseMessaging
-import com.google.firebase.messaging.FirebaseMessagingService
-import com.google.firebase.messaging.RemoteMessage
 import android.R
-import android.annotation.SuppressLint
 import android.app.Notification
-import android.app.Notification.DEFAULT_SOUND
-import android.app.Notification.DEFAULT_VIBRATE
 import android.app.NotificationChannel
 import android.app.NotificationManager
-
 import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
+import android.util.Log
 import androidx.core.app.NotificationCompat
-import android.media.RingtoneManager
-import android.net.Uri
+import com.example.hotspotalk.view.activity.MainActivity
+import com.google.firebase.messaging.FirebaseMessagingService
+import com.google.firebase.messaging.RemoteMessage
 
 
 class HotspoTalkFirebaseMessagingService : FirebaseMessagingService() {

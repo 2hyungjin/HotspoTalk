@@ -1,20 +1,18 @@
 package com.example.hotspotalk.view.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.example.domain.usecase.account.PostSignUpUseCase
 import com.example.hotspotalk.R
 import com.example.hotspotalk.databinding.FragmentSignUpBinding
 import com.example.hotspotalk.viewmodel.SignUpViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 /**
  * 회원가입 프래그먼트
