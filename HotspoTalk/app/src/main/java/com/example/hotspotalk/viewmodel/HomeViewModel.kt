@@ -1,16 +1,18 @@
 package com.example.hotspotalk.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.hotspotalk.data.entity.response.RoomInfo
+import com.example.hotspotalk.data.repository.RoomsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-
+    private val roomsRepository: RoomsRepository
 ) : ViewModel() {
 
     // home
@@ -32,13 +34,16 @@ class HomeViewModel @Inject constructor(
     private val _isFailureNotEnterable = MutableLiveData<String>()
     val isFailureNotEnterable = _isFailureNotEnterable
 
-    fun getRoomsEnterable() {
-        val latitude = 1
-        val longitude = 1
-
+    fun getRoomsEnterable(latitude: Int, longitude: Int) {
         viewModelScope.launch {
             try {
+                val res = roomsRepository.getRooms(latitude, longitude)
 
+                if (res.isSuccessful) {
+                    _isSuccessEnterable.postValue(res.body())
+                } else {
+                    Log.d("", "")
+                }
             } catch (e: Exception) {
                 _isFailureEnterable.postValue(e.message)
             }
@@ -48,7 +53,7 @@ class HomeViewModel @Inject constructor(
     fun getRoomsNotEnterable() {
         viewModelScope.launch {
             try {
-
+//                _isSuccessNotEnterable.postValue(list)
             } catch (e: Exception) {
                 _isFailureNotEnterable.postValue(e.message)
             }

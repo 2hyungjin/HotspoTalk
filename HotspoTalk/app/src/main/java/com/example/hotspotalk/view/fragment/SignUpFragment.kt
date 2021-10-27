@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.hotspotalk.R
 import com.example.hotspotalk.databinding.FragmentSignUpBinding
+import com.example.hotspotalk.view.util.Preference.token
 import com.example.hotspotalk.viewmodel.SignUpViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -46,7 +47,14 @@ class SignUpFragment : Fragment() {
 
     private fun observe() = with(viewModel) {
         isSuccess.observe(viewLifecycleOwner) {
-            navigateToHome()
+            when (it.token) {
+                null -> Toast.makeText(requireContext(), "실패", Toast.LENGTH_SHORT).show()
+
+                else -> {
+                    token = it.token!!
+                    navigateToHome()
+                }
+            }
         }
 
         isFailure.observe(viewLifecycleOwner) {

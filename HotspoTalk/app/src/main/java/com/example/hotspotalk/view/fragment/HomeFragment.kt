@@ -75,15 +75,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun observe() = with(viewModel) {
-
-    }
-
-//    override fun onPause() {
-//        super.onPause()
-//        // 메모리에서 삭제
-//        binding.vpHome.adapter = null
-//    }
+    private fun observe() = with(viewModel) {}
 
     private fun navigateToCreateRoom() {
         navController.navigate(R.id.action_homeFragment_to_createRoomFragment)
