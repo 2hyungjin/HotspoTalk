@@ -37,7 +37,7 @@ class ChattingRoomRecyclerViewAdapter :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         binding.data = list[position]
 
-        binding.apply {
+//        binding.apply {
 //            tvUserNicknameRvItemChattingRoom.text = data.
 //            tvUserRvItemChattingRoom.text = data.user.toString()
 
@@ -46,12 +46,11 @@ class ChattingRoomRecyclerViewAdapter :
 
 //            Glide.with(ivProfileImgRvItemChattingRoom)
 //                .load(data.nickname)
+//        }
 
-            layoutRvItemChattingRoom.setOnClickListener {
-                setOnClickChattingRoomListener.onClick(position)
-            }
+        binding.layoutRvItemChattingRoom.setOnClickListener {
+            setOnClickChattingRoomListener.onClick(position)
         }
-
     }
 
     override fun getItemCount(): Int = list.size

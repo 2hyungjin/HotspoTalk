@@ -1,0 +1,662 @@
+Index: domain/src/main/java/com/example/domain/usecase/account/PostLoginUseCase.kt
+===================================================================
+diff --git a/domain/src/main/java/com/example/domain/usecase/account/PostLoginUseCase.kt b/domain/src/main/java/com/example/domain/usecase/account/PostLoginUseCase.kt
+deleted file mode 100644
+--- a/domain/src/main/java/com/example/domain/usecase/account/PostLoginUseCase.kt	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
++++ /dev/null	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
+@@ -1,19 +0,0 @@
+-package com.example.domain.usecase.account
+-
+-import com.example.domain.base.ParamsUseCase
+-import com.example.domain.entity.repuest.Login
+-import com.example.domain.entity.response.Token
+-import com.example.domain.repository.AccountRepository
+-
+-class PostLoginUseCase(
+-    private val accountRepository: AccountRepository
+-) : ParamsUseCase<PostLoginUseCase.Params, Token>() {
+-
+-    override suspend fun buildUseCase(params: Params): Token {
+-        return accountRepository.postLogin(params.login)
+-    }
+-
+-    data class Params(
+-        val login: Login
+-    )
+-}
+\ No newline at end of file
+Index: domain/src/main/java/com/example/domain/usecase/rooms/PostCreateRoomUseCase.kt
+===================================================================
+diff --git a/domain/src/main/java/com/example/domain/usecase/rooms/PostCreateRoomUseCase.kt b/domain/src/main/java/com/example/domain/usecase/rooms/PostCreateRoomUseCase.kt
+deleted file mode 100644
+--- a/domain/src/main/java/com/example/domain/usecase/rooms/PostCreateRoomUseCase.kt	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
++++ /dev/null	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
+@@ -1,20 +0,0 @@
+-package com.example.domain.usecase.rooms
+-
+-import com.example.domain.base.ParamsUseCase
+-import com.example.domain.entity.repuest.CreateRoom
+-import com.example.domain.entity.response.Msg
+-import com.example.domain.repository.RoomsRepository
+-import javax.inject.Inject
+-
+-class PostCreateRoomUseCase @Inject constructor(
+-    private val roomsRepository: RoomsRepository
+-) : ParamsUseCase<PostCreateRoomUseCase.Params, Msg>() {
+-
+-    data class Params(
+-        val createRoom: CreateRoom
+-    )
+-
+-    override suspend fun buildUseCase(params: Params): Msg {
+-        return roomsRepository.postCreateRoom(params.createRoom)
+-    }
+-}
+\ No newline at end of file
+Index: domain/src/main/java/com/example/domain/usecase/rooms/PutInheritRoomUseCase.kt
+===================================================================
+diff --git a/domain/src/main/java/com/example/domain/usecase/rooms/PutInheritRoomUseCase.kt b/domain/src/main/java/com/example/domain/usecase/rooms/PutInheritRoomUseCase.kt
+deleted file mode 100644
+--- a/domain/src/main/java/com/example/domain/usecase/rooms/PutInheritRoomUseCase.kt	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
++++ /dev/null	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
+@@ -1,22 +0,0 @@
+-package com.example.domain.usecase.rooms
+-
+-import com.example.domain.base.ParamsUseCase
+-import com.example.domain.entity.repuest.AccountId
+-import com.example.domain.entity.repuest.CreateRoom
+-import com.example.domain.entity.response.Msg
+-import com.example.domain.repository.RoomsRepository
+-import javax.inject.Inject
+-
+-class PutInheritRoomUseCase @Inject constructor(
+-    private val roomsRepository: RoomsRepository
+-) : ParamsUseCase<PutInheritRoomUseCase.Params, Msg>() {
+-
+-    data class Params(
+-        val accountId: AccountId
+-    )
+-
+-    override suspend fun buildUseCase(params: Params): Msg {
+-        return roomsRepository.putInheritRoom(params.accountId)
+-    }
+-
+-}
+\ No newline at end of file
+Index: domain/src/main/java/com/example/domain/usecase/rooms/PutModifyNicknameUseCase.kt
+===================================================================
+diff --git a/domain/src/main/java/com/example/domain/usecase/rooms/PutModifyNicknameUseCase.kt b/domain/src/main/java/com/example/domain/usecase/rooms/PutModifyNicknameUseCase.kt
+deleted file mode 100644
+--- a/domain/src/main/java/com/example/domain/usecase/rooms/PutModifyNicknameUseCase.kt	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
++++ /dev/null	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
+@@ -1,21 +0,0 @@
+-package com.example.domain.usecase.rooms
+-
+-import com.example.domain.base.ParamsUseCase
+-import com.example.domain.entity.repuest.ModifyNickname
+-import com.example.domain.entity.response.Msg
+-import com.example.domain.repository.RoomsRepository
+-import javax.inject.Inject
+-
+-class PutModifyNicknameUseCase @Inject constructor(
+-    private val roomsRepository: RoomsRepository
+-) : ParamsUseCase<PutModifyNicknameUseCase.Params, Msg>() {
+-
+-    data class Params(
+-        val roomId: Int,
+-        val modifyNickname: ModifyNickname
+-    )
+-
+-    override suspend fun buildUseCase(params: Params): Msg {
+-        return roomsRepository.putModifyNickname(params.roomId, params.modifyNickname)
+-    }
+-}
+\ No newline at end of file
+Index: domain/src/main/java/com/example/domain/usecase/account/GetIdUseCase.kt
+===================================================================
+diff --git a/domain/src/main/java/com/example/domain/usecase/account/GetIdUseCase.kt b/domain/src/main/java/com/example/domain/usecase/account/GetIdUseCase.kt
+deleted file mode 100644
+--- a/domain/src/main/java/com/example/domain/usecase/account/GetIdUseCase.kt	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
++++ /dev/null	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
+@@ -1,19 +0,0 @@
+-package com.example.domain.usecase.account
+-
+-import com.example.domain.base.ParamsUseCase
+-import com.example.domain.entity.response.Msg
+-import com.example.domain.repository.AccountRepository
+-import javax.inject.Inject
+-
+-class GetIdUseCase @Inject constructor(
+-    private val accountRepository: AccountRepository
+-) : ParamsUseCase<GetIdUseCase.Params, Msg>() {
+-
+-    override suspend fun buildUseCase(params: Params): Msg {
+-        return accountRepository.getId(params.id)
+-    }
+-
+-    data class Params(
+-        val id: String
+-    )
+-}
+\ No newline at end of file
+Index: domain/src/main/java/com/example/domain/usecase/rooms/GetEnterRoomUseCase.kt
+===================================================================
+diff --git a/domain/src/main/java/com/example/domain/usecase/rooms/GetEnterRoomUseCase.kt b/domain/src/main/java/com/example/domain/usecase/rooms/GetEnterRoomUseCase.kt
+deleted file mode 100644
+--- a/domain/src/main/java/com/example/domain/usecase/rooms/GetEnterRoomUseCase.kt	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
++++ /dev/null	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
+@@ -1,21 +0,0 @@
+-package com.example.domain.usecase.rooms
+-
+-import com.example.domain.base.ParamsUseCase
+-import com.example.domain.entity.repuest.Enter
+-import com.example.domain.entity.response.Msg
+-import com.example.domain.repository.RoomsRepository
+-import javax.inject.Inject
+-
+-class GetEnterRoomUseCase @Inject constructor(
+-    private val roomsRepository: RoomsRepository
+-) : ParamsUseCase<GetEnterRoomUseCase.Params, Msg>() {
+-
+-    data class Params(
+-        val roomId: Int,
+-        val enter: Enter
+-    )
+-
+-    override suspend fun buildUseCase(params: Params): Msg {
+-        return roomsRepository.getEnterRoom(params.roomId, params.enter)
+-    }
+-}
+\ No newline at end of file
+Index: domain/src/main/java/com/example/domain/usecase/rooms/PutModifyRoomUseCase.kt
+===================================================================
+diff --git a/domain/src/main/java/com/example/domain/usecase/rooms/PutModifyRoomUseCase.kt b/domain/src/main/java/com/example/domain/usecase/rooms/PutModifyRoomUseCase.kt
+deleted file mode 100644
+--- a/domain/src/main/java/com/example/domain/usecase/rooms/PutModifyRoomUseCase.kt	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
++++ /dev/null	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
+@@ -1,21 +0,0 @@
+-package com.example.domain.usecase.rooms
+-
+-import com.example.domain.base.ParamsUseCase
+-import com.example.domain.entity.repuest.ModifyRoom
+-import com.example.domain.entity.response.Msg
+-import com.example.domain.repository.RoomsRepository
+-import javax.inject.Inject
+-
+-class PutModifyRoomUseCase @Inject constructor(
+-    private val roomsRepository: RoomsRepository
+-) : ParamsUseCase<PutModifyRoomUseCase.Params, Msg>() {
+-
+-    data class Params(
+-        val roomId: Int,
+-        val modifyRoom: ModifyRoom
+-    )
+-
+-    override suspend fun buildUseCase(params: Params): Msg {
+-        return roomsRepository.putModifyRoom(params.roomId, params.modifyRoom)
+-    }
+-}
+\ No newline at end of file
+Index: domain/src/main/java/com/example/domain/usecase/rooms/DeleteExitRoomUseCase.kt
+===================================================================
+diff --git a/domain/src/main/java/com/example/domain/usecase/rooms/DeleteExitRoomUseCase.kt b/domain/src/main/java/com/example/domain/usecase/rooms/DeleteExitRoomUseCase.kt
+deleted file mode 100644
+--- a/domain/src/main/java/com/example/domain/usecase/rooms/DeleteExitRoomUseCase.kt	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
++++ /dev/null	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
+@@ -1,23 +0,0 @@
+-package com.example.domain.usecase.rooms
+-
+-import com.example.domain.base.ParamsUseCase
+-import com.example.domain.entity.response.Msg
+-import com.example.domain.repository.AccountRepository
+-import com.example.domain.repository.RoomsRepository
+-import com.example.domain.usecase.account.PostLoginUseCase
+-import javax.inject.Inject
+-
+-class DeleteExitRoomUseCase @Inject constructor(
+-    private val roomsRepository: RoomsRepository
+-) : ParamsUseCase<DeleteExitRoomUseCase.Params, Msg>() {
+-
+-    override suspend fun buildUseCase(params: Params): Msg {
+-        return roomsRepository.deleteExitRoom(params.roomId)
+-    }
+-
+-    data class Params(
+-        val roomId: Int
+-    )
+-
+-
+-}
+\ No newline at end of file
+Index: domain/src/main/java/com/example/domain/usecase/chat/GetChatUseCase.kt
+===================================================================
+diff --git a/domain/src/main/java/com/example/domain/usecase/chat/GetChatUseCase.kt b/domain/src/main/java/com/example/domain/usecase/chat/GetChatUseCase.kt
+deleted file mode 100644
+--- a/domain/src/main/java/com/example/domain/usecase/chat/GetChatUseCase.kt	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
++++ /dev/null	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
+@@ -1,19 +0,0 @@
+-package com.example.domain.usecase.chat
+-
+-import com.example.domain.base.ParamsUseCase
+-import com.example.domain.entity.response.Msg
+-import com.example.domain.repository.ChatRepository
+-import javax.inject.Inject
+-
+-class GetChatUseCase @Inject constructor(
+-    private val chatRepository: ChatRepository
+-) : ParamsUseCase<GetChatUseCase.Params, Msg>() {
+-
+-    override suspend fun buildUseCase(params: Params): Msg {
+-        return chatRepository.getChat(params.roomId)
+-    }
+-
+-    data class Params(
+-        val roomId: Int
+-    )
+-}
+\ No newline at end of file
+Index: domain/src/main/java/com/example/domain/usecase/account/DeleteBanUseCase.kt
+===================================================================
+diff --git a/domain/src/main/java/com/example/domain/usecase/account/DeleteBanUseCase.kt b/domain/src/main/java/com/example/domain/usecase/account/DeleteBanUseCase.kt
+deleted file mode 100644
+--- a/domain/src/main/java/com/example/domain/usecase/account/DeleteBanUseCase.kt	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
++++ /dev/null	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
+@@ -1,20 +0,0 @@
+-package com.example.domain.usecase.account
+-
+-import com.example.domain.base.ParamsUseCase
+-import com.example.domain.entity.repuest.Ban
+-import com.example.domain.entity.response.Msg
+-import com.example.domain.repository.AccountRepository
+-import javax.inject.Inject
+-
+-class DeleteBanUseCase @Inject constructor(
+-    private val accountRepository: AccountRepository
+-) : ParamsUseCase<DeleteBanUseCase.Params, Msg>() {
+-
+-    override suspend fun buildUseCase(params: Params): Msg {
+-        return accountRepository.deleteBan(params.ban)
+-    }
+-
+-    data class Params(
+-        val ban: Ban
+-    )
+-}
+\ No newline at end of file
+Index: domain/src/main/java/com/example/domain/repository/ChatRepository.kt
+===================================================================
+diff --git a/domain/src/main/java/com/example/domain/repository/ChatRepository.kt b/domain/src/main/java/com/example/domain/repository/ChatRepository.kt
+deleted file mode 100644
+--- a/domain/src/main/java/com/example/domain/repository/ChatRepository.kt	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
++++ /dev/null	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
+@@ -1,7 +0,0 @@
+-package com.example.domain.repository
+-
+-import com.example.domain.entity.response.Msg
+-
+-interface ChatRepository {
+-    suspend fun getChat(roomId: Int): Msg
+-}
+\ No newline at end of file
+Index: domain/src/main/java/com/example/domain/usecase/account/PostSignUpUseCase.kt
+===================================================================
+diff --git a/domain/src/main/java/com/example/domain/usecase/account/PostSignUpUseCase.kt b/domain/src/main/java/com/example/domain/usecase/account/PostSignUpUseCase.kt
+deleted file mode 100644
+--- a/domain/src/main/java/com/example/domain/usecase/account/PostSignUpUseCase.kt	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
++++ /dev/null	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
+@@ -1,21 +0,0 @@
+-package com.example.domain.usecase.account
+-
+-import com.example.domain.base.ParamsUseCase
+-import com.example.domain.entity.repuest.Login
+-import com.example.domain.entity.response.Token
+-import com.example.domain.repository.AccountRepository
+-import java.util.function.LongToIntFunction
+-import javax.inject.Inject
+-
+-class PostSignUpUseCase @Inject constructor(
+-    private val accountRepository: AccountRepository
+-) : ParamsUseCase<PostSignUpUseCase.Params, Token>() {
+-
+-    override suspend fun buildUseCase(params: Params): Token {
+-        return accountRepository.postSignUp(params.signUp)
+-    }
+-
+-    data class Params(
+-        val signUp: Login
+-    )
+-}
+\ No newline at end of file
+Index: domain/src/main/java/com/example/domain/usecase/rooms/DeleteRemoveRoomUseCase.kt
+===================================================================
+diff --git a/domain/src/main/java/com/example/domain/usecase/rooms/DeleteRemoveRoomUseCase.kt b/domain/src/main/java/com/example/domain/usecase/rooms/DeleteRemoveRoomUseCase.kt
+deleted file mode 100644
+--- a/domain/src/main/java/com/example/domain/usecase/rooms/DeleteRemoveRoomUseCase.kt	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
++++ /dev/null	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
+@@ -1,19 +0,0 @@
+-package com.example.domain.usecase.rooms
+-
+-import com.example.domain.base.ParamsUseCase
+-import com.example.domain.entity.response.Msg
+-import com.example.domain.repository.RoomsRepository
+-import javax.inject.Inject
+-
+-class DeleteRemoveRoomUseCase @Inject constructor(
+-    private val roomsRepository: RoomsRepository
+-) : ParamsUseCase<DeleteRemoveRoomUseCase.Params, Msg>() {
+-
+-    data class Params(
+-        val roomId: Int
+-    )
+-
+-    override suspend fun buildUseCase(params: Params): Msg {
+-        return roomsRepository.deleteRemoveRoom(params.roomId)
+-    }
+-}
+\ No newline at end of file
+Index: app/src/main/java/com/example/hotspotalk/view/fragment/HomeFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hotspotalk.view.fragment\r\n\r\nimport android.os.Bundle\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport androidx.core.content.ContextCompat\r\nimport androidx.databinding.DataBindingUtil\r\nimport androidx.fragment.app.Fragment\r\nimport androidx.fragment.app.activityViewModels\r\nimport androidx.fragment.app.viewModels\r\nimport androidx.navigation.NavController\r\nimport androidx.navigation.fragment.findNavController\r\nimport androidx.viewpager2.widget.ViewPager2\r\nimport com.example.domain.usecase.rooms.GetRoomsEnterableUseCase\r\nimport com.example.domain.usecase.rooms.GetRoomsNotEnterableUseCase\r\nimport com.example.hotspotalk.R\r\nimport com.example.hotspotalk.databinding.FragmentHomeBinding\r\nimport com.example.hotspotalk.view.adapter.HomeViewPagerAdapter\r\nimport com.example.hotspotalk.viewmodel.HomeViewModel\r\nimport dagger.hilt.android.AndroidEntryPoint\r\nimport javax.inject.Inject\r\n\r\n/**\r\n * 홈 프래그먼트\r\n * 채팅 목록을 확인할 수 있음\r\n */\r\n\r\n@AndroidEntryPoint\r\nclass HomeFragment : Fragment() {\r\n\r\n    private val navController: NavController by lazy { findNavController() }\r\n\r\n    private lateinit var binding: FragmentHomeBinding\r\n    private val viewModel: HomeViewModel by activityViewModels()\r\n\r\n    private lateinit var adapter: HomeViewPagerAdapter\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater, container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View {\r\n        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)\r\n        binding.vm = viewModel\r\n        binding.lifecycleOwner = viewLifecycleOwner\r\n        return binding.root\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n\r\n        init()\r\n\r\n        binding.btnCreateRoomHome.setOnClickListener {\r\n            navigateToCreateRoom()\r\n        }\r\n    }\r\n\r\n    private fun init() {\r\n        adapter = HomeViewPagerAdapter(this)\r\n        adapter.setList(listOf(HomeViewPagerItemFragment(), HomeViewPagerItemFragment()))\r\n        binding.vpHome.adapter = adapter\r\n\r\n        binding.vpHome.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {\r\n            override fun onPageSelected(position: Int) {\r\n                viewModel.isEnterableChecked.value = when (position) {\r\n                    0 -> false\r\n                    1 -> true\r\n                    else -> false\r\n                }\r\n            }\r\n        })\r\n\r\n        binding.radioGroupHome.setOnCheckedChangeListener { _, checkedId ->\r\n            binding.vpHome.currentItem = when (checkedId) {\r\n                binding.radioEnterableChatHome.id -> 0\r\n                binding.radioNotEnterableHome.id -> 1\r\n                else -> 0\r\n            }\r\n        }\r\n    }\r\n\r\n    private fun observe() = with(viewModel) {\r\n\r\n    }\r\n\r\n//    override fun onPause() {\r\n//        super.onPause()\r\n//        // 메모리에서 삭제\r\n//        binding.vpHome.adapter = null\r\n//    }\r\n\r\n    private fun navigateToCreateRoom() {\r\n        navController.navigate(R.id.action_homeFragment_to_createRoomFragment)\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/hotspotalk/view/fragment/HomeFragment.kt b/app/src/main/java/com/example/hotspotalk/view/fragment/HomeFragment.kt
+--- a/app/src/main/java/com/example/hotspotalk/view/fragment/HomeFragment.kt	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
++++ b/app/src/main/java/com/example/hotspotalk/view/fragment/HomeFragment.kt	(date 1635321461675)
+@@ -4,22 +4,17 @@
+ import android.view.LayoutInflater
+ import android.view.View
+ import android.view.ViewGroup
+-import androidx.core.content.ContextCompat
+ import androidx.databinding.DataBindingUtil
+ import androidx.fragment.app.Fragment
+ import androidx.fragment.app.activityViewModels
+-import androidx.fragment.app.viewModels
+ import androidx.navigation.NavController
+ import androidx.navigation.fragment.findNavController
+ import androidx.viewpager2.widget.ViewPager2
+-import com.example.domain.usecase.rooms.GetRoomsEnterableUseCase
+-import com.example.domain.usecase.rooms.GetRoomsNotEnterableUseCase
+ import com.example.hotspotalk.R
+ import com.example.hotspotalk.databinding.FragmentHomeBinding
+ import com.example.hotspotalk.view.adapter.HomeViewPagerAdapter
+ import com.example.hotspotalk.viewmodel.HomeViewModel
+ import dagger.hilt.android.AndroidEntryPoint
+-import javax.inject.Inject
+ 
+ /**
+  * 홈 프래그먼트
+@@ -80,9 +75,7 @@
+         }
+     }
+ 
+-    private fun observe() = with(viewModel) {
+-
+-    }
++    private fun observe() = with(viewModel) {}
+ 
+ //    override fun onPause() {
+ //        super.onPause()
+Index: app/src/main/java/com/example/hotspotalk/viewmodel/HomeViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hotspotalk.viewmodel\r\n\r\nimport androidx.lifecycle.LiveData\r\nimport androidx.lifecycle.MutableLiveData\r\nimport androidx.lifecycle.ViewModel\r\nimport androidx.lifecycle.viewModelScope\r\nimport com.example.domain.entity.response.Msg\r\nimport com.example.domain.entity.response.RoomInfo\r\nimport com.example.domain.usecase.rooms.GetRoomsEnterableUseCase\r\nimport com.example.domain.usecase.rooms.GetRoomsNotEnterableUseCase\r\nimport dagger.hilt.android.lifecycle.HiltViewModel\r\nimport kotlinx.coroutines.launch\r\nimport javax.inject.Inject\r\n\r\n@HiltViewModel\r\nclass HomeViewModel @Inject constructor(\r\n    private val getRoomsEnterableUseCase: GetRoomsEnterableUseCase,\r\n    private val getRoomsNotEnterableUseCase: GetRoomsNotEnterableUseCase\r\n) : ViewModel() {\r\n\r\n    // home\r\n    val isEnterableChecked = MutableLiveData(false)\r\n\r\n    // homeViewPager\r\n    val enterableVis = MutableLiveData(false)\r\n    val notEnterableVis = MutableLiveData(false)\r\n\r\n    private val _isSuccessEnterable = MutableLiveData<List<RoomInfo>>()\r\n    val isSuccessEnterable = _isSuccessEnterable\r\n\r\n    private val _isFailureEnterable = MutableLiveData<String>()\r\n    val isFailureEnterable = _isFailureEnterable\r\n\r\n    private val _isSuccessNotEnterable = MutableLiveData<List<RoomInfo>>()\r\n    val isSuccessNotEnterable = _isSuccessNotEnterable\r\n\r\n    private val _isFailureNotEnterable = MutableLiveData<String>()\r\n    val isFailureNotEnterable = _isFailureNotEnterable\r\n\r\n    fun getRoomsEnterable() {\r\n        val latitude = 1\r\n        val longitude = 1\r\n\r\n        viewModelScope.launch {\r\n            try {\r\n                getRoomsEnterableUseCase.buildUseCase(GetRoomsEnterableUseCase.Params(latitude, longitude))\r\n            } catch (e: Exception) {\r\n                _isFailureEnterable.postValue(e.message)\r\n            }\r\n        }\r\n    }\r\n\r\n    fun getRoomsNotEnterable() {\r\n        viewModelScope.launch {\r\n            try {\r\n                getRoomsNotEnterableUseCase.buildUseCase()\r\n            } catch (e: Exception) {\r\n                _isFailureNotEnterable.postValue(e.message)\r\n            }\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/hotspotalk/viewmodel/HomeViewModel.kt b/app/src/main/java/com/example/hotspotalk/viewmodel/HomeViewModel.kt
+--- a/app/src/main/java/com/example/hotspotalk/viewmodel/HomeViewModel.kt	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
++++ b/app/src/main/java/com/example/hotspotalk/viewmodel/HomeViewModel.kt	(date 1635322394924)
+@@ -1,11 +1,9 @@
+ package com.example.hotspotalk.viewmodel
+ 
+-import androidx.lifecycle.LiveData
+ import androidx.lifecycle.MutableLiveData
+ import androidx.lifecycle.ViewModel
+ import androidx.lifecycle.viewModelScope
+-import com.example.domain.entity.response.Msg
+-import com.example.domain.entity.response.RoomInfo
++import com.example.data.entity.response.RoomInfo
+ import com.example.domain.usecase.rooms.GetRoomsEnterableUseCase
+ import com.example.domain.usecase.rooms.GetRoomsNotEnterableUseCase
+ import dagger.hilt.android.lifecycle.HiltViewModel
+@@ -37,13 +35,11 @@
+     private val _isFailureNotEnterable = MutableLiveData<String>()
+     val isFailureNotEnterable = _isFailureNotEnterable
+ 
+-    fun getRoomsEnterable() {
+-        val latitude = 1
+-        val longitude = 1
+-
++    fun getRoomsEnterable(latitude: Int, longitude: Int) {
+         viewModelScope.launch {
+             try {
+-                getRoomsEnterableUseCase.buildUseCase(GetRoomsEnterableUseCase.Params(latitude, longitude))
++                val list = getRoomsEnterableUseCase.buildUseCase(GetRoomsEnterableUseCase.Params(latitude, longitude))
++                _isSuccessEnterable.postValue(list)
+             } catch (e: Exception) {
+                 _isFailureEnterable.postValue(e.message)
+             }
+@@ -53,7 +49,8 @@
+     fun getRoomsNotEnterable() {
+         viewModelScope.launch {
+             try {
+-                getRoomsNotEnterableUseCase.buildUseCase()
++                val list = getRoomsNotEnterableUseCase.buildUseCase()
++                _isSuccessNotEnterable.postValue(list)
+             } catch (e: Exception) {
+                 _isFailureNotEnterable.postValue(e.message)
+             }
+Index: app/src/main/java/com/example/hotspotalk/view/adapter/ChattingRoomRecyclerViewAdapter.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hotspotalk.view.adapter\r\n\r\nimport android.view.LayoutInflater\r\nimport android.view.ViewGroup\r\nimport androidx.recyclerview.widget.RecyclerView\r\nimport com.example.domain.entity.response.RoomInfo\r\nimport com.example.hotspotalk.databinding.FragmentHomeRvItemChattingRoomBinding\r\n\r\nclass ChattingRoomRecyclerViewAdapter :\r\n    RecyclerView.Adapter<ChattingRoomRecyclerViewAdapter.ViewHolder>() {\r\n\r\n    interface OnClickChattingRoomListener {\r\n        fun onClick(id: Int)\r\n    }\r\n\r\n    private lateinit var setOnClickChattingRoomListener: OnClickChattingRoomListener\r\n\r\n    fun setOnClickChattingRoomListener(listener: (Int) -> Unit) {\r\n        setOnClickChattingRoomListener = object : OnClickChattingRoomListener {\r\n            override fun onClick(id: Int) {\r\n                listener(id)\r\n            }\r\n        }\r\n    }\r\n\r\n    private val list = mutableListOf<RoomInfo>()\r\n\r\n    private lateinit var binding: FragmentHomeRvItemChattingRoomBinding\r\n\r\n    inner class ViewHolder : RecyclerView.ViewHolder(binding.root)\r\n\r\n    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {\r\n        binding = FragmentHomeRvItemChattingRoomBinding.inflate(LayoutInflater.from(parent.context), parent, false)\r\n        return ViewHolder()\r\n    }\r\n\r\n    override fun onBindViewHolder(holder: ViewHolder, position: Int) {\r\n        binding.data = list[position]\r\n\r\n        binding.apply {\r\n//            tvUserNicknameRvItemChattingRoom.text = data.\r\n//            tvUserRvItemChattingRoom.text = data.user.toString()\r\n\r\n//            if (data.isNotify) cvNotifyRvItemChattingRoom.visibility = View.VISIBLE\r\n//            if (data.isSecret) ivSecretRvTemChattingRoom.visibility = View.VISIBLE\r\n\r\n//            Glide.with(ivProfileImgRvItemChattingRoom)\r\n//                .load(data.nickname)\r\n\r\n            layoutRvItemChattingRoom.setOnClickListener {\r\n                setOnClickChattingRoomListener.onClick(position)\r\n            }\r\n        }\r\n\r\n    }\r\n\r\n    override fun getItemCount(): Int = list.size\r\n\r\n    fun setList(list: List<RoomInfo>) {\r\n        this.list.clear()\r\n        this.list.addAll(list)\r\n        notifyDataSetChanged()\r\n    }\r\n\r\n    fun getList() = list\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/hotspotalk/view/adapter/ChattingRoomRecyclerViewAdapter.kt b/app/src/main/java/com/example/hotspotalk/view/adapter/ChattingRoomRecyclerViewAdapter.kt
+--- a/app/src/main/java/com/example/hotspotalk/view/adapter/ChattingRoomRecyclerViewAdapter.kt	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
++++ b/app/src/main/java/com/example/hotspotalk/view/adapter/ChattingRoomRecyclerViewAdapter.kt	(date 1635320895026)
+@@ -51,7 +51,6 @@
+                 setOnClickChattingRoomListener.onClick(position)
+             }
+         }
+-
+     }
+ 
+     override fun getItemCount(): Int = list.size
+Index: app/src/main/java/com/example/hotspotalk/viewmodel/SignUpViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hotspotalk.viewmodel\r\n\r\nimport androidx.lifecycle.MutableLiveData\r\nimport androidx.lifecycle.ViewModel\r\nimport androidx.lifecycle.viewModelScope\r\nimport com.example.domain.entity.repuest.Login\r\nimport com.example.domain.entity.response.Token\r\nimport com.example.domain.usecase.account.PostSignUpUseCase\r\nimport dagger.hilt.android.lifecycle.HiltViewModel\r\nimport kotlinx.coroutines.launch\r\nimport javax.inject.Inject\r\n\r\nclass SignUpViewModel: ViewModel() {\r\n\r\n    val id = MutableLiveData(\"\")\r\n    val pw = MutableLiveData(\"\")\r\n    val pwCheck = MutableLiveData(\"\")\r\n\r\n    val idErr = MutableLiveData<String>()\r\n    val pwErr = MutableLiveData<String>()\r\n\r\n    private val _isSuccess = MutableLiveData<Token>()\r\n    val isSuccess = _isSuccess\r\n\r\n    private val _isFailure = MutableLiveData<String>()\r\n    val isFailure = _isFailure\r\n\r\n    // todo deviceToken\r\n    val devToken = \"\"\r\n\r\n    fun signUp() {\r\n        viewModelScope.launch {\r\n            if (pw.value != pwCheck.value) {\r\n                return@launch\r\n            }\r\n\r\n            val signUp = Login(id.value!!, pw.value!!, devToken)\r\n            try {\r\n//                _isSuccess.postValue(postSignUpUseCase.buildUseCase(PostSignUpUseCase.Params(signUp)))\r\n            } catch (e: Exception) {\r\n                isFailure.postValue(e.message)\r\n            }\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/hotspotalk/viewmodel/SignUpViewModel.kt b/app/src/main/java/com/example/hotspotalk/viewmodel/SignUpViewModel.kt
+--- a/app/src/main/java/com/example/hotspotalk/viewmodel/SignUpViewModel.kt	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
++++ b/app/src/main/java/com/example/hotspotalk/viewmodel/SignUpViewModel.kt	(date 1635321833471)
+@@ -3,12 +3,9 @@
+ import androidx.lifecycle.MutableLiveData
+ import androidx.lifecycle.ViewModel
+ import androidx.lifecycle.viewModelScope
+-import com.example.domain.entity.repuest.Login
+-import com.example.domain.entity.response.Token
+-import com.example.domain.usecase.account.PostSignUpUseCase
+-import dagger.hilt.android.lifecycle.HiltViewModel
++import com.example.data.entity.repuest.Login
++import com.example.data.entity.response.Token
+ import kotlinx.coroutines.launch
+-import javax.inject.Inject
+ 
+ class SignUpViewModel: ViewModel() {
+ 
+Index: app/src/main/java/com/example/hotspotalk/view/fragment/SignUpFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hotspotalk.view.fragment\r\n\r\nimport android.os.Bundle\r\nimport androidx.fragment.app.Fragment\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport android.widget.Toast\r\nimport androidx.databinding.DataBindingUtil\r\nimport androidx.fragment.app.activityViewModels\r\nimport androidx.navigation.fragment.findNavController\r\nimport com.example.domain.usecase.account.PostSignUpUseCase\r\nimport com.example.hotspotalk.R\r\nimport com.example.hotspotalk.databinding.FragmentSignUpBinding\r\nimport com.example.hotspotalk.viewmodel.SignUpViewModel\r\nimport dagger.hilt.android.AndroidEntryPoint\r\nimport javax.inject.Inject\r\n\r\n/**\r\n * 회원가입 프래그먼트\r\n */\r\n\r\n@AndroidEntryPoint\r\nclass SignUpFragment : Fragment() {\r\n\r\n    private val navController by lazy {\r\n        findNavController()\r\n    }\r\n\r\n    private lateinit var binding: FragmentSignUpBinding\r\n    private val viewModel: SignUpViewModel by activityViewModels()\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater, container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View? {\r\n        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sign_up, container, false)\r\n        binding.vm = viewModel\r\n        binding.lifecycleOwner = viewLifecycleOwner\r\n        return binding.root\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n\r\n        observe()\r\n    }\r\n\r\n    private fun observe() = with(viewModel) {\r\n        isSuccess.observe(viewLifecycleOwner) {\r\n            navigateToHome()\r\n        }\r\n\r\n        isFailure.observe(viewLifecycleOwner) {\r\n            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()\r\n        }\r\n    }\r\n\r\n    private fun navigateToHome() {\r\n        navController.navigate(R.id.action_signUpFragment_to_homeFragment)\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/hotspotalk/view/fragment/SignUpFragment.kt b/app/src/main/java/com/example/hotspotalk/view/fragment/SignUpFragment.kt
+--- a/app/src/main/java/com/example/hotspotalk/view/fragment/SignUpFragment.kt	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
++++ b/app/src/main/java/com/example/hotspotalk/view/fragment/SignUpFragment.kt	(date 1635321740126)
+@@ -12,6 +12,7 @@
+ import com.example.domain.usecase.account.PostSignUpUseCase
+ import com.example.hotspotalk.R
+ import com.example.hotspotalk.databinding.FragmentSignUpBinding
++import com.example.hotspotalk.view.util.Preference.token
+ import com.example.hotspotalk.viewmodel.SignUpViewModel
+ import dagger.hilt.android.AndroidEntryPoint
+ import javax.inject.Inject
+@@ -48,7 +49,14 @@
+ 
+     private fun observe() = with(viewModel) {
+         isSuccess.observe(viewLifecycleOwner) {
+-            navigateToHome()
++            when (it.token) {
++                null -> Toast.makeText(requireContext(), "실패", Toast.LENGTH_SHORT).show()
++
++                else -> {
++                    token = it.token!!
++                    navigateToHome()
++                }
++            }
+         }
+ 
+         isFailure.observe(viewLifecycleOwner) {
+Index: app/src/main/java/com/example/hotspotalk/view/fragment/HomeViewPagerItemFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hotspotalk.view.fragment\r\n\r\nimport android.os.Bundle\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.View.GONE\r\nimport android.view.View.VISIBLE\r\nimport android.view.ViewGroup\r\nimport android.widget.Toast\r\nimport androidx.databinding.DataBindingUtil\r\nimport androidx.fragment.app.Fragment\r\nimport androidx.fragment.app.activityViewModels\r\nimport androidx.navigation.fragment.findNavController\r\nimport com.example.domain.usecase.rooms.GetRoomsEnterableUseCase\r\nimport com.example.domain.usecase.rooms.GetRoomsNotEnterableUseCase\r\nimport com.example.hotspotalk.R\r\nimport com.example.hotspotalk.databinding.FragmentHomeVpItemBinding\r\nimport com.example.hotspotalk.view.adapter.ChattingRoomRecyclerViewAdapter\r\nimport com.example.hotspotalk.viewmodel.HomeViewModel\r\nimport dagger.hilt.android.AndroidEntryPoint\r\nimport dagger.hilt.android.HiltAndroidApp\r\nimport javax.inject.Inject\r\n\r\n@AndroidEntryPoint\r\nclass HomeViewPagerItemFragment : Fragment() {\r\n\r\n    private val navController by lazy { findNavController() }\r\n\r\n    private lateinit var binding: FragmentHomeVpItemBinding\r\n    private val viewModel: HomeViewModel by activityViewModels()\r\n\r\n    private val enterableAdapter: ChattingRoomRecyclerViewAdapter = ChattingRoomRecyclerViewAdapter()\r\n    private val notEnterableAdapter: ChattingRoomRecyclerViewAdapter = ChattingRoomRecyclerViewAdapter()\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater, container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View? {\r\n        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_vp_item, container, false)\r\n        return binding.root\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n\r\n        init()\r\n\r\n        observe()\r\n\r\n        notEnterableAdapter.setOnClickChattingRoomListener {\r\n            val bundle = Bundle()\r\n            bundle.putInt(\"id\", it)\r\n            navController.navigate(R.id.action_homeFragment_to_chattingFragment, bundle)\r\n        }\r\n    }\r\n\r\n    private fun init() {\r\n        binding.rvEnterableRoomVpItemHome.adapter = enterableAdapter\r\n        binding.rvNotEnterableChattingRoomVpItemHome.adapter = notEnterableAdapter\r\n\r\n        viewModel.getRoomsEnterable()\r\n        viewModel.getRoomsNotEnterable()\r\n    }\r\n\r\n    private fun observe() = with(viewModel) {\r\n        isSuccessEnterable.observe(viewLifecycleOwner) { it ->\r\n            enterableVis.value = when {\r\n                it.isEmpty() -> false\r\n                else -> true\r\n            }\r\n        }\r\n\r\n        isFailureEnterable.observe(viewLifecycleOwner) {\r\n            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()\r\n        }\r\n\r\n        isSuccessNotEnterable.observe(viewLifecycleOwner) {\r\n            notEnterableVis.value = when {\r\n                it.isEmpty() -> false\r\n                else -> true\r\n            }\r\n        }\r\n\r\n        isFailureNotEnterable.observe(viewLifecycleOwner) {\r\n            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/hotspotalk/view/fragment/HomeViewPagerItemFragment.kt b/app/src/main/java/com/example/hotspotalk/view/fragment/HomeViewPagerItemFragment.kt
+--- a/app/src/main/java/com/example/hotspotalk/view/fragment/HomeViewPagerItemFragment.kt	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
++++ b/app/src/main/java/com/example/hotspotalk/view/fragment/HomeViewPagerItemFragment.kt	(date 1635321461655)
+@@ -3,23 +3,17 @@
+ import android.os.Bundle
+ import android.view.LayoutInflater
+ import android.view.View
+-import android.view.View.GONE
+-import android.view.View.VISIBLE
+ import android.view.ViewGroup
+ import android.widget.Toast
+ import androidx.databinding.DataBindingUtil
+ import androidx.fragment.app.Fragment
+ import androidx.fragment.app.activityViewModels
+ import androidx.navigation.fragment.findNavController
+-import com.example.domain.usecase.rooms.GetRoomsEnterableUseCase
+-import com.example.domain.usecase.rooms.GetRoomsNotEnterableUseCase
+ import com.example.hotspotalk.R
+ import com.example.hotspotalk.databinding.FragmentHomeVpItemBinding
+ import com.example.hotspotalk.view.adapter.ChattingRoomRecyclerViewAdapter
+ import com.example.hotspotalk.viewmodel.HomeViewModel
+ import dagger.hilt.android.AndroidEntryPoint
+-import dagger.hilt.android.HiltAndroidApp
+-import javax.inject.Inject
+ 
+ @AndroidEntryPoint
+ class HomeViewPagerItemFragment : Fragment() {
+@@ -58,15 +52,22 @@
+         binding.rvEnterableRoomVpItemHome.adapter = enterableAdapter
+         binding.rvNotEnterableChattingRoomVpItemHome.adapter = notEnterableAdapter
+ 
+-        viewModel.getRoomsEnterable()
++        // todo 위도 경도 값 전달
++        viewModel.getRoomsEnterable(1, 1)
+         viewModel.getRoomsNotEnterable()
+     }
+ 
+     private fun observe() = with(viewModel) {
+-        isSuccessEnterable.observe(viewLifecycleOwner) { it ->
+-            enterableVis.value = when {
+-                it.isEmpty() -> false
+-                else -> true
++        isSuccessEnterable.observe(viewLifecycleOwner) {
++            when (it) {
++                null -> {
++                    Toast.makeText(requireContext(), "채팅방을 가져오는데 실패했습니다.", Toast.LENGTH_SHORT).show()
++                    enterableVis.value = false
++                }
++                else -> {
++                    enterableAdapter.setList(it)
++                    enterableVis.value = true
++                }
+             }
+         }
+ 
+@@ -75,9 +76,16 @@
+         }
+ 
+         isSuccessNotEnterable.observe(viewLifecycleOwner) {
+-            notEnterableVis.value = when {
+-                it.isEmpty() -> false
+-                else -> true
++            when (it) {
++                null -> {
++                    Toast.makeText(requireContext(), "채팅방을 가져오는데 실패했습니다.", Toast.LENGTH_SHORT).show()
++                    notEnterableVis.value = false
++                }
++
++                else -> {
++                    notEnterableAdapter.setList(it)
++                    notEnterableVis.value = true
++                }
+             }
+         }
+ 
+Index: app/src/main/java/com/example/hotspotalk/viewmodel/LoginViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hotspotalk.viewmodel\r\n\r\nimport androidx.lifecycle.MutableLiveData\r\nimport androidx.lifecycle.ViewModel\r\nimport androidx.lifecycle.viewModelScope\r\nimport com.example.domain.entity.repuest.Login\r\nimport com.example.domain.entity.response.Token\r\nimport com.example.domain.usecase.account.PostLoginUseCase\r\nimport com.example.domain.usecase.account.PostSignUpUseCase\r\nimport dagger.hilt.android.lifecycle.HiltViewModel\r\nimport kotlinx.coroutines.launch\r\nimport java.lang.Exception\r\nimport javax.inject.Inject\r\n\r\n@HiltViewModel\r\nclass LoginViewModel @Inject constructor(\r\n    private val postLoginUseCase: PostLoginUseCase\r\n) : ViewModel() {\r\n\r\n    val id = MutableLiveData(\"\")\r\n    val pw = MutableLiveData(\"\")\r\n\r\n    private val _isSuccess = MutableLiveData<Token>()\r\n    val isSuccess = _isSuccess\r\n\r\n    private val _isFailure = MutableLiveData<String>()\r\n    val isFailure = _isFailure\r\n\r\n    // todo\r\n    private val devToken = \"\"\r\n\r\n    fun login() {\r\n        viewModelScope.launch {\r\n            val login = Login(id.value!!, pw.value!!, devToken)\r\n\r\n            try {\r\n                postLoginUseCase.buildUseCase(PostLoginUseCase.Params(login))\r\n            } catch (e: Exception) {\r\n                _isFailure.postValue(e.message)\r\n            }\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/hotspotalk/viewmodel/LoginViewModel.kt b/app/src/main/java/com/example/hotspotalk/viewmodel/LoginViewModel.kt
+--- a/app/src/main/java/com/example/hotspotalk/viewmodel/LoginViewModel.kt	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
++++ b/app/src/main/java/com/example/hotspotalk/viewmodel/LoginViewModel.kt	(date 1635321833493)
+@@ -3,13 +3,11 @@
+ import androidx.lifecycle.MutableLiveData
+ import androidx.lifecycle.ViewModel
+ import androidx.lifecycle.viewModelScope
+-import com.example.domain.entity.repuest.Login
+-import com.example.domain.entity.response.Token
++import com.example.data.entity.repuest.Login
++import com.example.data.entity.response.Token
+ import com.example.domain.usecase.account.PostLoginUseCase
+-import com.example.domain.usecase.account.PostSignUpUseCase
+ import dagger.hilt.android.lifecycle.HiltViewModel
+ import kotlinx.coroutines.launch
+-import java.lang.Exception
+ import javax.inject.Inject
+ 
+ @HiltViewModel
+Index: app/src/main/java/com/example/hotspotalk/view/bind/BindingAdapter.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hotspotalk.view.bind\r\n\r\nimport android.view.View\r\nimport android.widget.ImageView\r\nimport android.widget.TextView\r\nimport androidx.databinding.BindingAdapter\r\nimport androidx.recyclerview.widget.RecyclerView\r\nimport com.bumptech.glide.Glide\r\nimport com.example.domain.entity.response.RoomInfo\r\nimport com.example.hotspotalk.view.adapter.ChattingRoomRecyclerViewAdapter\r\n\r\n@BindingAdapter(\"setVisible\")\r\nfun View.setVisible(isVisible: Boolean) {\r\n    this.visibility = when(isVisible) {\r\n        true -> View.VISIBLE\r\n        false -> View.GONE\r\n    }\r\n}\r\n\r\n@BindingAdapter(\"submitList\")\r\nfun RecyclerView.setList(list: List<RoomInfo>) {\r\n    val adapter = ChattingRoomRecyclerViewAdapter()\r\n    adapter.setList(list)\r\n}\r\n\r\n@BindingAdapter(\"loadUrl\")\r\nfun ImageView.setImage(url: String) {\r\n    Glide.with(context).load(url).into(this)\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/hotspotalk/view/bind/BindingAdapter.kt b/app/src/main/java/com/example/hotspotalk/view/bind/BindingAdapter.kt
+--- a/app/src/main/java/com/example/hotspotalk/view/bind/BindingAdapter.kt	(revision 2b6c011d6a4e889ae3c0aadb8ae07a0b67e9c354)
++++ b/app/src/main/java/com/example/hotspotalk/view/bind/BindingAdapter.kt	(date 1635321461667)
+@@ -17,11 +17,11 @@
+     }
+ }
+ 
+-@BindingAdapter("submitList")
+-fun RecyclerView.setList(list: List<RoomInfo>) {
+-    val adapter = ChattingRoomRecyclerViewAdapter()
+-    adapter.setList(list)
+-}
++//@BindingAdapter("submitList")
++//fun RecyclerView.setList(list: List<RoomInfo>) {
++//    val adapter = ChattingRoomRecyclerViewAdapter()
++//    adapter.setList(list)
++//}
+ 
+ @BindingAdapter("loadUrl")
+ fun ImageView.setImage(url: String) {

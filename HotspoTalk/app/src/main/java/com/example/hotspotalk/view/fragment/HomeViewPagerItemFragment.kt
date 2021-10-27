@@ -52,30 +52,44 @@ class HomeViewPagerItemFragment : Fragment() {
         binding.rvEnterableRoomVpItemHome.adapter = enterableAdapter
         binding.rvNotEnterableChattingRoomVpItemHome.adapter = notEnterableAdapter
 
-        viewModel.getRoomsEnterable()
-        viewModel.getRoomsNotEnterable()
+        // todo 위도 경도 값 전달
+        viewModel.getRoomsByCoordinate(1, 1)
+        viewModel.getEnteredRooms()
     }
 
     private fun observe() = with(viewModel) {
-        isSuccessEnterable.observe(viewLifecycleOwner) { it ->
-            enterableVis.value = when {
-                it.isEmpty() -> false
-                else -> true
+        isSuccessCoordinateRooms.observe(viewLifecycleOwner) {
+            when (it) {
+                null -> {
+                    Toast.makeText(requireContext(), "채팅방을 가져오는데 실패했습니다.", Toast.LENGTH_SHORT).show()
+                    enterableVis.value = false
+                }
+                else -> {
+                    enterableAdapter.setList(it)
+                    enterableVis.value = it.isEmpty()
+                }
             }
         }
 
-        isFailureEnterable.observe(viewLifecycleOwner) {
+        isFailureCoordinateRooms.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
 
-        isSuccessNotEnterable.observe(viewLifecycleOwner) {
-            notEnterableVis.value = when {
-                it.isEmpty() -> false
-                else -> true
+        isSuccessEnteredRooms.observe(viewLifecycleOwner) {
+            when (it) {
+                null -> {
+                    Toast.makeText(requireContext(), "채팅방을 가져오는데 실패했습니다.", Toast.LENGTH_SHORT).show()
+                    notEnterableVis.value = false
+                }
+
+                else -> {
+                    notEnterableVis.value = it.isEmpty()
+                    notEnterableAdapter.setList(it)
+                }
             }
         }
 
-        isFailureNotEnterable.observe(viewLifecycleOwner) {
+        isFailureEnteredRooms.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
     }

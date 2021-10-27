@@ -14,6 +14,7 @@ import com.example.hotspotalk.R
 import com.example.hotspotalk.databinding.FragmentHomeBinding
 import com.example.hotspotalk.view.adapter.HomeViewPagerAdapter
 import com.example.hotspotalk.viewmodel.HomeViewModel
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -56,34 +57,16 @@ class HomeFragment : Fragment() {
         adapter.setList(listOf(HomeViewPagerItemFragment(), HomeViewPagerItemFragment()))
         binding.vpHome.adapter = adapter
 
-        binding.vpHome.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                viewModel.isEnterableChecked.value = when (position) {
-                    0 -> false
-                    1 -> true
-                    else -> false
-                }
-            }
-        })
-
         binding.radioGroupHome.setOnCheckedChangeListener { _, checkedId ->
             binding.vpHome.currentItem = when (checkedId) {
-                binding.radioEnterableChatHome.id -> 0
-                binding.radioNotEnterableHome.id -> 1
+                binding.radioNotEnterableHome.id -> 0
+                binding.radioEnterableChatHome.id -> 1
                 else -> 0
             }
         }
     }
 
-    private fun observe() = with(viewModel) {
-
-    }
-
-//    override fun onPause() {
-//        super.onPause()
-//        // 메모리에서 삭제
-//        binding.vpHome.adapter = null
-//    }
+    private fun observe() = with(viewModel) {}
 
     private fun navigateToCreateRoom() {
         navController.navigate(R.id.action_homeFragment_to_createRoomFragment)

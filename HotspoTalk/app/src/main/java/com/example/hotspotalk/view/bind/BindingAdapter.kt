@@ -2,6 +2,7 @@ package com.example.hotspotalk.view.bind
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -16,11 +17,12 @@ fun View.setVisible(isVisible: Boolean) {
     }
 }
 
-@BindingAdapter("submitList")
-fun RecyclerView.setList(list: List<RoomInfo>) {
-
-    val adapter = ChattingRoomRecyclerViewAdapter()
-    adapter.setList(list)
+@BindingAdapter("setInvisible")
+fun View.setInvisible(isInvisible: Boolean) {
+    this.visibility = when(isInvisible) {
+        true -> View.INVISIBLE
+        false -> View.VISIBLE
+    }
 }
 
 @BindingAdapter("loadUrl")
