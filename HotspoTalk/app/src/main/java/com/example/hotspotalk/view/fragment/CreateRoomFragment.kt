@@ -23,8 +23,8 @@ import com.example.hotspotalk.viewmodel.CreateRoomViewModel
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.overlay.CircleOverlay
-
 import com.naver.maps.map.overlay.Marker
+import dagger.hilt.android.AndroidEntryPoint
 
 
 /**
@@ -32,6 +32,7 @@ import com.naver.maps.map.overlay.Marker
  * 거리별, 지역별로 방을 새로 만들 수 있다
  */
 
+@AndroidEntryPoint
 class CreateRoomFragment : Fragment() {
 
     companion object {
@@ -71,10 +72,12 @@ class CreateRoomFragment : Fragment() {
             radioGroupPosition.setOnCheckedChangeListener { _, checkedId ->
                 when (checkedId) {
                     radioButtonDistance.id -> {
+                        viewModel.areaType.value = 0
                         linearLayoutDistanceCreateRoom.visibility = View.VISIBLE
                         linearLayoutRadioCreateRoom.visibility = View.GONE
                     }
                     radioButtonArea.id -> {
+                        viewModel.areaType.value = 1
                         linearLayoutRadioCreateRoom.visibility = View.VISIBLE
                         linearLayoutDistanceCreateRoom.visibility = View.GONE
                     }
@@ -88,7 +91,7 @@ class CreateRoomFragment : Fragment() {
     }
 
     private fun observe() = with(viewModel) {
-        chattingRoomName.observe(viewLifecycleOwner) {
+        roomName.observe(viewLifecycleOwner) {
             with(binding.tilChattingRoomNameCreateRoom) {
                 isErrorEnabled = it.isEmpty()
                 error =
@@ -100,7 +103,7 @@ class CreateRoomFragment : Fragment() {
             }
         }
 
-        totalNumber.observe(viewLifecycleOwner) {
+        memberLimit.observe(viewLifecycleOwner) {
             with(binding.tilTotalNumberCreateRoom) {
                 isErrorEnabled = it.isEmpty()
                 error =
@@ -146,6 +149,8 @@ class CreateRoomFragment : Fragment() {
                         position = latLng
                         map = it
                     }
+                    viewModel.latitude.value = latLng.latitude
+                    viewModel.longitude.value = latLng.longitude
 
                     it.moveCamera(CameraUpdate.scrollTo(latLng))
 
@@ -158,7 +163,8 @@ class CreateRoomFragment : Fragment() {
                             fromUser: Boolean
                         ) {
                             val radius = ((progress).toDouble() / (seekBar?.max!!).toDouble()) * MAX_RADIUS
-                            tvDistanceCreateRoom.text = "${radius.toInt()}m"
+                            viewModel.areaDetail.value = radius.toInt()
+
                             with(circle) {
                                 outlineColor = Color.BLACK
                                 outlineWidth = 3
