@@ -4,7 +4,7 @@ import com.example.hotspotalk.data.repository.AccountRepository
 import com.example.hotspotalk.data.entity.repuest.Ban
 import com.example.hotspotalk.data.entity.repuest.Login
 import com.example.hotspotalk.data.entity.response.Token
-import com.example.hotspotalk.data.entity.response.Msg
+import com.example.hotspotalk.data.entity.response.Message
 import com.example.hotspotalk.data.service.AccountService
 import retrofit2.Response
 import javax.inject.Inject
@@ -21,11 +21,11 @@ class AccountRepositoryImpl @Inject constructor(
         return service.postSignUp(signUp)
     }
 
-    override suspend fun getId(id: String): Response<Msg> {
+    override suspend fun getId(id: String): Response<Message> {
         return service.getId(id)
     }
 
-    override suspend fun deleteBan(ban: Ban): Response<Msg> {
+    override suspend fun deleteBan(ban: Ban): Response<Message> {
         return service.deleteBan(ban)
     }
 }
