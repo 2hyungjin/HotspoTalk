@@ -4,22 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
-import com.example.domain.usecase.rooms.GetRoomsEnterableUseCase
-import com.example.domain.usecase.rooms.GetRoomsNotEnterableUseCase
 import com.example.hotspotalk.R
 import com.example.hotspotalk.databinding.FragmentHomeBinding
 import com.example.hotspotalk.view.adapter.HomeViewPagerAdapter
 import com.example.hotspotalk.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 /**
  * 홈 프래그먼트

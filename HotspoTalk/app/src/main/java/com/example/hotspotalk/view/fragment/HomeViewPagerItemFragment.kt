@@ -3,23 +3,17 @@ package com.example.hotspotalk.view.fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.example.domain.usecase.rooms.GetRoomsEnterableUseCase
-import com.example.domain.usecase.rooms.GetRoomsNotEnterableUseCase
 import com.example.hotspotalk.R
 import com.example.hotspotalk.databinding.FragmentHomeVpItemBinding
 import com.example.hotspotalk.view.adapter.ChattingRoomRecyclerViewAdapter
 import com.example.hotspotalk.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeViewPagerItemFragment : Fragment() {
