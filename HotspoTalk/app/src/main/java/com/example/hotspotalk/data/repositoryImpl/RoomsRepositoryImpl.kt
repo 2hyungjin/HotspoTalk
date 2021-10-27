@@ -3,12 +3,12 @@ package com.example.hotspotalk.data.repositoryImpl
 import com.example.hotspotalk.data.service.RoomService
 import com.example.hotspotalk.data.entity.response.MemberInfo
 import com.example.hotspotalk.data.entity.response.RoomInfo
-import com.example.hotspotalk.data.entity.response.Msg
 import com.example.hotspotalk.data.entity.repuest.AccountId
 import com.example.hotspotalk.data.entity.repuest.CreateRoom
 import com.example.hotspotalk.data.entity.repuest.Enter
 import com.example.hotspotalk.data.entity.repuest.ModifyNickname
 import com.example.hotspotalk.data.entity.repuest.ModifyRoom
+import com.example.hotspotalk.data.entity.response.MessageResponse
 import com.example.hotspotalk.data.repository.RoomsRepository
 import retrofit2.Response
 import javax.inject.Inject
@@ -24,7 +24,7 @@ class RoomsRepositoryImpl @Inject constructor(
         return service.getRooms(latitude, longitude)
     }
 
-    override suspend fun postEnterRoom(roomId: Int, enter: Enter): Response<Msg> {
+    override suspend fun postEnterRoom(roomId: Int, enter: Enter): Response<MessageResponse> {
         return service.postEnterRoom(roomId, enter)
     }
 
@@ -32,27 +32,27 @@ class RoomsRepositoryImpl @Inject constructor(
         return service.getMember(roomId)
     }
 
-    override suspend fun postCreateRoom(createRoom: CreateRoom): Response<Msg> {
+    override suspend fun postCreateRoom(createRoom: CreateRoom): Response<MessageResponse> {
         return service.postCreateRoom(createRoom)
     }
 
-    override suspend fun putModifyRoom(roomId: Int, modifyRoom: ModifyRoom): Response<Msg> {
+    override suspend fun putModifyRoom(roomId: Int, modifyRoom: ModifyRoom): Response<MessageResponse> {
         return service.putModifyRoom(roomId, modifyRoom)
     }
 
-    override suspend fun putInheritRoom(accountId: AccountId): Response<Msg> {
+    override suspend fun putInheritRoom(accountId: AccountId): Response<MessageResponse> {
         return service.putInheritRoom(accountId)
     }
 
-    override suspend fun putModifyNickname(roomId: Int, modifyNickname: ModifyNickname): Response<Msg> {
+    override suspend fun putModifyNickname(roomId: Int, modifyNickname: ModifyNickname): Response<MessageResponse> {
         return service.putModifyNickname(roomId, modifyNickname)
     }
 
-    override suspend fun deleteExitRoom(roomId: Int): Response<Msg> {
+    override suspend fun deleteExitRoom(roomId: Int): Response<MessageResponse> {
         return service.deleteExitRoom(roomId)
     }
 
-    override suspend fun deleteRemoveRoom(roomId: Int): Response<Msg> {
+    override suspend fun deleteRemoveRoom(roomId: Int): Response<MessageResponse> {
         return service.deleteRemoveRoom(roomId)
     }
 
