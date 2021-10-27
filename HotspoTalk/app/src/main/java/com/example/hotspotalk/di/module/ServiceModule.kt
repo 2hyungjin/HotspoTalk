@@ -14,6 +14,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object ServiceModule {
+
     @Singleton
     @Provides
     fun provideAccountService(retrofit: Retrofit): AccountService =
