@@ -1,10 +1,8 @@
 package com.example.hotspotalk.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.entity.response.Msg
 import com.example.domain.entity.response.RoomInfo
 import com.example.domain.usecase.rooms.GetRoomsEnterableUseCase
 import com.example.domain.usecase.rooms.GetRoomsNotEnterableUseCase

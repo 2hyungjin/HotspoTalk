@@ -1,9 +1,8 @@
 package com.example.hotspotalk.di.module
 
-import android.accounts.Account
-import com.example.data.service.AccountService
-import com.example.data.service.ChatService
-import com.example.data.service.RoomService
+import com.example.hotspotalk.data.service.AccountService
+import com.example.hotspotalk.data.service.ChatService
+import com.example.hotspotalk.data.service.RoomService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
