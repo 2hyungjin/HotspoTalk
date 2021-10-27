@@ -3,7 +3,7 @@ package com.example.hotspotalk.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.hotspotalk.di.application.HotspotalkApplication
+import com.example.hotspotalk.context.HotspotalkApplication
 
 class ChattingViewModel : ViewModel() {
     val chat = MutableLiveData<String>()

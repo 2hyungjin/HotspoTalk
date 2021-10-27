@@ -1,0 +1,2663 @@
+Index: data/src/main/java/com/example/data/datasource/RoomDataSource.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.data.datasource\r\n\r\nimport com.example.data.base.BaseDataSource\r\nimport com.example.data.mapper.toEntity\r\nimport com.example.data.service.RoomService\r\nimport com.example.domain.entity.repuest.*\r\nimport com.example.domain.entity.response.MemberInfo\r\nimport com.example.domain.entity.response.RoomInfo\r\nimport javax.inject.Inject\r\n\r\nclass RoomDataSource @Inject constructor(\r\n    override val service: RoomService\r\n) : BaseDataSource<RoomService>() {\r\n\r\n    suspend fun getRooms(): List<RoomInfo> {\r\n        return getResponse(service.getRooms()).toEntity()\r\n    }\r\n\r\n    suspend fun getRooms(latitude: Int, longitude: Int): List<RoomInfo> {\r\n        return getResponse(service.getRooms(latitude, longitude))\r\n    }\r\n\r\n    suspend fun getEnterRoom(roomId: Int, enter: Enter): String {\r\n        return getResponse(service.getEnterRoom(roomId, enter))\r\n    }\r\n\r\n    suspend fun getMember(roomId: Int): List<MemberInfo> {\r\n        return getResponse(service.getMember(roomId)).toEntity()\r\n    }\r\n\r\n    suspend fun postCreateRoom(createRoom: CreateRoom): String {\r\n        return getResponse(service.postCreateRoom(createRoom))\r\n    }\r\n\r\n    suspend fun putModifyRoom(roomId: Int, modifyRoom: ModifyRoom): String {\r\n        return getResponse(service.putModifyRoom(roomId, modifyRoom))\r\n    }\r\n\r\n    suspend fun putInheritRoom(accountId: AccountId): String {\r\n        return getResponse(service.putInheritRoom(accountId))\r\n    }\r\n\r\n    suspend fun putModifyNickname(roomId: Int, modifyNickname: ModifyNickname): String {\r\n        return getResponse(service.putModifyNickname(roomId, modifyNickname))\r\n    }\r\n\r\n    suspend fun deleteExitRoom(roomId: Int): String {\r\n        return getResponse(service.deleteExitRoom(roomId))\r\n    }\r\n\r\n    suspend fun deleteRemoveRoom(roomId: Int): String {\r\n        return getResponse(service.deleteRemoveRoom(roomId))\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/data/src/main/java/com/example/data/datasource/RoomDataSource.kt b/data/src/main/java/com/example/data/datasource/RoomDataSource.kt
+--- a/data/src/main/java/com/example/data/datasource/RoomDataSource.kt	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/data/src/main/java/com/example/data/datasource/RoomDataSource.kt	(date 1634730176757)
+@@ -1,10 +1,12 @@
+ package com.example.data.datasource
+ 
+ import com.example.data.base.BaseDataSource
++import com.example.data.entity.RoomInfoData
+ import com.example.data.mapper.toEntity
+ import com.example.data.service.RoomService
+ import com.example.domain.entity.repuest.*
+ import com.example.domain.entity.response.MemberInfo
++import com.example.domain.entity.response.Msg
+ import com.example.domain.entity.response.RoomInfo
+ import javax.inject.Inject
+ 
+@@ -17,38 +19,38 @@
+     }
+ 
+     suspend fun getRooms(latitude: Int, longitude: Int): List<RoomInfo> {
+-        return getResponse(service.getRooms(latitude, longitude))
++        return getResponse(service.getRooms(latitude, longitude)).toEntity()
+     }
+ 
+-    suspend fun getEnterRoom(roomId: Int, enter: Enter): String {
+-        return getResponse(service.getEnterRoom(roomId, enter))
++    suspend fun getEnterRoom(roomId: Int, enter: Enter): Msg {
++        return getResponse(service.getEnterRoom(roomId, enter)).toEntity()
+     }
+ 
+     suspend fun getMember(roomId: Int): List<MemberInfo> {
+         return getResponse(service.getMember(roomId)).toEntity()
+     }
+ 
+-    suspend fun postCreateRoom(createRoom: CreateRoom): String {
+-        return getResponse(service.postCreateRoom(createRoom))
++    suspend fun postCreateRoom(createRoom: CreateRoom): Msg {
++        return getResponse(service.postCreateRoom(createRoom)).toEntity()
+     }
+ 
+-    suspend fun putModifyRoom(roomId: Int, modifyRoom: ModifyRoom): String {
+-        return getResponse(service.putModifyRoom(roomId, modifyRoom))
++    suspend fun putModifyRoom(roomId: Int, modifyRoom: ModifyRoom): Msg {
++        return getResponse(service.putModifyRoom(roomId, modifyRoom)).toEntity()
+     }
+ 
+-    suspend fun putInheritRoom(accountId: AccountId): String {
+-        return getResponse(service.putInheritRoom(accountId))
++    suspend fun putInheritRoom(accountId: AccountId): Msg {
++        return getResponse(service.putInheritRoom(accountId)).toEntity()
+     }
+ 
+-    suspend fun putModifyNickname(roomId: Int, modifyNickname: ModifyNickname): String {
+-        return getResponse(service.putModifyNickname(roomId, modifyNickname))
++    suspend fun putModifyNickname(roomId: Int, modifyNickname: ModifyNickname): Msg {
++        return getResponse(service.putModifyNickname(roomId, modifyNickname)).toEntity()
+     }
+ 
+-    suspend fun deleteExitRoom(roomId: Int): String {
+-        return getResponse(service.deleteExitRoom(roomId))
++    suspend fun deleteExitRoom(roomId: Int): Msg {
++        return getResponse(service.deleteExitRoom(roomId)).toEntity()
+     }
+ 
+-    suspend fun deleteRemoveRoom(roomId: Int): String {
+-        return getResponse(service.deleteRemoveRoom(roomId))
++    suspend fun deleteRemoveRoom(roomId: Int): Msg {
++        return getResponse(service.deleteRemoveRoom(roomId)).toEntity()
+     }
+ }
+\ No newline at end of file
+Index: data/src/main/java/com/example/data/datasource/ChatDataSource.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.data.datasource\r\n\r\nimport com.example.data.base.BaseDataSource\r\nimport com.example.data.service.ChatService\r\nimport javax.inject.Inject\r\n\r\nclass ChatDataSource @Inject constructor(\r\n    override val service: ChatService\r\n) : BaseDataSource<ChatService>() {\r\n\r\n    suspend fun getChat(roomId: Int): String {\r\n        return getResponse(service.getChat(roomId))\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/data/src/main/java/com/example/data/datasource/ChatDataSource.kt b/data/src/main/java/com/example/data/datasource/ChatDataSource.kt
+--- a/data/src/main/java/com/example/data/datasource/ChatDataSource.kt	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/data/src/main/java/com/example/data/datasource/ChatDataSource.kt	(date 1634729879997)
+@@ -1,14 +1,16 @@
+ package com.example.data.datasource
+ 
+ import com.example.data.base.BaseDataSource
++import com.example.data.mapper.toEntity
+ import com.example.data.service.ChatService
++import com.example.domain.entity.response.Msg
+ import javax.inject.Inject
+ 
+ class ChatDataSource @Inject constructor(
+     override val service: ChatService
+ ) : BaseDataSource<ChatService>() {
+ 
+-    suspend fun getChat(roomId: Int): String {
+-        return getResponse(service.getChat(roomId))
++    suspend fun getChat(roomId: Int): Msg {
++        return getResponse(service.getChat(roomId)).toEntity()
+     }
+ }
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_2021-10-20__7_45__Default_Changelist_.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_2021-10-20__7_45__Default_Changelist_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_2021-10-20__7_45__Default_Changelist_.xml
+new file mode 100644
+--- /dev/null	(date 1634726825057)
++++ b/.idea/shelf/Uncommitted_changes_before_Update_at_2021-10-20__7_45__Default_Changelist_.xml	(date 1634726825057)
+@@ -0,0 +1,4 @@
++<changelist name="Uncommitted_changes_before_Update_at_2021-10-20_오후_7_45_[Default_Changelist]" date="1634726758468" recycled="true" deleted="true">
++  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2021-10-20_오후_7_45_[Default_Changelist]/shelved.patch" />
++  <option name="DESCRIPTION" value="Uncommitted changes before Update at 2021-10-20 오후 7:45 [Default Changelist]" />
++</changelist>
+\ No newline at end of file
+Index: data/src/main/java/com/example/data/datasource/AccountDataSource.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.data.datasource\r\n\r\nimport com.example.data.base.BaseDataSource\r\nimport com.example.data.service.AccountService\r\nimport com.example.domain.entity.repuest.Ban\r\nimport com.example.domain.entity.repuest.Login\r\nimport javax.inject.Inject\r\n\r\nclass AccountDataSource @Inject constructor(\r\n    override val service: AccountService\r\n) : BaseDataSource<AccountService>() {\r\n\r\n    suspend fun postLogin(login: Login): String {\r\n        return getResponse(service.postLogin(login))\r\n    }\r\n\r\n    suspend fun postSignUp(signUp: Login): String {\r\n        return getResponse(service.postSignUp(signUp))\r\n    }\r\n\r\n    suspend fun getId(id: String): String {\r\n        return getResponse(service.getId(id))\r\n    }\r\n\r\n    suspend fun deleteBan(ban: Ban): String {\r\n        return getResponse(service.deleteBan(ban))\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/data/src/main/java/com/example/data/datasource/AccountDataSource.kt b/data/src/main/java/com/example/data/datasource/AccountDataSource.kt
+--- a/data/src/main/java/com/example/data/datasource/AccountDataSource.kt	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/data/src/main/java/com/example/data/datasource/AccountDataSource.kt	(date 1634729879986)
+@@ -1,28 +1,31 @@
+ package com.example.data.datasource
+ 
+ import com.example.data.base.BaseDataSource
++import com.example.data.mapper.toEntity
+ import com.example.data.service.AccountService
+ import com.example.domain.entity.repuest.Ban
+ import com.example.domain.entity.repuest.Login
++import com.example.domain.entity.response.Msg
++import com.example.domain.entity.response.Token
+ import javax.inject.Inject
+ 
+ class AccountDataSource @Inject constructor(
+     override val service: AccountService
+ ) : BaseDataSource<AccountService>() {
+ 
+-    suspend fun postLogin(login: Login): String {
+-        return getResponse(service.postLogin(login))
++    suspend fun postLogin(login: Login): Token {
++        return getResponse(service.postLogin(login)).toEntity()
+     }
+ 
+-    suspend fun postSignUp(signUp: Login): String {
+-        return getResponse(service.postSignUp(signUp))
++    suspend fun postSignUp(signUp: Login): Token {
++        return getResponse(service.postSignUp(signUp)).toEntity()
+     }
+ 
+-    suspend fun getId(id: String): String {
+-        return getResponse(service.getId(id))
++    suspend fun getId(id: String): Msg {
++        return getResponse(service.getId(id)).toEntity()
+     }
+ 
+-    suspend fun deleteBan(ban: Ban): String {
+-        return getResponse(service.deleteBan(ban))
++    suspend fun deleteBan(ban: Ban): Msg {
++        return getResponse(service.deleteBan(ban)).toEntity()
+     }
+ }
+\ No newline at end of file
+Index: app/src/main/java/com/example/hotspotalk/viewmodel/factory/LoginViewModelFactory.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/hotspotalk/viewmodel/factory/LoginViewModelFactory.kt b/app/src/main/java/com/example/hotspotalk/viewmodel/factory/LoginViewModelFactory.kt
+new file mode 100644
+--- /dev/null	(date 1634728210048)
++++ b/app/src/main/java/com/example/hotspotalk/viewmodel/factory/LoginViewModelFactory.kt	(date 1634728210048)
+@@ -0,0 +1,17 @@
++package com.example.hotspotalk.viewmodel.factory
++
++import androidx.lifecycle.ViewModel
++import androidx.lifecycle.ViewModelProvider
++import com.example.domain.usecase.account.PostSignUpUseCase
++import com.example.hotspotalk.viewmodel.SignUpViewModel
++
++class LoginViewModelFactory(
++    val postSignUpUseCase: PostSignUpUseCase
++) : ViewModelProvider.Factory {
++    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
++        if (modelClass.isAssignableFrom(SignUpViewModel::class.java)) {
++            return SignUpViewModel() as T
++        }
++        throw IllegalAccessException()
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/com/example/hotspotalk/viewmodel/LoginViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/hotspotalk/viewmodel/LoginViewModel.kt b/app/src/main/java/com/example/hotspotalk/viewmodel/LoginViewModel.kt
+new file mode 100644
+--- /dev/null	(date 1634728210073)
++++ b/app/src/main/java/com/example/hotspotalk/viewmodel/LoginViewModel.kt	(date 1634728210073)
+@@ -0,0 +1,39 @@
++package com.example.hotspotalk.viewmodel
++
++import androidx.lifecycle.MutableLiveData
++import androidx.lifecycle.ViewModel
++import androidx.lifecycle.viewModelScope
++import com.example.domain.entity.repuest.Login
++import com.example.domain.entity.response.Token
++import com.example.domain.usecase.account.PostSignUpUseCase
++import kotlinx.coroutines.launch
++import java.lang.Exception
++
++class LoginViewModel(
++    private val postSignInUseCase: PostSignUpUseCase
++) : ViewModel() {
++
++    val id = MutableLiveData("")
++    val pw = MutableLiveData("")
++
++    private val _isSuccess = MutableLiveData<Token>()
++    val isSuccess = _isSuccess
++
++    private val _isFailure = MutableLiveData<String>()
++    val isFailure = _isFailure
++
++    // todo
++    private val devToken = ""
++
++    fun login() {
++        viewModelScope.launch {
++            val login = Login(id.value!!, pw.value!!, devToken)
++
++            try {
++                _isSuccess.postValue(postSignInUseCase.buildUseCase(PostSignUpUseCase.Params(login)))
++            } catch (e: Exception) {
++                _isFailure.postValue(e.message)
++            }
++        }
++    }
++}
+\ No newline at end of file
+Index: domain/src/main/java/com/example/domain/entity/response/Msg.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/domain/src/main/java/com/example/domain/entity/response/Msg.kt b/domain/src/main/java/com/example/domain/entity/response/Msg.kt
+new file mode 100644
+--- /dev/null	(date 1634729286402)
++++ b/domain/src/main/java/com/example/domain/entity/response/Msg.kt	(date 1634729286402)
+@@ -0,0 +1,3 @@
++package com.example.domain.entity.response
++
++data class Msg(val msg: String)
+Index: app/src/main/java/com/example/hotspotalk/viewmodel/SignUpViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/hotspotalk/viewmodel/SignUpViewModel.kt b/app/src/main/java/com/example/hotspotalk/viewmodel/SignUpViewModel.kt
+new file mode 100644
+--- /dev/null	(date 1634728889689)
++++ b/app/src/main/java/com/example/hotspotalk/viewmodel/SignUpViewModel.kt	(date 1634728889689)
+@@ -0,0 +1,45 @@
++package com.example.hotspotalk.viewmodel
++
++import androidx.lifecycle.MutableLiveData
++import androidx.lifecycle.ViewModel
++import androidx.lifecycle.viewModelScope
++import com.example.domain.entity.repuest.Login
++import com.example.domain.entity.response.Token
++import com.example.domain.usecase.account.PostSignUpUseCase
++import kotlinx.coroutines.launch
++
++class SignUpViewModel(
++    private val postSignUpUseCase: PostSignUpUseCase
++) : ViewModel() {
++
++    val id = MutableLiveData("")
++    val pw = MutableLiveData("")
++    val pwCheck = MutableLiveData("")
++
++    val idErr = MutableLiveData<String>()
++    val pwErr = MutableLiveData<String>()
++
++    private val _isSuccess = MutableLiveData<Token>()
++    val isSuccess = _isSuccess
++
++    private val _isFailure = MutableLiveData<String>()
++    val isFailure = _isFailure
++
++    // todo deviceToken
++    val devToken = ""
++
++    fun signUp() {
++        viewModelScope.launch {
++            if (pw.value != pwCheck.value) {
++                return@launch
++            }
++
++            val signUp = Login(id.value!!, pw.value!!, devToken)
++            try {
++                _isSuccess.postValue(postSignUpUseCase.buildUseCase(PostSignUpUseCase.Params(signUp)))
++            } catch (e: Exception) {
++                isFailure.postValue(e.message)
++            }
++        }
++    }
++}
+\ No newline at end of file
+Index: data/src/main/java/com/example/data/mapper/TokenMapper.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/data/src/main/java/com/example/data/mapper/TokenMapper.kt b/data/src/main/java/com/example/data/mapper/TokenMapper.kt
+new file mode 100644
+--- /dev/null	(date 1634726757715)
++++ b/data/src/main/java/com/example/data/mapper/TokenMapper.kt	(date 1634726757715)
+@@ -0,0 +1,10 @@
++package com.example.data.mapper
++
++import com.example.data.entity.TokenData
++import com.example.domain.entity.response.Token
++
++fun Token.toData() =
++    TokenData(this.token)
++
++fun TokenData.toEntity() =
++    Token(this.token)
+\ No newline at end of file
+Index: data/src/main/java/com/example/data/service/RoomService.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.data.service\r\n\r\nimport com.example.domain.entity.repuest.*\r\nimport com.example.domain.entity.response.MemberInfo\r\nimport com.example.domain.entity.response.RoomInfo\r\nimport com.example.data.entity.MemberInfoData\r\nimport com.example.data.entity.RoomInfoData\r\nimport retrofit2.Response\r\nimport retrofit2.http.*\r\n\r\ninterface RoomService {\r\n\r\n    //들어갔던 방 목록\r\n    @GET(\"rooms/\")\r\n    suspend fun getRooms(): Response<List<RoomInfoData>>\r\n\r\n    // 들어갈 방목록\r\n    @GET(\"rooms/\")\r\n    suspend fun getRooms(\r\n        @Query(\"latitude\") latitude: Int,\r\n        @Query(\"longitude\") longitude: Int\r\n    ): Response<List<RoomInfo>>\r\n\r\n    @POST(\"rooms/\")\r\n    suspend fun postCreateRoom(@Body createRoom: CreateRoom): Response<String>\r\n\r\n    @GET(\"rooms/{roomid}\")\r\n    suspend fun getEnterRoom(@Path(\"roomid\") roomId: Int, @Body enter: Enter): Response<String>\r\n\r\n    @GET(\"/rooms/{roomid}/member\")\r\n    suspend fun getMember(@Path(\"roomid\") roomId: Int): Response<List<MemberInfoData>>\r\n\r\n    @PUT(\"/rooms/{roomid}/edit\")\r\n    suspend fun putModifyRoom(@Path(\"roomid\") roomId: Int, @Body modifyRoom: ModifyRoom): Response<String>\r\n\r\n    @PUT(\"/rooms/{roomid}/inherit\")\r\n    suspend fun putInheritRoom(@Body accountId: AccountId): Response<String>\r\n\r\n    @PUT(\"/rooms/{roomid}/rename\")\r\n    suspend fun putModifyNickname(@Path(\"roomid\") roomId: Int, @Body modifyNickname: ModifyNickname): Response<String>\r\n\r\n    @DELETE(\"/rooms/{roomid}/exit\")\r\n    suspend fun deleteExitRoom(@Path(\"roomid\") roomId: Int): Response<String>\r\n\r\n    @DELETE(\"/rooms/{roomid}\")\r\n    suspend fun deleteRemoveRoom(@Path(\"roomid\") roomId: Int): Response<String>\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/data/src/main/java/com/example/data/service/RoomService.kt b/data/src/main/java/com/example/data/service/RoomService.kt
+--- a/data/src/main/java/com/example/data/service/RoomService.kt	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/data/src/main/java/com/example/data/service/RoomService.kt	(date 1634729984565)
+@@ -4,6 +4,7 @@
+ import com.example.domain.entity.response.MemberInfo
+ import com.example.domain.entity.response.RoomInfo
+ import com.example.data.entity.MemberInfoData
++import com.example.data.entity.MsgData
+ import com.example.data.entity.RoomInfoData
+ import retrofit2.Response
+ import retrofit2.http.*
+@@ -19,29 +20,29 @@
+     suspend fun getRooms(
+         @Query("latitude") latitude: Int,
+         @Query("longitude") longitude: Int
+-    ): Response<List<RoomInfo>>
++    ): Response<List<RoomInfoData>>
+ 
+     @POST("rooms/")
+-    suspend fun postCreateRoom(@Body createRoom: CreateRoom): Response<String>
++    suspend fun postCreateRoom(@Body createRoom: CreateRoom): Response<MsgData>
+ 
+     @GET("rooms/{roomid}")
+-    suspend fun getEnterRoom(@Path("roomid") roomId: Int, @Body enter: Enter): Response<String>
++    suspend fun getEnterRoom(@Path("roomid") roomId: Int, @Body enter: Enter): Response<MsgData>
+ 
+     @GET("/rooms/{roomid}/member")
+     suspend fun getMember(@Path("roomid") roomId: Int): Response<List<MemberInfoData>>
+ 
+     @PUT("/rooms/{roomid}/edit")
+-    suspend fun putModifyRoom(@Path("roomid") roomId: Int, @Body modifyRoom: ModifyRoom): Response<String>
++    suspend fun putModifyRoom(@Path("roomid") roomId: Int, @Body modifyRoom: ModifyRoom): Response<MsgData>
+ 
+     @PUT("/rooms/{roomid}/inherit")
+-    suspend fun putInheritRoom(@Body accountId: AccountId): Response<String>
++    suspend fun putInheritRoom(@Body accountId: AccountId): Response<MsgData>
+ 
+     @PUT("/rooms/{roomid}/rename")
+-    suspend fun putModifyNickname(@Path("roomid") roomId: Int, @Body modifyNickname: ModifyNickname): Response<String>
++    suspend fun putModifyNickname(@Path("roomid") roomId: Int, @Body modifyNickname: ModifyNickname): Response<MsgData>
+ 
+     @DELETE("/rooms/{roomid}/exit")
+-    suspend fun deleteExitRoom(@Path("roomid") roomId: Int): Response<String>
++    suspend fun deleteExitRoom(@Path("roomid") roomId: Int): Response<MsgData>
+ 
+     @DELETE("/rooms/{roomid}")
+-    suspend fun deleteRemoveRoom(@Path("roomid") roomId: Int): Response<String>
++    suspend fun deleteRemoveRoom(@Path("roomid") roomId: Int): Response<MsgData>
+ }
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_2021-10-20__4_28__Default_Changelist_.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_2021-10-20__4_28__Default_Changelist_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_2021-10-20__4_28__Default_Changelist_.xml
+new file mode 100644
+--- /dev/null	(date 1634714946868)
++++ b/.idea/shelf/Uncommitted_changes_before_Update_at_2021-10-20__4_28__Default_Changelist_.xml	(date 1634714946868)
+@@ -0,0 +1,4 @@
++<changelist name="Uncommitted_changes_before_Update_at_2021-10-20_오후_4_28_[Default_Changelist]" date="1634714944170" recycled="true" deleted="true">
++  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2021-10-20_오후_4_28_[Default_Changelist]/shelved.patch" />
++  <option name="DESCRIPTION" value="Uncommitted changes before Update at 2021-10-20 오후 4:28 [Default Changelist]" />
++</changelist>
+\ No newline at end of file
+Index: data/src/main/java/com/example/data/service/AccountService.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.data.service\r\n\r\nimport com.example.domain.entity.repuest.Ban\r\nimport com.example.domain.entity.repuest.Login\r\nimport com.example.domain.entity.response.Token\r\nimport retrofit2.Response\r\nimport retrofit2.http.Body\r\nimport retrofit2.http.GET\r\nimport retrofit2.http.POST\r\nimport retrofit2.http.Path\r\n\r\ninterface AccountService {\r\n    @POST(\"account/login\")\r\n    suspend fun postLogin(@Body login: Login): Response<String>\r\n\r\n    @POST(\"account/signUp\")\r\n    suspend fun postSignUp(@Body login: Login): Response<String>\r\n\r\n    @GET(\"account/{id}\")\r\n    suspend fun getId(@Path(\"id\") id: String): Response<String>\r\n\r\n    @GET(\"/account/ban\")\r\n    suspend fun deleteBan(@Body ban: Ban): Response<String>\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/data/src/main/java/com/example/data/service/AccountService.kt b/data/src/main/java/com/example/data/service/AccountService.kt
+--- a/data/src/main/java/com/example/data/service/AccountService.kt	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/data/src/main/java/com/example/data/service/AccountService.kt	(date 1634729589431)
+@@ -1,7 +1,10 @@
+ package com.example.data.service
+ 
++import com.example.data.entity.MsgData
++import com.example.data.entity.TokenData
+ import com.example.domain.entity.repuest.Ban
+ import com.example.domain.entity.repuest.Login
++import com.example.domain.entity.response.Msg
+ import com.example.domain.entity.response.Token
+ import retrofit2.Response
+ import retrofit2.http.Body
+@@ -11,14 +14,14 @@
+ 
+ interface AccountService {
+     @POST("account/login")
+-    suspend fun postLogin(@Body login: Login): Response<String>
++    suspend fun postLogin(@Body login: Login): Response<TokenData>
+ 
+     @POST("account/signUp")
+-    suspend fun postSignUp(@Body login: Login): Response<String>
++    suspend fun postSignUp(@Body login: Login): Response<TokenData>
+ 
+     @GET("account/{id}")
+-    suspend fun getId(@Path("id") id: String): Response<String>
++    suspend fun getId(@Path("id") id: String): Response<MsgData>
+ 
+     @GET("/account/ban")
+-    suspend fun deleteBan(@Body ban: Ban): Response<String>
++    suspend fun deleteBan(@Body ban: Ban): Response<MsgData>
+ }
+Index: data/src/main/java/com/example/data/entity/TokenData.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/data/src/main/java/com/example/data/entity/TokenData.kt b/data/src/main/java/com/example/data/entity/TokenData.kt
+new file mode 100644
+--- /dev/null	(date 1634726757731)
++++ b/data/src/main/java/com/example/data/entity/TokenData.kt	(date 1634726757731)
+@@ -0,0 +1,5 @@
++package com.example.data.entity
++
++data class TokenData(
++    val token: String?
++)
+Index: domain/src/main/java/com/example/domain/usecase/account/PostLoginUseCase.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.domain.usecase.account\r\n\r\nimport com.example.domain.base.ParamsUseCase\r\nimport com.example.domain.entity.repuest.Login\r\nimport com.example.domain.repository.AccountRepository\r\n\r\nclass PostLoginUseCase(\r\n    private val accountRepository: AccountRepository\r\n) : ParamsUseCase<PostLoginUseCase.Params, String>() {\r\n\r\n    override suspend fun buildUseCase(params: Params): String {\r\n        return accountRepository.postLogin(params.login)\r\n    }\r\n\r\n    data class Params(\r\n        val login: Login\r\n    )\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/domain/src/main/java/com/example/domain/usecase/account/PostLoginUseCase.kt b/domain/src/main/java/com/example/domain/usecase/account/PostLoginUseCase.kt
+--- a/domain/src/main/java/com/example/domain/usecase/account/PostLoginUseCase.kt	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/domain/src/main/java/com/example/domain/usecase/account/PostLoginUseCase.kt	(date 1634729589393)
+@@ -2,13 +2,14 @@
+ 
+ import com.example.domain.base.ParamsUseCase
+ import com.example.domain.entity.repuest.Login
++import com.example.domain.entity.response.Token
+ import com.example.domain.repository.AccountRepository
+ 
+ class PostLoginUseCase(
+     private val accountRepository: AccountRepository
+-) : ParamsUseCase<PostLoginUseCase.Params, String>() {
++) : ParamsUseCase<PostLoginUseCase.Params, Token>() {
+ 
+-    override suspend fun buildUseCase(params: Params): String {
++    override suspend fun buildUseCase(params: Params): Token {
+         return accountRepository.postLogin(params.login)
+     }
+ 
+Index: data/src/main/java/com/example/data/service/ChatService.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.data.service\r\n\r\nimport retrofit2.Response\r\nimport retrofit2.http.GET\r\nimport retrofit2.http.Path\r\n\r\ninterface ChatService {\r\n    @GET(\"/chat/{roomid}\")\r\n    suspend fun getChat(@Path(\"roomid\") roomId: Int): Response<String>\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/data/src/main/java/com/example/data/service/ChatService.kt b/data/src/main/java/com/example/data/service/ChatService.kt
+--- a/data/src/main/java/com/example/data/service/ChatService.kt	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/data/src/main/java/com/example/data/service/ChatService.kt	(date 1634729589459)
+@@ -1,10 +1,11 @@
+ package com.example.data.service
+ 
++import com.example.data.entity.MsgData
+ import retrofit2.Response
+ import retrofit2.http.GET
+ import retrofit2.http.Path
+ 
+ interface ChatService {
+     @GET("/chat/{roomid}")
+-    suspend fun getChat(@Path("roomid") roomId: Int): Response<String>
++    suspend fun getChat(@Path("roomid") roomId: Int): Response<MsgData>
+ }
+\ No newline at end of file
+Index: app/src/main/res/values/dimens.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/dimens.xml b/app/src/main/res/values/dimens.xml
+new file mode 100644
+--- /dev/null	(date 1634726757724)
++++ b/app/src/main/res/values/dimens.xml	(date 1634726757724)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <dimen name="padding_start_sign">30dp</dimen>
++    <dimen name="padding_top_sign">60dp</dimen>
++    <dimen name="margin_top_sign_btn">60dp</dimen>
++</resources>
+\ No newline at end of file
+Index: domain/src/main/java/com/example/domain/usecase/account/PostSignUpUseCase.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.domain.usecase.account\r\n\r\nimport com.example.domain.base.ParamsUseCase\r\nimport com.example.domain.entity.repuest.Login\r\nimport com.example.domain.repository.AccountRepository\r\nimport java.util.function.LongToIntFunction\r\nimport javax.inject.Inject\r\n\r\nclass PostSignUpUseCase @Inject constructor(\r\n    private val accountRepository: AccountRepository\r\n) : ParamsUseCase<PostSignUpUseCase.Params, String>() {\r\n\r\n    override suspend fun buildUseCase(params: Params): String {\r\n        return accountRepository.postSignUp(params.signUp)\r\n    }\r\n\r\n    data class Params(\r\n        val signUp: Login\r\n    )\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/domain/src/main/java/com/example/domain/usecase/account/PostSignUpUseCase.kt b/domain/src/main/java/com/example/domain/usecase/account/PostSignUpUseCase.kt
+--- a/domain/src/main/java/com/example/domain/usecase/account/PostSignUpUseCase.kt	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/domain/src/main/java/com/example/domain/usecase/account/PostSignUpUseCase.kt	(date 1634726757750)
+@@ -2,15 +2,16 @@
+ 
+ import com.example.domain.base.ParamsUseCase
+ import com.example.domain.entity.repuest.Login
++import com.example.domain.entity.response.Token
+ import com.example.domain.repository.AccountRepository
+ import java.util.function.LongToIntFunction
+ import javax.inject.Inject
+ 
+ class PostSignUpUseCase @Inject constructor(
+     private val accountRepository: AccountRepository
+-) : ParamsUseCase<PostSignUpUseCase.Params, String>() {
++) : ParamsUseCase<PostSignUpUseCase.Params, Token>() {
+ 
+-    override suspend fun buildUseCase(params: Params): String {
++    override suspend fun buildUseCase(params: Params): Token {
+         return accountRepository.postSignUp(params.signUp)
+     }
+ 
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_2021-10-20_오후_7_45_[Default_Changelist]/shelved.patch
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_2021-10-20_오후_7_45_[Default_Changelist]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_2021-10-20_오후_7_45_[Default_Changelist]/shelved.patch
+new file mode 100644
+--- /dev/null	(date 1634726755603)
++++ b/.idea/shelf/Uncommitted_changes_before_Update_at_2021-10-20_오후_7_45_[Default_Changelist]/shelved.patch	(date 1634726755603)
+@@ -0,0 +1,735 @@
++Index: data/src/main/java/com/example/data/datasource/AccountDataSource.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+>package com.example.data.datasource\r\n\r\nimport com.example.data.base.BaseDataSource\r\nimport com.example.data.service.AccountService\r\nimport com.example.domain.entity.repuest.Ban\r\nimport com.example.domain.entity.repuest.Login\r\nimport javax.inject.Inject\r\n\r\nclass AccountDataSource @Inject constructor(\r\n    override val service: AccountService\r\n) : BaseDataSource<AccountService>() {\r\n\r\n    suspend fun postLogin(login: Login): String {\r\n        return getResponse(service.postLogin(login))\r\n    }\r\n\r\n    suspend fun postSignUp(signUp: Login): String {\r\n        return getResponse(service.postSignUp(signUp))\r\n    }\r\n\r\n    suspend fun getId(id: String): String {\r\n        return getResponse(service.getId(id))\r\n    }\r\n\r\n    suspend fun deleteBan(ban: Ban): String {\r\n        return getResponse(service.deleteBan(ban))\r\n    }\r\n}
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/data/src/main/java/com/example/data/datasource/AccountDataSource.kt b/data/src/main/java/com/example/data/datasource/AccountDataSource.kt
++--- a/data/src/main/java/com/example/data/datasource/AccountDataSource.kt	(revision a3e7bec19a6642fc779ffa944a1b61ed62b8f209)
+++++ b/data/src/main/java/com/example/data/datasource/AccountDataSource.kt	(date 1634721350629)
++@@ -4,6 +4,7 @@
++ import com.example.data.service.AccountService
++ import com.example.domain.entity.repuest.Ban
++ import com.example.domain.entity.repuest.Login
+++import com.example.domain.entity.response.Token
++ import javax.inject.Inject
++ 
++ class AccountDataSource @Inject constructor(
++@@ -14,7 +15,7 @@
++         return getResponse(service.postLogin(login))
++     }
++ 
++-    suspend fun postSignUp(signUp: Login): String {
+++    suspend fun postSignUp(signUp: Login): Token {
++         return getResponse(service.postSignUp(signUp))
++     }
++ 
++Index: .idea/misc.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"DesignSurface\">\r\n    <option name=\"filePathToZoomLevelMap\">\r\n      <map>\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/drawable-v24/ic_launcher_foreground.xml\" value=\"0.275\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/drawable/btn_radio_background.xml\" value=\"0.275\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/drawable/ic_baseline_close_24.xml\" value=\"0.275\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/drawable/ic_baseline_send_24.xml\" value=\"0.20520833333333333\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/drawable/main_btn_selector.xml\" value=\"0.275\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/drawable/rounded_corner_rectangle.xml\" value=\"0.275\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/drawable/tab_indicator.xml\" value=\"0.21510416666666668\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/activity_main.xml\" value=\"0.264\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/chatting_fragment.xml\" value=\"0.25885416666666666\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_chatting.xml\" value=\"0.25885416666666666\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_create_room.xml\" value=\"0.22552083333333334\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_home.xml\" value=\"0.264\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_home_join_chatting.xml\" value=\"0.3541666666666667\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_home_rv_item_chatting_room.xml\" value=\"0.536\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_home_vp_item.xml\" value=\"0.152\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/rv_item_chatting_room.xml\" value=\"0.264\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/view_pager_item_home.xml\" value=\"0.4\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/vp_item_chat.xml\" value=\"0.25885416666666666\" />\r\n        <entry key=\"app/src/main/res/layout/activity_main.xml\" value=\"0.2125\" />\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_11\" default=\"true\" project-jdk-name=\"11\" project-jdk-type=\"JavaSDK\">\r\n  <component name=\"DesignSurface\">\r\n    <option name=\"filePathToZoomLevelMap\">\r\n      <map>\r\n        <entry key=\"app/src/main/res/layout/fragment_create_room.xml\" value=\"0.335\" />\r\n        <entry key=\"app/src/main/res/layout/fragment_home.xml\" value=\"0.1953125\" />\r\n        <entry key=\"app/src/main/res/layout/fragment_home_vp_item.xml\" value=\"0.1953125\" />\r\n        <entry key=\"app/src/main/res/layout/fragment_login.xml\" value=\"0.1953125\" />\r\n        <entry key=\"app/src/main/res/layout/fragment_splash.xml\" value=\"0.1953125\" />\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_1_8\" default=\"true\" project-jdk-name=\"1.8\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n</project>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/.idea/misc.xml b/.idea/misc.xml
++--- a/.idea/misc.xml	(revision a3e7bec19a6642fc779ffa944a1b61ed62b8f209)
+++++ b/.idea/misc.xml	(date 1634717402833)
++@@ -18,6 +18,8 @@
++         <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_home_join_chatting.xml" value="0.3541666666666667" />
++         <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_home_rv_item_chatting_room.xml" value="0.536" />
++         <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_home_vp_item.xml" value="0.152" />
+++        <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_sign_up.xml" value="0.18020833333333333" />
+++        <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/layout_rv_item_user.xml" value="0.16259057971014493" />
++         <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/rv_item_chatting_room.xml" value="0.264" />
++         <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/view_pager_item_home.xml" value="0.4" />
++         <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/vp_item_chat.xml" value="0.25885416666666666" />
++Index: data/src/main/java/com/example/data/repository/AccountRepositoryImpl.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+>package com.example.data.repository\r\n\r\nimport com.example.data.datasource.AccountDataSource\r\nimport com.example.domain.entity.repuest.Ban\r\nimport com.example.domain.entity.repuest.Login\r\nimport com.example.domain.repository.AccountRepository\r\nimport javax.inject.Inject\r\nimport kotlin.math.log\r\n\r\nclass AccountRepositoryImpl @Inject constructor(\r\n    private val dataSource: AccountDataSource\r\n) : AccountRepository {\r\n\r\n    override suspend fun postLogin(login: Login): String {\r\n        return dataSource.postLogin(login)\r\n    }\r\n\r\n    override suspend fun postSignUp(signUp: Login): String {\r\n        return dataSource.postSignUp(signUp)\r\n    }\r\n\r\n    override suspend fun getId(id: String): String {\r\n        return dataSource.getId(id)\r\n    }\r\n\r\n    override suspend fun deleteBan(ban: Ban): String {\r\n        return dataSource.deleteBan(ban)\r\n    }\r\n}
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/data/src/main/java/com/example/data/repository/AccountRepositoryImpl.kt b/data/src/main/java/com/example/data/repository/AccountRepositoryImpl.kt
++--- a/data/src/main/java/com/example/data/repository/AccountRepositoryImpl.kt	(revision a3e7bec19a6642fc779ffa944a1b61ed62b8f209)
+++++ b/data/src/main/java/com/example/data/repository/AccountRepositoryImpl.kt	(date 1634721350729)
++@@ -3,6 +3,7 @@
++ import com.example.data.datasource.AccountDataSource
++ import com.example.domain.entity.repuest.Ban
++ import com.example.domain.entity.repuest.Login
+++import com.example.domain.entity.response.Token
++ import com.example.domain.repository.AccountRepository
++ import javax.inject.Inject
++ import kotlin.math.log
++@@ -15,7 +16,7 @@
++         return dataSource.postLogin(login)
++     }
++ 
++-    override suspend fun postSignUp(signUp: Login): String {
+++    override suspend fun postSignUp(signUp: Login): Token {
++         return dataSource.postSignUp(signUp)
++     }
++ 
++Index: domain/src/main/java/com/example/domain/repository/AccountRepository.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+>package com.example.domain.repository\r\n\r\nimport com.example.domain.entity.repuest.Ban\r\nimport com.example.domain.entity.repuest.Login\r\n\r\ninterface AccountRepository {\r\n    suspend fun postLogin(login: Login): String\r\n\r\n    suspend fun postSignUp(signUp: Login): String\r\n\r\n    suspend fun getId(id: String): String\r\n\r\n    suspend fun deleteBan(ban: Ban): String\r\n}
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/domain/src/main/java/com/example/domain/repository/AccountRepository.kt b/domain/src/main/java/com/example/domain/repository/AccountRepository.kt
++--- a/domain/src/main/java/com/example/domain/repository/AccountRepository.kt	(revision a3e7bec19a6642fc779ffa944a1b61ed62b8f209)
+++++ b/domain/src/main/java/com/example/domain/repository/AccountRepository.kt	(date 1634721350748)
++@@ -2,11 +2,12 @@
++ 
++ import com.example.domain.entity.repuest.Ban
++ import com.example.domain.entity.repuest.Login
+++import com.example.domain.entity.response.Token
++ 
++ interface AccountRepository {
++     suspend fun postLogin(login: Login): String
++ 
++-    suspend fun postSignUp(signUp: Login): String
+++    suspend fun postSignUp(signUp: Login): Token
++ 
++     suspend fun getId(id: String): String
++ 
++Index: app/src/main/java/com/example/hotspotalk/view/fragment/SignUpFragment.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+>package com.example.hotspotalk.view.fragment\r\n\r\nimport android.os.Bundle\r\nimport androidx.fragment.app.Fragment\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport com.example.hotspotalk.R\r\n\r\n/**\r\n * 회원가입 프래그먼트\r\n */\r\n\r\nclass SignUpFragment : Fragment() {\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater, container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View? {\r\n        // Inflate the layout for this fragment\r\n        return inflater.inflate(R.layout.fragment_sign_up, container, false)\r\n    }\r\n\r\n}
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/java/com/example/hotspotalk/view/fragment/SignUpFragment.kt b/app/src/main/java/com/example/hotspotalk/view/fragment/SignUpFragment.kt
++--- a/app/src/main/java/com/example/hotspotalk/view/fragment/SignUpFragment.kt	(revision a3e7bec19a6642fc779ffa944a1b61ed62b8f209)
+++++ b/app/src/main/java/com/example/hotspotalk/view/fragment/SignUpFragment.kt	(date 1634726750146)
++@@ -5,20 +5,64 @@
++ import android.view.LayoutInflater
++ import android.view.View
++ import android.view.ViewGroup
+++import android.widget.Toast
+++import androidx.databinding.DataBindingUtil
+++import androidx.fragment.app.activityViewModels
+++import androidx.navigation.fragment.findNavController
+++import com.example.domain.usecase.account.PostSignUpUseCase
++ import com.example.hotspotalk.R
+++import com.example.hotspotalk.databinding.FragmentSignUpBinding
+++import com.example.hotspotalk.viewmodel.SignUpViewModel
+++import com.example.hotspotalk.viewmodel.factory.SignUpViewModelFactory
+++import dagger.hilt.android.AndroidEntryPoint
+++import javax.inject.Inject
++ 
++ /**
++  * 회원가입 프래그먼트
++  */
++ 
+++@AndroidEntryPoint
++ class SignUpFragment : Fragment() {
++ 
+++    @Inject
+++    lateinit var postSignUpUseCase: PostSignUpUseCase
+++
+++    private val navController by lazy {
+++        findNavController()
+++    }
+++
+++    private lateinit var binding: FragmentSignUpBinding
+++    private val viewModel: SignUpViewModel by activityViewModels {
+++        SignUpViewModelFactory(postSignUpUseCase)
+++    }
+++
++     override fun onCreateView(
++         inflater: LayoutInflater, container: ViewGroup?,
++         savedInstanceState: Bundle?
++     ): View? {
++-        // Inflate the layout for this fragment
++-        return inflater.inflate(R.layout.fragment_sign_up, container, false)
+++        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sign_up, container, false)
+++        binding.vm = viewModel
+++        binding.lifecycleOwner = viewLifecycleOwner
+++        return binding.root
++     }
++ 
+++    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+++        super.onViewCreated(view, savedInstanceState)
+++
+++        observe()
+++    }
+++
+++    private fun observe() = with(viewModel) {
+++        isSuccess.observe(viewLifecycleOwner) {
+++            navigateToHome()
+++        }
+++
+++        isFailure.observe(viewLifecycleOwner) {
+++            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+++        }
+++    }
+++
+++    private fun navigateToHome() {
+++        navController.navigate(R.id.action_signUpFragment_to_homeFragment)
+++    }
++ }
++\ No newline at end of file
++Index: app/src/main/res/layout/fragment_sign_up.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<FrameLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".view.fragment.SignUpFragment\">\r\n\r\n    <!-- TODO: Update blank fragment layout -->\r\n    <TextView\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:text=\"@string/hello_blank_fragment\" />\r\n\r\n</FrameLayout>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/res/layout/fragment_sign_up.xml b/app/src/main/res/layout/fragment_sign_up.xml
++--- a/app/src/main/res/layout/fragment_sign_up.xml	(revision a3e7bec19a6642fc779ffa944a1b61ed62b8f209)
+++++ b/app/src/main/res/layout/fragment_sign_up.xml	(date 1634720906212)
++@@ -1,14 +1,118 @@
++ <?xml version="1.0" encoding="utf-8"?>
++-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
++-    xmlns:tools="http://schemas.android.com/tools"
++-    android:layout_width="match_parent"
++-    android:layout_height="match_parent"
++-    tools:context=".view.fragment.SignUpFragment">
+++<layout xmlns:android="http://schemas.android.com/apk/res/android"
+++    xmlns:app="http://schemas.android.com/apk/res-auto"
+++    xmlns:tools="http://schemas.android.com/tools">
+++
+++    <data>
+++        <variable
+++            name="vm"
+++            type="com.example.hotspotalk.viewmodel.SignUpViewModel" />
+++    </data>
+++
+++    <androidx.constraintlayout.widget.ConstraintLayout
+++        android:paddingStart="@dimen/padding_start_sign"
+++        android:paddingEnd="@dimen/padding_start_sign"
+++        android:paddingTop="@dimen/padding_top_sign"
+++        android:paddingBottom="@dimen/padding_top_sign"
+++        android:layout_width="match_parent"
+++        android:layout_height="match_parent"
+++        tools:context=".view.fragment.SignUpFragment">
++ 
++-    <!-- TODO: Update blank fragment layout -->
++-    <TextView
++-        android:layout_width="match_parent"
++-        android:layout_height="match_parent"
++-        android:text="@string/hello_blank_fragment" />
+++        <TextView
+++            android:id="@+id/textView3"
+++            style="@style/TitleTextView"
+++            android:layout_width="wrap_content"
+++            android:layout_height="wrap_content"
+++            android:text="@string/sign_up"
+++            app:layout_constraintStart_toStartOf="parent"
+++            app:layout_constraintTop_toTopOf="parent" />
+++
+++        <com.google.android.material.textfield.TextInputLayout
+++            android:id="@+id/textInputLayout"
+++            style="@style/MainTextInputLayout"
+++            android:layout_marginTop="32dp"
+++            android:layout_width="match_parent"
+++            android:layout_height="wrap_content"
+++            app:layout_constraintStart_toStartOf="@+id/textView3"
+++            app:layout_constraintTop_toBottomOf="@+id/textView3">
+++
+++            <com.google.android.material.textfield.TextInputEditText
+++                style="@style/MainTextInputEditText"
+++                android:text="@={vm.id}"
+++                android:layout_width="match_parent"
+++                android:layout_height="wrap_content"
+++                android:hint="@string/id" />
+++        </com.google.android.material.textfield.TextInputLayout>
+++
+++        <com.google.android.material.textfield.TextInputLayout
+++            android:id="@+id/textInputLayout2"
+++            style="@style/MainTextInputLayout"
+++            android:layout_width="match_parent"
+++            android:layout_height="wrap_content"
+++            app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
+++            app:layout_constraintStart_toStartOf="@+id/textInputLayout"
+++            app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+++
+++            <com.google.android.material.textfield.TextInputEditText
+++                style="@style/MainTextInputEditText"
+++                android:text="@={vm.pw}"
+++                android:layout_width="match_parent"
+++                android:layout_height="wrap_content"
+++                android:hint="@string/password" />
+++        </com.google.android.material.textfield.TextInputLayout>
+++
+++        <com.google.android.material.textfield.TextInputLayout
+++            android:id="@+id/textInputLayout3"
+++            style="@style/MainTextInputLayout"
+++            android:layout_width="match_parent"
+++            android:layout_height="wrap_content"
+++            app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
+++            app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
+++            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
++ 
++-</FrameLayout>
++\ No newline at end of file
+++            <com.google.android.material.textfield.TextInputEditText
+++                style="@style/MainTextInputEditText"
+++                android:text="@={vm.pwCheck}"
+++                android:layout_width="match_parent"
+++                android:layout_height="wrap_content"
+++                android:hint="@string/password_check" />
+++        </com.google.android.material.textfield.TextInputLayout>
+++
+++        <androidx.appcompat.widget.AppCompatButton
+++            android:id="@+id/button"
+++            android:onClick="@{() -> vm.signUp()}"
+++            style="@style/Widget.AppCompat.Button.MainButton"
+++            android:layout_width="match_parent"
+++            android:layout_height="wrap_content"
+++            android:layout_marginTop="@dimen/margin_top_sign_btn"
+++            android:text="@string/sign_up"
+++            app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
+++            app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
+++            app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
+++
+++        <LinearLayout
+++            android:layout_width="0dp"
+++            android:layout_height="wrap_content"
+++            android:gravity="center"
+++            android:orientation="horizontal"
+++            app:layout_constraintBottom_toBottomOf="parent"
+++            app:layout_constraintEnd_toEndOf="parent"
+++            app:layout_constraintStart_toStartOf="parent">
+++
+++            <TextView
+++                android:id="@+id/textView5"
+++                style="@style/Base.Widget.AppCompat.TextView.RegularTextView"
+++                android:layout_width="wrap_content"
+++                android:layout_height="wrap_content"
+++                android:text="이미 회원이신가요?" />
+++
+++            <TextView
+++                android:id="@+id/textView4"
+++                style="@style/Base.Widget.AppCompat.TextView.RegularTextView"
+++                android:layout_width="wrap_content"
+++                android:layout_height="wrap_content"
+++                android:layout_marginStart="20dp"
+++                android:text="로그인하기" />
+++        </LinearLayout>
+++    </androidx.constraintlayout.widget.ConstraintLayout>
+++</layout>
++\ No newline at end of file
++Index: app/src/main/res/layout/fragment_login.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<FrameLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".view.fragment.LoginFragment\">\r\n\r\n    <!-- TODO: Update blank fragment layout -->\r\n    <TextView\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:text=\"@string/hello_blank_fragment\" />\r\n\r\n</FrameLayout>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/res/layout/fragment_login.xml b/app/src/main/res/layout/fragment_login.xml
++--- a/app/src/main/res/layout/fragment_login.xml	(revision a3e7bec19a6642fc779ffa944a1b61ed62b8f209)
+++++ b/app/src/main/res/layout/fragment_login.xml	(date 1634721061441)
++@@ -1,14 +1,100 @@
++ <?xml version="1.0" encoding="utf-8"?>
++-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+++<layout xmlns:android="http://schemas.android.com/apk/res/android"
++     xmlns:tools="http://schemas.android.com/tools"
++-    android:layout_width="match_parent"
++-    android:layout_height="match_parent"
++-    tools:context=".view.fragment.LoginFragment">
+++    xmlns:app="http://schemas.android.com/apk/res-auto">
+++
+++    <data>
+++        <variable
+++            name="vm"
+++            type="com.example.hotspotalk.viewmodel.SignInViewModel" />
+++    </data>
+++
+++    <androidx.constraintlayout.widget.ConstraintLayout
+++        android:paddingTop="@dimen/padding_top_sign"
+++        android:paddingBottom="@dimen/padding_top_sign"
+++        android:paddingStart="@dimen/padding_start_sign"
+++        android:paddingEnd="@dimen/padding_start_sign"
+++        android:layout_width="match_parent"
+++        android:layout_height="match_parent"
+++        tools:context=".view.fragment.LoginFragment">
++ 
++-    <!-- TODO: Update blank fragment layout -->
++-    <TextView
++-        android:layout_width="match_parent"
++-        android:layout_height="match_parent"
++-        android:text="@string/hello_blank_fragment" />
+++        <TextView
+++            android:id="@+id/textView7"
+++            style="@style/TitleTextView"
+++            android:layout_width="wrap_content"
+++            android:layout_height="wrap_content"
+++            android:text="@string/sign_in"
+++            app:layout_constraintStart_toStartOf="parent"
+++            app:layout_constraintTop_toTopOf="parent" />
+++
+++        <com.google.android.material.textfield.TextInputLayout
+++            android:id="@+id/textInputLayout4"
+++            style="@style/MainTextInputLayout"
+++            android:layout_width="match_parent"
+++            android:layout_height="wrap_content"
+++            android:layout_marginEnd="2dp"
+++            android:layout_marginTop="32dp"
+++            app:layout_constraintEnd_toEndOf="parent"
+++            app:layout_constraintStart_toStartOf="parent"
+++            app:layout_constraintTop_toBottomOf="@+id/textView7">
+++
+++            <com.google.android.material.textfield.TextInputEditText
+++                style="@style/MainTextInputEditText"
+++                android:text="@{vm.id}"
+++                android:layout_width="match_parent"
+++                android:layout_height="wrap_content"
+++                android:hint="@string/id" />
+++        </com.google.android.material.textfield.TextInputLayout>
+++
+++        <com.google.android.material.textfield.TextInputLayout
+++            android:id="@+id/textInputLayout5"
+++            style="@style/MainTextInputLayout"
+++            android:layout_width="match_parent"
+++            android:layout_height="wrap_content"
+++            app:layout_constraintEnd_toEndOf="@+id/textInputLayout4"
+++            app:layout_constraintStart_toStartOf="@+id/textInputLayout4"
+++            app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
+++
+++            <com.google.android.material.textfield.TextInputEditText
+++                style="@style/MainTextInputEditText"
+++                android:text="@{vm.pw}"
+++                android:layout_width="match_parent"
+++                android:layout_height="wrap_content"
+++                android:hint="@string/password" />
+++        </com.google.android.material.textfield.TextInputLayout>
+++
+++        <androidx.appcompat.widget.AppCompatButton
+++            android:id="@+id/button2"
+++            style="@style/Widget.AppCompat.Button.MainButton"
+++            android:layout_width="0dp"
+++            android:layout_height="wrap_content"
+++            android:layout_marginTop="@dimen/margin_top_sign_btn"
+++            android:text="@string/sign_up"
+++            app:layout_constraintEnd_toEndOf="@+id/textInputLayout5"
+++            app:layout_constraintStart_toStartOf="@+id/textInputLayout5"
+++            app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
+++
+++        <LinearLayout
+++            android:layout_width="0dp"
+++            android:layout_height="wrap_content"
+++            android:orientation="horizontal"
+++            android:gravity="center"
+++            app:layout_constraintBottom_toBottomOf="parent"
+++            app:layout_constraintEnd_toEndOf="parent"
+++            app:layout_constraintStart_toStartOf="parent">
++ 
++-</FrameLayout>
++\ No newline at end of file
+++            <TextView
+++                android:id="@+id/textView9"
+++                android:layout_width="wrap_content"
+++                android:layout_height="wrap_content"
+++                android:text="TextView" />
+++
+++            <TextView
+++                android:id="@+id/textView10"
+++                android:layout_width="wrap_content"
+++                android:layout_height="wrap_content"
+++                android:text="TextView" />
+++        </LinearLayout>
+++
+++    </androidx.constraintlayout.widget.ConstraintLayout>
+++</layout>
++\ No newline at end of file
++Index: data/src/main/java/com/example/data/mapper/TokenMapper.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/data/src/main/java/com/example/data/mapper/TokenMapper.kt b/data/src/main/java/com/example/data/mapper/TokenMapper.kt
++new file mode 100644
++--- /dev/null	(date 1634725839614)
+++++ b/data/src/main/java/com/example/data/mapper/TokenMapper.kt	(date 1634725839614)
++@@ -0,0 +1,10 @@
+++package com.example.data.mapper
+++
+++import com.example.data.entity.TokenData
+++import com.example.domain.entity.response.Token
+++
+++fun Token.toData() =
+++    TokenData(this.token)
+++
+++fun TokenData.toEntity() =
+++    Token(this.token)
++\ No newline at end of file
++Index: app/src/main/res/values/dimens.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/res/values/dimens.xml b/app/src/main/res/values/dimens.xml
++new file mode 100644
++--- /dev/null	(date 1634720906236)
+++++ b/app/src/main/res/values/dimens.xml	(date 1634720906236)
++@@ -0,0 +1,6 @@
+++<?xml version="1.0" encoding="utf-8"?>
+++<resources>
+++    <dimen name="padding_start_sign">30dp</dimen>
+++    <dimen name="padding_top_sign">60dp</dimen>
+++    <dimen name="margin_top_sign_btn">60dp</dimen>
+++</resources>
++\ No newline at end of file
++Index: data/src/main/java/com/example/data/entity/TokenData.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/data/src/main/java/com/example/data/entity/TokenData.kt b/data/src/main/java/com/example/data/entity/TokenData.kt
++new file mode 100644
++--- /dev/null	(date 1634725839597)
+++++ b/data/src/main/java/com/example/data/entity/TokenData.kt	(date 1634725839597)
++@@ -0,0 +1,5 @@
+++package com.example.data.entity
+++
+++data class TokenData(
+++    val token: String?
+++)
++Index: data/src/main/java/com/example/data/service/AccountService.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+>package com.example.data.service\r\n\r\nimport com.example.domain.entity.repuest.Ban\r\nimport com.example.domain.entity.repuest.Login\r\nimport com.example.domain.entity.response.Token\r\nimport retrofit2.Response\r\nimport retrofit2.http.Body\r\nimport retrofit2.http.GET\r\nimport retrofit2.http.POST\r\nimport retrofit2.http.Path\r\n\r\ninterface AccountService {\r\n    @POST(\"account/login\")\r\n    suspend fun postLogin(@Body login: Login): Response<String>\r\n\r\n    @POST(\"account/signUp\")\r\n    suspend fun postSignUp(@Body login: Login): Response<String>\r\n\r\n    @GET(\"account/{id}\")\r\n    suspend fun getId(@Path(\"id\") id: String): Response<String>\r\n\r\n    @GET(\"/account/ban\")\r\n    suspend fun deleteBan(@Body ban: Ban): Response<String>\r\n}\r\n
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/data/src/main/java/com/example/data/service/AccountService.kt b/data/src/main/java/com/example/data/service/AccountService.kt
++--- a/data/src/main/java/com/example/data/service/AccountService.kt	(revision a3e7bec19a6642fc779ffa944a1b61ed62b8f209)
+++++ b/data/src/main/java/com/example/data/service/AccountService.kt	(date 1634721350644)
++@@ -14,7 +14,7 @@
++     suspend fun postLogin(@Body login: Login): Response<String>
++ 
++     @POST("account/signUp")
++-    suspend fun postSignUp(@Body login: Login): Response<String>
+++    suspend fun postSignUp(@Body login: Login): Response<Token>
++ 
++     @GET("account/{id}")
++     suspend fun getId(@Path("id") id: String): Response<String>
++Index: domain/src/main/java/com/example/domain/usecase/account/PostSignUpUseCase.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+>package com.example.domain.usecase.account\r\n\r\nimport com.example.domain.base.ParamsUseCase\r\nimport com.example.domain.entity.repuest.Login\r\nimport com.example.domain.repository.AccountRepository\r\nimport java.util.function.LongToIntFunction\r\nimport javax.inject.Inject\r\n\r\nclass PostSignUpUseCase @Inject constructor(\r\n    private val accountRepository: AccountRepository\r\n) : ParamsUseCase<PostSignUpUseCase.Params, String>() {\r\n\r\n    override suspend fun buildUseCase(params: Params): String {\r\n        return accountRepository.postSignUp(params.signUp)\r\n    }\r\n\r\n    data class Params(\r\n        val signUp: Login\r\n    )\r\n}
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/domain/src/main/java/com/example/domain/usecase/account/PostSignUpUseCase.kt b/domain/src/main/java/com/example/domain/usecase/account/PostSignUpUseCase.kt
++--- a/domain/src/main/java/com/example/domain/usecase/account/PostSignUpUseCase.kt	(revision a3e7bec19a6642fc779ffa944a1b61ed62b8f209)
+++++ b/domain/src/main/java/com/example/domain/usecase/account/PostSignUpUseCase.kt	(date 1634721232144)
++@@ -2,15 +2,16 @@
++ 
++ import com.example.domain.base.ParamsUseCase
++ import com.example.domain.entity.repuest.Login
+++import com.example.domain.entity.response.Token
++ import com.example.domain.repository.AccountRepository
++ import java.util.function.LongToIntFunction
++ import javax.inject.Inject
++ 
++ class PostSignUpUseCase @Inject constructor(
++     private val accountRepository: AccountRepository
++-) : ParamsUseCase<PostSignUpUseCase.Params, String>() {
+++) : ParamsUseCase<PostSignUpUseCase.Params, Token>() {
++ 
++-    override suspend fun buildUseCase(params: Params): String {
+++    override suspend fun buildUseCase(params: Params): Token {
++         return accountRepository.postSignUp(params.signUp)
++     }
++ 
++Index: app/src/main/java/com/example/hotspotalk/viewmodel/SignUpViewModel.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/java/com/example/hotspotalk/viewmodel/SignUpViewModel.kt b/app/src/main/java/com/example/hotspotalk/viewmodel/SignUpViewModel.kt
++new file mode 100644
++--- /dev/null	(date 1634726620572)
+++++ b/app/src/main/java/com/example/hotspotalk/viewmodel/SignUpViewModel.kt	(date 1634726620572)
++@@ -0,0 +1,42 @@
+++package com.example.hotspotalk.viewmodel
+++
+++import androidx.lifecycle.MutableLiveData
+++import androidx.lifecycle.ViewModel
+++import androidx.lifecycle.viewModelScope
+++import com.example.domain.entity.repuest.Login
+++import com.example.domain.entity.response.Token
+++import com.example.domain.usecase.account.PostSignUpUseCase
+++import kotlinx.coroutines.launch
+++
+++class SignUpViewModel(
+++    private val postSignUpUseCase: PostSignUpUseCase
+++) : ViewModel() {
+++
+++    val id = MutableLiveData("")
+++    val pw = MutableLiveData("")
+++    val pwCheck = MutableLiveData("")
+++
+++    private val _isSuccess = MutableLiveData<Token>()
+++    val isSuccess = _isSuccess
+++
+++    private val _isFailure = MutableLiveData<String>()
+++    val isFailure = _isFailure
+++
+++    // todo deviceToken
+++    val devToken = ""
+++
+++    fun signUp() {
+++        viewModelScope.launch {
+++            if (pw.value != pwCheck.value) {
+++                return@launch
+++            }
+++
+++            val signUp = Login(id.value!!, pw.value!!, devToken)
+++            try {
+++                _isSuccess.postValue(postSignUpUseCase.buildUseCase(PostSignUpUseCase.Params(signUp)))
+++            } catch (e: Exception) {
+++                isFailure.postValue(e.message)
+++            }
+++        }
+++    }
+++}
++\ No newline at end of file
++Index: app/src/main/res/values/strings.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><resources>\r\n    <string name=\"app_name\">HotspoTalk</string>\r\n    <!-- TODO: Remove or change this placeholder text -->\r\n    <string name=\"hello_blank_fragment\">Hello blank fragment</string>\r\n    <string name=\"chatting_room_name\">채팅방명</string>\r\n    <string name=\"total_people_number\">총 인원</string>\r\n    <string name=\"password\">비밀번호</string>\r\n    <string name=\"chatting\">채팅</string>\r\n    <string name=\"create_room\">방 만들기</string>\r\n</resources>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
++--- a/app/src/main/res/values/strings.xml	(revision a3e7bec19a6642fc779ffa944a1b61ed62b8f209)
+++++ b/app/src/main/res/values/strings.xml	(date 1634720755403)
++@@ -7,4 +7,8 @@
++     <string name="password">비밀번호</string>
++     <string name="chatting">채팅</string>
++     <string name="create_room">방 만들기</string>
+++    <string name="sign_up">회원가입</string>
+++    <string name="id">아이디</string>
+++    <string name="password_check">비밀번호 확인</string>
+++    <string name="sign_in">로그인</string>
++ </resources>
++\ No newline at end of file
++Index: app/src/main/res/values/themes.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><resources xmlns:tools=\"http://schemas.android.com/tools\">\r\n    <!-- Base application theme. -->\r\n    <style name=\"Theme.HotspoTalk\" parent=\"Theme.MaterialComponents.DayNight.NoActionBar\">\r\n        <!-- Primary brand color. -->\r\n        <item name=\"colorPrimary\">@color/purple_500</item>\r\n        <item name=\"colorPrimaryVariant\">@color/purple_700</item>\r\n        <item name=\"colorOnPrimary\">@color/white</item>\r\n        <!-- Secondary brand color. -->\r\n        <item name=\"colorSecondary\">@color/teal_200</item>\r\n        <item name=\"colorSecondaryVariant\">@color/teal_700</item>\r\n        <item name=\"colorOnSecondary\">@color/black</item>\r\n        <!-- Status bar color. -->\r\n        <item name=\"android:statusBarColor\" tools:targetApi=\"l\">?attr/colorPrimaryVariant</item>\r\n        <!-- Customize your theme here. -->\r\n    </style>\r\n\r\n    <!-- Button -->\r\n    <style name=\"Widget.AppCompat.Button.MainButton\">\r\n        <item name=\"android:background\">@drawable/main_btn_selector</item>\r\n        <item name=\"android:textColor\">@color/white</item>\r\n        <item name=\"elevation\">5dp</item>\r\n        <item name=\"android:translationZ\" tools:targetApi=\"lollipop\">10dp</item>\r\n    </style>\r\n\r\n    <!-- TextView -->\r\n    <style name=\"Base.Widget.AppCompat.TextView.BigTextView\">\r\n        <item name=\"android:textColor\">@color/black</item>\r\n        <item name=\"android:textSize\">20sp</item>\r\n    </style>\r\n\r\n    <style name=\"Base.Widget.AppCompat.TextView.SmallTextView\">\r\n        <item name=\"android:textColor\">@color/black</item>\r\n        <item name=\"android:textSize\">15sp</item>\r\n    </style>\r\n</resources>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/res/values/themes.xml b/app/src/main/res/values/themes.xml
++--- a/app/src/main/res/values/themes.xml	(revision a3e7bec19a6642fc779ffa944a1b61ed62b8f209)
+++++ b/app/src/main/res/values/themes.xml	(date 1634720496565)
++@@ -23,13 +23,46 @@
++     </style>
++ 
++     <!-- TextView -->
+++    <style name="TitleTextView" parent="Widget.AppCompat.TextView">
+++        <item name="android:textColor">@color/black</item>
+++        <item name="android:textSize">30sp</item>
+++        <item name="android:textStyle">bold</item>
+++    </style>
+++
++     <style name="Base.Widget.AppCompat.TextView.BigTextView">
++         <item name="android:textColor">@color/black</item>
++         <item name="android:textSize">20sp</item>
++     </style>
+++
+++    <style name="Base.Widget.AppCompat.TextView.RegularTextView">
+++        <item name="android:textColor">@color/black</item>
+++        <item name="android:textSize">18sp</item>
+++    </style>
++ 
++     <style name="Base.Widget.AppCompat.TextView.SmallTextView">
++         <item name="android:textColor">@color/black</item>
++         <item name="android:textSize">15sp</item>
++     </style>
+++
+++    <!-- TextInputLayout -->
+++    <style name="MainTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+++        <item name="hintEnabled">false</item>
+++        <item name="errorEnabled">true</item>
+++        <item name="android:layout_marginTop">5dp</item>
+++        <item name="boxCornerRadiusBottomEnd">40dp</item>
+++        <item name="boxCornerRadiusBottomStart">40dp</item>
+++        <item name="boxCornerRadiusTopEnd">40dp</item>
+++        <item name="boxCornerRadiusTopStart">40dp</item>
+++    </style>
+++
+++    <!-- EditText -->
+++    <style name="MainTextInputEditText" parent="Widget.AppCompat.EditText">
+++        <item name="maxLines">1</item>
+++        <item name="singleLine">true</item>
+++        <item name="android:textColor">@color/black</item>
+++        <item name="android:textSize">15sp</item>
+++        <item name="android:includeFontPadding">true</item>
+++        <item name="android:paddingStart">24dp</item>
+++        <item name="android:paddingEnd">24dp</item>
+++    </style>
++ </resources>
++\ No newline at end of file
++Index: app/src/main/java/com/example/hotspotalk/viewmodel/factory/SignUpViewModelFactory.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/java/com/example/hotspotalk/viewmodel/factory/SignUpViewModelFactory.kt b/app/src/main/java/com/example/hotspotalk/viewmodel/factory/SignUpViewModelFactory.kt
++new file mode 100644
++--- /dev/null	(date 1634718095431)
+++++ b/app/src/main/java/com/example/hotspotalk/viewmodel/factory/SignUpViewModelFactory.kt	(date 1634718095431)
++@@ -0,0 +1,17 @@
+++package com.example.hotspotalk.viewmodel.factory
+++
+++import androidx.lifecycle.ViewModel
+++import androidx.lifecycle.ViewModelProvider
+++import com.example.domain.usecase.account.PostSignUpUseCase
+++import com.example.hotspotalk.viewmodel.SignUpViewModel
+++
+++class SignUpViewModelFactory(
+++    val postSignUpUseCase: PostSignUpUseCase
+++) : ViewModelProvider.Factory {
+++    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+++        if (modelClass.isAssignableFrom(SignUpViewModel::class.java)) {
+++            return SignUpViewModel() as T
+++        }
+++        throw IllegalAccessException()
+++    }
+++}
++\ No newline at end of file
++Index: app/src/main/java/com/example/hotspotalk/viewmodel/SignInViewModel.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/java/com/example/hotspotalk/viewmodel/SignInViewModel.kt b/app/src/main/java/com/example/hotspotalk/viewmodel/SignInViewModel.kt
++new file mode 100644
++--- /dev/null	(date 1634720988023)
+++++ b/app/src/main/java/com/example/hotspotalk/viewmodel/SignInViewModel.kt	(date 1634720988023)
++@@ -0,0 +1,24 @@
+++package com.example.hotspotalk.viewmodel
+++
+++import androidx.lifecycle.MutableLiveData
+++import androidx.lifecycle.ViewModel
+++import androidx.lifecycle.viewModelScope
+++import com.example.domain.entity.response.Token
+++import com.example.domain.usecase.account.PostSignUpUseCase
+++import kotlinx.coroutines.launch
+++
+++class SignInViewModel(
+++    private val postSignInUseCase: PostSignUpUseCase
+++) : ViewModel() {
+++
+++    val id = MutableLiveData("")
+++    val pw = MutableLiveData("")
+++
+++    val postSignInRes = MutableLiveData<Token>()
+++
+++    fun signIn() {
+++        viewModelScope.launch {
+++
+++        }
+++    }
+++}
++\ No newline at end of file
+Index: domain/src/main/java/com/example/domain/repository/AccountRepository.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.domain.repository\r\n\r\nimport com.example.domain.entity.repuest.Ban\r\nimport com.example.domain.entity.repuest.Login\r\n\r\ninterface AccountRepository {\r\n    suspend fun postLogin(login: Login): String\r\n\r\n    suspend fun postSignUp(signUp: Login): String\r\n\r\n    suspend fun getId(id: String): String\r\n\r\n    suspend fun deleteBan(ban: Ban): String\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/domain/src/main/java/com/example/domain/repository/AccountRepository.kt b/domain/src/main/java/com/example/domain/repository/AccountRepository.kt
+--- a/domain/src/main/java/com/example/domain/repository/AccountRepository.kt	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/domain/src/main/java/com/example/domain/repository/AccountRepository.kt	(date 1634729286509)
+@@ -2,13 +2,15 @@
+ 
+ import com.example.domain.entity.repuest.Ban
+ import com.example.domain.entity.repuest.Login
++import com.example.domain.entity.response.Msg
++import com.example.domain.entity.response.Token
+ 
+ interface AccountRepository {
+-    suspend fun postLogin(login: Login): String
++    suspend fun postLogin(login: Login): Token
+ 
+-    suspend fun postSignUp(signUp: Login): String
++    suspend fun postSignUp(signUp: Login): Token
+ 
+-    suspend fun getId(id: String): String
++    suspend fun getId(id: String): Msg
+ 
+-    suspend fun deleteBan(ban: Ban): String
++    suspend fun deleteBan(ban: Ban): Msg
+ }
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_2021-10-20__5_09__Default_Changelist_.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_2021-10-20__5_09__Default_Changelist_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_2021-10-20__5_09__Default_Changelist_.xml
+new file mode 100644
+--- /dev/null	(date 1634717423648)
++++ b/.idea/shelf/Uncommitted_changes_before_Update_at_2021-10-20__5_09__Default_Changelist_.xml	(date 1634717423648)
+@@ -0,0 +1,4 @@
++<changelist name="Uncommitted_changes_before_Update_at_2021-10-20_오후_5_09_[Default_Changelist]" date="1634717403313" recycled="true" deleted="true">
++  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2021-10-20_오후_5_09_[Default_Changelist]/shelved.patch" />
++  <option name="DESCRIPTION" value="Uncommitted changes before Update at 2021-10-20 오후 5:09 [Default Changelist]" />
++</changelist>
+\ No newline at end of file
+Index: app/src/main/java/com/example/hotspotalk/view/fragment/SignUpFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hotspotalk.view.fragment\r\n\r\nimport android.os.Bundle\r\nimport androidx.fragment.app.Fragment\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport com.example.hotspotalk.R\r\n\r\n/**\r\n * 회원가입 프래그먼트\r\n */\r\n\r\nclass SignUpFragment : Fragment() {\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater, container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View? {\r\n        // Inflate the layout for this fragment\r\n        return inflater.inflate(R.layout.fragment_sign_up, container, false)\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/hotspotalk/view/fragment/SignUpFragment.kt b/app/src/main/java/com/example/hotspotalk/view/fragment/SignUpFragment.kt
+--- a/app/src/main/java/com/example/hotspotalk/view/fragment/SignUpFragment.kt	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/app/src/main/java/com/example/hotspotalk/view/fragment/SignUpFragment.kt	(date 1634728209957)
+@@ -5,20 +5,64 @@
+ import android.view.LayoutInflater
+ import android.view.View
+ import android.view.ViewGroup
++import android.widget.Toast
++import androidx.databinding.DataBindingUtil
++import androidx.fragment.app.activityViewModels
++import androidx.navigation.fragment.findNavController
++import com.example.domain.usecase.account.PostSignUpUseCase
+ import com.example.hotspotalk.R
++import com.example.hotspotalk.databinding.FragmentSignUpBinding
++import com.example.hotspotalk.viewmodel.SignUpViewModel
++import com.example.hotspotalk.viewmodel.factory.LoginViewModelFactory
++import dagger.hilt.android.AndroidEntryPoint
++import javax.inject.Inject
+ 
+ /**
+  * 회원가입 프래그먼트
+  */
+ 
++@AndroidEntryPoint
+ class SignUpFragment : Fragment() {
+ 
++    @Inject
++    lateinit var postSignUpUseCase: PostSignUpUseCase
++
++    private val navController by lazy {
++        findNavController()
++    }
++
++    private lateinit var binding: FragmentSignUpBinding
++    private val viewModel: SignUpViewModel by activityViewModels {
++        LoginViewModelFactory(postSignUpUseCase)
++    }
++
+     override fun onCreateView(
+         inflater: LayoutInflater, container: ViewGroup?,
+         savedInstanceState: Bundle?
+     ): View? {
+-        // Inflate the layout for this fragment
+-        return inflater.inflate(R.layout.fragment_sign_up, container, false)
++        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sign_up, container, false)
++        binding.vm = viewModel
++        binding.lifecycleOwner = viewLifecycleOwner
++        return binding.root
+     }
+ 
++    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
++        super.onViewCreated(view, savedInstanceState)
++
++        observe()
++    }
++
++    private fun observe() = with(viewModel) {
++        isSuccess.observe(viewLifecycleOwner) {
++            navigateToHome()
++        }
++
++        isFailure.observe(viewLifecycleOwner) {
++            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
++        }
++    }
++
++    private fun navigateToHome() {
++        navController.navigate(R.id.action_signUpFragment_to_homeFragment)
++    }
+ }
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_2021-10-20_오후_4_28_[Default_Changelist]/shelved.patch
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_2021-10-20_오후_4_28_[Default_Changelist]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_2021-10-20_오후_4_28_[Default_Changelist]/shelved.patch
+new file mode 100644
+--- /dev/null	(date 1634714899958)
++++ b/.idea/shelf/Uncommitted_changes_before_Update_at_2021-10-20_오후_4_28_[Default_Changelist]/shelved.patch	(date 1634714899958)
+@@ -0,0 +1,19 @@
++Index: .idea/misc.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"DesignSurface\">\r\n    <option name=\"filePathToZoomLevelMap\">\r\n      <map>\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/drawable-v24/ic_launcher_foreground.xml\" value=\"0.275\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/drawable/btn_radio_background.xml\" value=\"0.275\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/drawable/ic_baseline_close_24.xml\" value=\"0.275\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/drawable/ic_baseline_send_24.xml\" value=\"0.20520833333333333\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/drawable/main_btn_selector.xml\" value=\"0.275\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/drawable/rounded_corner_rectangle.xml\" value=\"0.275\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/drawable/tab_indicator.xml\" value=\"0.21510416666666668\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/activity_main.xml\" value=\"0.264\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/chatting_fragment.xml\" value=\"0.25885416666666666\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_chatting.xml\" value=\"0.25885416666666666\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_create_room.xml\" value=\"0.22552083333333334\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_home.xml\" value=\"0.264\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_home_join_chatting.xml\" value=\"0.3541666666666667\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_home_rv_item_chatting_room.xml\" value=\"0.536\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_home_vp_item.xml\" value=\"0.152\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/rv_item_chatting_room.xml\" value=\"0.264\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/view_pager_item_home.xml\" value=\"0.4\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/vp_item_chat.xml\" value=\"0.25885416666666666\" />\r\n        <entry key=\"app/src/main/res/layout/activity_main.xml\" value=\"0.2125\" />\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_11\" default=\"true\" project-jdk-name=\"11\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n</project>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/.idea/misc.xml b/.idea/misc.xml
++--- a/.idea/misc.xml	(revision 918f4ed7b78df04508fe6e9cf0da51a8658db098)
+++++ b/.idea/misc.xml	(date 1634671190102)
++@@ -18,6 +18,8 @@
++         <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_home_join_chatting.xml" value="0.3541666666666667" />
++         <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_home_rv_item_chatting_room.xml" value="0.536" />
++         <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_home_vp_item.xml" value="0.152" />
+++        <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_sign_up.xml" value="0.18020833333333333" />
+++        <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/layout_rv_item_user.xml" value="0.16259057971014493" />
++         <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/rv_item_chatting_room.xml" value="0.264" />
++         <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/view_pager_item_home.xml" value="0.4" />
++         <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/vp_item_chat.xml" value="0.25885416666666666" />
+Index: domain/src/main/java/com/example/domain/usecase/account/GetIdUseCase.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.domain.usecase.account\r\n\r\nimport com.example.domain.base.ParamsUseCase\r\nimport com.example.domain.repository.AccountRepository\r\nimport javax.inject.Inject\r\n\r\nclass GetIdUseCase @Inject constructor(\r\n    private val accountRepository: AccountRepository\r\n) : ParamsUseCase<GetIdUseCase.Params, String>() {\r\n\r\n    override suspend fun buildUseCase(params: Params): String {\r\n        return accountRepository.getId(params.id)\r\n    }\r\n\r\n    data class Params(\r\n        val id: String\r\n    )\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/domain/src/main/java/com/example/domain/usecase/account/GetIdUseCase.kt b/domain/src/main/java/com/example/domain/usecase/account/GetIdUseCase.kt
+--- a/domain/src/main/java/com/example/domain/usecase/account/GetIdUseCase.kt	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/domain/src/main/java/com/example/domain/usecase/account/GetIdUseCase.kt	(date 1634729589365)
+@@ -1,14 +1,15 @@
+ package com.example.domain.usecase.account
+ 
+ import com.example.domain.base.ParamsUseCase
++import com.example.domain.entity.response.Msg
+ import com.example.domain.repository.AccountRepository
+ import javax.inject.Inject
+ 
+ class GetIdUseCase @Inject constructor(
+     private val accountRepository: AccountRepository
+-) : ParamsUseCase<GetIdUseCase.Params, String>() {
++) : ParamsUseCase<GetIdUseCase.Params, Msg>() {
+ 
+-    override suspend fun buildUseCase(params: Params): String {
++    override suspend fun buildUseCase(params: Params): Msg {
+         return accountRepository.getId(params.id)
+     }
+ 
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_2021-10-20_오후_5_09_[Default_Changelist]/shelved.patch
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_2021-10-20_오후_5_09_[Default_Changelist]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_2021-10-20_오후_5_09_[Default_Changelist]/shelved.patch
+new file mode 100644
+--- /dev/null	(date 1634717401201)
++++ b/.idea/shelf/Uncommitted_changes_before_Update_at_2021-10-20_오후_5_09_[Default_Changelist]/shelved.patch	(date 1634717401201)
+@@ -0,0 +1,276 @@
++Index: app/src/main/res/layout/fragment_sign_up.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<FrameLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".view.fragment.SignUpFragment\">\r\n\r\n    <!-- TODO: Update blank fragment layout -->\r\n    <TextView\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:text=\"@string/hello_blank_fragment\" />\r\n\r\n</FrameLayout>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/res/layout/fragment_sign_up.xml b/app/src/main/res/layout/fragment_sign_up.xml
++--- a/app/src/main/res/layout/fragment_sign_up.xml	(revision c0f9933cca35c4a796e36a0e58da4fee0fc621ec)
+++++ b/app/src/main/res/layout/fragment_sign_up.xml	(date 1634717400004)
++@@ -1,14 +1,113 @@
++ <?xml version="1.0" encoding="utf-8"?>
++-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
++-    xmlns:tools="http://schemas.android.com/tools"
++-    android:layout_width="match_parent"
++-    android:layout_height="match_parent"
++-    tools:context=".view.fragment.SignUpFragment">
+++<layout xmlns:android="http://schemas.android.com/apk/res/android"
+++    xmlns:app="http://schemas.android.com/apk/res-auto"
+++    xmlns:tools="http://schemas.android.com/tools">
+++
+++    <data>
+++    </data>
+++
+++    <androidx.constraintlayout.widget.ConstraintLayout
+++        android:paddingStart="30dp"
+++        android:paddingEnd="30dp"
+++        android:paddingTop="60dp"
+++        android:paddingBottom="60dp"
+++        android:layout_width="match_parent"
+++        android:layout_height="match_parent"
+++        tools:context=".view.fragment.SignUpFragment">
++ 
++-    <!-- TODO: Update blank fragment layout -->
++-    <TextView
++-        android:layout_width="match_parent"
++-        android:layout_height="match_parent"
++-        android:text="@string/hello_blank_fragment" />
+++        <TextView
+++            android:id="@+id/textView3"
+++            android:textColor="@color/black"
+++            android:textSize="30sp"
+++            android:textStyle="bold"
+++            android:layout_width="wrap_content"
+++            android:layout_height="wrap_content"
+++            android:text="@string/sign_up"
+++            app:layout_constraintStart_toStartOf="parent"
+++            app:layout_constraintTop_toTopOf="parent" />
+++
+++        <com.google.android.material.textfield.TextInputLayout
+++            android:id="@+id/textInputLayout"
+++            style="@style/MainTextInputLayout"
+++            android:layout_marginTop="32dp"
+++            android:layout_width="match_parent"
+++            android:layout_height="wrap_content"
+++            app:layout_constraintStart_toStartOf="@+id/textView3"
+++            app:layout_constraintTop_toBottomOf="@+id/textView3">
+++
+++            <com.google.android.material.textfield.TextInputEditText
+++                style="@style/MainTextInputEditText"
+++                android:layout_width="match_parent"
+++                android:layout_height="wrap_content"
+++                android:hint="hint" />
+++        </com.google.android.material.textfield.TextInputLayout>
+++
+++        <com.google.android.material.textfield.TextInputLayout
+++            android:id="@+id/textInputLayout2"
+++            style="@style/MainTextInputLayout"
+++            android:layout_width="match_parent"
+++            android:layout_height="wrap_content"
+++            app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
+++            app:layout_constraintStart_toStartOf="@+id/textInputLayout"
+++            app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+++
+++            <com.google.android.material.textfield.TextInputEditText
+++                style="@style/MainTextInputEditText"
+++                android:layout_width="match_parent"
+++                android:layout_height="wrap_content"
+++                android:hint="hint" />
+++        </com.google.android.material.textfield.TextInputLayout>
+++
+++        <com.google.android.material.textfield.TextInputLayout
+++            android:id="@+id/textInputLayout3"
+++            style="@style/MainTextInputLayout"
+++            android:layout_width="match_parent"
+++            android:layout_height="wrap_content"
+++            app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
+++            app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
+++            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
++ 
++-</FrameLayout>
++\ No newline at end of file
+++            <com.google.android.material.textfield.TextInputEditText
+++                style="@style/MainTextInputEditText"
+++                android:layout_width="match_parent"
+++                android:layout_height="wrap_content"
+++                android:hint="hint" />
+++        </com.google.android.material.textfield.TextInputLayout>
+++
+++        <androidx.appcompat.widget.AppCompatButton
+++            android:id="@+id/button"
+++            style="@style/Widget.AppCompat.Button.MainButton"
+++            android:layout_width="match_parent"
+++            android:layout_height="wrap_content"
+++            android:layout_marginTop="60dp"
+++            android:text="@string/sign_up"
+++            app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
+++            app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
+++            app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
+++
+++        <LinearLayout
+++            android:layout_width="0dp"
+++            android:layout_height="wrap_content"
+++            android:gravity="center"
+++            android:orientation="horizontal"
+++            app:layout_constraintBottom_toBottomOf="parent"
+++            app:layout_constraintEnd_toEndOf="parent"
+++            app:layout_constraintStart_toStartOf="parent">
+++
+++            <TextView
+++                android:id="@+id/textView5"
+++                style="@style/Base.Widget.AppCompat.TextView.RegularTextView"
+++                android:layout_width="wrap_content"
+++                android:layout_height="wrap_content"
+++                android:text="이미 회원이신가요?" />
+++
+++            <TextView
+++                android:id="@+id/textView4"
+++                style="@style/Base.Widget.AppCompat.TextView.RegularTextView"
+++                android:layout_width="wrap_content"
+++                android:layout_height="wrap_content"
+++                android:layout_marginStart="20dp"
+++                android:text="로그인하기" />
+++        </LinearLayout>
+++    </androidx.constraintlayout.widget.ConstraintLayout>
+++</layout>
++\ No newline at end of file
++Index: app/src/main/res/values/strings.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><resources>\r\n    <string name=\"app_name\">HotspoTalk</string>\r\n    <!-- TODO: Remove or change this placeholder text -->\r\n    <string name=\"hello_blank_fragment\">Hello blank fragment</string>\r\n    <string name=\"chatting_room_name\">채팅방명</string>\r\n    <string name=\"total_people_number\">총 인원</string>\r\n    <string name=\"password\">비밀번호</string>\r\n    <string name=\"chatting\">채팅</string>\r\n    <string name=\"create_room\">방 만들기</string>\r\n</resources>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
++--- a/app/src/main/res/values/strings.xml	(revision c0f9933cca35c4a796e36a0e58da4fee0fc621ec)
+++++ b/app/src/main/res/values/strings.xml	(date 1634716465563)
++@@ -7,4 +7,5 @@
++     <string name="password">비밀번호</string>
++     <string name="chatting">채팅</string>
++     <string name="create_room">방 만들기</string>
+++    <string name="sign_up">회원가입</string>
++ </resources>
++\ No newline at end of file
++Index: app/src/main/res/values/themes.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><resources xmlns:tools=\"http://schemas.android.com/tools\">\r\n    <!-- Base application theme. -->\r\n    <style name=\"Theme.HotspoTalk\" parent=\"Theme.MaterialComponents.DayNight.NoActionBar\">\r\n        <!-- Primary brand color. -->\r\n        <item name=\"colorPrimary\">@color/purple_500</item>\r\n        <item name=\"colorPrimaryVariant\">@color/purple_700</item>\r\n        <item name=\"colorOnPrimary\">@color/white</item>\r\n        <!-- Secondary brand color. -->\r\n        <item name=\"colorSecondary\">@color/teal_200</item>\r\n        <item name=\"colorSecondaryVariant\">@color/teal_700</item>\r\n        <item name=\"colorOnSecondary\">@color/black</item>\r\n        <!-- Status bar color. -->\r\n        <item name=\"android:statusBarColor\" tools:targetApi=\"l\">?attr/colorPrimaryVariant</item>\r\n        <!-- Customize your theme here. -->\r\n    </style>\r\n\r\n    <!-- Button -->\r\n    <style name=\"Widget.AppCompat.Button.MainButton\">\r\n        <item name=\"android:background\">@drawable/main_btn_selector</item>\r\n        <item name=\"android:textColor\">@color/white</item>\r\n        <item name=\"elevation\">5dp</item>\r\n        <item name=\"android:translationZ\" tools:targetApi=\"lollipop\">10dp</item>\r\n    </style>\r\n\r\n    <!-- TextView -->\r\n    <style name=\"Base.Widget.AppCompat.TextView.BigTextView\">\r\n        <item name=\"android:textColor\">@color/black</item>\r\n        <item name=\"android:textSize\">20sp</item>\r\n    </style>\r\n\r\n    <style name=\"Base.Widget.AppCompat.TextView.SmallTextView\">\r\n        <item name=\"android:textColor\">@color/black</item>\r\n        <item name=\"android:textSize\">15sp</item>\r\n    </style>\r\n</resources>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/res/values/themes.xml b/app/src/main/res/values/themes.xml
++--- a/app/src/main/res/values/themes.xml	(revision c0f9933cca35c4a796e36a0e58da4fee0fc621ec)
+++++ b/app/src/main/res/values/themes.xml	(date 1634717400013)
++@@ -28,8 +28,34 @@
++         <item name="android:textSize">20sp</item>
++     </style>
++ 
+++    <style name="Base.Widget.AppCompat.TextView.RegularTextView">
+++        <item name="android:textColor">@color/black</item>
+++        <item name="android:textSize">18sp</item>
+++    </style>
+++
++     <style name="Base.Widget.AppCompat.TextView.SmallTextView">
++         <item name="android:textColor">@color/black</item>
++         <item name="android:textSize">15sp</item>
++     </style>
+++
+++    <!-- TextInputLayout -->
+++    <style name="MainTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+++        <item name="hintEnabled">false</item>
+++        <item name="errorEnabled">true</item>
+++        <item name="android:layout_marginTop">5dp</item>
+++        <item name="boxCornerRadiusBottomEnd">40dp</item>
+++        <item name="boxCornerRadiusBottomStart">40dp</item>
+++        <item name="boxCornerRadiusTopEnd">40dp</item>
+++        <item name="boxCornerRadiusTopStart">40dp</item>
+++    </style>
+++
+++    <!-- EditText -->
+++    <style name="MainTextInputEditText" parent="Widget.AppCompat.EditText">
+++        <item name="maxLines">1</item>
+++        <item name="singleLine">true</item>
+++        <item name="android:textColor">@color/black</item>
+++        <item name="android:textSize">15sp</item>
+++        <item name="android:includeFontPadding">true</item>
+++        <item name="android:paddingStart">20dp</item>
+++    </style>
++ </resources>
++\ No newline at end of file
++Index: .idea/misc.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"DesignSurface\">\r\n    <option name=\"filePathToZoomLevelMap\">\r\n      <map>\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/drawable-v24/ic_launcher_foreground.xml\" value=\"0.275\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/drawable/btn_radio_background.xml\" value=\"0.275\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/drawable/ic_baseline_close_24.xml\" value=\"0.275\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/drawable/ic_baseline_send_24.xml\" value=\"0.20520833333333333\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/drawable/main_btn_selector.xml\" value=\"0.275\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/drawable/rounded_corner_rectangle.xml\" value=\"0.275\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/drawable/tab_indicator.xml\" value=\"0.21510416666666668\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/activity_main.xml\" value=\"0.264\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/chatting_fragment.xml\" value=\"0.25885416666666666\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_chatting.xml\" value=\"0.25885416666666666\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_create_room.xml\" value=\"0.22552083333333334\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_home.xml\" value=\"0.264\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_home_join_chatting.xml\" value=\"0.3541666666666667\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_home_rv_item_chatting_room.xml\" value=\"0.536\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_home_vp_item.xml\" value=\"0.152\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/rv_item_chatting_room.xml\" value=\"0.264\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/view_pager_item_home.xml\" value=\"0.4\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/vp_item_chat.xml\" value=\"0.25885416666666666\" />\r\n        <entry key=\"app/src/main/res/layout/activity_main.xml\" value=\"0.2125\" />\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_11\" default=\"true\" project-jdk-name=\"11\" project-jdk-type=\"JavaSDK\">\r\n  <component name=\"DesignSurface\">\r\n    <option name=\"filePathToZoomLevelMap\">\r\n      <map>\r\n        <entry key=\"app/src/main/res/layout/fragment_create_room.xml\" value=\"0.335\" />\r\n        <entry key=\"app/src/main/res/layout/fragment_home.xml\" value=\"0.1953125\" />\r\n        <entry key=\"app/src/main/res/layout/fragment_home_vp_item.xml\" value=\"0.1953125\" />\r\n        <entry key=\"app/src/main/res/layout/fragment_login.xml\" value=\"0.1953125\" />\r\n        <entry key=\"app/src/main/res/layout/fragment_splash.xml\" value=\"0.1953125\" />\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_1_8\" default=\"true\" project-jdk-name=\"1.8\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n</project>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/.idea/misc.xml b/.idea/misc.xml
++--- a/.idea/misc.xml	(revision c0f9933cca35c4a796e36a0e58da4fee0fc621ec)
+++++ b/.idea/misc.xml	(date 1634714944113)
++@@ -18,6 +18,8 @@
++         <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_home_join_chatting.xml" value="0.3541666666666667" />
++         <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_home_rv_item_chatting_room.xml" value="0.536" />
++         <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_home_vp_item.xml" value="0.152" />
+++        <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_sign_up.xml" value="0.18020833333333333" />
+++        <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/layout_rv_item_user.xml" value="0.16259057971014493" />
++         <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/rv_item_chatting_room.xml" value="0.264" />
++         <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/view_pager_item_home.xml" value="0.4" />
++         <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/vp_item_chat.xml" value="0.25885416666666666" />
++Index: app/src/main/java/com/example/hotspotalk/view/fragment/SignUpFragment.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+>package com.example.hotspotalk.view.fragment\r\n\r\nimport android.os.Bundle\r\nimport androidx.fragment.app.Fragment\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport com.example.hotspotalk.R\r\n\r\n/**\r\n * 회원가입 프래그먼트\r\n */\r\n\r\nclass SignUpFragment : Fragment() {\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater, container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View? {\r\n        // Inflate the layout for this fragment\r\n        return inflater.inflate(R.layout.fragment_sign_up, container, false)\r\n    }\r\n\r\n}
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/java/com/example/hotspotalk/view/fragment/SignUpFragment.kt b/app/src/main/java/com/example/hotspotalk/view/fragment/SignUpFragment.kt
++--- a/app/src/main/java/com/example/hotspotalk/view/fragment/SignUpFragment.kt	(revision c0f9933cca35c4a796e36a0e58da4fee0fc621ec)
+++++ b/app/src/main/java/com/example/hotspotalk/view/fragment/SignUpFragment.kt	(date 1634717400029)
++@@ -5,6 +5,7 @@
++ import android.view.LayoutInflater
++ import android.view.View
++ import android.view.ViewGroup
+++import androidx.navigation.fragment.findNavController
++ import com.example.hotspotalk.R
++ 
++ /**
++@@ -13,12 +14,18 @@
++ 
++ class SignUpFragment : Fragment() {
++ 
+++    private val navController by lazy {
+++        findNavController()
+++    }
+++
++     override fun onCreateView(
++         inflater: LayoutInflater, container: ViewGroup?,
++         savedInstanceState: Bundle?
++     ): View? {
++-        // Inflate the layout for this fragment
++         return inflater.inflate(R.layout.fragment_sign_up, container, false)
++     }
++ 
+++    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+++        super.onViewCreated(view, savedInstanceState)
+++    }
++ }
++\ No newline at end of file
++Index: app/src/main/java/com/example/hotspotalk/viewmodel/SignUpViewModel.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/java/com/example/hotspotalk/viewmodel/SignUpViewModel.kt b/app/src/main/java/com/example/hotspotalk/viewmodel/SignUpViewModel.kt
++new file mode 100644
++--- /dev/null	(date 1634717400041)
+++++ b/app/src/main/java/com/example/hotspotalk/viewmodel/SignUpViewModel.kt	(date 1634717400041)
++@@ -0,0 +1,7 @@
+++package com.example.hotspotalk.viewmodel
+++
+++import androidx.lifecycle.ViewModel
+++
+++class SignUpViewModel : ViewModel() {
+++
+++}
++\ No newline at end of file
+Index: app/src/main/res/layout/fragment_sign_up.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<FrameLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".view.fragment.SignUpFragment\">\r\n\r\n    <!-- TODO: Update blank fragment layout -->\r\n    <TextView\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:text=\"@string/hello_blank_fragment\" />\r\n\r\n</FrameLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_sign_up.xml b/app/src/main/res/layout/fragment_sign_up.xml
+--- a/app/src/main/res/layout/fragment_sign_up.xml	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/app/src/main/res/layout/fragment_sign_up.xml	(date 1634726757698)
+@@ -1,14 +1,118 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    tools:context=".view.fragment.SignUpFragment">
++<layout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools">
++
++    <data>
++        <variable
++            name="vm"
++            type="com.example.hotspotalk.viewmodel.SignUpViewModel" />
++    </data>
++
++    <androidx.constraintlayout.widget.ConstraintLayout
++        android:paddingStart="@dimen/padding_start_sign"
++        android:paddingEnd="@dimen/padding_start_sign"
++        android:paddingTop="@dimen/padding_top_sign"
++        android:paddingBottom="@dimen/padding_top_sign"
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        tools:context=".view.fragment.SignUpFragment">
+ 
+-    <!-- TODO: Update blank fragment layout -->
+-    <TextView
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent"
+-        android:text="@string/hello_blank_fragment" />
++        <TextView
++            android:id="@+id/textView3"
++            style="@style/TitleTextView"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:text="@string/sign_up"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toTopOf="parent" />
++
++        <com.google.android.material.textfield.TextInputLayout
++            android:id="@+id/textInputLayout"
++            style="@style/MainTextInputLayout"
++            android:layout_marginTop="32dp"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            app:layout_constraintStart_toStartOf="@+id/textView3"
++            app:layout_constraintTop_toBottomOf="@+id/textView3">
++
++            <com.google.android.material.textfield.TextInputEditText
++                style="@style/MainTextInputEditText"
++                android:text="@={vm.id}"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:hint="@string/id" />
++        </com.google.android.material.textfield.TextInputLayout>
++
++        <com.google.android.material.textfield.TextInputLayout
++            android:id="@+id/textInputLayout2"
++            style="@style/MainTextInputLayout"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
++            app:layout_constraintStart_toStartOf="@+id/textInputLayout"
++            app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
++
++            <com.google.android.material.textfield.TextInputEditText
++                style="@style/MainTextInputEditText"
++                android:text="@={vm.pw}"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:hint="@string/password" />
++        </com.google.android.material.textfield.TextInputLayout>
++
++        <com.google.android.material.textfield.TextInputLayout
++            android:id="@+id/textInputLayout3"
++            style="@style/MainTextInputLayout"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
++            app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
++            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
+ 
+-</FrameLayout>
+\ No newline at end of file
++            <com.google.android.material.textfield.TextInputEditText
++                style="@style/MainTextInputEditText"
++                android:text="@={vm.pwCheck}"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:hint="@string/password_check" />
++        </com.google.android.material.textfield.TextInputLayout>
++
++        <androidx.appcompat.widget.AppCompatButton
++            android:id="@+id/button"
++            android:onClick="@{() -> vm.signUp()}"
++            style="@style/Widget.AppCompat.Button.MainButton"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="@dimen/margin_top_sign_btn"
++            android:text="@string/sign_up"
++            app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
++            app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
++            app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
++
++        <LinearLayout
++            android:layout_width="0dp"
++            android:layout_height="wrap_content"
++            android:gravity="center"
++            android:orientation="horizontal"
++            app:layout_constraintBottom_toBottomOf="parent"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintStart_toStartOf="parent">
++
++            <TextView
++                android:id="@+id/textView5"
++                style="@style/Base.Widget.AppCompat.TextView.RegularTextView"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:text="이미 회원이신가요?" />
++
++            <TextView
++                android:id="@+id/textView4"
++                style="@style/Base.Widget.AppCompat.TextView.RegularTextView"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:layout_marginStart="20dp"
++                android:text="로그인하기" />
++        </LinearLayout>
++    </androidx.constraintlayout.widget.ConstraintLayout>
++</layout>
+\ No newline at end of file
+Index: domain/src/main/java/com/example/domain/usecase/rooms/PostCreateRoomUseCase.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.domain.usecase.rooms\r\n\r\nimport com.example.domain.base.ParamsUseCase\r\nimport com.example.domain.entity.repuest.CreateRoom\r\nimport com.example.domain.repository.RoomsRepository\r\nimport javax.inject.Inject\r\n\r\nclass PostCreateRoomUseCase @Inject constructor(\r\n    private val roomsRepository: RoomsRepository\r\n) : ParamsUseCase<PostCreateRoomUseCase.Params, String>() {\r\n\r\n    data class Params(\r\n        val createRoom: CreateRoom\r\n    )\r\n\r\n    override suspend fun buildUseCase(params: Params): String {\r\n        return roomsRepository.postCreateRoom(params.createRoom)\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/domain/src/main/java/com/example/domain/usecase/rooms/PostCreateRoomUseCase.kt b/domain/src/main/java/com/example/domain/usecase/rooms/PostCreateRoomUseCase.kt
+--- a/domain/src/main/java/com/example/domain/usecase/rooms/PostCreateRoomUseCase.kt	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/domain/src/main/java/com/example/domain/usecase/rooms/PostCreateRoomUseCase.kt	(date 1634729589355)
+@@ -2,18 +2,19 @@
+ 
+ import com.example.domain.base.ParamsUseCase
+ import com.example.domain.entity.repuest.CreateRoom
++import com.example.domain.entity.response.Msg
+ import com.example.domain.repository.RoomsRepository
+ import javax.inject.Inject
+ 
+ class PostCreateRoomUseCase @Inject constructor(
+     private val roomsRepository: RoomsRepository
+-) : ParamsUseCase<PostCreateRoomUseCase.Params, String>() {
++) : ParamsUseCase<PostCreateRoomUseCase.Params, Msg>() {
+ 
+     data class Params(
+         val createRoom: CreateRoom
+     )
+ 
+-    override suspend fun buildUseCase(params: Params): String {
++    override suspend fun buildUseCase(params: Params): Msg {
+         return roomsRepository.postCreateRoom(params.createRoom)
+     }
+ }
+\ No newline at end of file
+Index: domain/src/main/java/com/example/domain/usecase/rooms/GetEnterRoomUseCase.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.domain.usecase.rooms\r\n\r\nimport com.example.domain.base.ParamsUseCase\r\nimport com.example.domain.entity.repuest.Enter\r\nimport com.example.domain.repository.RoomsRepository\r\nimport javax.inject.Inject\r\n\r\nclass GetEnterRoomUseCase @Inject constructor(\r\n    private val roomsRepository: RoomsRepository\r\n) : ParamsUseCase<GetEnterRoomUseCase.Params, String>() {\r\n\r\n    data class Params(\r\n        val roomId: Int,\r\n        val enter: Enter\r\n    )\r\n\r\n    override suspend fun buildUseCase(params: Params): String {\r\n        return roomsRepository.getEnterRoom(params.roomId, params.enter)\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/domain/src/main/java/com/example/domain/usecase/rooms/GetEnterRoomUseCase.kt b/domain/src/main/java/com/example/domain/usecase/rooms/GetEnterRoomUseCase.kt
+--- a/domain/src/main/java/com/example/domain/usecase/rooms/GetEnterRoomUseCase.kt	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/domain/src/main/java/com/example/domain/usecase/rooms/GetEnterRoomUseCase.kt	(date 1634729589374)
+@@ -2,19 +2,20 @@
+ 
+ import com.example.domain.base.ParamsUseCase
+ import com.example.domain.entity.repuest.Enter
++import com.example.domain.entity.response.Msg
+ import com.example.domain.repository.RoomsRepository
+ import javax.inject.Inject
+ 
+ class GetEnterRoomUseCase @Inject constructor(
+     private val roomsRepository: RoomsRepository
+-) : ParamsUseCase<GetEnterRoomUseCase.Params, String>() {
++) : ParamsUseCase<GetEnterRoomUseCase.Params, Msg>() {
+ 
+     data class Params(
+         val roomId: Int,
+         val enter: Enter
+     )
+ 
+-    override suspend fun buildUseCase(params: Params): String {
++    override suspend fun buildUseCase(params: Params): Msg {
+         return roomsRepository.getEnterRoom(params.roomId, params.enter)
+     }
+ }
+\ No newline at end of file
+Index: domain/src/main/java/com/example/domain/usecase/rooms/PutModifyRoomUseCase.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.domain.usecase.rooms\r\n\r\nimport com.example.domain.base.ParamsUseCase\r\nimport com.example.domain.entity.repuest.ModifyRoom\r\nimport com.example.domain.repository.RoomsRepository\r\nimport javax.inject.Inject\r\n\r\nclass PutModifyRoomUseCase @Inject constructor(\r\n    private val roomsRepository: RoomsRepository\r\n) : ParamsUseCase<PutModifyRoomUseCase.Params, String>() {\r\n\r\n    data class Params(\r\n        val roomId: Int,\r\n        val modifyRoom: ModifyRoom\r\n    )\r\n\r\n    override suspend fun buildUseCase(params: Params): String {\r\n        return roomsRepository.putModifyRoom(params.roomId, params.modifyRoom)\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/domain/src/main/java/com/example/domain/usecase/rooms/PutModifyRoomUseCase.kt b/domain/src/main/java/com/example/domain/usecase/rooms/PutModifyRoomUseCase.kt
+--- a/domain/src/main/java/com/example/domain/usecase/rooms/PutModifyRoomUseCase.kt	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/domain/src/main/java/com/example/domain/usecase/rooms/PutModifyRoomUseCase.kt	(date 1634729589482)
+@@ -2,19 +2,20 @@
+ 
+ import com.example.domain.base.ParamsUseCase
+ import com.example.domain.entity.repuest.ModifyRoom
++import com.example.domain.entity.response.Msg
+ import com.example.domain.repository.RoomsRepository
+ import javax.inject.Inject
+ 
+ class PutModifyRoomUseCase @Inject constructor(
+     private val roomsRepository: RoomsRepository
+-) : ParamsUseCase<PutModifyRoomUseCase.Params, String>() {
++) : ParamsUseCase<PutModifyRoomUseCase.Params, Msg>() {
+ 
+     data class Params(
+         val roomId: Int,
+         val modifyRoom: ModifyRoom
+     )
+ 
+-    override suspend fun buildUseCase(params: Params): String {
++    override suspend fun buildUseCase(params: Params): Msg {
+         return roomsRepository.putModifyRoom(params.roomId, params.modifyRoom)
+     }
+ }
+\ No newline at end of file
+Index: domain/src/main/java/com/example/domain/usecase/rooms/DeleteExitRoomUseCase.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.domain.usecase.rooms\r\n\r\nimport com.example.domain.base.ParamsUseCase\r\nimport com.example.domain.repository.AccountRepository\r\nimport com.example.domain.repository.RoomsRepository\r\nimport com.example.domain.usecase.account.PostLoginUseCase\r\nimport javax.inject.Inject\r\n\r\nclass DeleteExitRoomUseCase @Inject constructor(\r\n    private val roomsRepository: RoomsRepository\r\n) : ParamsUseCase<DeleteExitRoomUseCase.Params, String>() {\r\n\r\n    override suspend fun buildUseCase(params: Params): String {\r\n        return roomsRepository.deleteExitRoom(params.roomId)\r\n    }\r\n\r\n    data class Params(\r\n        val roomId: Int\r\n    )\r\n\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/domain/src/main/java/com/example/domain/usecase/rooms/DeleteExitRoomUseCase.kt b/domain/src/main/java/com/example/domain/usecase/rooms/DeleteExitRoomUseCase.kt
+--- a/domain/src/main/java/com/example/domain/usecase/rooms/DeleteExitRoomUseCase.kt	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/domain/src/main/java/com/example/domain/usecase/rooms/DeleteExitRoomUseCase.kt	(date 1634729589470)
+@@ -1,6 +1,7 @@
+ package com.example.domain.usecase.rooms
+ 
+ import com.example.domain.base.ParamsUseCase
++import com.example.domain.entity.response.Msg
+ import com.example.domain.repository.AccountRepository
+ import com.example.domain.repository.RoomsRepository
+ import com.example.domain.usecase.account.PostLoginUseCase
+@@ -8,9 +9,9 @@
+ 
+ class DeleteExitRoomUseCase @Inject constructor(
+     private val roomsRepository: RoomsRepository
+-) : ParamsUseCase<DeleteExitRoomUseCase.Params, String>() {
++) : ParamsUseCase<DeleteExitRoomUseCase.Params, Msg>() {
+ 
+-    override suspend fun buildUseCase(params: Params): String {
++    override suspend fun buildUseCase(params: Params): Msg {
+         return roomsRepository.deleteExitRoom(params.roomId)
+     }
+ 
+Index: domain/src/main/java/com/example/domain/usecase/rooms/DeleteRemoveRoomUseCase.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.domain.usecase.rooms\r\n\r\nimport com.example.domain.base.ParamsUseCase\r\nimport com.example.domain.repository.RoomsRepository\r\nimport javax.inject.Inject\r\n\r\nclass DeleteRemoveRoomUseCase @Inject constructor(\r\n    private val roomsRepository: RoomsRepository\r\n) : ParamsUseCase<DeleteRemoveRoomUseCase.Params, String>() {\r\n\r\n    data class Params(\r\n        val roomId: Int\r\n    )\r\n\r\n    override suspend fun buildUseCase(params: Params): String {\r\n        return roomsRepository.deleteRemoveRoom(params.roomId)\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/domain/src/main/java/com/example/domain/usecase/rooms/DeleteRemoveRoomUseCase.kt b/domain/src/main/java/com/example/domain/usecase/rooms/DeleteRemoveRoomUseCase.kt
+--- a/domain/src/main/java/com/example/domain/usecase/rooms/DeleteRemoveRoomUseCase.kt	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/domain/src/main/java/com/example/domain/usecase/rooms/DeleteRemoveRoomUseCase.kt	(date 1634729589382)
+@@ -1,18 +1,19 @@
+ package com.example.domain.usecase.rooms
+ 
+ import com.example.domain.base.ParamsUseCase
++import com.example.domain.entity.response.Msg
+ import com.example.domain.repository.RoomsRepository
+ import javax.inject.Inject
+ 
+ class DeleteRemoveRoomUseCase @Inject constructor(
+     private val roomsRepository: RoomsRepository
+-) : ParamsUseCase<DeleteRemoveRoomUseCase.Params, String>() {
++) : ParamsUseCase<DeleteRemoveRoomUseCase.Params, Msg>() {
+ 
+     data class Params(
+         val roomId: Int
+     )
+ 
+-    override suspend fun buildUseCase(params: Params): String {
++    override suspend fun buildUseCase(params: Params): Msg {
+         return roomsRepository.deleteRemoveRoom(params.roomId)
+     }
+ }
+\ No newline at end of file
+Index: domain/src/main/java/com/example/domain/usecase/rooms/PutInheritRoomUseCase.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.domain.usecase.rooms\r\n\r\nimport com.example.domain.base.ParamsUseCase\r\nimport com.example.domain.entity.repuest.AccountId\r\nimport com.example.domain.entity.repuest.CreateRoom\r\nimport com.example.domain.repository.RoomsRepository\r\nimport javax.inject.Inject\r\n\r\nclass PutInheritRoomUseCase @Inject constructor(\r\n    private val roomsRepository: RoomsRepository\r\n) : ParamsUseCase<PutInheritRoomUseCase.Params, String>() {\r\n\r\n    data class Params(\r\n        val accountId: AccountId\r\n    )\r\n\r\n    override suspend fun buildUseCase(params: Params): String {\r\n        return roomsRepository.putInheritRoom(params.accountId)\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/domain/src/main/java/com/example/domain/usecase/rooms/PutInheritRoomUseCase.kt b/domain/src/main/java/com/example/domain/usecase/rooms/PutInheritRoomUseCase.kt
+--- a/domain/src/main/java/com/example/domain/usecase/rooms/PutInheritRoomUseCase.kt	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/domain/src/main/java/com/example/domain/usecase/rooms/PutInheritRoomUseCase.kt	(date 1634729589448)
+@@ -3,18 +3,19 @@
+ import com.example.domain.base.ParamsUseCase
+ import com.example.domain.entity.repuest.AccountId
+ import com.example.domain.entity.repuest.CreateRoom
++import com.example.domain.entity.response.Msg
+ import com.example.domain.repository.RoomsRepository
+ import javax.inject.Inject
+ 
+ class PutInheritRoomUseCase @Inject constructor(
+     private val roomsRepository: RoomsRepository
+-) : ParamsUseCase<PutInheritRoomUseCase.Params, String>() {
++) : ParamsUseCase<PutInheritRoomUseCase.Params, Msg>() {
+ 
+     data class Params(
+         val accountId: AccountId
+     )
+ 
+-    override suspend fun buildUseCase(params: Params): String {
++    override suspend fun buildUseCase(params: Params): Msg {
+         return roomsRepository.putInheritRoom(params.accountId)
+     }
+ 
+Index: domain/src/main/java/com/example/domain/usecase/chat/GetChatUseCase.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.domain.usecase.chat\r\n\r\nimport com.example.domain.base.ParamsUseCase\r\nimport com.example.domain.repository.ChatRepository\r\nimport javax.inject.Inject\r\n\r\nclass GetChatUseCase @Inject constructor(\r\n    private val chatRepository: ChatRepository\r\n) : ParamsUseCase<GetChatUseCase.Params, String>() {\r\n\r\n    override suspend fun buildUseCase(params: Params): String {\r\n        return chatRepository.getChat(params.roomId)\r\n    }\r\n\r\n    data class Params(\r\n        val roomId: Int\r\n    )\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/domain/src/main/java/com/example/domain/usecase/chat/GetChatUseCase.kt b/domain/src/main/java/com/example/domain/usecase/chat/GetChatUseCase.kt
+--- a/domain/src/main/java/com/example/domain/usecase/chat/GetChatUseCase.kt	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/domain/src/main/java/com/example/domain/usecase/chat/GetChatUseCase.kt	(date 1634729286477)
+@@ -1,14 +1,15 @@
+ package com.example.domain.usecase.chat
+ 
+ import com.example.domain.base.ParamsUseCase
++import com.example.domain.entity.response.Msg
+ import com.example.domain.repository.ChatRepository
+ import javax.inject.Inject
+ 
+ class GetChatUseCase @Inject constructor(
+     private val chatRepository: ChatRepository
+-) : ParamsUseCase<GetChatUseCase.Params, String>() {
++) : ParamsUseCase<GetChatUseCase.Params, Msg>() {
+ 
+-    override suspend fun buildUseCase(params: Params): String {
++    override suspend fun buildUseCase(params: Params): Msg {
+         return chatRepository.getChat(params.roomId)
+     }
+ 
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"DesignSurface\">\r\n    <option name=\"filePathToZoomLevelMap\">\r\n      <map>\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/drawable-v24/ic_launcher_foreground.xml\" value=\"0.275\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/drawable/btn_radio_background.xml\" value=\"0.275\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/drawable/ic_baseline_close_24.xml\" value=\"0.275\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/drawable/ic_baseline_send_24.xml\" value=\"0.20520833333333333\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/drawable/main_btn_selector.xml\" value=\"0.275\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/drawable/rounded_corner_rectangle.xml\" value=\"0.275\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/drawable/tab_indicator.xml\" value=\"0.21510416666666668\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/activity_main.xml\" value=\"0.264\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/chatting_fragment.xml\" value=\"0.25885416666666666\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_chatting.xml\" value=\"0.25885416666666666\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_create_room.xml\" value=\"0.22552083333333334\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_home.xml\" value=\"0.264\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_home_join_chatting.xml\" value=\"0.3541666666666667\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_home_rv_item_chatting_room.xml\" value=\"0.536\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_home_vp_item.xml\" value=\"0.152\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/rv_item_chatting_room.xml\" value=\"0.264\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/view_pager_item_home.xml\" value=\"0.4\" />\r\n        <entry key=\"..\\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/vp_item_chat.xml\" value=\"0.25885416666666666\" />\r\n        <entry key=\"app/src/main/res/layout/activity_main.xml\" value=\"0.2125\" />\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_11\" default=\"true\" project-jdk-name=\"11\" project-jdk-type=\"JavaSDK\">\r\n  <component name=\"DesignSurface\">\r\n    <option name=\"filePathToZoomLevelMap\">\r\n      <map>\r\n        <entry key=\"app/src/main/res/layout/fragment_create_room.xml\" value=\"0.335\" />\r\n        <entry key=\"app/src/main/res/layout/fragment_home.xml\" value=\"0.1953125\" />\r\n        <entry key=\"app/src/main/res/layout/fragment_home_vp_item.xml\" value=\"0.1953125\" />\r\n        <entry key=\"app/src/main/res/layout/fragment_login.xml\" value=\"0.1953125\" />\r\n        <entry key=\"app/src/main/res/layout/fragment_splash.xml\" value=\"0.1953125\" />\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_1_8\" default=\"true\" project-jdk-name=\"1.8\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/.idea/misc.xml	(date 1634726757655)
+@@ -18,6 +18,8 @@
+         <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_home_join_chatting.xml" value="0.3541666666666667" />
+         <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_home_rv_item_chatting_room.xml" value="0.536" />
+         <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_home_vp_item.xml" value="0.152" />
++        <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/fragment_sign_up.xml" value="0.18020833333333333" />
++        <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/layout_rv_item_user.xml" value="0.16259057971014493" />
+         <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/rv_item_chatting_room.xml" value="0.264" />
+         <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/view_pager_item_home.xml" value="0.4" />
+         <entry key="..\:/Github/HotspoTalk/HotspoTalk/HotspoTalk/app/src/main/res/layout/vp_item_chat.xml" value="0.25885416666666666" />
+Index: domain/src/main/java/com/example/domain/usecase/rooms/PutModifyNicknameUseCase.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.domain.usecase.rooms\r\n\r\nimport com.example.domain.base.ParamsUseCase\r\nimport com.example.domain.entity.repuest.ModifyNickname\r\nimport com.example.domain.repository.RoomsRepository\r\nimport javax.inject.Inject\r\n\r\nclass PutModifyNicknameUseCase @Inject constructor(\r\n    private val roomsRepository: RoomsRepository\r\n) : ParamsUseCase<PutModifyNicknameUseCase.Params, String>() {\r\n\r\n    data class Params(\r\n        val roomId: Int,\r\n        val modifyNickname: ModifyNickname\r\n    )\r\n\r\n    override suspend fun buildUseCase(params: Params): String {\r\n        return roomsRepository.putModifyNickname(params.roomId, params.modifyNickname)\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/domain/src/main/java/com/example/domain/usecase/rooms/PutModifyNicknameUseCase.kt b/domain/src/main/java/com/example/domain/usecase/rooms/PutModifyNicknameUseCase.kt
+--- a/domain/src/main/java/com/example/domain/usecase/rooms/PutModifyNicknameUseCase.kt	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/domain/src/main/java/com/example/domain/usecase/rooms/PutModifyNicknameUseCase.kt	(date 1634729589418)
+@@ -2,19 +2,20 @@
+ 
+ import com.example.domain.base.ParamsUseCase
+ import com.example.domain.entity.repuest.ModifyNickname
++import com.example.domain.entity.response.Msg
+ import com.example.domain.repository.RoomsRepository
+ import javax.inject.Inject
+ 
+ class PutModifyNicknameUseCase @Inject constructor(
+     private val roomsRepository: RoomsRepository
+-) : ParamsUseCase<PutModifyNicknameUseCase.Params, String>() {
++) : ParamsUseCase<PutModifyNicknameUseCase.Params, Msg>() {
+ 
+     data class Params(
+         val roomId: Int,
+         val modifyNickname: ModifyNickname
+     )
+ 
+-    override suspend fun buildUseCase(params: Params): String {
++    override suspend fun buildUseCase(params: Params): Msg {
+         return roomsRepository.putModifyNickname(params.roomId, params.modifyNickname)
+     }
+ }
+\ No newline at end of file
+Index: domain/src/main/java/com/example/domain/repository/RoomsRepository.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.domain.repository\r\n\r\nimport com.example.domain.entity.repuest.*\r\nimport com.example.domain.entity.response.MemberInfo\r\nimport com.example.domain.entity.response.RoomInfo\r\nimport retrofit2.http.Body\r\n\r\ninterface RoomsRepository {\r\n    suspend fun getRooms(): List<RoomInfo>\r\n\r\n    suspend fun getRooms(latitude: Int, longitude: Int): List<RoomInfo>\r\n\r\n    suspend fun getEnterRoom(roomId: Int, enter: Enter): String\r\n\r\n    suspend fun getMember(roomId: Int): List<MemberInfo>\r\n\r\n    suspend fun postCreateRoom(createRoom: CreateRoom): String\r\n\r\n    suspend fun putModifyRoom(roomId: Int, modifyRoom: ModifyRoom): String\r\n\r\n    suspend fun putInheritRoom(accountId: AccountId): String\r\n\r\n    suspend fun putModifyNickname(roomId: Int, modifyNickname: ModifyNickname): String\r\n\r\n    suspend fun deleteExitRoom(roomId: Int): String\r\n\r\n    suspend fun deleteRemoveRoom(roomId: Int): String\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/domain/src/main/java/com/example/domain/repository/RoomsRepository.kt b/domain/src/main/java/com/example/domain/repository/RoomsRepository.kt
+--- a/domain/src/main/java/com/example/domain/repository/RoomsRepository.kt	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/domain/src/main/java/com/example/domain/repository/RoomsRepository.kt	(date 1634729286384)
+@@ -2,6 +2,7 @@
+ 
+ import com.example.domain.entity.repuest.*
+ import com.example.domain.entity.response.MemberInfo
++import com.example.domain.entity.response.Msg
+ import com.example.domain.entity.response.RoomInfo
+ import retrofit2.http.Body
+ 
+@@ -10,19 +11,19 @@
+ 
+     suspend fun getRooms(latitude: Int, longitude: Int): List<RoomInfo>
+ 
+-    suspend fun getEnterRoom(roomId: Int, enter: Enter): String
++    suspend fun getEnterRoom(roomId: Int, enter: Enter): Msg
+ 
+     suspend fun getMember(roomId: Int): List<MemberInfo>
+ 
+-    suspend fun postCreateRoom(createRoom: CreateRoom): String
++    suspend fun postCreateRoom(createRoom: CreateRoom): Msg
+ 
+-    suspend fun putModifyRoom(roomId: Int, modifyRoom: ModifyRoom): String
++    suspend fun putModifyRoom(roomId: Int, modifyRoom: ModifyRoom): Msg
+ 
+-    suspend fun putInheritRoom(accountId: AccountId): String
++    suspend fun putInheritRoom(accountId: AccountId): Msg
+ 
+-    suspend fun putModifyNickname(roomId: Int, modifyNickname: ModifyNickname): String
++    suspend fun putModifyNickname(roomId: Int, modifyNickname: ModifyNickname): Msg
+ 
+-    suspend fun deleteExitRoom(roomId: Int): String
++    suspend fun deleteExitRoom(roomId: Int): Msg
+ 
+-    suspend fun deleteRemoveRoom(roomId: Int): String
++    suspend fun deleteRemoveRoom(roomId: Int): Msg
+ }
+\ No newline at end of file
+Index: domain/src/main/java/com/example/domain/usecase/account/DeleteBanUseCase.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.domain.usecase.account\r\n\r\nimport com.example.domain.base.ParamsUseCase\r\nimport com.example.domain.entity.repuest.Ban\r\nimport com.example.domain.repository.AccountRepository\r\nimport javax.inject.Inject\r\n\r\nclass DeleteBanUseCase @Inject constructor(\r\n    private val accountRepository: AccountRepository\r\n) : ParamsUseCase<DeleteBanUseCase.Params, String>() {\r\n\r\n    override suspend fun buildUseCase(params: Params): String {\r\n        return accountRepository.deleteBan(params.ban)\r\n    }\r\n\r\n    data class Params(\r\n        val ban: Ban\r\n    )\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/domain/src/main/java/com/example/domain/usecase/account/DeleteBanUseCase.kt b/domain/src/main/java/com/example/domain/usecase/account/DeleteBanUseCase.kt
+--- a/domain/src/main/java/com/example/domain/usecase/account/DeleteBanUseCase.kt	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/domain/src/main/java/com/example/domain/usecase/account/DeleteBanUseCase.kt	(date 1634729589410)
+@@ -2,14 +2,15 @@
+ 
+ import com.example.domain.base.ParamsUseCase
+ import com.example.domain.entity.repuest.Ban
++import com.example.domain.entity.response.Msg
+ import com.example.domain.repository.AccountRepository
+ import javax.inject.Inject
+ 
+ class DeleteBanUseCase @Inject constructor(
+     private val accountRepository: AccountRepository
+-) : ParamsUseCase<DeleteBanUseCase.Params, String>() {
++) : ParamsUseCase<DeleteBanUseCase.Params, Msg>() {
+ 
+-    override suspend fun buildUseCase(params: Params): String {
++    override suspend fun buildUseCase(params: Params): Msg {
+         return accountRepository.deleteBan(params.ban)
+     }
+ 
+Index: app/src/main/res/layout/fragment_login.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<FrameLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".view.fragment.LoginFragment\">\r\n\r\n    <!-- TODO: Update blank fragment layout -->\r\n    <TextView\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:text=\"@string/hello_blank_fragment\" />\r\n\r\n</FrameLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_login.xml b/app/src/main/res/layout/fragment_login.xml
+--- a/app/src/main/res/layout/fragment_login.xml	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/app/src/main/res/layout/fragment_login.xml	(date 1634728212169)
+@@ -1,14 +1,101 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
++<layout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    tools:context=".view.fragment.LoginFragment">
++    xmlns:app="http://schemas.android.com/apk/res-auto">
++
++    <data>
++        <variable
++            name="vm"
++            type="com.example.hotspotalk.viewmodel.LoginViewModel" />
++    </data>
++
++    <androidx.constraintlayout.widget.ConstraintLayout
++        android:paddingTop="@dimen/padding_top_sign"
++        android:paddingBottom="@dimen/padding_top_sign"
++        android:paddingStart="@dimen/padding_start_sign"
++        android:paddingEnd="@dimen/padding_start_sign"
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        tools:context=".view.fragment.LoginFragment">
+ 
+-    <!-- TODO: Update blank fragment layout -->
+-    <TextView
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent"
+-        android:text="@string/hello_blank_fragment" />
++        <TextView
++            android:id="@+id/textView7"
++            style="@style/TitleTextView"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:text="@string/sign_in"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toTopOf="parent" />
++
++        <com.google.android.material.textfield.TextInputLayout
++            android:id="@+id/textInputLayout4"
++            style="@style/MainTextInputLayout"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:layout_marginEnd="2dp"
++            android:layout_marginTop="32dp"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toBottomOf="@+id/textView7">
++
++            <com.google.android.material.textfield.TextInputEditText
++                style="@style/MainTextInputEditText"
++                android:text="@{vm.id}"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:hint="@string/id" />
++        </com.google.android.material.textfield.TextInputLayout>
++
++        <com.google.android.material.textfield.TextInputLayout
++            android:id="@+id/textInputLayout5"
++            style="@style/MainTextInputLayout"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            app:layout_constraintEnd_toEndOf="@+id/textInputLayout4"
++            app:layout_constraintStart_toStartOf="@+id/textInputLayout4"
++            app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
++
++            <com.google.android.material.textfield.TextInputEditText
++                style="@style/MainTextInputEditText"
++                android:text="@{vm.pw}"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:hint="@string/password" />
++        </com.google.android.material.textfield.TextInputLayout>
++
++        <androidx.appcompat.widget.AppCompatButton
++            android:id="@+id/button2"
++            style="@style/Widget.AppCompat.Button.MainButton"
++            android:onClick="@{() -> vm.login}"
++            android:layout_width="0dp"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="@dimen/margin_top_sign_btn"
++            android:text="@string/sign_up"
++            app:layout_constraintEnd_toEndOf="@+id/textInputLayout5"
++            app:layout_constraintStart_toStartOf="@+id/textInputLayout5"
++            app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
++
++        <LinearLayout
++            android:layout_width="0dp"
++            android:layout_height="wrap_content"
++            android:orientation="horizontal"
++            android:gravity="center"
++            app:layout_constraintBottom_toBottomOf="parent"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintStart_toStartOf="parent">
+ 
+-</FrameLayout>
+\ No newline at end of file
++            <TextView
++                android:id="@+id/textView9"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:text="TextView" />
++
++            <TextView
++                android:id="@+id/textView10"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:text="TextView" />
++        </LinearLayout>
++
++    </androidx.constraintlayout.widget.ConstraintLayout>
++</layout>
+\ No newline at end of file
+Index: domain/src/main/java/com/example/domain/repository/ChatRepository.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.domain.repository\r\n\r\nimport retrofit2.http.GET\r\nimport retrofit2.http.Path\r\n\r\ninterface ChatRepository {\r\n    suspend fun getChat(roomId: Int): String\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/domain/src/main/java/com/example/domain/repository/ChatRepository.kt b/domain/src/main/java/com/example/domain/repository/ChatRepository.kt
+--- a/domain/src/main/java/com/example/domain/repository/ChatRepository.kt	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/domain/src/main/java/com/example/domain/repository/ChatRepository.kt	(date 1634729286440)
+@@ -1,8 +1,7 @@
+ package com.example.domain.repository
+ 
+-import retrofit2.http.GET
+-import retrofit2.http.Path
++import com.example.domain.entity.response.Msg
+ 
+ interface ChatRepository {
+-    suspend fun getChat(roomId: Int): String
++    suspend fun getChat(roomId: Int): Msg
+ }
+\ No newline at end of file
+Index: data/src/main/java/com/example/data/repository/AccountRepositoryImpl.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.data.repository\r\n\r\nimport com.example.data.datasource.AccountDataSource\r\nimport com.example.domain.entity.repuest.Ban\r\nimport com.example.domain.entity.repuest.Login\r\nimport com.example.domain.repository.AccountRepository\r\nimport javax.inject.Inject\r\nimport kotlin.math.log\r\n\r\nclass AccountRepositoryImpl @Inject constructor(\r\n    private val dataSource: AccountDataSource\r\n) : AccountRepository {\r\n\r\n    override suspend fun postLogin(login: Login): String {\r\n        return dataSource.postLogin(login)\r\n    }\r\n\r\n    override suspend fun postSignUp(signUp: Login): String {\r\n        return dataSource.postSignUp(signUp)\r\n    }\r\n\r\n    override suspend fun getId(id: String): String {\r\n        return dataSource.getId(id)\r\n    }\r\n\r\n    override suspend fun deleteBan(ban: Ban): String {\r\n        return dataSource.deleteBan(ban)\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/data/src/main/java/com/example/data/repository/AccountRepositoryImpl.kt b/data/src/main/java/com/example/data/repository/AccountRepositoryImpl.kt
+--- a/data/src/main/java/com/example/data/repository/AccountRepositoryImpl.kt	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/data/src/main/java/com/example/data/repository/AccountRepositoryImpl.kt	(date 1634729809409)
+@@ -3,6 +3,8 @@
+ import com.example.data.datasource.AccountDataSource
+ import com.example.domain.entity.repuest.Ban
+ import com.example.domain.entity.repuest.Login
++import com.example.domain.entity.response.Msg
++import com.example.domain.entity.response.Token
+ import com.example.domain.repository.AccountRepository
+ import javax.inject.Inject
+ import kotlin.math.log
+@@ -11,19 +13,19 @@
+     private val dataSource: AccountDataSource
+ ) : AccountRepository {
+ 
+-    override suspend fun postLogin(login: Login): String {
++    override suspend fun postLogin(login: Login): Token {
+         return dataSource.postLogin(login)
+     }
+ 
+-    override suspend fun postSignUp(signUp: Login): String {
++    override suspend fun postSignUp(signUp: Login): Token {
+         return dataSource.postSignUp(signUp)
+     }
+ 
+-    override suspend fun getId(id: String): String {
++    override suspend fun getId(id: String): Msg {
+         return dataSource.getId(id)
+     }
+ 
+-    override suspend fun deleteBan(ban: Ban): String {
++    override suspend fun deleteBan(ban: Ban): Msg {
+         return dataSource.deleteBan(ban)
+     }
+ }
+\ No newline at end of file
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <string name=\"app_name\">HotspoTalk</string>\r\n    <!-- TODO: Remove or change this placeholder text -->\r\n    <string name=\"hello_blank_fragment\">Hello blank fragment</string>\r\n    <string name=\"chatting_room_name\">채팅방명</string>\r\n    <string name=\"total_people_number\">총 인원</string>\r\n    <string name=\"password\">비밀번호</string>\r\n    <string name=\"chatting\">채팅</string>\r\n    <string name=\"create_room\">방 만들기</string>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+--- a/app/src/main/res/values/strings.xml	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/app/src/main/res/values/strings.xml	(date 1634726757767)
+@@ -7,4 +7,8 @@
+     <string name="password">비밀번호</string>
+     <string name="chatting">채팅</string>
+     <string name="create_room">방 만들기</string>
++    <string name="sign_up">회원가입</string>
++    <string name="id">아이디</string>
++    <string name="password_check">비밀번호 확인</string>
++    <string name="sign_in">로그인</string>
+ </resources>
+\ No newline at end of file
+Index: data/src/main/java/com/example/data/repository/ChatRepositoryImpl.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.data.repository\r\n\r\nimport com.example.data.datasource.ChatDataSource\r\nimport com.example.domain.repository.ChatRepository\r\nimport javax.inject.Inject\r\n\r\nclass ChatRepositoryImpl @Inject constructor(\r\n    private val chatDataSource: ChatDataSource\r\n) : ChatRepository {\r\n\r\n    override suspend fun getChat(roomId: Int): String {\r\n        return chatDataSource.getChat(roomId)\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/data/src/main/java/com/example/data/repository/ChatRepositoryImpl.kt b/data/src/main/java/com/example/data/repository/ChatRepositoryImpl.kt
+--- a/data/src/main/java/com/example/data/repository/ChatRepositoryImpl.kt	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/data/src/main/java/com/example/data/repository/ChatRepositoryImpl.kt	(date 1634729809419)
+@@ -1,6 +1,8 @@
+ package com.example.data.repository
+ 
+ import com.example.data.datasource.ChatDataSource
++import com.example.data.entity.MsgData
++import com.example.domain.entity.response.Msg
+ import com.example.domain.repository.ChatRepository
+ import javax.inject.Inject
+ 
+@@ -8,7 +10,7 @@
+     private val chatDataSource: ChatDataSource
+ ) : ChatRepository {
+ 
+-    override suspend fun getChat(roomId: Int): String {
++    override suspend fun getChat(roomId: Int): Msg {
+         return chatDataSource.getChat(roomId)
+     }
+ }
+\ No newline at end of file
+Index: app/src/main/res/values/themes.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources xmlns:tools=\"http://schemas.android.com/tools\">\r\n    <!-- Base application theme. -->\r\n    <style name=\"Theme.HotspoTalk\" parent=\"Theme.MaterialComponents.DayNight.NoActionBar\">\r\n        <!-- Primary brand color. -->\r\n        <item name=\"colorPrimary\">@color/purple_500</item>\r\n        <item name=\"colorPrimaryVariant\">@color/purple_700</item>\r\n        <item name=\"colorOnPrimary\">@color/white</item>\r\n        <!-- Secondary brand color. -->\r\n        <item name=\"colorSecondary\">@color/teal_200</item>\r\n        <item name=\"colorSecondaryVariant\">@color/teal_700</item>\r\n        <item name=\"colorOnSecondary\">@color/black</item>\r\n        <!-- Status bar color. -->\r\n        <item name=\"android:statusBarColor\" tools:targetApi=\"l\">?attr/colorPrimaryVariant</item>\r\n        <!-- Customize your theme here. -->\r\n    </style>\r\n\r\n    <!-- Button -->\r\n    <style name=\"Widget.AppCompat.Button.MainButton\">\r\n        <item name=\"android:background\">@drawable/main_btn_selector</item>\r\n        <item name=\"android:textColor\">@color/white</item>\r\n        <item name=\"elevation\">5dp</item>\r\n        <item name=\"android:translationZ\" tools:targetApi=\"lollipop\">10dp</item>\r\n    </style>\r\n\r\n    <!-- TextView -->\r\n    <style name=\"Base.Widget.AppCompat.TextView.BigTextView\">\r\n        <item name=\"android:textColor\">@color/black</item>\r\n        <item name=\"android:textSize\">20sp</item>\r\n    </style>\r\n\r\n    <style name=\"Base.Widget.AppCompat.TextView.SmallTextView\">\r\n        <item name=\"android:textColor\">@color/black</item>\r\n        <item name=\"android:textSize\">15sp</item>\r\n    </style>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/themes.xml b/app/src/main/res/values/themes.xml
+--- a/app/src/main/res/values/themes.xml	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/app/src/main/res/values/themes.xml	(date 1634726757777)
+@@ -23,13 +23,46 @@
+     </style>
+ 
+     <!-- TextView -->
++    <style name="TitleTextView" parent="Widget.AppCompat.TextView">
++        <item name="android:textColor">@color/black</item>
++        <item name="android:textSize">30sp</item>
++        <item name="android:textStyle">bold</item>
++    </style>
++
+     <style name="Base.Widget.AppCompat.TextView.BigTextView">
+         <item name="android:textColor">@color/black</item>
+         <item name="android:textSize">20sp</item>
+     </style>
++
++    <style name="Base.Widget.AppCompat.TextView.RegularTextView">
++        <item name="android:textColor">@color/black</item>
++        <item name="android:textSize">18sp</item>
++    </style>
+ 
+     <style name="Base.Widget.AppCompat.TextView.SmallTextView">
+         <item name="android:textColor">@color/black</item>
+         <item name="android:textSize">15sp</item>
+     </style>
++
++    <!-- TextInputLayout -->
++    <style name="MainTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
++        <item name="hintEnabled">false</item>
++        <item name="errorEnabled">true</item>
++        <item name="android:layout_marginTop">5dp</item>
++        <item name="boxCornerRadiusBottomEnd">40dp</item>
++        <item name="boxCornerRadiusBottomStart">40dp</item>
++        <item name="boxCornerRadiusTopEnd">40dp</item>
++        <item name="boxCornerRadiusTopStart">40dp</item>
++    </style>
++
++    <!-- EditText -->
++    <style name="MainTextInputEditText" parent="Widget.AppCompat.EditText">
++        <item name="maxLines">1</item>
++        <item name="singleLine">true</item>
++        <item name="android:textColor">@color/black</item>
++        <item name="android:textSize">15sp</item>
++        <item name="android:includeFontPadding">true</item>
++        <item name="android:paddingStart">24dp</item>
++        <item name="android:paddingEnd">24dp</item>
++    </style>
+ </resources>
+\ No newline at end of file
+Index: data/src/main/java/com/example/data/repository/RoomsRepositoryImpl.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.data.repository\r\n\r\nimport com.example.data.datasource.RoomDataSource\r\nimport com.example.domain.entity.repuest.*\r\nimport com.example.domain.entity.response.MemberInfo\r\nimport com.example.domain.entity.response.RoomInfo\r\nimport com.example.domain.repository.RoomsRepository\r\nimport javax.inject.Inject\r\n\r\nclass RoomsRepositoryImpl @Inject constructor(\r\n    private val dataSource: RoomDataSource\r\n) : RoomsRepository {\r\n    override suspend fun getRooms(): List<RoomInfo> {\r\n        return dataSource.getRooms()\r\n    }\r\n\r\n    override suspend fun getRooms(latitude: Int, longitude: Int): List<RoomInfo> {\r\n        return dataSource.getRooms(latitude, longitude)\r\n    }\r\n\r\n    override suspend fun getEnterRoom(roomId: Int, enter: Enter): String {\r\n        return dataSource.getEnterRoom(roomId, enter)\r\n    }\r\n\r\n    override suspend fun getMember(roomId: Int): List<MemberInfo> {\r\n        return dataSource.getMember(roomId)\r\n    }\r\n\r\n    override suspend fun postCreateRoom(createRoom: CreateRoom): String {\r\n        return dataSource.postCreateRoom(createRoom)\r\n    }\r\n\r\n    override suspend fun putModifyRoom(roomId: Int, modifyRoom: ModifyRoom): String {\r\n        return dataSource.putModifyRoom(roomId, modifyRoom)\r\n    }\r\n\r\n    override suspend fun putInheritRoom(accountId: AccountId): String {\r\n        return dataSource.putInheritRoom(accountId)\r\n    }\r\n\r\n    override suspend fun putModifyNickname(roomId: Int, modifyNickname: ModifyNickname): String {\r\n        return dataSource.putModifyNickname(roomId, modifyNickname)\r\n    }\r\n\r\n    override suspend fun deleteExitRoom(roomId: Int): String {\r\n        return dataSource.deleteExitRoom(roomId)\r\n    }\r\n\r\n    override suspend fun deleteRemoveRoom(roomId: Int): String {\r\n        return dataSource.deleteRemoveRoom(roomId)\r\n    }\r\n\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/data/src/main/java/com/example/data/repository/RoomsRepositoryImpl.kt b/data/src/main/java/com/example/data/repository/RoomsRepositoryImpl.kt
+--- a/data/src/main/java/com/example/data/repository/RoomsRepositoryImpl.kt	(revision 26a95ec2d438be74cb90366dbae9de541465497c)
++++ b/data/src/main/java/com/example/data/repository/RoomsRepositoryImpl.kt	(date 1634730176776)
+@@ -3,6 +3,7 @@
+ import com.example.data.datasource.RoomDataSource
+ import com.example.domain.entity.repuest.*
+ import com.example.domain.entity.response.MemberInfo
++import com.example.domain.entity.response.Msg
+ import com.example.domain.entity.response.RoomInfo
+ import com.example.domain.repository.RoomsRepository
+ import javax.inject.Inject
+@@ -18,7 +19,7 @@
+         return dataSource.getRooms(latitude, longitude)
+     }
+ 
+-    override suspend fun getEnterRoom(roomId: Int, enter: Enter): String {
++    override suspend fun getEnterRoom(roomId: Int, enter: Enter): Msg {
+         return dataSource.getEnterRoom(roomId, enter)
+     }
+ 
+@@ -26,27 +27,27 @@
+         return dataSource.getMember(roomId)
+     }
+ 
+-    override suspend fun postCreateRoom(createRoom: CreateRoom): String {
++    override suspend fun postCreateRoom(createRoom: CreateRoom): Msg {
+         return dataSource.postCreateRoom(createRoom)
+     }
+ 
+-    override suspend fun putModifyRoom(roomId: Int, modifyRoom: ModifyRoom): String {
++    override suspend fun putModifyRoom(roomId: Int, modifyRoom: ModifyRoom): Msg {
+         return dataSource.putModifyRoom(roomId, modifyRoom)
+     }
+ 
+-    override suspend fun putInheritRoom(accountId: AccountId): String {
++    override suspend fun putInheritRoom(accountId: AccountId): Msg {
+         return dataSource.putInheritRoom(accountId)
+     }
+ 
+-    override suspend fun putModifyNickname(roomId: Int, modifyNickname: ModifyNickname): String {
++    override suspend fun putModifyNickname(roomId: Int, modifyNickname: ModifyNickname): Msg {
+         return dataSource.putModifyNickname(roomId, modifyNickname)
+     }
+ 
+-    override suspend fun deleteExitRoom(roomId: Int): String {
++    override suspend fun deleteExitRoom(roomId: Int): Msg {
+         return dataSource.deleteExitRoom(roomId)
+     }
+ 
+-    override suspend fun deleteRemoveRoom(roomId: Int): String {
++    override suspend fun deleteRemoveRoom(roomId: Int): Msg {
+         return dataSource.deleteRemoveRoom(roomId)
+     }
+ 
+Index: data/src/main/java/com/example/data/entity/MsgData.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/data/src/main/java/com/example/data/entity/MsgData.kt b/data/src/main/java/com/example/data/entity/MsgData.kt
+new file mode 100644
+--- /dev/null	(date 1634729286493)
++++ b/data/src/main/java/com/example/data/entity/MsgData.kt	(date 1634729286493)
+@@ -0,0 +1,3 @@
++package com.example.data.entity
++
++data class MsgData(val msg: String)
+Index: data/src/main/java/com/example/data/mapper/MsgMapper.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/data/src/main/java/com/example/data/mapper/MsgMapper.kt b/data/src/main/java/com/example/data/mapper/MsgMapper.kt
+new file mode 100644
+--- /dev/null	(date 1634729286458)
++++ b/data/src/main/java/com/example/data/mapper/MsgMapper.kt	(date 1634729286458)
+@@ -0,0 +1,10 @@
++package com.example.data.mapper
++
++import com.example.data.entity.MsgData
++import com.example.domain.entity.response.Msg
++
++fun Msg.toData() =
++    MsgData(this.msg)
++
++fun MsgData.toEntity() =
++    Msg(this.msg)
+\ No newline at end of file

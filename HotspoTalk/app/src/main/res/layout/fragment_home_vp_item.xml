@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="vm"
+            type="com.example.hotspotalk.viewmodel.HomeViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,6 +20,7 @@
             android:layout_height="0dp"
             android:gravity="center"
             android:orientation="vertical"
+            setVisible="@{!vm.enterableVis &amp;&amp; !vm.notEnterableVis}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,11 +45,13 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_participate_chatting_room_vp_item_home"
+            android:id="@+id/rv_not_enterable_chatting_room_vp_item_home"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="vertical"
             android:visibility="gone"
+            submitList="@{vm.isSuccessNotEnterable}"
+            setVisible="@{vm.notEnterableVis}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -53,11 +62,12 @@
         </androidx.recyclerview.widget.RecyclerView>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_chatting_room_vp_item_home"
+            android:id="@+id/rv_enterable_room_vp_item_home"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:visibility="gone"
+            submitList="@{vm.isSuccessEnterable}"
+            setVisible="@{vm.enterableVis}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -5,11 +5,15 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import com.example.hotspotalk.R
-import com.example.hotspotalk.di.application.HotspotalkApplication
+import com.example.hotspotalk.context.HotspotalkApplication
 import com.example.hotspotalk.viewmodel.ChattingViewModel
+import com.google.firebase.messaging.FirebaseMessaging
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private val viewModel:ChattingViewModel by viewModels()
+    private val viewModel: ChattingViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -18,5 +22,10 @@ class MainActivity : AppCompatActivity() {
         viewModel.chat.observe(this,{
             Log.d("MainActivity","message is arrived $it")
         })
+
+        val token = FirebaseMessaging.getInstance().token.addOnSuccessListener {
+            Log.d("FCM",it.toString())
+        }
+
     }
 }

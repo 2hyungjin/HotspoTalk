@@ -1,4 +1,4 @@
-package com.example.hotspotalk.di.application
+package com.example.hotspotalk.context
 
 import android.app.Application
 import com.example.data.network.NewMessageListener

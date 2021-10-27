@@ -6,21 +6,31 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.domain.usecase.rooms.GetRoomsEnterableUseCase
+import com.example.domain.usecase.rooms.GetRoomsNotEnterableUseCase
 import com.example.hotspotalk.R
 import com.example.hotspotalk.databinding.FragmentHomeVpItemBinding
 import com.example.hotspotalk.view.adapter.ChattingRoomRecyclerViewAdapter
+import com.example.hotspotalk.viewmodel.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.HiltAndroidApp
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class HomeViewPagerItemFragment : Fragment() {
 
     private val navController by lazy { findNavController() }
 
     private lateinit var binding: FragmentHomeVpItemBinding
+    private val viewModel: HomeViewModel by activityViewModels()
 
-    private val participateAdapter: ChattingRoomRecyclerViewAdapter by lazy { ChattingRoomRecyclerViewAdapter() }
-    private val adapter: ChattingRoomRecyclerViewAdapter by lazy { ChattingRoomRecyclerViewAdapter() }
+    private val enterableAdapter: ChattingRoomRecyclerViewAdapter = ChattingRoomRecyclerViewAdapter()
+    private val notEnterableAdapter: ChattingRoomRecyclerViewAdapter = ChattingRoomRecyclerViewAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +45,9 @@ class HomeViewPagerItemFragment : Fragment() {
 
         init()
 
-        adapter.setOnClickChattingRoomListener {
+        observe()
+
+        notEnterableAdapter.setOnClickChattingRoomListener {
             val bundle = Bundle()
             bundle.putInt("id", it)
             navController.navigate(R.id.action_homeFragment_to_chattingFragment, bundle)
@@ -43,26 +55,34 @@ class HomeViewPagerItemFragment : Fragment() {
     }
 
     private fun init() {
-        binding.rvChattingRoomVpItemHome.adapter = adapter
+        binding.rvEnterableRoomVpItemHome.adapter = enterableAdapter
+        binding.rvNotEnterableChattingRoomVpItemHome.adapter = notEnterableAdapter
 
-        // 동네 챗팅
-        if (adapter.list.isEmpty()) {
-            binding.rvChattingRoomVpItemHome.visibility = GONE
-            binding.layoutNoChatVpItemHome.visibility = VISIBLE
-        } else {
-            binding.rvChattingRoomVpItemHome.visibility = VISIBLE
-            binding.layoutNoChatVpItemHome.visibility = GONE
-        }
-
-        // 참가한 챗팅
-        if (participateAdapter.list.isEmpty()) {
-            binding.rvParticipateChattingRoomVpItemHome.visibility = GONE
-            binding.layoutNoChatVpItemHome.visibility = VISIBLE
-        } else {
-            binding.rvParticipateChattingRoomVpItemHome.visibility = VISIBLE
-            binding.layoutNoChatVpItemHome.visibility = GONE
-        }
+        viewModel.getRoomsEnterable()
+        viewModel.getRoomsNotEnterable()
     }
 
+    private fun observe() = with(viewModel) {
+        isSuccessEnterable.observe(viewLifecycleOwner) { it ->
+            enterableVis.value = when {
+                it.isEmpty() -> false
+                else -> true
+            }
+        }
 
+        isFailureEnterable.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+        }
+
+        isSuccessNotEnterable.observe(viewLifecycleOwner) {
+            notEnterableVis.value = when {
+                it.isEmpty() -> false
+                else -> true
+            }
+        }
+
+        isFailureNotEnterable.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+        }
+    }
 }
