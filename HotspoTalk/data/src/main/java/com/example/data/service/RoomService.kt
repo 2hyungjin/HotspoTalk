@@ -1,8 +1,7 @@
 package com.example.data.service
 
-import com.example.domain.entity.repuest.*
-import com.example.domain.entity.response.MemberInfo
-import com.example.domain.entity.response.RoomInfo
+import com.example.data.entity.repuest.*
+import com.example.data.entity.response.RoomInfo
 import com.example.data.entity.MemberInfoData
 import com.example.data.entity.RoomInfoData
 import retrofit2.Response

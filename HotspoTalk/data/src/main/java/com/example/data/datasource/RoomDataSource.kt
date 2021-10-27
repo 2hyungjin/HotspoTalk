@@ -3,9 +3,9 @@ package com.example.data.datasource
 import com.example.data.base.BaseDataSource
 import com.example.data.mapper.toEntity
 import com.example.data.service.RoomService
-import com.example.domain.entity.repuest.*
-import com.example.domain.entity.response.MemberInfo
-import com.example.domain.entity.response.RoomInfo
+import com.example.data.entity.repuest.*
+import com.example.data.entity.response.MemberInfo
+import com.example.data.entity.response.RoomInfo
 import javax.inject.Inject
 
 class RoomDataSource @Inject constructor(

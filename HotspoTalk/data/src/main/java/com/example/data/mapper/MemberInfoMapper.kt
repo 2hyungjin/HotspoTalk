@@ -1,6 +1,6 @@
 package com.example.data.mapper
 
-import com.example.domain.entity.response.MemberInfo
+import com.example.data.entity.response.MemberInfo
 import com.example.data.entity.MemberInfoData
 
 fun List<MemberInfo>.toData(): List<MemberInfoData> =

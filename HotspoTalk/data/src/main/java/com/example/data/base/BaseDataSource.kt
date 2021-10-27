@@ -15,6 +15,6 @@ abstract class BaseDataSource<SV> {
     private fun <T> error(response: Response<T>) {
         val error = response.errorBody()?.string()
         Log.d("BaseDataSource", error.toString())
-        Throwable(error)
+        throw Throwable(error)
     }
 }

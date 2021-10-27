@@ -3,9 +3,9 @@ package com.example.hotspotalk.di.module
 import com.example.data.datasource.AccountDataSource
 import com.example.data.datasource.ChatDataSource
 import com.example.data.datasource.RoomDataSource
-import com.example.data.repository.AccountRepositoryImpl
-import com.example.data.repository.ChatRepositoryImpl
-import com.example.data.repository.RoomsRepositoryImpl
+import com.example.data.repositoryImpl.AccountRepositoryImpl
+import com.example.data.repositoryImpl.ChatRepositoryImpl
+import com.example.data.repositoryImpl.RoomsRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

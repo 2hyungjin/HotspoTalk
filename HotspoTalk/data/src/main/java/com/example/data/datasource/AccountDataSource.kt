@@ -2,8 +2,8 @@ package com.example.data.datasource
 
 import com.example.data.base.BaseDataSource
 import com.example.data.service.AccountService
-import com.example.domain.entity.repuest.Ban
-import com.example.domain.entity.repuest.Login
+import com.example.data.entity.repuest.Ban
+import com.example.data.entity.repuest.Login
 import javax.inject.Inject
 
 class AccountDataSource @Inject constructor(
