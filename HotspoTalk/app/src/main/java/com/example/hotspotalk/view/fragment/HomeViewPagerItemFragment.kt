@@ -53,12 +53,12 @@ class HomeViewPagerItemFragment : Fragment() {
         binding.rvNotEnterableChattingRoomVpItemHome.adapter = notEnterableAdapter
 
         // todo 위도 경도 값 전달
-        viewModel.getRoomsEnterable(1, 1)
-        viewModel.getRoomsNotEnterable()
+        viewModel.getRoomsByCoordinate(1, 1)
+        viewModel.getEnteredRooms()
     }
 
     private fun observe() = with(viewModel) {
-        isSuccessEnterable.observe(viewLifecycleOwner) {
+        isSuccessCoordinateRooms.observe(viewLifecycleOwner) {
             when (it) {
                 null -> {
                     Toast.makeText(requireContext(), "채팅방을 가져오는데 실패했습니다.", Toast.LENGTH_SHORT).show()
@@ -71,11 +71,11 @@ class HomeViewPagerItemFragment : Fragment() {
             }
         }
 
-        isFailureEnterable.observe(viewLifecycleOwner) {
+        isFailureCoordinateRooms.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
 
-        isSuccessNotEnterable.observe(viewLifecycleOwner) {
+        isSuccessEnteredRooms.observe(viewLifecycleOwner) {
             when (it) {
                 null -> {
                     Toast.makeText(requireContext(), "채팅방을 가져오는데 실패했습니다.", Toast.LENGTH_SHORT).show()
@@ -89,7 +89,7 @@ class HomeViewPagerItemFragment : Fragment() {
             }
         }
 
-        isFailureNotEnterable.observe(viewLifecycleOwner) {
+        isFailureEnteredRooms.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
     }

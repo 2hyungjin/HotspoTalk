@@ -1,6 +1,5 @@
 package com.example.hotspotalk.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,47 +14,46 @@ class HomeViewModel @Inject constructor(
     private val roomsRepository: RoomsRepository
 ) : ViewModel() {
 
-    // home
-    val isEnterableChecked = MutableLiveData(false)
-
     // homeViewPager
     val enterableVis = MutableLiveData(false)
     val notEnterableVis = MutableLiveData(false)
 
-    private val _isSuccessEnterable = MutableLiveData<List<RoomInfo>>(ArrayList())
-    val isSuccessEnterable = _isSuccessEnterable
+    private val _isSuccessCoordinateRooms = MutableLiveData<List<RoomInfo>>(ArrayList())
+    val isSuccessCoordinateRooms = _isSuccessCoordinateRooms
 
-    private val _isFailureEnterable = MutableLiveData<String>()
-    val isFailureEnterable = _isFailureEnterable
+    private val _isFailureCoordinateRooms = MutableLiveData<String>()
+    val isFailureCoordinateRooms = _isFailureCoordinateRooms
 
-    private val _isSuccessNotEnterable = MutableLiveData<List<RoomInfo>>(ArrayList())
-    val isSuccessNotEnterable = _isSuccessNotEnterable
+    private val _isSuccessEnteredRooms = MutableLiveData<List<RoomInfo>>(ArrayList())
+    val isSuccessEnteredRooms = _isSuccessEnteredRooms
 
-    private val _isFailureNotEnterable = MutableLiveData<String>()
-    val isFailureNotEnterable = _isFailureNotEnterable
+    private val _isFailureEnteredRooms = MutableLiveData<String>()
+    val isFailureEnteredRooms = _isFailureEnteredRooms
 
-    fun getRoomsEnterable(latitude: Int, longitude: Int) {
+    fun getRoomsByCoordinate(latitude: Int, longitude: Int) {
         viewModelScope.launch {
-            try {
-                val res = roomsRepository.getRooms(latitude, longitude)
-
-                if (res.isSuccessful) {
-                    _isSuccessEnterable.postValue(res.body())
-                } else {
-                    Log.d("", "")
+            val roomsResponse = roomsRepository.getRoomsByCoordinate(latitude, longitude)
+            when {
+                roomsResponse.isSuccessful -> {
+                    _isSuccessCoordinateRooms.value = roomsResponse.body()
                 }
-            } catch (e: Exception) {
-                _isFailureEnterable.postValue(e.message)
+                roomsResponse.code() in 400..499 -> {
+                    _isFailureCoordinateRooms.value = roomsResponse.message()
+                }
             }
         }
     }
 
-    fun getRoomsNotEnterable() {
+    fun getEnteredRooms() {
         viewModelScope.launch {
-            try {
-//                _isSuccessNotEnterable.postValue(list)
-            } catch (e: Exception) {
-                _isFailureNotEnterable.postValue(e.message)
+            val roomsResponse = roomsRepository.getEnteredRooms()
+            when {
+                roomsResponse.isSuccessful -> {
+                    _isSuccessEnteredRooms.value = roomsResponse.body()
+                }
+                roomsResponse.code() in 400..499 -> {
+                    _isFailureEnteredRooms.value = roomsResponse.message()
+                }
             }
         }
     }

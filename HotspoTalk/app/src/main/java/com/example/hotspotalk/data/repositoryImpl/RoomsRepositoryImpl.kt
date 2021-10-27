@@ -16,11 +16,11 @@ import javax.inject.Inject
 class RoomsRepositoryImpl @Inject constructor(
     private val service: RoomService
 ) : RoomsRepository {
-    override suspend fun getRooms(): Response<List<RoomInfo>> {
+    override suspend fun getEnteredRooms(): Response<List<RoomInfo>> {
         return service.getRooms()
     }
 
-    override suspend fun getRooms(latitude: Int, longitude: Int): Response<List<RoomInfo>> {
+    override suspend fun getRoomsByCoordinate(latitude: Int, longitude: Int): Response<List<RoomInfo>> {
         return service.getRooms(latitude, longitude)
     }
 
