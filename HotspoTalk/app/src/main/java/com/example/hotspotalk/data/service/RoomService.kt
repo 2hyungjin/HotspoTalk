@@ -1,5 +1,6 @@
 package com.example.hotspotalk.data.service
 
+import com.example.hotspotalk.data.entity.Message
 import com.example.hotspotalk.data.entity.response.MemberInfo
 import com.example.hotspotalk.data.entity.response.RoomInfo
 import com.example.hotspotalk.data.entity.repuest.AccountId
@@ -40,7 +41,7 @@ interface RoomService {
     suspend fun putInheritRoom(@Body accountId: AccountId): Response<MessageResponse>
 
     @PUT("/rooms/{roomid}/rename")
-    suspend fun putModifyNickname(@Path("roomid") roomId: Int, @Body modifyNickname: ModifyNickname): Response<Msg>
+    suspend fun putModifyNickname(@Path("roomid") roomId: Int, @Body modifyNickname: ModifyNickname): Response<MessageResponse>
 
     @DELETE("/rooms/{roomid}/exit")
     suspend fun deleteExitRoom(@Path("roomid") roomId: Int): Response<MessageResponse>

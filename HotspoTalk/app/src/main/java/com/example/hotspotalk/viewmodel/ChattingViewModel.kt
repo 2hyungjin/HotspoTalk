@@ -1,10 +1,13 @@
 package com.example.hotspotalk.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.hotspotalk.context.HotspotalkApplication
+import com.example.hotspotalk.data.entity.Message
+import com.example.hotspotalk.data.entity.MessageType
 import com.example.hotspotalk.data.entity.repuest.MessageRequest
 import com.example.hotspotalk.data.entity.response.MessageResponse
 import com.example.hotspotalk.data.repository.MessageRepository
@@ -14,8 +17,14 @@ import javax.inject.Inject
 
 class ChattingViewModel @Inject constructor(val messageRepository: MessageRepository) :
     ViewModel() {
-    val chatList = MutableLiveData<List<MessageResponse>>()
-    private val _chatList = mutableListOf<MessageResponse>()
+
+    val chatList = MutableLiveData<List<Message>>()
+    private val _chatList = mutableListOf<Message>()
+
+    val getMessageFailure = MutableLiveData<String>()
+
+    val isLoading = MutableLiveData<Boolean>(false)
+
     var job: Job? = null
     fun initialViewModel() {
         Log.d("ViewModel", "init")
@@ -23,13 +32,22 @@ class ChattingViewModel @Inject constructor(val messageRepository: MessageReposi
     }
 
     private fun newMessageEventHandle(message: MessageResponse) {
-        _chatList.add(message)
+        _chatList.add(Message(message, MessageType.YOURS))
         chatList.postValue(_chatList)
     }
 
     fun getMessages(roomId: Int) {
+        isLoading.postValue(true)
         job = viewModelScope.launch {
-            messageRepository.getMessages(roomId)
+            messageRepository.getMessages(roomId).let { result ->
+                if (result.isSuccessful) {
+                    result.body()!!.map { Message(it, MessageType.YOURS) }
+                        .forEach { _chatList.add(it) }
+                } else {
+                    getMessageFailure.postValue("메세지 로딩에 실패하였습니다.")
+                }
+                isLoading.postValue(false)
+            }
         }
     }
 
