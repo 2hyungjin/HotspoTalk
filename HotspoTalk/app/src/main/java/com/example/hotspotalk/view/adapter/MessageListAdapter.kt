@@ -39,13 +39,13 @@ class MessageListAdapter :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val viewHolder: RecyclerView.ViewHolder = when (viewType) {
             1 -> MyMessageViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.activity_main, parent)
+                LayoutInflater.from(parent.context).inflate(R.layout.layout_rv_item_chat_mine, parent)
             )
             -1 -> YourMessageViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.activity_main, parent)
+                LayoutInflater.from(parent.context).inflate(R.layout.layout_rv_item_chat_yours, parent)
             )
             else -> CommandMessageViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.activity_main, parent)
+                LayoutInflater.from(parent.context).inflate(R.layout.layout_rv_item_chat_command, parent)
             )
         }
         return viewHolder
