@@ -1,7 +1,7 @@
 package com.example.hotspotalk.context
 
 import android.app.Application
-import com.example.data.network.NewMessageListener
+import com.example.hotspotalk.data.network.NewMessageListener
 import com.example.hotspotalk.view.util.Preference
 import dagger.hilt.android.HiltAndroidApp
 import io.socket.client.IO
