@@ -1,14 +1,7 @@
 package com.example.data.mapper
 
-import com.example.data.entity.response.RoomInfo
 import com.example.data.entity.RoomInfoData
-
-fun List<RoomInfo>.toData(): List<RoomInfoData> =
-    this as List<RoomInfoData>
-
-fun List<RoomInfoData>.toEntity(): List<RoomInfo> =
-    this as List<RoomInfo>
-
+import com.example.data.entity.response.RoomInfo
 
 fun RoomInfo.toData() =
     RoomInfoData(
