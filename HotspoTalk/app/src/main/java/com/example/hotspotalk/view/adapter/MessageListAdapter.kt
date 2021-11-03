@@ -69,7 +69,7 @@ class MessageListAdapter :
 
 class MessageDifferenceUtil : DiffUtil.ItemCallback<Message>() {
     override fun areItemsTheSame(oldItem: Message, newItem: Message): Boolean {
-        return oldItem.message.hashCode() == newItem.message.hashCode()
+        return oldItem.hashCode() == newItem.hashCode()
     }
 
     override fun areContentsTheSame(oldItem: Message, newItem: Message): Boolean {
