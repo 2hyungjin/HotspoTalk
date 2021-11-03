@@ -38,7 +38,7 @@ class ChattingViewModel @Inject constructor(private val messageRepository: Chatt
     }
 
     private fun newMessageEventHandle(message: MessageResponse) {
-        _chatList.add(Message(message, MessageType.YOURS))
+        _chatList.add(message.toMessage())
         chatList.postValue(_chatList)
     }
 
@@ -52,7 +52,7 @@ class ChattingViewModel @Inject constructor(private val messageRepository: Chatt
             isLoading.postValue(true)
             messageRepository.getMessages(roomId).let { result ->
                 if (result.isSuccessful) {
-                    result.body()!!.map { Message(it, MessageType.YOURS) }
+                    result.body()!!.map { it.toMessage() }
                         .let { _chatList.addAll(it) }
                 } else {
                     getMessageFailure.postValue("메세지 로딩에 실패하였습니다.")
