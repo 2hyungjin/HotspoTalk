@@ -8,6 +8,7 @@ import com.example.hotspotalk.data.entity.repuest.CreateRoom
 import com.example.hotspotalk.data.entity.repuest.Enter
 import com.example.hotspotalk.data.entity.repuest.ModifyNickname
 import com.example.hotspotalk.data.entity.repuest.ModifyRoom
+import com.example.hotspotalk.data.entity.response.Res
 import retrofit2.Response
 
 interface RoomsRepository {
@@ -15,7 +16,7 @@ interface RoomsRepository {
 
     suspend fun getRoomsByCoordinate(latitude: Int, longitude: Int): Response<List<RoomInfo>>
 
-    suspend fun postEnterRoom(roomId: Int, enter: Enter): Response<Message>
+    suspend fun putEnter(enter: Enter): Response<Res>
 
     suspend fun getMember(roomId: Int): Response<List<MemberInfo>>
 

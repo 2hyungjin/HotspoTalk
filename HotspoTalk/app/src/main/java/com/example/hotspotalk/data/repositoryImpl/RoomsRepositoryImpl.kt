@@ -10,6 +10,7 @@ import com.example.hotspotalk.data.entity.repuest.Enter
 import com.example.hotspotalk.data.entity.repuest.ModifyNickname
 import com.example.hotspotalk.data.entity.repuest.ModifyRoom
 import com.example.hotspotalk.data.entity.response.MessageResponse
+import com.example.hotspotalk.data.entity.response.Res
 import com.example.hotspotalk.data.repository.RoomsRepository
 import retrofit2.Response
 import javax.inject.Inject
@@ -25,8 +26,8 @@ class RoomsRepositoryImpl @Inject constructor(
         return service.getRooms(latitude, longitude)
     }
 
-    override suspend fun postEnterRoom(roomId: Int, enter: Enter): Response<Message> {
-        return service.postEnterRoom(roomId, enter)
+    override suspend fun putEnter(enter: Enter): Response<Res> {
+        return service.putEnter(enter)
     }
 
     override suspend fun getMember(roomId: Int): Response<List<MemberInfo>> {
