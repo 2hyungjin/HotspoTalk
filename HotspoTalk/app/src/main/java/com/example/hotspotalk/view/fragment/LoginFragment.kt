@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.hotspotalk.R
 import com.example.hotspotalk.databinding.FragmentLoginBinding
+import com.example.hotspotalk.view.util.Preference
 import com.example.hotspotalk.view.util.Preference.token
 import com.example.hotspotalk.viewmodel.LoginViewModel
 import com.google.firebase.messaging.FirebaseMessaging
@@ -53,7 +54,7 @@ class LoginFragment : Fragment() {
                     Toast.makeText(requireContext(), "아이디 또는 비밀번호가 옳지 않습니다.", Toast.LENGTH_SHORT)
                         .show()
                 else ->
-                    token = it.token!!
+                    Preference.token = it.token.toString()
             }
         }
 
