@@ -64,6 +64,20 @@ class HomeFragment : Fragment() {
                 else -> 0
             }
         }
+
+        binding.vpHome.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+
+                val id = when (position) {
+                    0 -> binding.radioNotEnterableHome.id
+                    1 -> binding.radioEnterableChatHome.id
+                    else -> -1
+                }
+
+                binding.radioGroupHome.check(id)
+            }
+        })
     }
 
     private fun observe() = with(viewModel) {}

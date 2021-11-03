@@ -86,7 +86,7 @@
             android:id="@+id/iv_secret_rv_tem_chatting_room"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            setInvisible="@{data.roomPW != null}"
+            setInvisible="@{data.roomPW == null}"
             android:layout_marginTop="13dp"
             android:src="@drawable/ic_baseline_lock_24"
             app:layout_constraintEnd_toEndOf="parent"

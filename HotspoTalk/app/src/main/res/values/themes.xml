@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.HotspoTalk" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimary">@color/main_color</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
@@ -55,10 +55,25 @@
         <item name="boxCornerRadiusTopStart">40dp</item>
     </style>
 
+    <style name="ProfileTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+    </style>
+
     <!-- EditText -->
     <style name="MainTextInputEditText" parent="Widget.AppCompat.EditText">
         <item name="maxLines">1</item>
         <item name="singleLine">true</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:includeFontPadding">true</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
+    </style>
+
+    <style name="ProfileTextInputEditText" parent="Widget.AppCompat.EditText">
+        <item name="maxLines">1</item>
+        <item name="singleLine">true</item>
+        <item name="hintEnabled">false</item>
+        <item name="android:background">@android:color/transparent</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">15sp</item>
         <item name="android:includeFontPadding">true</item>

@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_homeFragment_to_createRoomFragment"
             app:destination="@id/createRoomFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_joinChattingFragment"
+            app:destination="@id/joinChattingFragment" />
     </fragment>
     <fragment
         android:id="@+id/introFragment"
@@ -72,5 +75,16 @@
         <action
             android:id="@+id/action_splashFragment_to_loginFragment2"
             app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/joinChattingFragment"
+        android:name="com.example.hotspotalk.view.fragment.JoinChattingFragment"
+        android:label="JoinChattingFragment" >
+        <action
+            android:id="@+id/action_joinChattingFragment_to_chattingFragment"
+            app:destination="@id/chattingFragment" />
+        <action
+            android:id="@+id/action_joinChattingFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>
