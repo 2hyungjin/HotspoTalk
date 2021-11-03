@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ChattingViewModel @Inject constructor(val messageRepository: ChattingRepository) :
+class ChattingViewModel @Inject constructor(private val messageRepository: ChattingRepository) :
     ViewModel() {
 
     val chatList = MutableLiveData<List<Message>>()
@@ -33,8 +33,7 @@ class ChattingViewModel @Inject constructor(val messageRepository: ChattingRepos
 
     var job: Job? = null
 
-    fun initialViewModel() {
-        Log.d("ViewModel", "init")
+    init {
         HotspotalkApplication.newMessageListener.eventHandler = { newMessageEventHandle(it) }
     }
 

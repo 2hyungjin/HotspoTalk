@@ -12,7 +12,7 @@ import com.example.hotspotalk.data.entity.MessageType
 import java.lang.RuntimeException
 
 class MessageListAdapter :
-    ListAdapter<Message, RecyclerView.ViewHolder>(MessageDifferenceUtil()) {
+    ListAdapter<Message, BaseViewHolder<Message>>(MessageDifferenceUtil()) {
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position).messageType) {
             MessageType.MINE -> 1
@@ -22,48 +22,54 @@ class MessageListAdapter :
     }
 
     inner class MyMessageViewHolder(view: View) :
-        RecyclerView.ViewHolder(view) {
+        BaseViewHolder<Message>(view) {
+        override fun bind(item: Message) {
+
+        }
 
     }
 
     inner class YourMessageViewHolder(view: View) :
-        RecyclerView.ViewHolder(view) {
+        BaseViewHolder<Message>(view) {
+        override fun bind(item: Message) {
 
+        }
     }
 
     inner class CommandMessageViewHolder(view: View) :
-        RecyclerView.ViewHolder(view) {
+        BaseViewHolder<Message>(view) {
+        override fun bind(item: Message) {
+
+        }
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val viewHolder: RecyclerView.ViewHolder = when (viewType) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<Message> {
+        val viewHolder = when (viewType) {
             1 -> MyMessageViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.layout_rv_item_chat_mine, parent)
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.layout_rv_item_chat_mine, parent)
             )
             -1 -> YourMessageViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.layout_rv_item_chat_yours, parent)
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.layout_rv_item_chat_yours, parent)
             )
             else -> CommandMessageViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.layout_rv_item_chat_command, parent)
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.layout_rv_item_chat_command, parent)
             )
         }
         return viewHolder
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (holder) {
-            is YourMessageViewHolder -> {
-
-            }
-        }
-
+    override fun onBindViewHolder(holder: BaseViewHolder<Message>, position: Int) {
+        holder.bind(getItem(position))
     }
 }
 
 class MessageDifferenceUtil : DiffUtil.ItemCallback<Message>() {
     override fun areItemsTheSame(oldItem: Message, newItem: Message): Boolean {
-        return oldItem.message.messageId == newItem.message.messageId
+        return oldItem.message.hashCode() == newItem.message.hashCode()
     }
 
     override fun areContentsTheSame(oldItem: Message, newItem: Message): Boolean {

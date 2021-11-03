@@ -7,13 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hotspotalk.databinding.FragmentChattingBinding
+import com.example.hotspotalk.view.adapter.MessageListAdapter
 import com.example.hotspotalk.viewmodel.ChattingViewModel
 
 class ChattingFragment : Fragment() {
     lateinit var binding: FragmentChattingBinding
     private val viewModel: ChattingViewModel by viewModels()
-
+    lateinit var chattingListAdapter: MessageListAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,15 +28,25 @@ class ChattingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.enterChatting(1)
+        chattingListAdapter = MessageListAdapter()
 
+        binding.rvChattingChattingFragment.apply {
+            adapter = chattingListAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
         binding.btnOpenMenu.setOnClickListener {
             binding.constraintLayout2.transitionToEnd()
         }
         binding.btnOutChattingFragment.setOnClickListener {
-            //방 나가기
             findNavController().navigateUp()
         }
 
+        observe()
     }
 
+    private fun observe() = with(viewModel) {
+        chatList.observe(viewLifecycleOwner) {
+            chattingListAdapter.submitList(it)
+        }
+    }
 }
