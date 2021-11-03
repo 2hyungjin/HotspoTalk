@@ -3,12 +3,14 @@ package com.example.hotspotalk.view.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hotspotalk.R
 import com.example.hotspotalk.data.entity.Message
 import com.example.hotspotalk.data.entity.MessageType
+import org.w3c.dom.Text
 import java.lang.RuntimeException
 
 class MessageListAdapter :
@@ -21,27 +23,39 @@ class MessageListAdapter :
         }
     }
 
-    inner class MyMessageViewHolder(view: View) :
+    inner class MyMessageViewHolder(private val view: View) :
         BaseViewHolder<Message>(view) {
         override fun bind(item: Message) {
+            val content: TextView = view.findViewById(R.id.tv_content_mine)
+            val time: TextView = view.findViewById(R.id.tv_time_stamp_mine)
 
+            content.text = item.content
+            time.text = item.timestamp
         }
 
     }
 
-    inner class YourMessageViewHolder(view: View) :
+    inner class YourMessageViewHolder(private val view: View) :
         BaseViewHolder<Message>(view) {
         override fun bind(item: Message) {
+            val content: TextView = view.findViewById(R.id.tv_content_yours)
+            val time: TextView = view.findViewById(R.id.tv_time_stamp_yours)
+            val nickname: TextView = view.findViewById(R.id.tv_nickname_yours)
 
+            content.text = item.content
+            time.text = item.timestamp
+            // todo nickname
+            nickname.text = ""
         }
     }
 
-    inner class CommandMessageViewHolder(view: View) :
+    inner class CommandMessageViewHolder(private val view: View) :
         BaseViewHolder<Message>(view) {
         override fun bind(item: Message) {
+            val command: TextView = view.findViewById(R.id.tv_message_command)
 
+            command.text = item.content
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<Message> {

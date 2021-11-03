@@ -1,0 +1,411 @@
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\r\n    id 'com.android.application'\r\n    id 'kotlin-android'\r\n    id 'kotlin-kapt'\r\n    id 'dagger.hilt.android.plugin'\r\n    id 'com.google.gms.google-services'\r\n}\r\n\r\nandroid {\r\n    compileSdkVersion 30\r\n    buildToolsVersion \"30.0.3\"\r\n    dataBinding{\r\n        enabled=true\r\n    }\r\n\r\n    defaultConfig {\r\n        applicationId \"com.example.hotspotalk\"\r\n        minSdkVersion 28\r\n        targetSdkVersion 30\r\n        versionCode 1\r\n        versionName \"1.0\"\r\n        vectorDrawables.useSupportLibrary = true\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility JavaVersion.VERSION_1_8\r\n        targetCompatibility JavaVersion.VERSION_1_8\r\n    }\r\n    kotlinOptions {\r\n        jvmTarget = '1.8'\r\n    }\r\n}\r\n\r\ndependencies {\r\n    // naver map api\r\n    implementation(\"com.naver.maps:map-sdk:3.12.0\")\r\n\r\n    // viewModel\r\n    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'\r\n    implementation 'androidx.activity:activity-ktx:1.3.1'\r\n    implementation 'androidx.fragment:fragment-ktx:1.3.6'\r\n\r\n    // navigation\r\n    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'\r\n    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'\r\n\r\n    // hilt\r\n    implementation \"com.google.dagger:hilt-android:2.37\"\r\n    kapt \"com.google.dagger:hilt-android-compiler:2.37\"\r\n\r\n    // Retrofit2\r\n    implementation 'com.squareup.retrofit2:retrofit:2.9.0'\r\n\r\n    // Gson\r\n    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'\r\n\r\n    //socket io\r\n    implementation ('io.socket:socket.io-client:2.0.0') {\r\n        exclude group: 'org.json', module: 'json'\r\n    }\r\n\r\n    //firebase\r\n    implementation platform('com.google.firebase:firebase-bom:28.4.2')\r\n    implementation 'com.google.firebase:firebase-messaging:21.1.0'\r\n\r\n    //notification\r\n    implementation \"androidx.core:core-ktx:1.6.0\"\r\n\r\n    // glidw\r\n    implementation 'com.github.bumptech.glide:glide:4.12.0'\r\n    kapt 'com.github.bumptech.glide:compiler:4.11.0'\r\n\r\n    implementation \"org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version\"\r\n    implementation 'androidx.core:core-ktx:1.6.0'\r\n    implementation 'androidx.appcompat:appcompat:1.3.1'\r\n\r\n    implementation 'com.google.android.material:material:1.4.0'\r\n    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'\r\n    implementation 'androidx.legacy:legacy-support-v4:1.0.0'\r\n    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'\r\n    testImplementation 'junit:junit:'\r\n    androidTestImplementation 'androidx.test.ext:junit:1.1.3'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/build.gradle b/app/build.gradle
+--- a/app/build.gradle	(revision 593430baa6e2010c39e73824044824552df0c017)
++++ b/app/build.gradle	(date 1635937884247)
+@@ -4,6 +4,7 @@
+     id 'kotlin-kapt'
+     id 'dagger.hilt.android.plugin'
+     id 'com.google.gms.google-services'
++    id "androidx.navigation.safeargs.kotlin"
+ }
+ 
+ android {
+@@ -15,7 +16,7 @@
+ 
+     defaultConfig {
+         applicationId "com.example.hotspotalk"
+-        minSdkVersion 28
++        minSdkVersion 24
+         targetSdkVersion 30
+         versionCode 1
+         versionName "1.0"
+@@ -73,10 +74,14 @@
+     //notification
+     implementation "androidx.core:core-ktx:1.6.0"
+ 
+-    // glidw
++    // glide
+     implementation 'com.github.bumptech.glide:glide:4.12.0'
+     kapt 'com.github.bumptech.glide:compiler:4.11.0'
+ 
++    //navArgs
++    implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
++    implementation "androidx.navigation:navigation-ui-ktx:1.0.0"
++
+     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+     implementation 'androidx.core:core-ktx:1.6.0'
+     implementation 'androidx.appcompat:appcompat:1.3.1'
+Index: build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>// Top-level build file where you can add configuration options common to all sub-projects/modules.\r\nbuildscript {\r\n    ext.kotlin_version = \"1.4.32\"\r\n    repositories {\r\n        google()\r\n        mavenCentral()\r\n    }\r\n    dependencies {\r\n\r\n        classpath 'com.google.gms:google-services:4.3.10'\r\n        classpath \"com.android.tools.build:gradle:7.0.0\"\r\n        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31'\r\n        // hilt\r\n        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.37'\r\n\r\n        // NOTE: Do not place your application dependencies here; they belong\r\n        // in the individual module build.gradle files\r\n    }\r\n}\r\n\r\nallprojects {\r\n    repositories {\r\n        google()\r\n        maven {\r\n            url 'https://naver.jfrog.io/artifactory/maven/'\r\n        }\r\n        mavenCentral()\r\n    }\r\n}\r\n\r\ntask clean(type: Delete) {\r\n    delete rootProject.buildDir\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/build.gradle b/build.gradle
+--- a/build.gradle	(revision 593430baa6e2010c39e73824044824552df0c017)
++++ b/build.gradle	(date 1635937867311)
+@@ -6,6 +6,7 @@
+         mavenCentral()
+     }
+     dependencies {
++        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5")
+ 
+         classpath 'com.google.gms:google-services:4.3.10'
+         classpath "com.android.tools.build:gradle:7.0.0"
+Index: app/src/main/java/com/example/hotspotalk/view/fragment/SetProfileFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/hotspotalk/view/fragment/SetProfileFragment.kt b/app/src/main/java/com/example/hotspotalk/view/fragment/SetProfileFragment.kt
+new file mode 100644
+--- /dev/null	(date 1635936492882)
++++ b/app/src/main/java/com/example/hotspotalk/view/fragment/SetProfileFragment.kt	(date 1635936492882)
+@@ -0,0 +1,28 @@
++package com.example.hotspotalk.view.fragment
++
++import android.os.Bundle
++import androidx.fragment.app.Fragment
++import android.view.LayoutInflater
++import android.view.View
++import android.view.ViewGroup
++import androidx.fragment.app.activityViewModels
++import com.example.hotspotalk.R
++import com.example.hotspotalk.viewmodel.JoinChattingViewModel
++import dagger.hilt.android.AndroidEntryPoint
++
++@AndroidEntryPoint
++class SetProfileFragment : Fragment() {
++
++    private val viewModel: JoinChattingViewModel by activityViewModels()
++
++    override fun onCreateView(
++        inflater: LayoutInflater, container: ViewGroup?,
++        savedInstanceState: Bundle?
++    ): View? {
++        return inflater.inflate(R.layout.fragment_join_chatting_set_profile, container, false)
++    }
++
++    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
++        super.onViewCreated(view, savedInstanceState)
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/com/example/hotspotalk/view/adapter/MessageListAdapter.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hotspotalk.view.adapter\r\n\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport androidx.recyclerview.widget.DiffUtil\r\nimport androidx.recyclerview.widget.ListAdapter\r\nimport androidx.recyclerview.widget.RecyclerView\r\nimport com.example.hotspotalk.R\r\nimport com.example.hotspotalk.data.entity.Message\r\nimport com.example.hotspotalk.data.entity.MessageType\r\nimport java.lang.RuntimeException\r\n\r\nclass MessageListAdapter :\r\n    ListAdapter<Message, RecyclerView.ViewHolder>(MessageDifferenceUtil()) {\r\n    override fun getItemViewType(position: Int): Int {\r\n        return when (getItem(position).messageType) {\r\n            MessageType.MINE -> 1\r\n            MessageType.YOURS -> -1\r\n            MessageType.COMMAND -> 0\r\n        }\r\n    }\r\n\r\n    inner class MyMessageViewHolder(view: View) :\r\n        RecyclerView.ViewHolder(view) {\r\n\r\n    }\r\n\r\n    inner class YourMessageViewHolder(view: View) :\r\n        RecyclerView.ViewHolder(view) {\r\n\r\n    }\r\n\r\n    inner class CommandMessageViewHolder(view: View) :\r\n        RecyclerView.ViewHolder(view) {\r\n\r\n    }\r\n\r\n    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {\r\n        val viewHolder: RecyclerView.ViewHolder = when (viewType) {\r\n            1 -> MyMessageViewHolder(\r\n                LayoutInflater.from(parent.context).inflate(R.layout.layout_rv_item_chat_mine, parent)\r\n            )\r\n            -1 -> YourMessageViewHolder(\r\n                LayoutInflater.from(parent.context).inflate(R.layout.layout_rv_item_chat_yours, parent)\r\n            )\r\n            else -> CommandMessageViewHolder(\r\n                LayoutInflater.from(parent.context).inflate(R.layout.layout_rv_item_chat_command, parent)\r\n            )\r\n        }\r\n        return viewHolder\r\n    }\r\n\r\n    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {\r\n        when (holder) {\r\n            is YourMessageViewHolder -> {\r\n\r\n            }\r\n        }\r\n\r\n    }\r\n}\r\n\r\nclass MessageDifferenceUtil : DiffUtil.ItemCallback<Message>() {\r\n    override fun areItemsTheSame(oldItem: Message, newItem: Message): Boolean {\r\n        return oldItem.message.messageId == newItem.message.messageId\r\n    }\r\n\r\n    override fun areContentsTheSame(oldItem: Message, newItem: Message): Boolean {\r\n        return oldItem == newItem\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/hotspotalk/view/adapter/MessageListAdapter.kt b/app/src/main/java/com/example/hotspotalk/view/adapter/MessageListAdapter.kt
+--- a/app/src/main/java/com/example/hotspotalk/view/adapter/MessageListAdapter.kt	(revision 593430baa6e2010c39e73824044824552df0c017)
++++ b/app/src/main/java/com/example/hotspotalk/view/adapter/MessageListAdapter.kt	(date 1635936742281)
+@@ -63,7 +63,8 @@
+ 
+ class MessageDifferenceUtil : DiffUtil.ItemCallback<Message>() {
+     override fun areItemsTheSame(oldItem: Message, newItem: Message): Boolean {
+-        return oldItem.message.messageId == newItem.message.messageId
++        return true
++//        return oldItem.message.messageId == newItem.message.messageId
+     }
+ 
+     override fun areContentsTheSame(oldItem: Message, newItem: Message): Boolean {
+Index: app/src/main/java/com/example/hotspotalk/viewmodel/JoinChattingViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/hotspotalk/viewmodel/JoinChattingViewModel.kt b/app/src/main/java/com/example/hotspotalk/viewmodel/JoinChattingViewModel.kt
+new file mode 100644
+--- /dev/null	(date 1635936492890)
++++ b/app/src/main/java/com/example/hotspotalk/viewmodel/JoinChattingViewModel.kt	(date 1635936492890)
+@@ -0,0 +1,42 @@
++package com.example.hotspotalk.viewmodel
++
++import androidx.lifecycle.MutableLiveData
++import androidx.lifecycle.ViewModel
++import androidx.lifecycle.viewModelScope
++import com.example.hotspotalk.data.entity.Message
++import com.example.hotspotalk.data.entity.repuest.Enter
++import com.example.hotspotalk.data.repository.RoomsRepository
++import dagger.hilt.android.lifecycle.HiltViewModel
++import kotlinx.coroutines.launch
++import javax.inject.Inject
++
++@HiltViewModel
++class JoinChattingViewModel @Inject constructor(
++    private val roomsRepository: RoomsRepository
++) : ViewModel() {
++
++    val name = MutableLiveData<String>()
++    val pw = MutableLiveData<String>()
++
++    private val _isSuccess = MutableLiveData<Message>()
++    val isSuccess = _isSuccess
++
++    private val _isFailure = MutableLiveData<String>()
++    val isFailure = _isFailure
++
++    fun joinChatting(id: Int) {
++        val enter = Enter(name.value!!, pw.value!!)
++
++        viewModelScope.launch {
++            val res = roomsRepository.postEnterRoom(id, enter)
++
++            when {
++                res.isSuccessful ->
++                    _isSuccess.value = res.body()
++
++                res.code() in 400..499 ->
++                    _isFailure.value = res.message()
++            }
++        }
++    }
++}
+\ No newline at end of file
+Index: app/src/main/res/navigation/navigation.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<navigation xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:id=\"@+id/navigation\"\r\n    app:startDestination=\"@id/loginFragment\">\r\n    <fragment\r\n        android:id=\"@+id/chattingFragment\"\r\n        android:name=\"com.example.hotspotalk.view.fragment.ChattingFragment\"\r\n        android:label=\"ChattingFragment\" >\r\n        <action\r\n            android:id=\"@+id/action_chattingFragment_to_profileFragment\"\r\n            app:destination=\"@id/profileFragment\" />\r\n    </fragment>\r\n    <fragment\r\n        android:id=\"@+id/createRoomFragment\"\r\n        android:name=\"com.example.hotspotalk.view.fragment.CreateRoomFragment\"\r\n        android:label=\"fragment_create_room\"\r\n        tools:layout=\"@layout/fragment_create_room\" />\r\n    <fragment\r\n        android:id=\"@+id/homeFragment\"\r\n        android:name=\"com.example.hotspotalk.view.fragment.HomeFragment\"\r\n        android:label=\"fragment_home\"\r\n        tools:layout=\"@layout/fragment_home\" >\r\n        <action\r\n            android:id=\"@+id/action_homeFragment_to_chattingFragment\"\r\n            app:destination=\"@id/chattingFragment\" />\r\n        <action\r\n            android:id=\"@+id/action_homeFragment_to_createRoomFragment\"\r\n            app:destination=\"@id/createRoomFragment\" />\r\n        <action\r\n            android:id=\"@+id/action_homeFragment_to_joinChattingFragment\"\r\n            app:destination=\"@id/joinChattingFragment\" />\r\n    </fragment>\r\n    <fragment\r\n        android:id=\"@+id/introFragment\"\r\n        android:name=\"com.example.hotspotalk.view.fragment.IntroFragment\"\r\n        android:label=\"fragment_intro\"\r\n        tools:layout=\"@layout/fragment_intro\" >\r\n        <action\r\n            android:id=\"@+id/action_introFragment_to_loginFragment\"\r\n            app:destination=\"@id/loginFragment\" />\r\n    </fragment>\r\n    <fragment\r\n        android:id=\"@+id/loginFragment\"\r\n        android:name=\"com.example.hotspotalk.view.fragment.LoginFragment\"\r\n        android:label=\"fragment_login\"\r\n        tools:layout=\"@layout/fragment_login\" >\r\n        <action\r\n            android:id=\"@+id/action_loginFragment_to_signUpFragment\"\r\n            app:destination=\"@id/signUpFragment\" />\r\n    </fragment>\r\n    <fragment\r\n        android:id=\"@+id/profileFragment\"\r\n        android:name=\"com.example.hotspotalk.view.fragment.ProfileFragment\"\r\n        android:label=\"fragment_profile\"\r\n        tools:layout=\"@layout/fragment_profile\" />\r\n    <fragment\r\n        android:id=\"@+id/signUpFragment\"\r\n        android:name=\"com.example.hotspotalk.view.fragment.SignUpFragment\"\r\n        android:label=\"fragment_sign_up\"\r\n        tools:layout=\"@layout/fragment_sign_up\" >\r\n        <action\r\n            android:id=\"@+id/action_signUpFragment_to_homeFragment\"\r\n            app:destination=\"@id/homeFragment\" />\r\n    </fragment>\r\n    <fragment\r\n        android:id=\"@+id/splashFragment\"\r\n        android:name=\"com.example.hotspotalk.view.fragment.SplashFragment\"\r\n        android:label=\"fragment_splash\"\r\n        tools:layout=\"@layout/fragment_splash\" >\r\n        <action\r\n            android:id=\"@+id/action_splashFragment_to_introFragment\"\r\n            app:destination=\"@id/introFragment\" />\r\n        <action\r\n            android:id=\"@+id/action_splashFragment_to_loginFragment2\"\r\n            app:destination=\"@id/loginFragment\" />\r\n    </fragment>\r\n    <fragment\r\n        android:id=\"@+id/joinChattingFragment\"\r\n        android:name=\"com.example.hotspotalk.view.fragment.JoinChattingFragment\"\r\n        android:label=\"JoinChattingFragment\" >\r\n        <action\r\n            android:id=\"@+id/action_joinChattingFragment_to_chattingFragment\"\r\n            app:destination=\"@id/chattingFragment\" />\r\n        <action\r\n            android:id=\"@+id/action_joinChattingFragment_to_homeFragment\"\r\n            app:destination=\"@id/homeFragment\" />\r\n    </fragment>\r\n</navigation>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/navigation/navigation.xml b/app/src/main/res/navigation/navigation.xml
+--- a/app/src/main/res/navigation/navigation.xml	(revision 593430baa6e2010c39e73824044824552df0c017)
++++ b/app/src/main/res/navigation/navigation.xml	(date 1635936548058)
+@@ -7,10 +7,15 @@
+     <fragment
+         android:id="@+id/chattingFragment"
+         android:name="com.example.hotspotalk.view.fragment.ChattingFragment"
++        tools:layout="@layout/fragment_chatting"
+         android:label="ChattingFragment" >
+         <action
+             android:id="@+id/action_chattingFragment_to_profileFragment"
+             app:destination="@id/profileFragment" />
++        <argument
++            android:name="roomID"
++            app:argType="integer"
++            android:defaultValue="0"/>
+     </fragment>
+     <fragment
+         android:id="@+id/createRoomFragment"
+@@ -49,6 +54,9 @@
+         <action
+             android:id="@+id/action_loginFragment_to_signUpFragment"
+             app:destination="@id/signUpFragment" />
++        <action
++            android:id="@+id/action_loginFragment_to_homeFragment"
++            app:destination="@id/homeFragment" />
+     </fragment>
+     <fragment
+         android:id="@+id/profileFragment"
+@@ -79,6 +87,7 @@
+     <fragment
+         android:id="@+id/joinChattingFragment"
+         android:name="com.example.hotspotalk.view.fragment.JoinChattingFragment"
++        tools:layout="@layout/fragment_join_chatting"
+         android:label="JoinChattingFragment" >
+         <action
+             android:id="@+id/action_joinChattingFragment_to_chattingFragment"
+@@ -86,5 +95,9 @@
+         <action
+             android:id="@+id/action_joinChattingFragment_to_homeFragment"
+             app:destination="@id/homeFragment" />
++        <argument
++            android:name="roomID"
++            app:argType="integer"
++            android:defaultValue="0"/>
+     </fragment>
+ </navigation>
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_join_chatting_set_profile.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_join_chatting_set_profile.xml b/app/src/main/res/layout/fragment_join_chatting_set_profile.xml
+new file mode 100644
+--- /dev/null	(date 1635936492902)
++++ b/app/src/main/res/layout/fragment_join_chatting_set_profile.xml	(date 1635936492902)
+@@ -0,0 +1,83 @@
++<?xml version="1.0" encoding="utf-8"?>
++<layout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools">
++
++    <androidx.constraintlayout.widget.ConstraintLayout
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        tools:context=".view.fragment.SetProfileFragment">
++
++        <ImageButton
++            android:id="@+id/imageButton2"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:background="@android:color/transparent"
++            android:padding="10dp"
++            android:minWidth="32dp"
++            android:minHeight="32dp"
++            android:src="@drawable/ic_baseline_close_24"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toTopOf="parent" />
++
++        <TextView
++            android:id="@+id/textView8"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:textColor="@color/black"
++            android:text="닉네임 설정"
++            app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toTopOf="parent" />
++
++        <androidx.cardview.widget.CardView
++            android:id="@+id/cardView3"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:elevation="0dp"
++            app:cardCornerRadius="20dp"
++            app:cardElevation="0dp"
++            app:layout_constraintBottom_toTopOf="@+id/btn_confirm_set_profile"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toBottomOf="@+id/textView8"
++            app:layout_constraintVertical_bias="0.31">
++
++            <ImageView
++                android:id="@+id/imageView3"
++                android:layout_width="80dp"
++                android:layout_height="80dp"
++                android:src="@drawable/ic_profile_default" />
++        </androidx.cardview.widget.CardView>
++
++        <androidx.appcompat.widget.AppCompatButton
++            android:id="@+id/btn_confirm_set_profile"
++            android:layout_width="0dp"
++            android:layout_height="wrap_content"
++            android:background="@color/main_color"
++            android:textColor="@color/white"
++            android:text="완료"
++            app:layout_constraintBottom_toBottomOf="parent"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintStart_toStartOf="parent" />
++
++        <com.google.android.material.textfield.TextInputLayout
++            style="@style/ProfileTextInputLayout"
++            android:layout_width="0dp"
++            android:layout_height="wrap_content"
++            android:layout_marginHorizontal="80dp"
++            android:layout_marginTop="15dp"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toBottomOf="@+id/cardView3">
++
++            <com.google.android.material.textfield.TextInputEditText
++                style="@style/ProfileTextInputEditText"
++                android:gravity="center"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:hint="닉네임 입력" />
++        </com.google.android.material.textfield.TextInputLayout>
++    </androidx.constraintlayout.widget.ConstraintLayout>
++</layout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/hotspotalk/view/fragment/JoinChattingFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hotspotalk.view.fragment\r\n\r\nimport android.os.Bundle\r\nimport androidx.fragment.app.Fragment\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport androidx.databinding.DataBindingUtil\r\nimport androidx.navigation.NavController\r\nimport androidx.navigation.fragment.findNavController\r\nimport com.example.hotspotalk.R\r\nimport com.example.hotspotalk.databinding.FragmentHomeJoinChattingBinding\r\n\r\nclass JoinChattingFragment : Fragment() {\r\n\r\n    private val navController by lazy { findNavController() }\r\n\r\n    private lateinit var binding: FragmentHomeJoinChattingBinding\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater, container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View? {\r\n        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_join_chatting, container, false)\r\n\r\n        return binding.root\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n\r\n    }\r\n\r\n    private fun navigateToMain() {\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/hotspotalk/view/fragment/JoinChattingFragment.kt b/app/src/main/java/com/example/hotspotalk/view/fragment/JoinChattingFragment.kt
+--- a/app/src/main/java/com/example/hotspotalk/view/fragment/JoinChattingFragment.kt	(revision 593430baa6e2010c39e73824044824552df0c017)
++++ b/app/src/main/java/com/example/hotspotalk/view/fragment/JoinChattingFragment.kt	(date 1635937905870)
+@@ -1,36 +1,68 @@
+ package com.example.hotspotalk.view.fragment
+ 
+ import android.os.Bundle
++import android.util.Log
+ import androidx.fragment.app.Fragment
+ import android.view.LayoutInflater
+ import android.view.View
+ import android.view.ViewGroup
+ import androidx.databinding.DataBindingUtil
+-import androidx.navigation.NavController
++import androidx.fragment.app.activityViewModels
++import androidx.fragment.app.viewModels
++import androidx.navigation.NavArgs
+ import androidx.navigation.fragment.findNavController
++import androidx.navigation.fragment.navArgs
+ import com.example.hotspotalk.R
+-import com.example.hotspotalk.databinding.FragmentHomeJoinChattingBinding
++import com.example.hotspotalk.databinding.FragmentJoinChattingBinding
++import com.example.hotspotalk.viewmodel.JoinChattingViewModel
++import dagger.hilt.android.AndroidEntryPoint
+ 
++@AndroidEntryPoint
+ class JoinChattingFragment : Fragment() {
+ 
+     private val navController by lazy { findNavController() }
+ 
+-    private lateinit var binding: FragmentHomeJoinChattingBinding
++    private lateinit var binding: FragmentJoinChattingBinding
++    private val viewModel: JoinChattingViewModel by viewModels()
++
+ 
+     override fun onCreateView(
+         inflater: LayoutInflater, container: ViewGroup?,
+         savedInstanceState: Bundle?
+     ): View? {
+-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_join_chatting, container, false)
+-
++        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_join_chatting, container, false)
+         return binding.root
+     }
+ 
+     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+         super.onViewCreated(view, savedInstanceState)
+ 
++        observe()
++
++        binding.btnJoinChatting.setOnClickListener {
++            viewModel.joinChatting(roomId!!)
++        }
+     }
++
++    private fun observe() = with(viewModel) {
++        isSuccess.observe(viewLifecycleOwner) {
++            when (it.message) {
++
++            }
++        }
+ 
+-    private fun navigateToMain() {
++        isFailure.observe(viewLifecycleOwner) {
++            Log.d("joinChatting", it)
++        }
++    }
++
++    private fun navigateToHome() {
++        navController.navigate(R.id.action_joinChattingFragment_to_homeFragment)
++    }
++
++    private fun navigateToChatting(id: Int) {
++        val bundle = Bundle()
++        bundle.putInt("id", id)
++        navController.navigate(R.id.action_joinChattingFragment_to_chattingFragment, bundle)
+     }
+ }
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/fragment_home_join_chatting.xml b/app/src/main/res/layout/fragment_join_chatting.xml
+rename from app/src/main/res/layout/fragment_home_join_chatting.xml
+rename to app/src/main/res/layout/fragment_join_chatting.xml
