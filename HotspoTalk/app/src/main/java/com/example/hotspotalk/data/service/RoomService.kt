@@ -8,6 +8,7 @@ import com.example.hotspotalk.data.entity.repuest.CreateRoom
 import com.example.hotspotalk.data.entity.repuest.Enter
 import com.example.hotspotalk.data.entity.repuest.ModifyNickname
 import com.example.hotspotalk.data.entity.repuest.ModifyRoom
+import com.example.hotspotalk.data.entity.response.Res
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -27,8 +28,9 @@ interface RoomService {
     @POST("rooms/")
     suspend fun postCreateRoom(@Body createRoom: CreateRoom): Response<Message>
 
-    @GET("rooms/{roomid}")
-    suspend fun postEnterRoom(@Path("roomid") roomId: Int, @Body enter: Enter): Response<Message>
+    // 방 입장
+    @GET("rooms/in")
+    suspend fun putEnter(@Body enter: Enter): Response<Res>
 
     @GET("/rooms/{roomid}/member")
     suspend fun getMember(@Path("roomid") roomId: Int): Response<List<MemberInfo>>

@@ -17,11 +17,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/tv_message_command"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:layout_marginVertical="4dp"
             android:layout_marginHorizontal="20dp"
-            tools:text="안녕ㅇ니 왜 시발렬ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ낭"/>
+            tools:text="ooooooooooo님이 입장했습니다."/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,10 +7,19 @@
     <fragment
         android:id="@+id/chattingFragment"
         android:name="com.example.hotspotalk.view.fragment.ChattingFragment"
+        tools:layout="@layout/fragment_chatting"
         android:label="ChattingFragment" >
         <action
             android:id="@+id/action_chattingFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <argument
+            android:name="roomID"
+            app:argType="integer"
+            android:defaultValue="0"/>
+        <argument
+            android:name="userID"
+            app:argType="integer"
+            android:defaultValue="0"/>
     </fragment>
     <fragment
         android:id="@+id/createRoomFragment"
@@ -49,6 +58,9 @@
         <action
             android:id="@+id/action_loginFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -79,12 +91,30 @@
     <fragment
         android:id="@+id/joinChattingFragment"
         android:name="com.example.hotspotalk.view.fragment.JoinChattingFragment"
+        tools:layout="@layout/fragment_join_chatting"
         android:label="JoinChattingFragment" >
-        <action
-            android:id="@+id/action_joinChattingFragment_to_chattingFragment"
-            app:destination="@id/chattingFragment" />
         <action
             android:id="@+id/action_joinChattingFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <argument
+            android:name="roomID"
+            app:argType="integer"
+            android:defaultValue="0"/>
+        <action
+            android:id="@+id/action_joinChattingFragment_to_setProfileFragment"
+            app:destination="@id/setProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/setProfileFragment"
+        android:name="com.example.hotspotalk.view.fragment.SetProfileFragment"
+        tools:layout="@layout/fragment_join_chatting_set_profile"
+        android:label="SetProfileFragment" >
+        <action
+            android:id="@+id/action_setProfileFragment_to_joinChattingFragment"
+            app:destination="@id/joinChattingFragment" />
+        <argument
+            android:name="roomID"
+            app:argType="integer"
+            android:defaultValue="0"/>
     </fragment>
 </navigation>
