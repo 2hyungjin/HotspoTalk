@@ -40,10 +40,11 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/MainTextInputEditText"
-                android:text="@{vm.id}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/id" />
+                android:hint="@string/id"
+                android:text="@{vm.id}"
+                tools:ignore="TouchTargetSizeCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -64,13 +65,13 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button2"
+            android:id="@+id/btn_login"
             style="@style/Widget.AppCompat.Button.MainButton"
             android:onClick="@{() -> vm.login()}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_top_sign_btn"
-            android:text="@string/sign_up"
+            android:text="@string/sign_in"
             app:layout_constraintEnd_toEndOf="@+id/textInputLayout5"
             app:layout_constraintStart_toStartOf="@+id/textInputLayout5"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
@@ -86,15 +87,20 @@
 
             <TextView
                 android:id="@+id/textView9"
+                style="@style/Base.Widget.AppCompat.TextView.RegularTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="이미 회원이신가요?" />
 
             <TextView
-                android:id="@+id/textView10"
+                android:id="@+id/tv_login_login"
+                style="@style/Base.Widget.AppCompat.TextView.RegularTextView"
+                android:clickable="true"
+                android:textColor="#505050"
+                android:padding="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="로그인하기" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

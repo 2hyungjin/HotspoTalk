@@ -60,8 +60,8 @@
 
     <!-- EditText -->
     <style name="MainTextInputEditText" parent="Widget.AppCompat.EditText">
-        <item name="maxLines">1</item>
-        <item name="singleLine">true</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">15sp</item>
         <item name="android:includeFontPadding">true</item>
