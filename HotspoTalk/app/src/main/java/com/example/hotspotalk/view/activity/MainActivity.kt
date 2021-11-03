@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         HotspotalkApplication.connectSocket()
-        viewModel.initialViewModel()
         viewModel.chatList.observe(this,{
             Log.d("MainActivity","message is arrived $it")
         })
