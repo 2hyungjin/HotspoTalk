@@ -1,9 +1,9 @@
 package com.example.hotspotalk.data.repository
 
+import com.example.hotspotalk.data.entity.Message
 import com.example.hotspotalk.data.entity.repuest.Ban
 import com.example.hotspotalk.data.entity.repuest.Login
 import com.example.hotspotalk.data.entity.response.Token
-import com.example.hotspotalk.data.entity.response.Message
 import retrofit2.Response
 
 interface AccountRepository {

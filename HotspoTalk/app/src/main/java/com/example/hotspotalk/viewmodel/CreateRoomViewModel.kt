@@ -43,7 +43,7 @@ class CreateRoomViewModel @Inject constructor(
                 val msgResponse = roomsRepository.postCreateRoom(createRoom)
                 when {
                     msgResponse.isSuccessful -> {
-                        _isSuccess.value = msgResponse.body()?.msg.toString()
+                        _isSuccess.value = msgResponse.body()?.message.toString()
                     }
                     msgResponse.code() in 400..499 -> {
                         _isFailure.value = msgResponse.message()

@@ -11,10 +11,12 @@ import com.example.hotspotalk.data.entity.repuest.MessageRequest
 import com.example.hotspotalk.data.entity.response.MemberInfo
 import com.example.hotspotalk.data.entity.response.MessageResponse
 import com.example.hotspotalk.data.repository.ChattingRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class ChattingViewModel @Inject constructor(val messageRepository: ChattingRepository) :
     ViewModel() {
 

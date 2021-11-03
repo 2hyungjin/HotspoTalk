@@ -1,5 +1,6 @@
 package com.example.hotspotalk.data.repositoryImpl
 
+import com.example.hotspotalk.data.entity.Message
 import com.example.hotspotalk.data.service.RoomService
 import com.example.hotspotalk.data.entity.response.MemberInfo
 import com.example.hotspotalk.data.entity.response.RoomInfo
@@ -24,7 +25,7 @@ class RoomsRepositoryImpl @Inject constructor(
         return service.getRooms(latitude, longitude)
     }
 
-    override suspend fun postEnterRoom(roomId: Int, enter: Enter): Response<MessageResponse> {
+    override suspend fun postEnterRoom(roomId: Int, enter: Enter): Response<Message> {
         return service.postEnterRoom(roomId, enter)
     }
 
@@ -32,27 +33,27 @@ class RoomsRepositoryImpl @Inject constructor(
         return service.getMember(roomId)
     }
 
-    override suspend fun postCreateRoom(createRoom: CreateRoom): Response<MessageResponse> {
+    override suspend fun postCreateRoom(createRoom: CreateRoom): Response<Message> {
         return service.postCreateRoom(createRoom)
     }
 
-    override suspend fun putModifyRoom(roomId: Int, modifyRoom: ModifyRoom): Response<MessageResponse> {
+    override suspend fun putModifyRoom(roomId: Int, modifyRoom: ModifyRoom): Response<Message> {
         return service.putModifyRoom(roomId, modifyRoom)
     }
 
-    override suspend fun putInheritRoom(accountId: AccountId): Response<MessageResponse> {
+    override suspend fun putInheritRoom(accountId: AccountId): Response<Message> {
         return service.putInheritRoom(accountId)
     }
 
-    override suspend fun putModifyNickname(roomId: Int, modifyNickname: ModifyNickname): Response<MessageResponse> {
+    override suspend fun putModifyNickname(roomId: Int, modifyNickname: ModifyNickname): Response<Message> {
         return service.putModifyNickname(roomId, modifyNickname)
     }
 
-    override suspend fun deleteExitRoom(roomId: Int): Response<MessageResponse> {
+    override suspend fun deleteExitRoom(roomId: Int): Response<Message> {
         return service.deleteExitRoom(roomId)
     }
 
-    override suspend fun deleteRemoveRoom(roomId: Int): Response<MessageResponse> {
+    override suspend fun deleteRemoveRoom(roomId: Int): Response<Message> {
         return service.deleteRemoveRoom(roomId)
     }
 

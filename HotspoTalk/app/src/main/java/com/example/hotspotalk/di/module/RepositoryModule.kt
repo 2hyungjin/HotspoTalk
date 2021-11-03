@@ -7,6 +7,7 @@ import com.example.hotspotalk.data.repositoryImpl.AccountRepositoryImpl
 import com.example.hotspotalk.data.repositoryImpl.ChattingRepositoryImpl
 import com.example.hotspotalk.data.repositoryImpl.RoomsRepositoryImpl
 import com.example.hotspotalk.data.service.AccountService
+import com.example.hotspotalk.data.service.ChattingService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,7 +25,7 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideChatRepository(service: ChattingRepository): com.example.hotspotalk.data.repository.ChattingRepository =
+    fun provideChatRepository(service: ChattingService): com.example.hotspotalk.data.repository.ChattingRepository =
         ChattingRepositoryImpl(service)
 
     @Singleton

@@ -28,8 +28,7 @@ class IntroFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         chattingFragment.initialViewModel()
-        chattingFragment.chat.observe(viewLifecycleOwner, Observer {
-            Log.d("IntroFragment", it)
+        chattingFragment.chatList.observe(viewLifecycleOwner, Observer {
         })
     }
 

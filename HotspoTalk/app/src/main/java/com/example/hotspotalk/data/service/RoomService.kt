@@ -8,7 +8,6 @@ import com.example.hotspotalk.data.entity.repuest.CreateRoom
 import com.example.hotspotalk.data.entity.repuest.Enter
 import com.example.hotspotalk.data.entity.repuest.ModifyNickname
 import com.example.hotspotalk.data.entity.repuest.ModifyRoom
-import com.example.hotspotalk.data.entity.response.MessageResponse
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -26,26 +25,26 @@ interface RoomService {
     ): Response<List<RoomInfo>>
 
     @POST("rooms/")
-    suspend fun postCreateRoom(@Body createRoom: CreateRoom): Response<MessageResponse>
+    suspend fun postCreateRoom(@Body createRoom: CreateRoom): Response<Message>
 
     @GET("rooms/{roomid}")
-    suspend fun postEnterRoom(@Path("roomid") roomId: Int, @Body enter: Enter): Response<MessageResponse>
+    suspend fun postEnterRoom(@Path("roomid") roomId: Int, @Body enter: Enter): Response<Message>
 
     @GET("/rooms/{roomid}/member")
     suspend fun getMember(@Path("roomid") roomId: Int): Response<List<MemberInfo>>
 
     @PUT("/rooms/{roomid}/edit")
-    suspend fun putModifyRoom(@Path("roomid") roomId: Int, @Body modifyRoom: ModifyRoom): Response<MessageResponse>
+    suspend fun putModifyRoom(@Path("roomid") roomId: Int, @Body modifyRoom: ModifyRoom): Response<Message>
 
     @PUT("/rooms/{roomid}/inherit")
-    suspend fun putInheritRoom(@Body accountId: AccountId): Response<MessageResponse>
+    suspend fun putInheritRoom(@Body accountId: AccountId): Response<Message>
 
     @PUT("/rooms/{roomid}/rename")
-    suspend fun putModifyNickname(@Path("roomid") roomId: Int, @Body modifyNickname: ModifyNickname): Response<MessageResponse>
+    suspend fun putModifyNickname(@Path("roomid") roomId: Int, @Body modifyNickname: ModifyNickname): Response<Message>
 
     @DELETE("/rooms/{roomid}/exit")
-    suspend fun deleteExitRoom(@Path("roomid") roomId: Int): Response<MessageResponse>
+    suspend fun deleteExitRoom(@Path("roomid") roomId: Int): Response<Message>
 
     @DELETE("/rooms/{roomid}")
-    suspend fun deleteRemoveRoom(@Path("roomid") roomId: Int): Response<MessageResponse>
+    suspend fun deleteRemoveRoom(@Path("roomid") roomId: Int): Response<Message>
 }
