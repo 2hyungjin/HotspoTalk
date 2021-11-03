@@ -19,7 +19,7 @@ object NetworkModule  {
     @Provides
     fun provideOkhttpClient(): OkHttpClient =
         OkHttpClient.Builder()
-            //.addInterceptor(TokenInterceptor())
+            .addInterceptor(TokenInterceptor())
             .connectTimeout(100, TimeUnit.SECONDS)
             .readTimeout(100,TimeUnit.SECONDS)
             .writeTimeout(100, TimeUnit.SECONDS)
