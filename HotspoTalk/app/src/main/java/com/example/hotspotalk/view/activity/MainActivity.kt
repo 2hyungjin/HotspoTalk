@@ -23,9 +23,7 @@ class MainActivity : AppCompatActivity() {
             Log.d("MainActivity","message is arrived $it")
         })
 
-        val token = FirebaseMessaging.getInstance().token.addOnSuccessListener {
-            Log.d("FCM",it.toString())
-        }
+
 
     }
 }

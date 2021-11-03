@@ -14,6 +14,7 @@ import com.example.hotspotalk.R
 import com.example.hotspotalk.databinding.FragmentLoginBinding
 import com.example.hotspotalk.view.util.Preference.token
 import com.example.hotspotalk.viewmodel.LoginViewModel
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -24,13 +25,13 @@ import dagger.hilt.android.AndroidEntryPoint
 class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
-
     private val viewModel: LoginViewModel by viewModels()
+    lateinit var token: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_login, container, false)
         binding.vm = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -39,16 +40,18 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        FirebaseMessaging.getInstance().token.addOnSuccessListener {
+            token = it
+        }
         observe()
     }
 
     private fun observe() = with(viewModel) {
         isSuccess.observe(viewLifecycleOwner) {
-            // todo 토큰 저장
             when (it) {
                 null ->
-                    Toast.makeText(requireContext(), "아이디 또는 비밀번호가 옳지 않습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "아이디 또는 비밀번호가 옳지 않습니다.", Toast.LENGTH_SHORT)
+                        .show()
                 else ->
                     token = it.token!!
             }

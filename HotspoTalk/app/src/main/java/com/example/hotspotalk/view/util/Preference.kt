@@ -12,6 +12,6 @@ object Preference {
     }
 
     var token: String
-        get() = sharedPreferences.getString("token", "")?: ""
+        get() = sharedPreferences.getString("token", "")!!
         set(value) = sharedPreferences.edit().putString("token", value).apply()
 }

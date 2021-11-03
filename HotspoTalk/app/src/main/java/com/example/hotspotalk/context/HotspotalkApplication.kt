@@ -20,11 +20,11 @@ class HotspotalkApplication : Application() {
             socket.on("test", newMessageListener)
             socket.emit("test", "msg")
         }
+
     }
 
     override fun onCreate() {
         super.onCreate()
         Preference.init(applicationContext)
     }
-
 }

@@ -9,7 +9,7 @@ class NewMessageListener() : Emitter.Listener {
 
     override fun call(vararg args: Any?) {
         val msg=args[0].toString()
-        onMessageReceived(msg as MessageResponse )
+//        onMessageReceived(msg as MessageResponse )
         Log.d("socket",msg)
     }
 
