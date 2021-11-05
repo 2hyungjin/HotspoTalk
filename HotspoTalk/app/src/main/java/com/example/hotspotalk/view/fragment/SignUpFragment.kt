@@ -33,7 +33,7 @@ class SignUpFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sign_up, container, false)
         binding.vm = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -50,14 +50,8 @@ class SignUpFragment : Fragment() {
 
     private fun observe() = with(viewModel) {
         isSuccess.observe(viewLifecycleOwner) {
-            when (it.token) {
-                null -> Toast.makeText(requireContext(), "실패", Toast.LENGTH_SHORT).show()
-
-                else -> {
-                    token = it.token
-                    navigateToHome()
-                }
-            }
+            token = it.token
+            navigateToHome()
         }
 
         isFailure.observe(viewLifecycleOwner) {

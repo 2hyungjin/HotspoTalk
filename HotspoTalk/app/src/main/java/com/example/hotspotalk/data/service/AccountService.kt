@@ -3,6 +3,7 @@ package com.example.hotspotalk.data.service
 import com.example.hotspotalk.data.entity.Message
 import com.example.hotspotalk.data.entity.repuest.Ban
 import com.example.hotspotalk.data.entity.repuest.Login
+import com.example.hotspotalk.data.entity.repuest.SignUp
 import com.example.hotspotalk.data.entity.response.Token
 import retrofit2.Response
 import retrofit2.http.Body
@@ -15,7 +16,7 @@ interface AccountService {
     suspend fun postLogin(@Body login: Login): Response<Token>
 
     @POST("account/signUp")
-    suspend fun postSignUp(@Body login: Login): Response<Token>
+    suspend fun postSignUp(@Body signUp: SignUp): Response<Token>
 
     @GET("account/{id}")
     suspend fun getId(@Path("id") id: String): Response<Message>

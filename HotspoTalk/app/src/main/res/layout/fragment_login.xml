@@ -43,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/id"
-                android:text="@{vm.id}"
+                android:text="@={vm.id}"
                 tools:ignore="TouchTargetSizeCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -58,7 +58,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/MainTextInputEditText"
-                android:text="@{vm.pw}"
+                android:text="@={vm.pw}"
+                android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/password" />
@@ -93,7 +94,7 @@
                 android:text="회원이 아니신가요?" />
 
             <TextView
-                android:id="@+id/tv_login_signup"
+                android:id="@+id/tv_register"
                 style="@style/Base.Widget.AppCompat.TextView.RegularTextView"
                 android:clickable="true"
                 android:textColor="#505050"

@@ -33,7 +33,7 @@ class LoginFragment : Fragment() {
 
     private val permissionLauncher: ActivityResultLauncher<Array<String>> = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()) {
-        if (!it.all { permission -> permission.value == true })
+        if (!it.all { permission -> permission.value })
             Toast.makeText(context, "권한 거부", Toast.LENGTH_SHORT).show()
     }
     private lateinit var binding: FragmentLoginBinding
@@ -43,6 +43,7 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        viewModelStore.clear()
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_login, container, false)
         binding.vm = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -83,7 +84,7 @@ class LoginFragment : Fragment() {
                     Toast.makeText(requireContext(), "아이디 또는 비밀번호가 옳지 않습니다.", Toast.LENGTH_SHORT)
                         .show()
                 else -> {
-                    token = it.token.toString()
+                    token = it.token
                     findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                 }
             }
