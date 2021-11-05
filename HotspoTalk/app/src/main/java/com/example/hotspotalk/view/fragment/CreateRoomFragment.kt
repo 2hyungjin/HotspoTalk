@@ -39,7 +39,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CreateRoomFragment : Fragment() {
-
     companion object {
         private const val MAX_RADIUS = 2000.0
     }
