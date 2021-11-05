@@ -22,7 +22,6 @@ class SetProfileFragment : Fragment() {
     private val viewModel: JoinChattingViewModel by viewModels()
     private lateinit var binding: FragmentJoinChattingSetProfileBinding
 
-    private val navArgs by navArgs<SetProfileFragmentArgs>()
 
     private val navController by lazy {
         findNavController()
@@ -31,7 +30,7 @@ class SetProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentJoinChattingSetProfileBinding.inflate(inflater)
         binding.vm = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -43,12 +42,14 @@ class SetProfileFragment : Fragment() {
 
         observe()
 
+        val roomID = requireArguments().getInt("roomID", 0)
+
         binding.btnConfirmSetProfile.setOnClickListener {
-            viewModel.putJoinChatting(navArgs.roomID)
+            viewModel.putJoinChatting(roomID)
         }
 
         binding.btnCloseSetProfile.setOnClickListener {
-            navController.navigate(R.id.action_setProfileFragment_to_joinChattingFragment)
+            navController.navigateUp()
         }
     }
 
@@ -56,7 +57,9 @@ class SetProfileFragment : Fragment() {
         isSuccess.observe(viewLifecycleOwner) {
             when (it) {
                 // todo
-                "success" -> ""
+                "success" -> {
+
+                }
                 "fail" ->
                     Toast.makeText(requireContext(), "채팅방 참가에 실패하였습니다", Toast.LENGTH_SHORT).show()
             }

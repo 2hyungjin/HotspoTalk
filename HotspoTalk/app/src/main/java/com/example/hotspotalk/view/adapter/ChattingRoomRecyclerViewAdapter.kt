@@ -10,7 +10,7 @@ class ChattingRoomRecyclerViewAdapter(private val onClickListener: OnClickChatti
     RecyclerView.Adapter<ChattingRoomRecyclerViewAdapter.ViewHolder>() {
 
     interface OnClickChattingRoomListener {
-        fun onClick(id: Int)
+        fun onClick(room: RoomInfo)
     }
 
 
@@ -35,16 +35,16 @@ class ChattingRoomRecyclerViewAdapter(private val onClickListener: OnClickChatti
 //        binding.apply {
 //            tvUserNicknameRvItemChattingRoom.text = data.
 //            tvUserRvItemChattingRoom.text = data.user.toString()
-
+//
 //            if (data.isNotify) cvNotifyRvItemChattingRoom.visibility = View.VISIBLE
 //            if (data.isSecret) ivSecretRvTemChattingRoom.visibility = View.VISIBLE
-
+//
 //            Glide.with(ivProfileImgRvItemChattingRoom)
 //                .load(data.nickname)
 //        }
 
         binding.layoutRvItemChattingRoom.setOnClickListener {
-            onClickListener.onClick(list[position].roomID)
+            onClickListener.onClick(list[position])
         }
     }
 

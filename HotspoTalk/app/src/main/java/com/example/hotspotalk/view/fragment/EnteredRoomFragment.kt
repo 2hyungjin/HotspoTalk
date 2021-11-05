@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.hotspotalk.R
+import com.example.hotspotalk.data.entity.response.RoomInfo
 import com.example.hotspotalk.databinding.FragmentHomeVpItemEnteredBinding
 import com.example.hotspotalk.view.adapter.ChattingRoomRecyclerViewAdapter
 import com.example.hotspotalk.viewmodel.EnteredRoomViewModel
@@ -34,7 +35,12 @@ class EnteredRoomFragment : Fragment(),
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_vp_item_entered, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_home_vp_item_entered,
+            container,
+            false
+        )
         return binding.root
     }
 
@@ -72,9 +78,9 @@ class EnteredRoomFragment : Fragment(),
         }
     }
 
-    override fun onClick(id: Int) {
+    override fun onClick(room: RoomInfo) {
         val bundle = Bundle()
-        bundle.putInt("id", id)
+        bundle.putInt("id", room.roomID)
         navController.navigate(R.id.action_homeFragment_to_chattingFragment, bundle)
     }
 

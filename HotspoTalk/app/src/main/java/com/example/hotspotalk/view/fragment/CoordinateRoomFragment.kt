@@ -18,6 +18,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.hotspotalk.R
+import com.example.hotspotalk.data.entity.response.RoomInfo
 import com.example.hotspotalk.databinding.FragmentHomeVpItemCoordinateBinding
 import com.example.hotspotalk.view.adapter.ChattingRoomRecyclerViewAdapter
 import com.example.hotspotalk.viewmodel.ChattingViewModel
@@ -50,7 +51,12 @@ class CoordinateRoomFragment : Fragment(),
         savedInstanceState: Bundle?
     ): View {
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_home_vp_item_coordinate, container, false)
+            DataBindingUtil.inflate(
+                inflater,
+                R.layout.fragment_home_vp_item_coordinate,
+                container,
+                false
+            )
         return binding.root
     }
 
@@ -60,6 +66,7 @@ class CoordinateRoomFragment : Fragment(),
         init()
         observe()
         chattingViewModelObserve()
+
     }
 
     private fun init() {
@@ -73,7 +80,12 @@ class CoordinateRoomFragment : Fragment(),
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            permissionLauncher.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
+            permissionLauncher.launch(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+            )
         } else {
             val locationManager =
                 ContextCompat.getSystemService(requireContext(), LocationManager::class.java)
@@ -81,7 +93,7 @@ class CoordinateRoomFragment : Fragment(),
                 LocationManager.GPS_PROVIDER, 1000, 10f
             ) { location ->
                 val latLng = LatLng(location)
-                viewModel.getRoomsByCoordinate(latLng.latitude , latLng.longitude)
+                viewModel.getRoomsByCoordinate(latLng.latitude, latLng.longitude)
             }
         }
     }
@@ -119,9 +131,15 @@ class CoordinateRoomFragment : Fragment(),
         }
     }
 
-    override fun onClick(id: Int) {
-        val bundle = Bundle()
-        bundle.putInt("id", id)
-        navController.navigate(R.id.action_homeFragment_to_chattingFragment, bundle)
+    override fun onClick(room: RoomInfo) {
+        val bundle = Bundle().apply {
+            putInt("roomID", room.roomID)
+        }
+        binding.tvTitleJoinChatting.text = room.roomName
+        binding.tvUserJoinChatting.text = room.memberLimit.toString()
+        binding.constraintLayout.transitionToEnd()
+        binding.btnCloseJoinChatting.setOnClickListener { binding.constraintLayout.transitionToStart() }
+        binding.btnJoinChatting.setOnClickListener { findNavController().navigate(R.id.action_homeFragment_to_setProfileFragment, bundle) }
     }
+
 }

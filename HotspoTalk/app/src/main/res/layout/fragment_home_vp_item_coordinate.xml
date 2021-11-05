@@ -4,23 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="vm"
             type="com.example.hotspotalk.viewmodel.CoordinateRoomViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="30dp">
+        app:layoutDescription="@xml/fragment_home_vp_item_coordinate_xml_constraintlayout_scene">
+
 
         <LinearLayout
             android:id="@+id/layout_no_chat_vp_item_home"
+            setVisible="@{!vm.roomVis}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:gravity="center"
             android:orientation="vertical"
-            setVisible="@{!vm.roomVis}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,11 +39,11 @@
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="20dp"
                 android:layout_marginBottom="50dp"
                 android:gravity="center"
-                android:text="참여중인 채팅방이 없어요." />
+                android:text="참여중인 채팅방이 없어요."
+                android:textColor="@color/black"
+                android:textSize="20dp" />
 
         </LinearLayout>
 
@@ -49,6 +52,7 @@
             setVisible="@{vm.roomVis}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="30dp"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -57,5 +61,66 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/fragment_home_rv_item_chatting_room" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+
+            android:id="@+id/constraintLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:context=".view.fragment.JoinChattingFragment">
+
+            <ImageButton
+                android:id="@+id/btn_close_join_chatting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:padding="20dp"
+                android:src="@drawable/ic_baseline_close_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <TextView
+                android:id="@+id/tv_title_join_chatting"
+                style="@style/Base.Widget.AppCompat.TextView.BigTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginBottom="24dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/btn_join_chatting"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_close_join_chatting"
+                tools:text="채팅방명" />
+
+
+            <TextView
+                android:id="@+id/tv_user_join_chatting"
+                style="@style/Base.Widget.AppCompat.TextView.SmallTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:text="0명"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_title_join_chatting"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_title_join_chatting" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_join_chatting"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/main_color"
+                android:text="참여하기"
+                android:textColor="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>
