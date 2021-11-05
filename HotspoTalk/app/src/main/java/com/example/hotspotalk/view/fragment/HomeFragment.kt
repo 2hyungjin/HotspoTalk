@@ -7,13 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
@@ -21,7 +21,6 @@ import com.example.hotspotalk.R
 import com.example.hotspotalk.databinding.FragmentHomeBinding
 import com.example.hotspotalk.view.adapter.HomeViewPagerAdapter
 import com.example.hotspotalk.viewmodel.HomeViewModel
-import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -35,7 +34,7 @@ class HomeFragment : Fragment() {
     private val navController: NavController by lazy { findNavController() }
 
     private lateinit var binding: FragmentHomeBinding
-    private val viewModel: HomeViewModel by activityViewModels()
+    private val viewModel: HomeViewModel by viewModels()
     private val permissionLauncher: ActivityResultLauncher<Array<String>> =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
             if (!it.all { permission -> permission.value == true })
@@ -66,7 +65,7 @@ class HomeFragment : Fragment() {
 
     private fun init() {
         adapter = HomeViewPagerAdapter(this)
-        adapter.setList(listOf(HomeViewPagerItemFragment(), HomeViewPagerItemFragment()))
+        adapter.setList(listOf(EnteredRoomFragment(), CoordinateRoomFragment()))
         binding.vpHome.adapter = adapter
 
         binding.radioGroupHome.setOnCheckedChangeListener { _, checkedId ->

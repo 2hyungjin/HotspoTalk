@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="com.example.hotspotalk.viewmodel.HomeViewModel" />
+            type="com.example.hotspotalk.viewmodel.CoordinateRoomViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +20,7 @@
             android:layout_height="0dp"
             android:gravity="center"
             android:orientation="vertical"
-            setVisible="@{!vm.enterableVis &amp;&amp; !vm.notEnterableVis}"
+            setVisible="@{!vm.roomVis}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,27 +45,11 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_not_enterable_chatting_room_vp_item_home"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            android:visibility="gone"
-            setVisible="@{vm.notEnterableVis}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/fragment_home_rv_item_chatting_room">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_enterable_room_vp_item_home"
+            setVisible="@{vm.roomVis}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            setVisible="@{vm.enterableVis}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
