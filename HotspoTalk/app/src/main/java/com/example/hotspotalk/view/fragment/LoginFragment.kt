@@ -1,5 +1,7 @@
 package com.example.hotspotalk.view.fragment
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,9 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.hotspotalk.R
 import com.example.hotspotalk.databinding.FragmentLoginBinding
 import com.example.hotspotalk.view.util.Preference
@@ -25,9 +31,13 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
 
+    private val permissionLauncher: ActivityResultLauncher<Array<String>> = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()) {
+        if (!it.all { permission -> permission.value == true })
+            Toast.makeText(context, "권한 거부", Toast.LENGTH_SHORT).show()
+    }
     private lateinit var binding: FragmentLoginBinding
     private val viewModel: LoginViewModel by viewModels()
-    lateinit var token: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,9 +52,28 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         FirebaseMessaging.getInstance().token.addOnSuccessListener {
-            token = it
+            viewModel.devToken = it
         }
+
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            permissionLauncher.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
+        }
+
         observe()
+        listener()
+    }
+
+    private fun listener() {
+        binding.tvRegister.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_signUpFragment)
+        }
     }
 
     private fun observe() = with(viewModel) {
@@ -53,8 +82,10 @@ class LoginFragment : Fragment() {
                 null ->
                     Toast.makeText(requireContext(), "아이디 또는 비밀번호가 옳지 않습니다.", Toast.LENGTH_SHORT)
                         .show()
-                else ->
-                    Preference.token = it.token.toString()
+                else -> {
+                    token = it.token.toString()
+                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                }
             }
         }
 

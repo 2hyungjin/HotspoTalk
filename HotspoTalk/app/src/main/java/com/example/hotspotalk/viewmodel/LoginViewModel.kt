@@ -1,5 +1,6 @@
 package com.example.hotspotalk.viewmodel
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -17,8 +18,8 @@ class LoginViewModel @Inject constructor(
     private val accountRepository: AccountRepository
 ): ViewModel() {
 
-    val id = MutableLiveData("")
-    val pw = MutableLiveData("")
+    val id = ObservableField<String>()
+    val pw = ObservableField<String>()
 
     private val _isSuccess = MutableLiveData<Token>()
     val isSuccess = _isSuccess
@@ -26,11 +27,11 @@ class LoginViewModel @Inject constructor(
     private val _isFailure = MutableLiveData<String>()
     val isFailure = _isFailure
 
-    val devToken = ""
+    var devToken = ""
 
     fun login() {
         viewModelScope.launch {
-            val login = Login(id.value!!, pw.value!!, devToken)
+            val login = Login(id.get()?:"", pw.get()?:"", devToken)
 
             val loginResponse = accountRepository.postLogin(login)
             when {
