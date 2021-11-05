@@ -3,8 +3,7 @@ package com.example.hotspotalk.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.hotspotalk.data.entity.Message
-import com.example.hotspotalk.data.entity.repuest.Enter
+import com.example.hotspotalk.data.entity.request.Enter
 import com.example.hotspotalk.data.repository.RoomsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

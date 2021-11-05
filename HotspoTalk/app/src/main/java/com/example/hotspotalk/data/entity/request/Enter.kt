@@ -1,5 +1,5 @@
 /* 방 입장 시 사용 */
-package com.example.hotspotalk.data.entity.repuest
+package com.example.hotspotalk.data.entity.request
 
 data class Enter(
     val roomID: Int,

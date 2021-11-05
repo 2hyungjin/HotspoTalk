@@ -5,7 +5,7 @@
     android:viewportHeight="24">
     <group android:scaleX="1.0" android:scaleY="1.0">
         <path
-            android:fillColor="@color/deep_grey"
+            android:fillColor="@color/white"
             android:pathData="M2.01,21L23,12 2.01,3 2,10l15,2 -15,2z"
             android:strokeLineCap="round" />
     </group>

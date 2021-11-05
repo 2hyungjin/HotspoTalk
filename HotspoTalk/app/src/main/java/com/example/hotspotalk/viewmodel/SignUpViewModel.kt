@@ -4,7 +4,7 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.hotspotalk.data.entity.repuest.SignUp
+import com.example.hotspotalk.data.entity.request.SignUp
 import com.example.hotspotalk.data.entity.response.Token
 import com.example.hotspotalk.data.repository.AccountRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -1,13 +1,11 @@
 package com.example.hotspotalk.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.hotspotalk.context.HotspotalkApplication
 import com.example.hotspotalk.data.entity.Message
-import com.example.hotspotalk.data.entity.MessageType
-import com.example.hotspotalk.data.entity.repuest.MessageRequest
+import com.example.hotspotalk.data.entity.request.MessageRequest
 import com.example.hotspotalk.data.entity.response.MemberInfo
 import com.example.hotspotalk.data.entity.response.MessageResponse
 import com.example.hotspotalk.data.repository.ChattingRepository

@@ -1,4 +1,4 @@
-package com.example.hotspotalk.data.entity.repuest
+package com.example.hotspotalk.data.entity.request
 
 data class ModifyRoom(
     val name: String,

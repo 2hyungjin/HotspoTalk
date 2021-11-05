@@ -6,10 +6,9 @@ data class Message(
     val nickname: String,
     var content: String? = null,
     val roomID: Int,
-    val memberID: String,
-    val timestamp: String,
+    var timestamp: String? = null,
     var messageType: MessageType = MessageType.YOURS,
-    val messageId: Int
+    var messageId: Int? = null
 )
 
 enum class MessageType {

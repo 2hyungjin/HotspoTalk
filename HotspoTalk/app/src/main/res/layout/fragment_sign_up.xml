@@ -61,33 +61,16 @@
                 android:hint="@string/password" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout3"
-            style="@style/MainTextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
-            app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
-
-            <com.google.android.material.textfield.TextInputEditText
-                style="@style/MainTextInputEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/password_check" />
-        </com.google.android.material.textfield.TextInputLayout>
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button"
-            android:onClick="@{() -> vm.signUp()}"
+            android:layout_marginTop="60dp"
             style="@style/Widget.AppCompat.Button.MainButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_top_sign_btn"
+            android:onClick="@{() -> vm.signUp()}"
             android:text="@string/sign_up"
-            app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
-            app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
+            tools:layout_editor_absoluteX="30dp" />
 
         <LinearLayout
             android:layout_width="0dp"

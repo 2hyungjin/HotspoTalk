@@ -10,7 +10,7 @@ import io.socket.client.Socket
 @HiltAndroidApp
 class HotspotalkApplication : Application() {
     companion object {
-        private val socket: Socket by lazy {
+        val socket: Socket by lazy {
             IO.socket("http://10.80.161.222:4000")
         }
         val newMessageListener: NewMessageListener = NewMessageListener()
@@ -18,7 +18,6 @@ class HotspotalkApplication : Application() {
         fun connectSocket() {
             socket.connect()
             socket.on("message", newMessageListener)
-            socket.emit("message", "msg")
         }
 
     }

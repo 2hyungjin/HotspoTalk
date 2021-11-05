@@ -3,11 +3,11 @@ package com.example.hotspotalk.data.service
 import com.example.hotspotalk.data.entity.Message
 import com.example.hotspotalk.data.entity.response.MemberInfo
 import com.example.hotspotalk.data.entity.response.RoomInfo
-import com.example.hotspotalk.data.entity.repuest.AccountId
-import com.example.hotspotalk.data.entity.repuest.CreateRoom
-import com.example.hotspotalk.data.entity.repuest.Enter
-import com.example.hotspotalk.data.entity.repuest.ModifyNickname
-import com.example.hotspotalk.data.entity.repuest.ModifyRoom
+import com.example.hotspotalk.data.entity.request.AccountId
+import com.example.hotspotalk.data.entity.request.CreateRoom
+import com.example.hotspotalk.data.entity.request.Enter
+import com.example.hotspotalk.data.entity.request.ModifyNickname
+import com.example.hotspotalk.data.entity.request.ModifyRoom
 import retrofit2.Response
 import retrofit2.http.*
 

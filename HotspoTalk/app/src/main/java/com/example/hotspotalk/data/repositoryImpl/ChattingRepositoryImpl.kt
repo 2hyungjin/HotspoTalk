@@ -1,6 +1,6 @@
 package com.example.hotspotalk.data.repositoryImpl
 
-import com.example.hotspotalk.data.entity.repuest.MessageRequest
+import com.example.hotspotalk.data.entity.request.MessageRequest
 import com.example.hotspotalk.data.entity.response.MemberInfo
 import com.example.hotspotalk.data.entity.response.MessageResponse
 import com.example.hotspotalk.data.repository.ChattingRepository
