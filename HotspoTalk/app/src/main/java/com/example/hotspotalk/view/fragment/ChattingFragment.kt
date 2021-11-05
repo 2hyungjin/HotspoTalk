@@ -27,7 +27,7 @@ class ChattingFragment : Fragment() {
     private val viewModel: ChattingViewModel by viewModels()
     lateinit var chattingListAdapter: MessageListAdapter
     lateinit var userListAdapter: UserListAdapter
-
+    var roomId: Int? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,9 +36,10 @@ class ChattingFragment : Fragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val roomId: Int = requireArguments().getInt("id")
+        roomId = requireArguments().getInt("id")
 
 
         viewModel.enterChatting(1)
@@ -69,7 +70,7 @@ class ChattingFragment : Fragment() {
                 Gson().toJson(
                     MessageRequest(
                         "message",
-                        roomId,
+                        roomId!!,
                         binding.editText.text.toString(),
                         Preference.token
                     )
@@ -77,7 +78,8 @@ class ChattingFragment : Fragment() {
             )
         }
         binding.btnOutChattingFragment.setOnClickListener {
-            //out chatting
+            viewModel.outChatting(roomId!!)
+            findNavController().navigateUp()
         }
 
         observe()
@@ -90,6 +92,14 @@ class ChattingFragment : Fragment() {
         }
         memberList.observe(viewLifecycleOwner) {
             userListAdapter.submitList(it)
+        }
+        chat.observe(viewLifecycleOwner) {
+            if (it.roomID == roomId) {
+                chattingListAdapter.submitList(
+                    chattingListAdapter.currentList.toMutableList().apply {
+                        this.add(it)
+                    })
+            }
         }
     }
 }

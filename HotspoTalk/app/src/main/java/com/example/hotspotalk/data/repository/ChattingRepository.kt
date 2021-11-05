@@ -7,6 +7,8 @@ import retrofit2.Response
 
 interface ChattingRepository {
     suspend fun getMessages(roomId: Int): Response<List<MessageResponse>>
-    suspend fun postMessage(message:MessageRequest)
-    suspend fun getMembers(roomId: Int):Response<List<MemberInfo>>
+    suspend fun postMessage(message: MessageRequest)
+    suspend fun getMembers(roomId: Int): Response<List<MemberInfo>>
+
+    suspend fun outChattingRoom(roomId: Int)
 }

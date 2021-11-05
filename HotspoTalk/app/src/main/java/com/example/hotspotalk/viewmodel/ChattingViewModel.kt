@@ -1,5 +1,6 @@
 package com.example.hotspotalk.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -21,6 +22,9 @@ class ChattingViewModel @Inject constructor(private val messageRepository: Chatt
     val chatList = MutableLiveData<List<Message>>()
     private val _chatList = mutableListOf<Message>()
 
+    private val _chat = MutableLiveData<Message>()
+    val chat: LiveData<Message> = _chat
+
     val memberList = MutableLiveData<List<MemberInfo>>()
     private val _memberList = mutableListOf<MemberInfo>()
 
@@ -36,13 +40,9 @@ class ChattingViewModel @Inject constructor(private val messageRepository: Chatt
     }
 
     private fun newMessageEventHandle(message: MessageResponse) {
-        _chatList.add(message.toMessage())
-        chatList.postValue(_chatList)
+        _chat.postValue(message.toMessage())
     }
 
-    fun testNewMessage(message: Message) {
-        _chatList.add(message)
-    }
 
     fun enterChatting(roomId: Int) {
         getMessages(roomId)
@@ -56,7 +56,10 @@ class ChattingViewModel @Inject constructor(private val messageRepository: Chatt
             messageRepository.getMessages(roomId).let { result ->
                 if (result.isSuccessful) {
                     result.body()!!.map { it.toMessage() }
-                        .let { _chatList.addAll(it) }
+                        .let {
+                            _chatList.addAll(it)
+                            chatList.postValue(_chatList)
+                        }
                 } else {
                     getMessageFailure.postValue("메세지 로딩에 실패하였습니다.")
                 }
@@ -83,6 +86,12 @@ class ChattingViewModel @Inject constructor(private val messageRepository: Chatt
                 }
             }
             isLoading.postValue(false)
+        }
+    }
+
+    fun outChatting(roomId: Int) {
+        viewModelScope.launch {
+            messageRepository.outChattingRoom(roomId)
         }
     }
 

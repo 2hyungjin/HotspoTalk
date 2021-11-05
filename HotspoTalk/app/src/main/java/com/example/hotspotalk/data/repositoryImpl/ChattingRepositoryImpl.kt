@@ -23,4 +23,8 @@ class ChattingRepositoryImpl @Inject constructor(
         return service.getMembers(roomId)
     }
 
+    override suspend fun outChattingRoom(roomId: Int) {
+        service.outChattingRoom(roomId)
+    }
+
 }
