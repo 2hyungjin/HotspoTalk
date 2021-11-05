@@ -1,10 +1,18 @@
 package com.example.hotspotalk.view.fragment
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -15,6 +23,7 @@ import com.example.hotspotalk.databinding.FragmentHomeVpItemBinding
 import com.example.hotspotalk.view.adapter.ChattingRoomRecyclerViewAdapter
 import com.example.hotspotalk.viewmodel.ChattingViewModel
 import com.example.hotspotalk.viewmodel.HomeViewModel
+import com.naver.maps.geometry.LatLng
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,8 +33,13 @@ class HomeViewPagerItemFragment : Fragment(),
     private val navController by lazy { findNavController() }
 
     private lateinit var binding: FragmentHomeVpItemBinding
-    private val viewModel: HomeViewModel by viewModels()
+    private val viewModel: HomeViewModel by activityViewModels()
     private val chattingViewModel: ChattingViewModel by activityViewModels()
+    private val permissionLauncher: ActivityResultLauncher<Array<String>> =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+            if (!it.all { permission -> permission.value })
+                Toast.makeText(context, "권한 거부", Toast.LENGTH_SHORT).show()
+        }
 
     private val enterableAdapter: ChattingRoomRecyclerViewAdapter =
         ChattingRoomRecyclerViewAdapter(this)
@@ -45,17 +59,34 @@ class HomeViewPagerItemFragment : Fragment(),
         super.onViewCreated(view, savedInstanceState)
 
         init()
-
         observe()
-
+        chattingViewModelObserve()
     }
 
     private fun init() {
         binding.rvEnterableRoomVpItemHome.adapter = enterableAdapter
         binding.rvNotEnterableChattingRoomVpItemHome.adapter = notEnterableAdapter
 
-        // todo 위도 경도 값 전달
-        viewModel.getRoomsByCoordinate(1, 1)
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            permissionLauncher.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
+        } else {
+            val locationManager =
+                ContextCompat.getSystemService(requireContext(), LocationManager::class.java)
+            locationManager?.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER, 1000, 10f
+            ) { location ->
+
+                val latLng = LatLng(location)
+                viewModel.getRoomsByCoordinate(latLng.latitude , latLng.longitude)
+            }
+        }
         viewModel.getEnteredRooms()
     }
 
@@ -98,7 +129,7 @@ class HomeViewPagerItemFragment : Fragment(),
         }
     }
 
-    fun chattingViewModelObserve() = with(chattingViewModel) {
+    private fun chattingViewModelObserve() = with(chattingViewModel) {
         chatList.observe(requireActivity()) {
             val recentRoomId = it.last().roomID
             val recentRoom = enterableAdapter.getList().find { it.roomID == recentRoomId }

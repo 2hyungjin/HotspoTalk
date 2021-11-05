@@ -1,5 +1,6 @@
 package com.example.hotspotalk.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,6 +8,7 @@ import com.example.hotspotalk.context.HotspotalkApplication
 import com.example.hotspotalk.data.entity.response.RoomInfo
 import com.example.hotspotalk.data.repository.RoomsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,7 +21,7 @@ class HomeViewModel @Inject constructor(
     val enterableVis = MutableLiveData(false)
     val notEnterableVis = MutableLiveData(false)
 
-    private val _isSuccessCoordinateRooms = MutableLiveData<List<RoomInfo>>(ArrayList())
+    private val _isSuccessCoordinateRooms = MutableLiveData<List<RoomInfo>>()
     val isSuccessCoordinateRooms = _isSuccessCoordinateRooms
 
     private val _isFailureCoordinateRooms = MutableLiveData<String>()
@@ -31,14 +33,15 @@ class HomeViewModel @Inject constructor(
     private val _isFailureEnteredRooms = MutableLiveData<String>()
     val isFailureEnteredRooms = _isFailureEnteredRooms
 
-    fun getRoomsByCoordinate(latitude: Int, longitude: Int) {
+    fun getRoomsByCoordinate(latitude: Double, longitude: Double) {
         viewModelScope.launch {
             val roomsResponse = roomsRepository.getRoomsByCoordinate(latitude, longitude)
             when {
                 roomsResponse.isSuccessful -> {
                     _isSuccessCoordinateRooms.value = roomsResponse.body()
+
                 }
-                roomsResponse.code() in 400..499 -> {
+                roomsResponse.code() in 400..500 -> {
                     _isFailureCoordinateRooms.value = roomsResponse.message()
                 }
             }
