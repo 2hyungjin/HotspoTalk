@@ -21,7 +21,7 @@ class RoomsRepositoryImpl @Inject constructor(
         return service.getRooms()
     }
 
-    override suspend fun getRoomsByCoordinate(latitude: Int, longitude: Int): Response<List<RoomInfo>> {
+    override suspend fun getRoomsByCoordinate(latitude: Double, longitude: Double): Response<List<RoomInfo>> {
         return service.getRooms(latitude, longitude)
     }
 

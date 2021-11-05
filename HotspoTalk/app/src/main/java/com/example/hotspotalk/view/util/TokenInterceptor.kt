@@ -9,5 +9,4 @@ class TokenInterceptor : Interceptor {
         val req = chain.request().newBuilder().addHeader("authorization", token).build()
         return chain.proceed(req)
     }
-
 }

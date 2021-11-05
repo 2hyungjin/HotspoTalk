@@ -14,20 +14,20 @@ import retrofit2.http.*
 interface RoomService {
 
     //들어갔던 방 목록
-    @GET("rooms/")
+    @GET("/rooms")
     suspend fun getRooms(): Response<List<RoomInfo>>
 
     // 들어갈 방목록
-    @GET("rooms/")
+    @GET("/rooms")
     suspend fun getRooms(
-        @Query("latitude") latitude: Int,
-        @Query("longitude") longitude: Int
+        @Query("latitude") latitude: Double,
+        @Query("longitude") longitude: Double
     ): Response<List<RoomInfo>>
 
-    @POST("rooms/")
+    @POST("/rooms")
     suspend fun postCreateRoom(@Body createRoom: CreateRoom): Response<Any?>
 
-    @GET("rooms/in")
+    @GET("/rooms/in")
     suspend fun postEnterRoom(@Body enter: Enter): Response<Any?>
 
     @GET("/rooms/{roomid}/member")

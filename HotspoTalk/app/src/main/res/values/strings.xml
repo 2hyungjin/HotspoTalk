@@ -12,4 +12,5 @@
     <string name="password_check">비밀번호 확인</string>
     <string name="sign_in">로그인</string>
     <string name="meter">%dm</string>
+    <string name="nickname">닉네임</string>
 </resources>

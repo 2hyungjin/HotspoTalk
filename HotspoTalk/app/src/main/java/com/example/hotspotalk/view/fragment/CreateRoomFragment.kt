@@ -19,6 +19,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.get
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.hotspotalk.databinding.FragmentCreateRoomBinding
@@ -43,9 +44,13 @@ class CreateRoomFragment : Fragment() {
         private const val MAX_RADIUS = 2000.0
     }
 
+    private val viewModel: CreateRoomViewModel by activityViewModels()
     private lateinit var binding: FragmentCreateRoomBinding
-    private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
-    private val viewModel: CreateRoomViewModel by viewModels()
+    private val permissionLauncher: ActivityResultLauncher<Array<String>> =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+            if (!it.all { permission -> permission.value == true })
+                Toast.makeText(context, "권한 거부", Toast.LENGTH_SHORT).show()
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,24 +71,18 @@ class CreateRoomFragment : Fragment() {
     }
 
     private fun init() {
-        viewModelStore.clear()
-        permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
-            if (!it.all { permission -> permission.value == true })
-                Toast.makeText(context, "권한 거부", Toast.LENGTH_SHORT).show()
-        }
-
         with(binding) {
             radioGroupPosition.setOnCheckedChangeListener { _, checkedId ->
                 when (checkedId) {
-                    radioButtonDistance.id -> {
-                        viewModel.areaType.value = 0
-                        linearLayoutDistanceCreateRoom.visibility = View.VISIBLE
-                        linearLayoutRadioCreateRoom.visibility = View.GONE
-                    }
                     radioButtonArea.id -> {
-                        viewModel.areaType.value = 1
+                        viewModel.areaType.value = 0
                         linearLayoutRadioCreateRoom.visibility = View.VISIBLE
                         linearLayoutDistanceCreateRoom.visibility = View.GONE
+                    }
+                    radioButtonDistance.id -> {
+                        viewModel.areaType.value = 1
+                        linearLayoutDistanceCreateRoom.visibility = View.VISIBLE
+                        linearLayoutRadioCreateRoom.visibility = View.GONE
                     }
                 }
             }
@@ -119,6 +118,18 @@ class CreateRoomFragment : Fragment() {
             }
         }
 
+        nickname.observe(viewLifecycleOwner) {
+            with(binding.tilNickNameCreateRoom) {
+                isErrorEnabled = it.isEmpty()
+                error =
+                    if (it.isEmpty()) {
+                        "필수 항목입니다."
+                    } else {
+                        ""
+                    }
+            }
+        }
+
         isFailure.observe(viewLifecycleOwner) {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         }
@@ -137,7 +148,7 @@ class CreateRoomFragment : Fragment() {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            permissionLauncher.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION))
+            permissionLauncher.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
             return@with
         } else {
             val locationManager = getSystemService(requireContext(), LocationManager::class.java)
@@ -166,15 +177,19 @@ class CreateRoomFragment : Fragment() {
                         chip.text = addressList[i]
                         chip.isCheckable = true
                         chip.addOnLayoutChangeListener { v,_,_,_,_,_,_,_,_ ->
+                            var chipAddress = ""
                             val chipItem = v as Chip
                             if (chipItem.isChecked && i > 1) {
                                 for (j in 0 until i) {
                                     val unCheckedChip = chipGroupAddressCreateRoom[j] as Chip
+                                    Log.d("CreateRoomFragment", "settingMap: ${unCheckedChip.text}")
                                     if (!unCheckedChip.isChecked) {
                                         unCheckedChip.isChecked = true
+                                        chipAddress += unCheckedChip.text.toString()
                                     }
                                 }
                             }
+                            viewModel.address.value = chipAddress
                         }
                         chipGroupAddressCreateRoom.addView(chip)
                     }
@@ -183,6 +198,14 @@ class CreateRoomFragment : Fragment() {
                     it.moveCamera(CameraUpdate.scrollTo(latLng))
 
                     val circle = CircleOverlay(latLng, MAX_RADIUS)
+                    with(circle) {
+                        outlineColor = Color.BLACK
+                        outlineWidth = 3
+                        color = ResourcesCompat.getColor(resources, android.R.color.transparent, resources.newTheme())
+                        map = it
+                    }
+                    circle.radius = 500.0
+
                     seekbarCreateRoom.focusable = View.FOCUSABLE
                     seekbarCreateRoom.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
                         override fun onProgressChanged(
@@ -190,16 +213,9 @@ class CreateRoomFragment : Fragment() {
                             progress: Int,
                             fromUser: Boolean
                         ) {
-                            val radius = ((progress + 1).toDouble() / (seekBar?.max!! + 1).toDouble()) * MAX_RADIUS
+                            val radius = (((progress + 1).toDouble() / (seekBar?.max!! + 1).toDouble()) * MAX_RADIUS)
                             viewModel.areaDetail.value = radius.toInt()
-
-                            with(circle) {
-                                outlineColor = Color.BLACK
-                                outlineWidth = 3
-                                color = ResourcesCompat.getColor(resources, android.R.color.transparent, resources.newTheme())
-                                map = it
-                                setRadius(radius)
-                            }
+                            circle.radius = radius
                         }
                         override fun onStartTrackingTouch(seekBar: SeekBar?) {}
                         override fun onStopTrackingTouch(seekBar: SeekBar?) {

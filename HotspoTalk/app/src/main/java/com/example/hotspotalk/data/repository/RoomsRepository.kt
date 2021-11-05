@@ -13,7 +13,7 @@ import retrofit2.Response
 interface RoomsRepository {
     suspend fun getEnteredRooms(): Response<List<RoomInfo>>
 
-    suspend fun getRoomsByCoordinate(latitude: Int, longitude: Int): Response<List<RoomInfo>>
+    suspend fun getRoomsByCoordinate(latitude: Double, longitude: Double): Response<List<RoomInfo>>
 
     suspend fun postEnterRoom(enter: Enter): Response<Any?>
 

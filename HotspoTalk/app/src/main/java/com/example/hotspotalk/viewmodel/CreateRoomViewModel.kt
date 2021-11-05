@@ -1,5 +1,6 @@
 package com.example.hotspotalk.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.hotspotalk.data.entity.repuest.CreateRoom
 import com.example.hotspotalk.data.repository.RoomsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,36 +25,66 @@ class CreateRoomViewModel @Inject constructor(
 
     val memberLimit = MutableLiveData<String>()
     val roomName = MutableLiveData<String>()
+    val nickname = MutableLiveData<String>()
     val roomPassword = MutableLiveData<String>()
-    val areaType = MutableLiveData<Int>()
-    val areaDetail = MutableLiveData(0)
+    val areaType = MutableLiveData(0)
+    val areaDetail = MutableLiveData(500)
+    val address = MutableLiveData<String>(null)
     val latitude = MutableLiveData<Double>()
     val longitude = MutableLiveData<Double>()
 
     fun createRoom() {
+
+        val nickname = nickname.value ?: ""
         val roomName = roomName.value ?: ""
         val roomPassword = roomPassword.value ?: ""
         val memberLimit = memberLimit.value ?: "0"
+
         val areaType = areaType.value ?: 0
+
+        // 거리별
         val areaDetail = areaDetail.value ?: 0
         val latitude = latitude.value ?: 0.0
         val longitude = longitude.value ?: 0.0
 
-        viewModelScope.launch {
-            if (roomName.isNotEmpty() && memberLimit.toInt() > 0 && latitude != 0.0 && longitude != 0.0 && areaDetail > 0.0) {
-                val createRoom = CreateRoom(roomName, roomPassword, memberLimit.toInt(), latitude, longitude, areaType, areaDetail)
+        // 지역별
+        val address = address.value ?: ""
+
+        Log.d("TAG", "createRoom: $nickname, $roomName, $roomPassword, $memberLimit, $areaType, $areaDetail, $latitude, $longitude, $address")
+
+        if (
+            roomName.isNotEmpty() && memberLimit.toInt() > 0 &&
+            ((latitude != 0.0 && longitude != 0.0 && areaDetail != 0) || address.isNotEmpty()) &&
+            areaDetail > 0 && nickname.isNotEmpty()
+        ) {
+            viewModelScope.launch {
+                val createRoom =
+                    CreateRoom(
+                        nickname,
+                        roomName,
+                        roomPassword,
+                        memberLimit.toInt(),
+                        latitude,
+                        longitude,
+                        areaType,
+                        areaDetail,
+                        address
+                    )
+
                 val msgResponse = roomsRepository.postCreateRoom(createRoom)
+                msgResponse.raw()
                 when {
                     msgResponse.isSuccessful -> {
-                        _isSuccess.value = msgResponse.message()
+                        _isSuccess.postValue(msgResponse.message())
                     }
-                    msgResponse.code() in 400..499 -> {
-                        _isFailure.value = msgResponse.message()
+                    msgResponse.code() in 400..500 -> {
+                        Log.d("CreateRoom", "createRoom: ${msgResponse.raw()}")
+                        _isFailure.postValue(msgResponse.message())
                     }
                 }
-            } else {
-                _isFailure.value = "빈 칸이 없는지 확인해주세요."
             }
+        } else {
+            _isFailure.postValue("빈 칸이 없는지 확인해주세요.")
         }
     }
 }
