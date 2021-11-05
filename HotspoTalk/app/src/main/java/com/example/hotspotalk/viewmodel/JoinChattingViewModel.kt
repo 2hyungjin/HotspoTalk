@@ -33,7 +33,7 @@ class JoinChattingViewModel @Inject constructor(
                 res.isSuccessful ->
                     _isSuccess.value = res.message()
 
-                res.code() in 400..499 ->
+                else ->
                     _isFailure.value = res.message()
             }
         }

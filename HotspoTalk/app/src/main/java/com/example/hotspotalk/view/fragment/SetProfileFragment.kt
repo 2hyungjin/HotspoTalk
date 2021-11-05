@@ -58,13 +58,13 @@ class SetProfileFragment : Fragment() {
                 // todo
                 "success" -> ""
                 "fail" ->
-                    Toast.makeText(requireContext(), "채팅방 참가에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "채팅방 참가에 실패하였습니다", Toast.LENGTH_SHORT).show()
             }
         }
 
         isFailure.observe(viewLifecycleOwner) {
             Log.d("joinChatting", it)
-            Toast.makeText(requireContext(), "서버 통신에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "이미 참여 중인 채팅방입니다.", Toast.LENGTH_SHORT).show()
         }
     }
 }
