@@ -47,7 +47,9 @@ class EnteredRoomFragment : Fragment(),
 
     private fun init() {
         binding.rvEnterableRoomVpItemHome.adapter = notEnterableAdapter
-
+        binding.srlEntered.setOnRefreshListener {
+            viewModel.getEnteredRooms()
+        }
         viewModel.getEnteredRooms()
     }
 
@@ -65,6 +67,7 @@ class EnteredRoomFragment : Fragment(),
                     notEnterableAdapter.setList(it)
                 }
             }
+            binding.srlEntered.isRefreshing = false
         }
 
         isFailureEnteredRooms.observe(viewLifecycleOwner) {

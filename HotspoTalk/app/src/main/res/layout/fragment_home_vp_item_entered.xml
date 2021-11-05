@@ -8,48 +8,55 @@
             name="vm"
             type="com.example.hotspotalk.viewmodel.EnteredRoomViewModel" />
     </data>
-
-    <LinearLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srl_entered"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:padding="30dp"
-        tools:context=".view.fragment.EnteredRoomFragment">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/layout_no_chat_vp_item_enterable"
-            setVisible="@{vm.roomVis}"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="214dp"
-                android:layout_height="200dp"
-                app:srcCompat="@drawable/ic_no_chatting_img" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="20dp"
-                android:layout_marginBottom="50dp"
-                android:gravity="center"
-                android:text="근처의 채팅방이 없어요." />
-
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_enterable_room_vp_item_home"
-            setVisible="@{!vm.roomVis}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/fragment_home_rv_item_chatting_room" />
-    </LinearLayout>
+            android:gravity="center"
+            tools:context=".view.fragment.EnteredRoomFragment">
+
+            <LinearLayout
+                android:id="@+id/layout_no_chat_vp_item_enterable"
+                setVisible="@{vm.roomVis}"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="214dp"
+                    android:layout_height="200dp"
+                    app:srcCompat="@drawable/ic_no_chatting_img" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:layout_marginBottom="50dp"
+                    android:gravity="center"
+                    android:text="근처의 채팅방이 없어요." />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_enterable_room_vp_item_home"
+                setVisible="@{!vm.roomVis}"
+                android:overScrollMode="never"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="65dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/fragment_home_rv_item_chatting_room" />
+        </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

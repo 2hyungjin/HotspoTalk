@@ -81,6 +81,9 @@ class CoordinateRoomFragment : Fragment(),
                 LocationManager.GPS_PROVIDER, 1000, 10f
             ) { location ->
                 val latLng = LatLng(location)
+                binding.srlCoordinate.setOnRefreshListener {
+                    viewModel.getRoomsByCoordinate(latLng.latitude , latLng.longitude)
+                }
                 viewModel.getRoomsByCoordinate(latLng.latitude , latLng.longitude)
             }
         }
@@ -99,6 +102,7 @@ class CoordinateRoomFragment : Fragment(),
                     roomVis.value = it.isEmpty()
                 }
             }
+            binding.srlCoordinate.isRefreshing = false
         }
 
         isFailureCoordinateRooms.observe(viewLifecycleOwner) {
