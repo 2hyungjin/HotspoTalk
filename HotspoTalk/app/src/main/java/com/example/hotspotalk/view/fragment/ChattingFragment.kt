@@ -12,12 +12,14 @@ import com.example.hotspotalk.data.entity.Message
 import com.example.hotspotalk.data.entity.MessageType
 import com.example.hotspotalk.databinding.FragmentChattingBinding
 import com.example.hotspotalk.view.adapter.MessageListAdapter
+import com.example.hotspotalk.view.adapter.UserListAdapter
 import com.example.hotspotalk.viewmodel.ChattingViewModel
 
 class ChattingFragment : Fragment() {
     lateinit var binding: FragmentChattingBinding
     private val viewModel: ChattingViewModel by viewModels()
     lateinit var chattingListAdapter: MessageListAdapter
+    lateinit var userListAdapter: UserListAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,9 +33,14 @@ class ChattingFragment : Fragment() {
 
         viewModel.enterChatting(1)
         chattingListAdapter = MessageListAdapter()
+        userListAdapter = UserListAdapter()
 
         binding.rvChattingChattingFragment.apply {
             adapter = chattingListAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+        binding.rvUserListChattingFragment.apply {
+            adapter = userListAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
         binding.btnOpenMenu.setOnClickListener {
