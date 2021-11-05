@@ -22,9 +22,8 @@ class SignUpViewModel : ViewModel() {
     private val _isFailure = MutableLiveData<String>()
     val isFailure = _isFailure
 
-    // todo deviceToken
 
-    var devToken = ""
+    var devToken: String? = null
 
     fun signUp() {
         viewModelScope.launch {
@@ -32,8 +31,12 @@ class SignUpViewModel : ViewModel() {
                 return@launch
             }
 
-            val signUp = Login(id.value!!, pw.value!!, devToken)
             try {
+                val signUp = Login(
+                    id.value!!,
+                    pw.value!!,
+                    devToken ?: throw java.lang.Exception("디바이스 토큰이 생성되지 않음")
+                )
 //                _isSuccess.postValue(postSignUpUseCase.buildUseCase(PostSignUpUseCase.Params(signUp)))
             } catch (e: Exception) {
                 isFailure.postValue(e.message)
