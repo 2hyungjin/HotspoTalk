@@ -25,27 +25,27 @@ class RoomsRepositoryImpl @Inject constructor(
         return service.getRooms(latitude, longitude)
     }
 
-    override suspend fun postEnterRoom(roomId: Int, enter: Enter): Response<Message> {
-        return service.postEnterRoom(roomId, enter)
+    override suspend fun postEnterRoom(enter: Enter): Response<Any?> {
+        return service.postEnterRoom(enter)
     }
 
     override suspend fun getMember(roomId: Int): Response<List<MemberInfo>> {
         return service.getMember(roomId)
     }
 
-    override suspend fun postCreateRoom(createRoom: CreateRoom): Response<Message> {
+    override suspend fun postCreateRoom(createRoom: CreateRoom): Response<Any?> {
         return service.postCreateRoom(createRoom)
     }
 
-    override suspend fun putModifyRoom(roomId: Int, modifyRoom: ModifyRoom): Response<Message> {
+    override suspend fun putModifyRoom(roomId: Int, modifyRoom: ModifyRoom): Response<Any?> {
         return service.putModifyRoom(roomId, modifyRoom)
     }
 
-    override suspend fun putInheritRoom(accountId: AccountId): Response<Message> {
+    override suspend fun putInheritRoom(accountId: AccountId): Response<Any?> {
         return service.putInheritRoom(accountId)
     }
 
-    override suspend fun putModifyNickname(roomId: Int, modifyNickname: ModifyNickname): Response<Message> {
+    override suspend fun putModifyNickname(roomId: Int, modifyNickname: ModifyNickname): Response<Any?> {
         return service.putModifyNickname(roomId, modifyNickname)
     }
 

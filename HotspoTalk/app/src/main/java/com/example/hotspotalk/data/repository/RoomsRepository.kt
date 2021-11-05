@@ -15,17 +15,17 @@ interface RoomsRepository {
 
     suspend fun getRoomsByCoordinate(latitude: Int, longitude: Int): Response<List<RoomInfo>>
 
-    suspend fun postEnterRoom(roomId: Int, enter: Enter): Response<Message>
+    suspend fun postEnterRoom(enter: Enter): Response<Any?>
 
     suspend fun getMember(roomId: Int): Response<List<MemberInfo>>
 
-    suspend fun postCreateRoom(createRoom: CreateRoom): Response<Message>
+    suspend fun postCreateRoom(createRoom: CreateRoom): Response<Any?>
 
-    suspend fun putModifyRoom(roomId: Int, modifyRoom: ModifyRoom): Response<Message>
+    suspend fun putModifyRoom(roomId: Int, modifyRoom: ModifyRoom): Response<Any?>
 
-    suspend fun putInheritRoom(accountId: AccountId): Response<Message>
+    suspend fun putInheritRoom(accountId: AccountId): Response<Any?>
 
-    suspend fun putModifyNickname(roomId: Int, modifyNickname: ModifyNickname): Response<Message>
+    suspend fun putModifyNickname(roomId: Int, modifyNickname: ModifyNickname): Response<Any?>
 
     suspend fun deleteExitRoom(roomId: Int): Response<Message>
 

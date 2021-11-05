@@ -14,6 +14,7 @@ import javax.inject.Inject
 class CreateRoomViewModel @Inject constructor(
     private val roomsRepository: RoomsRepository
 ): ViewModel() {
+    val isMapLoading = MutableLiveData(false)
     private val _isFailure = MutableLiveData<String>()
     val isFailure: LiveData<String> = _isFailure
 
@@ -43,7 +44,7 @@ class CreateRoomViewModel @Inject constructor(
                 val msgResponse = roomsRepository.postCreateRoom(createRoom)
                 when {
                     msgResponse.isSuccessful -> {
-                        _isSuccess.value = msgResponse.body()?.message.toString()
+                        _isSuccess.value = msgResponse.message()
                     }
                     msgResponse.code() in 400..499 -> {
                         _isFailure.value = msgResponse.message()

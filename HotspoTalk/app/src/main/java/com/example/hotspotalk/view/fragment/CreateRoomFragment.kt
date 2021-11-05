@@ -3,8 +3,10 @@ package com.example.hotspotalk.view.fragment
 import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.location.Geocoder
 import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,10 +18,12 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.get
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.hotspotalk.databinding.FragmentCreateRoomBinding
 import com.example.hotspotalk.viewmodel.CreateRoomViewModel
+import com.google.android.material.chip.Chip
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.overlay.CircleOverlay
@@ -36,7 +40,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class CreateRoomFragment : Fragment() {
 
     companion object {
-        private const val MAX_RADIUS = 500.0
+        private const val MAX_RADIUS = 2000.0
     }
 
     private lateinit var binding: FragmentCreateRoomBinding
@@ -137,6 +141,7 @@ class CreateRoomFragment : Fragment() {
             return@with
         } else {
             val locationManager = getSystemService(requireContext(), LocationManager::class.java)
+            viewModel.isMapLoading.postValue(true)
             locationManager?.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER, 1000, 10f) { location ->
 
@@ -151,6 +156,29 @@ class CreateRoomFragment : Fragment() {
                     }
                     viewModel.latitude.value = latLng.latitude
                     viewModel.longitude.value = latLng.longitude
+                    viewModel.isMapLoading.postValue(false)
+
+                    val geocoder = Geocoder(context)
+                    val address = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 10)[0].getAddressLine(0)
+                    val addressList = address.split(" ")
+                    for (i in 1 until addressList.lastIndex){
+                        val chip = Chip(context)
+                        chip.text = addressList[i]
+                        chip.isCheckable = true
+                        chip.addOnLayoutChangeListener { v,_,_,_,_,_,_,_,_ ->
+                            val chipItem = v as Chip
+                            if (chipItem.isChecked && i > 1) {
+                                for (j in 0 until i) {
+                                    val unCheckedChip = chipGroupAddressCreateRoom[j] as Chip
+                                    if (!unCheckedChip.isChecked) {
+                                        unCheckedChip.isChecked = true
+                                    }
+                                }
+                            }
+                        }
+                        chipGroupAddressCreateRoom.addView(chip)
+                    }
+
 
                     it.moveCamera(CameraUpdate.scrollTo(latLng))
 
@@ -162,7 +190,7 @@ class CreateRoomFragment : Fragment() {
                             progress: Int,
                             fromUser: Boolean
                         ) {
-                            val radius = ((progress).toDouble() / (seekBar?.max!!).toDouble()) * MAX_RADIUS
+                            val radius = ((progress + 1).toDouble() / (seekBar?.max!! + 1).toDouble()) * MAX_RADIUS
                             viewModel.areaDetail.value = radius.toInt()
 
                             with(circle) {

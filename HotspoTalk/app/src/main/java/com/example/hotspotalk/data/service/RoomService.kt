@@ -25,22 +25,22 @@ interface RoomService {
     ): Response<List<RoomInfo>>
 
     @POST("rooms/")
-    suspend fun postCreateRoom(@Body createRoom: CreateRoom): Response<Message>
+    suspend fun postCreateRoom(@Body createRoom: CreateRoom): Response<Any?>
 
-    @GET("rooms/{roomid}")
-    suspend fun postEnterRoom(@Path("roomid") roomId: Int, @Body enter: Enter): Response<Message>
+    @GET("rooms/in")
+    suspend fun postEnterRoom(@Body enter: Enter): Response<Any?>
 
     @GET("/rooms/{roomid}/member")
     suspend fun getMember(@Path("roomid") roomId: Int): Response<List<MemberInfo>>
 
     @PUT("/rooms/{roomid}/edit")
-    suspend fun putModifyRoom(@Path("roomid") roomId: Int, @Body modifyRoom: ModifyRoom): Response<Message>
+    suspend fun putModifyRoom(@Path("roomid") roomId: Int, @Body modifyRoom: ModifyRoom): Response<Any?>
 
     @PUT("/rooms/{roomid}/inherit")
-    suspend fun putInheritRoom(@Body accountId: AccountId): Response<Message>
+    suspend fun putInheritRoom(@Body accountId: AccountId): Response<Any?>
 
     @PUT("/rooms/{roomid}/rename")
-    suspend fun putModifyNickname(@Path("roomid") roomId: Int, @Body modifyNickname: ModifyNickname): Response<Message>
+    suspend fun putModifyNickname(@Path("roomid") roomId: Int, @Body modifyNickname: ModifyNickname): Response<Any?>
 
     @DELETE("/rooms/{roomid}/exit")
     suspend fun deleteExitRoom(@Path("roomid") roomId: Int): Response<Message>
