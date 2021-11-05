@@ -1,0 +1,164 @@
+Index: app/src/main/java/com/example/hotspotalk/view/util/Preference.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hotspotalk.view.util\n\nimport android.content.Context\nimport android.content.Context.MODE_PRIVATE\nimport android.content.SharedPreferences\n\nobject Preference {\n    private lateinit var sharedPreferences: SharedPreferences\n\n    fun init(context: Context) {\n        sharedPreferences = context.getSharedPreferences(\"token\", MODE_PRIVATE)\n    }\n\n    var token: String\n        get() = sharedPreferences.getString(\"token\", \"\")?: \"\"\n        set(value) = sharedPreferences.edit().putString(\"token\", value).apply()\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/hotspotalk/view/util/Preference.kt b/app/src/main/java/com/example/hotspotalk/view/util/Preference.kt
+--- a/app/src/main/java/com/example/hotspotalk/view/util/Preference.kt	(revision 2b3289c0253d5e702903a9bb58fa615cd1a31e58)
++++ b/app/src/main/java/com/example/hotspotalk/view/util/Preference.kt	(date 1635936047827)
+@@ -12,6 +12,6 @@
+     }
+ 
+     var token: String
+-        get() = sharedPreferences.getString("token", "")?: ""
++        get() = sharedPreferences.getString("token", "")!!
+         set(value) = sharedPreferences.edit().putString("token", value).apply()
+ }
+\ No newline at end of file
+Index: app/src/main/java/com/example/hotspotalk/view/activity/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hotspotalk.view.activity\n\nimport androidx.appcompat.app.AppCompatActivity\nimport android.os.Bundle\nimport android.util.Log\nimport androidx.activity.viewModels\nimport com.example.hotspotalk.R\nimport com.example.hotspotalk.context.HotspotalkApplication\nimport com.example.hotspotalk.viewmodel.ChattingViewModel\nimport com.google.firebase.messaging.FirebaseMessaging\nimport dagger.hilt.android.AndroidEntryPoint\n\n@AndroidEntryPoint\nclass MainActivity : AppCompatActivity() {\n    private val viewModel: ChattingViewModel by viewModels()\n\n    override fun onCreate(savedInstanceState: Bundle?) {\n        super.onCreate(savedInstanceState)\n        setContentView(R.layout.activity_main)\n        HotspotalkApplication.connectSocket()\n        viewModel.initialViewModel()\n        viewModel.chatList.observe(this,{\n            Log.d(\"MainActivity\",\"message is arrived $it\")\n        })\n\n        val token = FirebaseMessaging.getInstance().token.addOnSuccessListener {\n            Log.d(\"FCM\",it.toString())\n        }\n\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/hotspotalk/view/activity/MainActivity.kt b/app/src/main/java/com/example/hotspotalk/view/activity/MainActivity.kt
+--- a/app/src/main/java/com/example/hotspotalk/view/activity/MainActivity.kt	(revision 2b3289c0253d5e702903a9bb58fa615cd1a31e58)
++++ b/app/src/main/java/com/example/hotspotalk/view/activity/MainActivity.kt	(date 1635936174796)
+@@ -23,9 +23,7 @@
+             Log.d("MainActivity","message is arrived $it")
+         })
+ 
+-        val token = FirebaseMessaging.getInstance().token.addOnSuccessListener {
+-            Log.d("FCM",it.toString())
+-        }
++
+ 
+     }
+ }
+\ No newline at end of file
+Index: app/src/main/java/com/example/hotspotalk/di/module/NetworkModule.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hotspotalk.di.module\n\nimport com.example.hotspotalk.view.util.TokenInterceptor\nimport dagger.Module\nimport dagger.Provides\nimport dagger.hilt.InstallIn\nimport dagger.hilt.components.SingletonComponent\nimport okhttp3.OkHttpClient\nimport retrofit2.Retrofit\nimport retrofit2.converter.gson.GsonConverterFactory\nimport java.util.concurrent.TimeUnit\nimport javax.inject.Singleton\n\n@Module\n@InstallIn(SingletonComponent::class)\nobject NetworkModule  {\n\n    @Singleton\n    @Provides\n    fun provideOkhttpClient(): OkHttpClient =\n        OkHttpClient.Builder()\n            //.addInterceptor(TokenInterceptor())\n            .connectTimeout(100, TimeUnit.SECONDS)\n            .readTimeout(100,TimeUnit.SECONDS)\n            .writeTimeout(100, TimeUnit.SECONDS)\n            .build()\n\n    @Singleton\n    @Provides\n    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =\n        Retrofit.Builder()\n            .addConverterFactory(GsonConverterFactory.create())\n            .baseUrl(\"http://10.80.161.222/\")\n            .client(okHttpClient)\n            .build()\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/hotspotalk/di/module/NetworkModule.kt b/app/src/main/java/com/example/hotspotalk/di/module/NetworkModule.kt
+--- a/app/src/main/java/com/example/hotspotalk/di/module/NetworkModule.kt	(revision 2b3289c0253d5e702903a9bb58fa615cd1a31e58)
++++ b/app/src/main/java/com/example/hotspotalk/di/module/NetworkModule.kt	(date 1635936047819)
+@@ -19,7 +19,7 @@
+     @Provides
+     fun provideOkhttpClient(): OkHttpClient =
+         OkHttpClient.Builder()
+-            //.addInterceptor(TokenInterceptor())
++            .addInterceptor(TokenInterceptor())
+             .connectTimeout(100, TimeUnit.SECONDS)
+             .readTimeout(100,TimeUnit.SECONDS)
+             .writeTimeout(100, TimeUnit.SECONDS)
+Index: app/src/main/java/com/example/hotspotalk/view/fragment/LoginFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hotspotalk.view.fragment\n\nimport android.os.Bundle\nimport androidx.fragment.app.Fragment\nimport android.view.LayoutInflater\nimport android.view.View\nimport android.view.ViewGroup\nimport androidx.fragment.app.activityViewModels\nimport com.example.hotspotalk.R\nimport com.example.hotspotalk.viewmodel.LoginViewModel\nimport dagger.hilt.android.AndroidEntryPoint\n\n/**\n * 로그인 프래그먼트\n */\n\n@AndroidEntryPoint\nclass LoginFragment : Fragment() {\n\n    private val viewModel: LoginViewModel by activityViewModels()\n\n\n    override fun onCreateView(\n        inflater: LayoutInflater, container: ViewGroup?,\n        savedInstanceState: Bundle?\n    ): View? {\n        // Inflate the layout for this fragment\n        return inflater.inflate(R.layout.fragment_login, container, false)\n    }\n\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/hotspotalk/view/fragment/LoginFragment.kt b/app/src/main/java/com/example/hotspotalk/view/fragment/LoginFragment.kt
+--- a/app/src/main/java/com/example/hotspotalk/view/fragment/LoginFragment.kt	(revision 2b3289c0253d5e702903a9bb58fa615cd1a31e58)
++++ b/app/src/main/java/com/example/hotspotalk/view/fragment/LoginFragment.kt	(date 1635936047814)
+@@ -16,10 +16,8 @@
+ 
+ @AndroidEntryPoint
+ class LoginFragment : Fragment() {
+-
+     private val viewModel: LoginViewModel by activityViewModels()
+ 
+-
+     override fun onCreateView(
+         inflater: LayoutInflater, container: ViewGroup?,
+         savedInstanceState: Bundle?
+Index: app/src/main/java/com/example/hotspotalk/data/network/NewMessageListener.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hotspotalk.data.network\n\nimport android.util.Log\nimport com.example.hotspotalk.data.entity.response.MessageResponse\nimport io.socket.emitter.Emitter\n\nclass NewMessageListener() : Emitter.Listener {\n    var eventHandler: ((MessageResponse) -> Unit)? = null\n\n    override fun call(vararg args: Any?) {\n        val msg=args[0].toString()\n        onMessageReceived(msg as MessageResponse )\n        Log.d(\"socket\",msg)\n    }\n\n    private fun onMessageReceived(message: MessageResponse) {\n        eventHandler?.invoke(message)\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/hotspotalk/data/network/NewMessageListener.kt b/app/src/main/java/com/example/hotspotalk/data/network/NewMessageListener.kt
+--- a/app/src/main/java/com/example/hotspotalk/data/network/NewMessageListener.kt	(revision 2b3289c0253d5e702903a9bb58fa615cd1a31e58)
++++ b/app/src/main/java/com/example/hotspotalk/data/network/NewMessageListener.kt	(date 1635933673248)
+@@ -9,7 +9,7 @@
+ 
+     override fun call(vararg args: Any?) {
+         val msg=args[0].toString()
+-        onMessageReceived(msg as MessageResponse )
++//        onMessageReceived(msg as MessageResponse )
+         Log.d("socket",msg)
+     }
+ 
+Index: app/src/main/java/com/example/hotspotalk/context/HotspotalkApplication.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hotspotalk.context\n\nimport android.app.Application\nimport com.example.hotspotalk.data.network.NewMessageListener\nimport com.example.hotspotalk.view.util.Preference\nimport dagger.hilt.android.HiltAndroidApp\nimport io.socket.client.IO\nimport io.socket.client.Socket\n\n@HiltAndroidApp\nclass HotspotalkApplication : Application() {\n    companion object {\n        private val socket: Socket by lazy {\n            IO.socket(\"http://10.80.161.222:3000\")\n        }\n        val newMessageListener: NewMessageListener = NewMessageListener()\n\n        fun connectSocket() {\n            socket.connect()\n            socket.on(\"test\", newMessageListener)\n            socket.emit(\"test\", \"msg\")\n        }\n    }\n\n    override fun onCreate() {\n        super.onCreate()\n        Preference.init(applicationContext)\n    }\n\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/hotspotalk/context/HotspotalkApplication.kt b/app/src/main/java/com/example/hotspotalk/context/HotspotalkApplication.kt
+--- a/app/src/main/java/com/example/hotspotalk/context/HotspotalkApplication.kt	(revision 2b3289c0253d5e702903a9bb58fa615cd1a31e58)
++++ b/app/src/main/java/com/example/hotspotalk/context/HotspotalkApplication.kt	(date 1635936047823)
+@@ -20,11 +20,11 @@
+             socket.on("test", newMessageListener)
+             socket.emit("test", "msg")
+         }
++
+     }
+ 
+     override fun onCreate() {
+         super.onCreate()
+         Preference.init(applicationContext)
+     }
+-
+ }
+\ No newline at end of file
+Index: app/src/main/java/com/example/hotspotalk/viewmodel/LoginViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hotspotalk.viewmodel\n\nimport androidx.lifecycle.MutableLiveData\nimport androidx.lifecycle.ViewModel\nimport androidx.lifecycle.viewModelScope\nimport com.example.hotspotalk.data.entity.repuest.Login\nimport com.example.hotspotalk.data.entity.response.Token\nimport dagger.hilt.android.lifecycle.HiltViewModel\nimport kotlinx.coroutines.launch\nimport java.lang.Exception\nimport javax.inject.Inject\n\n@HiltViewModel\nclass LoginViewModel @Inject constructor(): ViewModel() {\n\n    val id = MutableLiveData(\"\")\n    val pw = MutableLiveData(\"\")\n\n    private val _isSuccess = MutableLiveData<Token>()\n    val isSuccess = _isSuccess\n\n    private val _isFailure = MutableLiveData<String>()\n    val isFailure = _isFailure\n\n    // todo\n    private val devToken = \"\"\n\n    fun login() {\n        viewModelScope.launch {\n            val login = Login(id.value!!, pw.value!!, devToken)\n\n            when {\n\n            }\n        }\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/hotspotalk/viewmodel/LoginViewModel.kt b/app/src/main/java/com/example/hotspotalk/viewmodel/LoginViewModel.kt
+--- a/app/src/main/java/com/example/hotspotalk/viewmodel/LoginViewModel.kt	(revision 2b3289c0253d5e702903a9bb58fa615cd1a31e58)
++++ b/app/src/main/java/com/example/hotspotalk/viewmodel/LoginViewModel.kt	(date 1635936047831)
+@@ -22,7 +22,6 @@
+     private val _isFailure = MutableLiveData<String>()
+     val isFailure = _isFailure
+ 
+-    // todo
+     private val devToken = ""
+ 
+     fun login() {
+Index: app/src/main/java/com/example/hotspotalk/data/entity/response/MessageResponse.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hotspotalk.data.entity.response\n\ndata class MessageResponse(\n    val content: String,\n    val memberId: String,\n    val roomId: String,\n    val messageId: String,\n    val timeStamp: String,\n)\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/hotspotalk/data/entity/response/MessageResponse.kt b/app/src/main/java/com/example/hotspotalk/data/entity/response/MessageResponse.kt
+--- a/app/src/main/java/com/example/hotspotalk/data/entity/response/MessageResponse.kt	(revision 2b3289c0253d5e702903a9bb58fa615cd1a31e58)
++++ b/app/src/main/java/com/example/hotspotalk/data/entity/response/MessageResponse.kt	(date 1635934616565)
+@@ -2,8 +2,7 @@
+ 
+ data class MessageResponse(
+     val content: String,
+-    val memberId: String,
+-    val roomId: String,
+-    val messageId: String,
+-    val timeStamp: String,
++    val roomID: Int,
++    val memberID: String,
++    val timestamp: String
+ )

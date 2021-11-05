@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/tv_content_mine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
@@ -26,7 +27,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/tv_time_stamp_mine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"

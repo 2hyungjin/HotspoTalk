@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/tv_nickname"
+            android:id="@+id/tv_nickname_yours"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -36,6 +36,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                android:id="@+id/tv_content_yours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
@@ -67,7 +68,7 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/tv_time_stamp_yours"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
