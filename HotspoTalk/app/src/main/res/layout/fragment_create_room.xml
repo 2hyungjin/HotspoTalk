@@ -181,6 +181,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="75dp"
+                    android:layout_marginTop="4dp"
                     app:boxCornerRadiusBottomEnd="25dp"
                     app:boxCornerRadiusBottomStart="25dp"
                     app:boxCornerRadiusTopEnd="25dp"

@@ -17,6 +17,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.hotspotalk.R
+import com.example.hotspotalk.data.entity.response.Token
 import com.example.hotspotalk.databinding.FragmentLoginBinding
 import com.example.hotspotalk.view.util.Preference
 import com.example.hotspotalk.view.util.Preference.token
@@ -52,6 +53,17 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (token.isNotEmpty()) {
+            viewModel.autoLogin()
+        }
+
+        init()
+        observe()
+        listener()
+    }
+
+    private fun init() {
         FirebaseMessaging.getInstance().token.addOnSuccessListener {
             viewModel.devToken = it
         }
@@ -66,9 +78,6 @@ class LoginFragment : Fragment() {
         ) {
             permissionLauncher.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
         }
-
-        observe()
-        listener()
     }
 
     private fun listener() {
@@ -84,7 +93,8 @@ class LoginFragment : Fragment() {
                     Toast.makeText(requireContext(), "아이디 또는 비밀번호가 옳지 않습니다.", Toast.LENGTH_SHORT)
                         .show()
                 else -> {
-                    token = it.token
+                    if (it is Token) token = it.token
+                    Log.d("LoginFragment", "observe: $token")
                     findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                 }
             }

@@ -12,6 +12,8 @@ interface AccountRepository {
 
     suspend fun postSignUp(signUp: SignUp): Response<Token>
 
+    suspend fun postAutoLogin(): Response<Any?>
+
     suspend fun getId(id: String): Response<Message>
 
     suspend fun deleteBan(ban: Ban): Response<Message>

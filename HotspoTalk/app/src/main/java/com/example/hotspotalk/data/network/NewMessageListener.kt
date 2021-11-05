@@ -19,7 +19,6 @@ class NewMessageListener : Emitter.Listener {
             message.getString("content"),
             message.getInt("roomID"),
             message.getString("nickname"),
-            message.getString("memberID"),
             message.getString("timestamp"),
             message.getInt("messageID")
         )

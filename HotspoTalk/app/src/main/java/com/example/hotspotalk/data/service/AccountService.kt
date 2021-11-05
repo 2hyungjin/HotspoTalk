@@ -23,4 +23,7 @@ interface AccountService {
 
     @GET("/account/ban")
     suspend fun deleteBan(@Body ban: Ban): Response<Message>
+
+    @POST("account/autoLogin")
+    suspend fun postAutoLogin(): Response<Any?>
 }

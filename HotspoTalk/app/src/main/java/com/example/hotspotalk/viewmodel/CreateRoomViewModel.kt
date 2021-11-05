@@ -76,9 +76,8 @@ class CreateRoomViewModel @Inject constructor(
                     msgResponse.isSuccessful -> {
                         _isSuccess.postValue(msgResponse.message())
                     }
-                    msgResponse.code() in 400..500 -> {
-                        Log.d("CreateRoom", "createRoom: ${msgResponse.raw()}")
-                        _isFailure.postValue(msgResponse.message())
+                    msgResponse.code() == 400 -> {
+                        _isFailure.postValue("중복된 닉네임이 존재합니다.")
                     }
                 }
             }

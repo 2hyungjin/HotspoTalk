@@ -22,6 +22,10 @@ class AccountRepositoryImpl @Inject constructor(
         return service.postSignUp(signUp)
     }
 
+    override suspend fun postAutoLogin(): Response<Any?> {
+        return service.postAutoLogin()
+    }
+
     override suspend fun getId(id: String): Response<Message> {
         return service.getId(id)
     }
