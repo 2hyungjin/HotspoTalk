@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.hotspotalk.data.entity.Message
+import com.example.hotspotalk.data.entity.MessageType
 import com.example.hotspotalk.databinding.FragmentChattingBinding
 import com.example.hotspotalk.view.adapter.MessageListAdapter
 import com.example.hotspotalk.viewmodel.ChattingViewModel
@@ -42,6 +44,8 @@ class ChattingFragment : Fragment() {
         }
 
         observe()
+
+        viewModel.testNewMessage(Message("", "123", 123, "", "", MessageType.MINE, 123))
     }
 
     private fun observe() = with(viewModel) {

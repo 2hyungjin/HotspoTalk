@@ -11,14 +11,14 @@ import io.socket.client.Socket
 class HotspotalkApplication : Application() {
     companion object {
         private val socket: Socket by lazy {
-            IO.socket("http://10.80.161.222:3000")
+            IO.socket("http://10.80.161.222:4000")
         }
         val newMessageListener: NewMessageListener = NewMessageListener()
 
         fun connectSocket() {
             socket.connect()
-            socket.on("test", newMessageListener)
-            socket.emit("test", "msg")
+            socket.on("message", newMessageListener)
+            socket.emit("message", "msg")
         }
 
     }

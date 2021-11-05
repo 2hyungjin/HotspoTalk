@@ -90,17 +90,17 @@
                 style="@style/Base.Widget.AppCompat.TextView.RegularTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="이미 회원이신가요?" />
+                android:text="회원이 아니신가요?" />
 
             <TextView
-                android:id="@+id/tv_login_login"
+                android:id="@+id/tv_login_signup"
                 style="@style/Base.Widget.AppCompat.TextView.RegularTextView"
                 android:clickable="true"
                 android:textColor="#505050"
                 android:padding="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="로그인하기" />
+                android:text="회원가입" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

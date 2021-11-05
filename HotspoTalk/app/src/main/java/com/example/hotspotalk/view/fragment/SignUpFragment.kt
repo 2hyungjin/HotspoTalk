@@ -13,6 +13,7 @@ import com.example.hotspotalk.R
 import com.example.hotspotalk.databinding.FragmentSignUpBinding
 import com.example.hotspotalk.view.util.Preference.token
 import com.example.hotspotalk.viewmodel.SignUpViewModel
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -41,7 +42,9 @@ class SignUpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        FirebaseMessaging.getInstance().token.addOnSuccessListener {
+            viewModel.devToken = it
+        }
         observe()
     }
 
@@ -51,7 +54,7 @@ class SignUpFragment : Fragment() {
                 null -> Toast.makeText(requireContext(), "실패", Toast.LENGTH_SHORT).show()
 
                 else -> {
-                    token = it.token!!
+                    token = it.token
                     navigateToHome()
                 }
             }

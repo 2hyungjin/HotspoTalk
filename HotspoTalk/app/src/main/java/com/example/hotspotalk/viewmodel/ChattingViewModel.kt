@@ -41,6 +41,9 @@ class ChattingViewModel @Inject constructor(private val messageRepository: Chatt
         _chatList.add(message.toMessage())
         chatList.postValue(_chatList)
     }
+    fun testNewMessage(message:Message){
+        _chatList.add(message)
+    }
 
     fun enterChatting(roomId: Int) {
         getMessages(roomId)

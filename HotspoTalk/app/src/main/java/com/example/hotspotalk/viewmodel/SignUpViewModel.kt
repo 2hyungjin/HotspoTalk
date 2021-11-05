@@ -7,7 +7,7 @@ import com.example.hotspotalk.data.entity.repuest.Login
 import com.example.hotspotalk.data.entity.response.Token
 import kotlinx.coroutines.launch
 
-class SignUpViewModel: ViewModel() {
+class SignUpViewModel : ViewModel() {
 
     val id = MutableLiveData("")
     val pw = MutableLiveData("")
@@ -23,7 +23,8 @@ class SignUpViewModel: ViewModel() {
     val isFailure = _isFailure
 
     // todo deviceToken
-    val devToken = ""
+
+    var devToken = ""
 
     fun signUp() {
         viewModelScope.launch {
