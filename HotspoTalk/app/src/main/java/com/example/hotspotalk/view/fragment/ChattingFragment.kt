@@ -14,7 +14,9 @@ import com.example.hotspotalk.databinding.FragmentChattingBinding
 import com.example.hotspotalk.view.adapter.MessageListAdapter
 import com.example.hotspotalk.view.adapter.UserListAdapter
 import com.example.hotspotalk.viewmodel.ChattingViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ChattingFragment : Fragment() {
     lateinit var binding: FragmentChattingBinding
     private val viewModel: ChattingViewModel by viewModels()

@@ -19,7 +19,7 @@
 
         <LinearLayout
             android:id="@+id/layout_no_chat_vp_item_enterable"
-            setVisible="@{!vm.roomVis}"
+            setVisible="@{vm.roomVis}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="vertical"
@@ -45,7 +45,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_enterable_room_vp_item_home"
-            setVisible="@{vm.roomVis}"
+            setVisible="@{!vm.roomVis}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"

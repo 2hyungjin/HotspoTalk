@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.hotspotalk.data.entity.response.RoomInfo
 import com.example.hotspotalk.databinding.FragmentHomeRvItemChattingRoomBinding
 
-class ChattingRoomRecyclerViewAdapter(val onClickListener: OnClickChattingRoomListener) :
+class ChattingRoomRecyclerViewAdapter(private val onClickListener: OnClickChattingRoomListener) :
     RecyclerView.Adapter<ChattingRoomRecyclerViewAdapter.ViewHolder>() {
 
     interface OnClickChattingRoomListener {
