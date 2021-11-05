@@ -43,7 +43,7 @@ class CreateRoomFragment : Fragment() {
         private const val MAX_RADIUS = 2000.0
     }
 
-    private val viewModel: CreateRoomViewModel by activityViewModels()
+    private val viewModel: CreateRoomViewModel by viewModels()
     private lateinit var binding: FragmentCreateRoomBinding
     private val permissionLauncher: ActivityResultLauncher<Array<String>> =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
@@ -71,21 +71,6 @@ class CreateRoomFragment : Fragment() {
 
     private fun init() {
         with(binding) {
-            radioGroupPosition.setOnCheckedChangeListener { _, checkedId ->
-                when (checkedId) {
-                    radioButtonArea.id -> {
-                        viewModel.areaType.value = 0
-                        linearLayoutRadioCreateRoom.visibility = View.VISIBLE
-                        linearLayoutDistanceCreateRoom.visibility = View.GONE
-                    }
-                    radioButtonDistance.id -> {
-                        viewModel.areaType.value = 1
-                        linearLayoutDistanceCreateRoom.visibility = View.VISIBLE
-                        linearLayoutRadioCreateRoom.visibility = View.GONE
-                    }
-                }
-            }
-
             toolbarCreateRoom.setNavigationOnClickListener {
                 findNavController().navigateUp()
             }
@@ -157,6 +142,22 @@ class CreateRoomFragment : Fragment() {
 
                 val latLng = LatLng(location)
 
+                radioGroupPosition.setOnCheckedChangeListener { _, checkedId ->
+                    when (checkedId) {
+                        radioButtonDistance.id -> {
+                            viewModel.areaType.value = 0
+                            linearLayoutDistanceCreateRoom.visibility = View.VISIBLE
+                            linearLayoutRadioCreateRoom.visibility = View.GONE
+                        }
+                        radioButtonArea.id -> {
+                            viewModel.areaType.value = 1
+                            linearLayoutRadioCreateRoom.visibility = View.VISIBLE
+                            linearLayoutDistanceCreateRoom.visibility = View.GONE
+                        }
+                    }
+                    Log.d("TAG", "settingMap: ${viewModel.areaType.value}")
+                }
+
                 mapCreateRoom.getMapAsync {
 
                     val marker = Marker()
@@ -184,11 +185,11 @@ class CreateRoomFragment : Fragment() {
                                     Log.d("CreateRoomFragment", "settingMap: ${unCheckedChip.text}")
                                     if (!unCheckedChip.isChecked) {
                                         unCheckedChip.isChecked = true
-                                        chipAddress += unCheckedChip.text.toString()
                                     }
+                                    chipAddress += unCheckedChip.text.toString() + " "
+                                    viewModel.address.value = chipAddress.substring(0, chipAddress.length - 1)
                                 }
                             }
-                            viewModel.address.value = chipAddress
                         }
                         chipGroupAddressCreateRoom.addView(chip)
                     }
