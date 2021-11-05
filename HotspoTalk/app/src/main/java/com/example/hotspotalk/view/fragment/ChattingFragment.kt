@@ -40,6 +40,7 @@ class ChattingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val roomId: Int = requireArguments().getInt("id")
 
+
         viewModel.enterChatting(1)
         chattingListAdapter = MessageListAdapter()
         userListAdapter = UserListAdapter()
@@ -86,6 +87,9 @@ class ChattingFragment : Fragment() {
     private fun observe() = with(viewModel) {
         chatList.observe(viewLifecycleOwner) {
             chattingListAdapter.submitList(it)
+        }
+        memberList.observe(viewLifecycleOwner) {
+            userListAdapter.submitList(it)
         }
     }
 }

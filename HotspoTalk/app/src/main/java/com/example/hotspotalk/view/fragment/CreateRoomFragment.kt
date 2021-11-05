@@ -132,13 +132,19 @@ class CreateRoomFragment : Fragment() {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            permissionLauncher.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
+            permissionLauncher.launch(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+            )
             return@with
         } else {
             val locationManager = getSystemService(requireContext(), LocationManager::class.java)
             viewModel.isMapLoading.postValue(true)
             locationManager?.requestLocationUpdates(
-                LocationManager.GPS_PROVIDER, 1000, 10f) { location ->
+                LocationManager.GPS_PROVIDER, 1000, 10f
+            ) { location ->
 
                 val latLng = LatLng(location)
 
@@ -170,13 +176,17 @@ class CreateRoomFragment : Fragment() {
                     viewModel.isMapLoading.postValue(false)
 
                     val geocoder = Geocoder(context)
-                    val address = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 10)[0].getAddressLine(0)
+                    val address = geocoder.getFromLocation(
+                        latLng.latitude,
+                        latLng.longitude,
+                        10
+                    )[0].getAddressLine(0)
                     val addressList = address.split(" ")
-                    for (i in 1 until addressList.lastIndex){
+                    for (i in 1 until addressList.lastIndex) {
                         val chip = Chip(context)
                         chip.text = addressList[i]
                         chip.isCheckable = true
-                        chip.addOnLayoutChangeListener { v,_,_,_,_,_,_,_,_ ->
+                        chip.addOnLayoutChangeListener { v, _, _, _, _, _, _, _, _ ->
                             var chipAddress = ""
                             val chipItem = v as Chip
                             if (chipItem.isChecked && i > 1) {
@@ -187,7 +197,8 @@ class CreateRoomFragment : Fragment() {
                                         unCheckedChip.isChecked = true
                                     }
                                     chipAddress += unCheckedChip.text.toString() + " "
-                                    viewModel.address.value = chipAddress.substring(0, chipAddress.length - 1)
+                                    viewModel.address.value =
+                                        chipAddress.substring(0, chipAddress.length - 1)
                                 }
                             }
                         }
@@ -201,22 +212,29 @@ class CreateRoomFragment : Fragment() {
                     with(circle) {
                         outlineColor = Color.BLACK
                         outlineWidth = 3
-                        color = ResourcesCompat.getColor(resources, android.R.color.transparent, resources.newTheme())
+                        color = ResourcesCompat.getColor(
+                            resources,
+                            android.R.color.transparent,
+                            resources.newTheme()
+                        )
                         map = it
                     }
                     circle.radius = 500.0
 
                     seekbarCreateRoom.focusable = View.FOCUSABLE
-                    seekbarCreateRoom.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
+                    seekbarCreateRoom.setOnSeekBarChangeListener(object :
+                        SeekBar.OnSeekBarChangeListener {
                         override fun onProgressChanged(
                             seekBar: SeekBar?,
                             progress: Int,
                             fromUser: Boolean
                         ) {
-                            val radius = (((progress + 1).toDouble() / (seekBar?.max!! + 1).toDouble()) * MAX_RADIUS)
+                            val radius =
+                                (((progress + 1).toDouble() / (seekBar?.max!! + 1).toDouble()) * MAX_RADIUS)
                             viewModel.areaDetail.value = radius.toInt()
                             circle.radius = radius
                         }
+
                         override fun onStartTrackingTouch(seekBar: SeekBar?) {}
                         override fun onStopTrackingTouch(seekBar: SeekBar?) {
 
