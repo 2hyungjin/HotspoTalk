@@ -5,14 +5,17 @@ import com.example.hotspotalk.data.entity.MessageType
 
 data class MessageResponse(
     val type: String,
-    val msg: String,
+    val content: String,
     val roomID: Int,
+    val nickname: String,
     val memberID: String,
     val timestamp: String,
     val messageId: Int
 ) {
     fun toMessage(): Message {
         val message = Message(
+            nickname = nickname,
+            content = content,
             roomID = roomID,
             memberID = memberID,
             timestamp = timestamp,
@@ -21,7 +24,7 @@ data class MessageResponse(
 
         when (type) {
             "msg" -> {
-                message.content = msg
+                message.content = content
                 message.messageType = MessageType.YOURS
             }
             "in" -> {

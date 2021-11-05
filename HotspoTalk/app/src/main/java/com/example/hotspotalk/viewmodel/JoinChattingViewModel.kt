@@ -28,11 +28,11 @@ class JoinChattingViewModel @Inject constructor(
         val enter = Enter(id, name.value!!, pw.value!!)
 
         viewModelScope.launch {
-            val res = roomsRepository.putEnter(enter)
+            val res = roomsRepository.postEnterRoom(enter)
 
             when {
                 res.isSuccessful ->
-                    _isSuccess.value = res.body()!!.msg
+                    _isSuccess.value = res.message()
 
                 res.code() in 400..499 ->
                     _isFailure.value = res.message()

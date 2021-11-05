@@ -15,13 +15,13 @@ import java.lang.RuntimeException
 
 class MessageListAdapter :
     ListAdapter<Message, BaseViewHolder<Message>>(MessageDifferenceUtil()) {
-    override fun getItemViewType(position: Int): Int {
-        return when (getItem(position).messageType) {
-            MessageType.MINE -> 1
-            MessageType.YOURS -> -1
-            MessageType.COMMAND -> 0
-        }
-    }
+//    override fun getItemViewType(position: Int): Int {
+//        return when (getItem(position).messageType) {
+//            MessageType.MINE -> 1
+//            MessageType.YOURS -> -1
+//            MessageType.COMMAND -> 0
+//        }
+//    }
 
     inner class MyMessageViewHolder(private val view: View) :
         BaseViewHolder<Message>(view) {
