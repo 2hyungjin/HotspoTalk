@@ -1,6 +1,7 @@
 package com.example.hotspotalk.view.fragment
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,7 +20,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.hotspotalk.R
 import com.example.hotspotalk.databinding.FragmentHomeBinding
+import com.example.hotspotalk.view.activity.MainActivity
 import com.example.hotspotalk.view.adapter.HomeViewPagerAdapter
+import com.example.hotspotalk.view.util.Preference.token
 import com.example.hotspotalk.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -75,6 +78,13 @@ class HomeFragment : Fragment() {
                 binding.radioEnterableChatHome.id -> 1
                 else -> 0
             }
+        }
+
+        binding.btnLogoutHome.setOnClickListener {
+            token = ""
+            val intent = Intent(context, MainActivity::class.java)
+            startActivity(intent)
+            activity?.finish()
         }
 
         binding.vpHome.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {

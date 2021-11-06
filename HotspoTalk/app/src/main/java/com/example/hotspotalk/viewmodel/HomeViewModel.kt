@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.hotspotalk.data.entity.response.RoomInfo
 import com.example.hotspotalk.data.repository.RoomsRepository
+import com.example.hotspotalk.view.util.Preference.token
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

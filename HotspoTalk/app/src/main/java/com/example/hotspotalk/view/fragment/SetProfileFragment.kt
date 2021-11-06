@@ -63,19 +63,13 @@ class SetProfileFragment : Fragment() {
 
     private fun observe() = with(viewModel) {
         isSuccess.observe(viewLifecycleOwner) {
-            when (it) {
-                // todo
-                "success" -> {
-                    navController.navigateUp()
-                }
-                "fail" ->
-                    Toast.makeText(requireContext(), "채팅방 참가에 실패하였습니다", Toast.LENGTH_SHORT).show()
-            }
+            navController.navigateUp()
         }
 
         isFailure.observe(viewLifecycleOwner) {
             Log.d("joinChatting", it)
             Toast.makeText(requireContext(), "이미 참여 중인 채팅방입니다.", Toast.LENGTH_SHORT).show()
+            navController.navigateUp()
         }
     }
 }
