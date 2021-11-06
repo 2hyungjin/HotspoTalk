@@ -2,6 +2,9 @@ package com.example.hotspotalk.data.entity.response
 
 import com.example.hotspotalk.data.entity.Message
 import com.example.hotspotalk.data.entity.MessageType
+import java.lang.String.format
+import java.text.SimpleDateFormat
+import java.util.*
 
 data class MessageResponse(
     val type: String,
