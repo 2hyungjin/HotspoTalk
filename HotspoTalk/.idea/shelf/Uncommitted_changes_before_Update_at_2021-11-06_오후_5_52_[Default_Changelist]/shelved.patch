@@ -1,0 +1,222 @@
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\r\n    id 'com.android.application'\r\n    id 'kotlin-android'\r\n    id 'kotlin-kapt'\r\n    id 'dagger.hilt.android.plugin'\r\n    id 'com.google.gms.google-services'\r\n    id \"androidx.navigation.safeargs.kotlin\"\r\n}\r\n\r\nandroid {\r\n    compileSdkVersion 31\r\n    buildToolsVersion \"30.0.3\"\r\n    dataBinding{\r\n        enabled=true\r\n    }\r\n\r\n    defaultConfig {\r\n        applicationId \"com.example.hotspotalk\"\r\n        minSdkVersion 26\r\n        targetSdkVersion 30\r\n        versionCode 1\r\n        versionName \"1.0\"\r\n        vectorDrawables.useSupportLibrary = true\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility JavaVersion.VERSION_1_8\r\n        targetCompatibility JavaVersion.VERSION_1_8\r\n    }\r\n    kotlinOptions {\r\n        jvmTarget = '1.8'\r\n    }\r\n}\r\n\r\ndependencies {\r\n    // naver map api\r\n    implementation(\"com.naver.maps:map-sdk:3.12.0\")\r\n\r\n    // viewModel\r\n    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'\r\n    implementation 'androidx.activity:activity-ktx:1.4.0'\r\n    implementation 'androidx.fragment:fragment-ktx:1.3.6'\r\n\r\n    // navigation\r\n    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'\r\n    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'\r\n\r\n    // hilt\r\n    implementation \"com.google.dagger:hilt-android:2.37\"\r\n    kapt \"com.google.dagger:hilt-android-compiler:2.37\"\r\n\r\n    // Retrofit2\r\n    implementation 'com.squareup.retrofit2:retrofit:2.9.0'\r\n\r\n    // Gson\r\n    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'\r\n\r\n    //socket io\r\n    implementation ('io.socket:socket.io-client:2.0.0') {\r\n        exclude group: 'org.json', module: 'json'\r\n    }\r\n\r\n    //firebase\r\n    implementation platform('com.google.firebase:firebase-bom:28.4.2')\r\n    implementation 'com.google.firebase:firebase-messaging:21.1.0'\r\n\r\n    //notification\r\n    implementation \"androidx.core:core-ktx:1.6.0\"\r\n\r\n    // glide\r\n    implementation 'com.github.bumptech.glide:glide:4.12.0'\r\n    kapt 'com.github.bumptech.glide:compiler:4.11.0'\r\n\r\n    //navArgs\r\n    implementation \"androidx.navigation:navigation-fragment-ktx:2.3.5\"\r\n    implementation \"androidx.navigation:navigation-ui-ktx:2.3.5\"\r\n\r\n    implementation \"org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version\"\r\n    implementation 'androidx.core:core-ktx:1.6.0'\r\n    implementation 'androidx.appcompat:appcompat:1.3.1'\r\n\r\n    implementation 'com.google.android.material:material:1.4.0'\r\n    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'\r\n    implementation 'androidx.legacy:legacy-support-v4:1.0.0'\r\n    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'\r\n    testImplementation 'junit:junit:'\r\n    androidTestImplementation 'androidx.test.ext:junit:1.1.3'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/build.gradle b/app/build.gradle
+--- a/app/build.gradle	(revision 2f8ff780a8fcceba04c5de70744cc06bb4b894b2)
++++ b/app/build.gradle	(date 1636107202787)
+@@ -16,7 +16,7 @@
+ 
+     defaultConfig {
+         applicationId "com.example.hotspotalk"
+-        minSdkVersion 26
++        minSdkVersion 24
+         targetSdkVersion 30
+         versionCode 1
+         versionName "1.0"
+Index: app/src/main/java/com/example/hotspotalk/viewmodel/JoinChattingViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hotspotalk.viewmodel\r\n\r\nimport androidx.lifecycle.MutableLiveData\r\nimport androidx.lifecycle.ViewModel\r\nimport androidx.lifecycle.viewModelScope\r\nimport com.example.hotspotalk.data.entity.Message\r\nimport com.example.hotspotalk.data.entity.repuest.Enter\r\nimport com.example.hotspotalk.data.repository.RoomsRepository\r\nimport dagger.hilt.android.lifecycle.HiltViewModel\r\nimport kotlinx.coroutines.launch\r\nimport javax.inject.Inject\r\n\r\n@HiltViewModel\r\nclass JoinChattingViewModel @Inject constructor(\r\n    private val roomsRepository: RoomsRepository\r\n) : ViewModel() {\r\n\r\n    val name = MutableLiveData<String>()\r\n    val pw = MutableLiveData<String>()\r\n\r\n    private val _isSuccess = MutableLiveData<String>()\r\n    val isSuccess = _isSuccess\r\n\r\n    private val _isFailure = MutableLiveData<String>()\r\n    val isFailure = _isFailure\r\n\r\n    fun putJoinChatting(id: Int) {\r\n        val enter = Enter(id, name.value!!, pw.value!!)\r\n\r\n        viewModelScope.launch {\r\n            val res = roomsRepository.postEnterRoom(enter)\r\n\r\n            when {\r\n                res.isSuccessful ->\r\n                    _isSuccess.value = res.message()\r\n\r\n                res.code() in 400..499 ->\r\n                    _isFailure.value = res.message()\r\n            }\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/hotspotalk/viewmodel/JoinChattingViewModel.kt b/app/src/main/java/com/example/hotspotalk/viewmodel/JoinChattingViewModel.kt
+--- a/app/src/main/java/com/example/hotspotalk/viewmodel/JoinChattingViewModel.kt	(revision 2f8ff780a8fcceba04c5de70744cc06bb4b894b2)
++++ b/app/src/main/java/com/example/hotspotalk/viewmodel/JoinChattingViewModel.kt	(date 1636108406388)
+@@ -16,7 +16,7 @@
+ ) : ViewModel() {
+ 
+     val name = MutableLiveData<String>()
+-    val pw = MutableLiveData<String>()
++    val pw = MutableLiveData("")
+ 
+     private val _isSuccess = MutableLiveData<String>()
+     val isSuccess = _isSuccess
+Index: app/src/main/res/navigation/navigation.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<navigation xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:id=\"@+id/navigation\"\r\n    app:startDestination=\"@id/loginFragment\">\r\n    <fragment\r\n        android:id=\"@+id/chattingFragment\"\r\n        android:name=\"com.example.hotspotalk.view.fragment.ChattingFragment\"\r\n        tools:layout=\"@layout/fragment_chatting\"\r\n        android:label=\"ChattingFragment\" >\r\n        <action\r\n            android:id=\"@+id/action_chattingFragment_to_profileFragment\"\r\n            app:destination=\"@id/profileFragment\" />\r\n        <argument\r\n            android:name=\"roomID\"\r\n            app:argType=\"integer\"\r\n            android:defaultValue=\"0\"/>\r\n        <argument\r\n            android:name=\"userID\"\r\n            app:argType=\"integer\"\r\n            android:defaultValue=\"0\"/>\r\n    </fragment>\r\n    <fragment\r\n        android:id=\"@+id/createRoomFragment\"\r\n        android:name=\"com.example.hotspotalk.view.fragment.CreateRoomFragment\"\r\n        android:label=\"fragment_create_room\"\r\n        tools:layout=\"@layout/fragment_create_room\" />\r\n    <fragment\r\n        android:id=\"@+id/homeFragment\"\r\n        android:name=\"com.example.hotspotalk.view.fragment.HomeFragment\"\r\n        android:label=\"fragment_home\"\r\n        tools:layout=\"@layout/fragment_home\" >\r\n        <action\r\n            android:id=\"@+id/action_homeFragment_to_chattingFragment\"\r\n            app:destination=\"@id/chattingFragment\" />\r\n        <action\r\n            android:id=\"@+id/action_homeFragment_to_createRoomFragment\"\r\n            app:destination=\"@id/createRoomFragment\" />\r\n        <action\r\n            android:id=\"@+id/action_homeFragment_to_joinChattingFragment\"\r\n            app:destination=\"@id/joinChattingFragment\" />\r\n    </fragment>\r\n    <fragment\r\n        android:id=\"@+id/introFragment\"\r\n        android:name=\"com.example.hotspotalk.view.fragment.IntroFragment\"\r\n        android:label=\"fragment_intro\"\r\n        tools:layout=\"@layout/fragment_intro\" >\r\n        <action\r\n            android:id=\"@+id/action_introFragment_to_loginFragment\"\r\n            app:destination=\"@id/loginFragment\" />\r\n    </fragment>\r\n    <fragment\r\n        android:id=\"@+id/loginFragment\"\r\n        android:name=\"com.example.hotspotalk.view.fragment.LoginFragment\"\r\n        android:label=\"fragment_login\"\r\n        tools:layout=\"@layout/fragment_login\" >\r\n        <action\r\n            android:id=\"@+id/action_loginFragment_to_signUpFragment\"\r\n            app:destination=\"@id/signUpFragment\" />\r\n        <action\r\n            android:id=\"@+id/action_loginFragment_to_homeFragment\"\r\n            app:destination=\"@id/homeFragment\" />\r\n    </fragment>\r\n    <fragment\r\n        android:id=\"@+id/profileFragment\"\r\n        android:name=\"com.example.hotspotalk.view.fragment.ProfileFragment\"\r\n        android:label=\"fragment_profile\"\r\n        tools:layout=\"@layout/fragment_profile\" />\r\n    <fragment\r\n        android:id=\"@+id/signUpFragment\"\r\n        android:name=\"com.example.hotspotalk.view.fragment.SignUpFragment\"\r\n        android:label=\"fragment_sign_up\"\r\n        tools:layout=\"@layout/fragment_sign_up\" >\r\n        <action\r\n            android:id=\"@+id/action_signUpFragment_to_homeFragment\"\r\n            app:destination=\"@id/homeFragment\" />\r\n    </fragment>\r\n    <fragment\r\n        android:id=\"@+id/splashFragment\"\r\n        android:name=\"com.example.hotspotalk.view.fragment.SplashFragment\"\r\n        android:label=\"fragment_splash\"\r\n        tools:layout=\"@layout/fragment_splash\" >\r\n        <action\r\n            android:id=\"@+id/action_splashFragment_to_introFragment\"\r\n            app:destination=\"@id/introFragment\" />\r\n        <action\r\n            android:id=\"@+id/action_splashFragment_to_loginFragment2\"\r\n            app:destination=\"@id/loginFragment\" />\r\n    </fragment>\r\n    <fragment\r\n        android:id=\"@+id/joinChattingFragment\"\r\n        android:name=\"com.example.hotspotalk.view.fragment.JoinChattingFragment\"\r\n        tools:layout=\"@layout/fragment_join_chatting\"\r\n        android:label=\"JoinChattingFragment\" >\r\n        <action\r\n            android:id=\"@+id/action_joinChattingFragment_to_homeFragment\"\r\n            app:destination=\"@id/homeFragment\" />\r\n        <argument\r\n            android:name=\"roomID\"\r\n            app:argType=\"integer\"\r\n            android:defaultValue=\"0\"/>\r\n        <action\r\n            android:id=\"@+id/action_joinChattingFragment_to_setProfileFragment\"\r\n            app:destination=\"@id/setProfileFragment\" />\r\n    </fragment>\r\n    <fragment\r\n        android:id=\"@+id/setProfileFragment\"\r\n        android:name=\"com.example.hotspotalk.view.fragment.SetProfileFragment\"\r\n        tools:layout=\"@layout/fragment_join_chatting_set_profile\"\r\n        android:label=\"SetProfileFragment\" >\r\n        <action\r\n            android:id=\"@+id/action_setProfileFragment_to_joinChattingFragment\"\r\n            app:destination=\"@id/joinChattingFragment\" />\r\n        <argument\r\n            android:name=\"roomID\"\r\n            app:argType=\"integer\"\r\n            android:defaultValue=\"0\"/>\r\n    </fragment>\r\n</navigation>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/navigation/navigation.xml b/app/src/main/res/navigation/navigation.xml
+--- a/app/src/main/res/navigation/navigation.xml	(revision 2f8ff780a8fcceba04c5de70744cc06bb4b894b2)
++++ b/app/src/main/res/navigation/navigation.xml	(date 1636108222499)
+@@ -3,7 +3,7 @@
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:id="@+id/navigation"
+-    app:startDestination="@id/loginFragment">
++    app:startDestination="@id/homeFragment">
+     <fragment
+         android:id="@+id/chattingFragment"
+         android:name="com.example.hotspotalk.view.fragment.ChattingFragment"
+@@ -96,10 +96,6 @@
+         <action
+             android:id="@+id/action_joinChattingFragment_to_homeFragment"
+             app:destination="@id/homeFragment" />
+-        <argument
+-            android:name="roomID"
+-            app:argType="integer"
+-            android:defaultValue="0"/>
+         <action
+             android:id="@+id/action_joinChattingFragment_to_setProfileFragment"
+             app:destination="@id/setProfileFragment" />
+@@ -112,9 +108,8 @@
+         <action
+             android:id="@+id/action_setProfileFragment_to_joinChattingFragment"
+             app:destination="@id/joinChattingFragment" />
+-        <argument
+-            android:name="roomID"
+-            app:argType="integer"
+-            android:defaultValue="0"/>
++        <action
++            android:id="@+id/action_setProfileFragment_to_chattingFragment"
++            app:destination="@id/chattingFragment" />
+     </fragment>
+ </navigation>
+\ No newline at end of file
+Index: app/src/main/java/com/example/hotspotalk/view/fragment/JoinChattingFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hotspotalk.view.fragment\r\n\r\nimport android.os.Bundle\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport androidx.databinding.DataBindingUtil\r\nimport androidx.fragment.app.Fragment\r\nimport androidx.navigation.fragment.findNavController\r\nimport androidx.navigation.fragment.navArgs\r\nimport com.example.hotspotalk.R\r\nimport com.example.hotspotalk.databinding.FragmentJoinChattingBinding\r\n\r\nclass JoinChattingFragment : Fragment() {\r\n\r\n    private val navController by lazy { findNavController() }\r\n\r\n    private lateinit var binding: FragmentJoinChattingBinding\r\n\r\n    private val navArgs by navArgs<JoinChattingFragmentArgs>()\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater, container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View? {\r\n        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_join_chatting, container, false)\r\n        return binding.root\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n\r\n        binding.btnCloseJoinChatting.setOnClickListener {\r\n            navigateToHome()\r\n        }\r\n\r\n        binding.btnJoinChatting.setOnClickListener {\r\n            navigateToSetProfile()\r\n        }\r\n    }\r\n\r\n    private fun navigateToHome() {\r\n        navController.navigate(R.id.action_joinChattingFragment_to_homeFragment)\r\n    }\r\n\r\n    private fun navigateToSetProfile() {\r\n        navController.navigate(JoinChattingFragmentDirections.actionJoinChattingFragmentToSetProfileFragment(navArgs.roomID))\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/hotspotalk/view/fragment/JoinChattingFragment.kt b/app/src/main/java/com/example/hotspotalk/view/fragment/JoinChattingFragment.kt
+--- a/app/src/main/java/com/example/hotspotalk/view/fragment/JoinChattingFragment.kt	(revision 2f8ff780a8fcceba04c5de70744cc06bb4b894b2)
++++ b/app/src/main/java/com/example/hotspotalk/view/fragment/JoinChattingFragment.kt	(date 1636108406374)
+@@ -17,12 +17,14 @@
+ 
+     private lateinit var binding: FragmentJoinChattingBinding
+ 
+-    private val navArgs by navArgs<JoinChattingFragmentArgs>()
++    private var roomId: Int? = null
+ 
+     override fun onCreateView(
+         inflater: LayoutInflater, container: ViewGroup?,
+         savedInstanceState: Bundle?
+     ): View? {
++        roomId = arguments?.getInt("id")
++
+         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_join_chatting, container, false)
+         return binding.root
+     }
+Index: app/src/main/java/com/example/hotspotalk/view/fragment/SetProfileFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hotspotalk.view.fragment\r\n\r\nimport android.os.Bundle\r\nimport android.util.Log\r\nimport androidx.fragment.app.Fragment\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport android.widget.Toast\r\nimport androidx.fragment.app.activityViewModels\r\nimport androidx.fragment.app.viewModels\r\nimport androidx.navigation.fragment.findNavController\r\nimport androidx.navigation.fragment.navArgs\r\nimport com.example.hotspotalk.R\r\nimport com.example.hotspotalk.databinding.FragmentJoinChattingSetProfileBinding\r\nimport com.example.hotspotalk.viewmodel.JoinChattingViewModel\r\nimport dagger.hilt.android.AndroidEntryPoint\r\n\r\n@AndroidEntryPoint\r\nclass SetProfileFragment : Fragment() {\r\n\r\n    private val viewModel: JoinChattingViewModel by viewModels()\r\n    private lateinit var binding: FragmentJoinChattingSetProfileBinding\r\n\r\n    private val navArgs by navArgs<SetProfileFragmentArgs>()\r\n\r\n    private val navController by lazy {\r\n        findNavController()\r\n    }\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater, container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View? {\r\n        binding = FragmentJoinChattingSetProfileBinding.inflate(inflater)\r\n        binding.vm = viewModel\r\n        binding.lifecycleOwner = viewLifecycleOwner\r\n        return binding.root\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n\r\n        observe()\r\n\r\n        binding.btnConfirmSetProfile.setOnClickListener {\r\n            viewModel.putJoinChatting(navArgs.roomID)\r\n        }\r\n\r\n        binding.btnCloseSetProfile.setOnClickListener {\r\n            navController.navigate(R.id.action_setProfileFragment_to_joinChattingFragment)\r\n        }\r\n    }\r\n\r\n    private fun observe() = with(viewModel) {\r\n        isSuccess.observe(viewLifecycleOwner) {\r\n            when (it) {\r\n                // todo\r\n                \"success\" -> \"\"\r\n                \"fail\" ->\r\n                    Toast.makeText(requireContext(), \"채팅방 참가에 실패하였습니다.\", Toast.LENGTH_SHORT).show()\r\n            }\r\n        }\r\n\r\n        isFailure.observe(viewLifecycleOwner) {\r\n            Log.d(\"joinChatting\", it)\r\n            Toast.makeText(requireContext(), \"서버 통신에 실패하였습니다.\", Toast.LENGTH_SHORT).show()\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/hotspotalk/view/fragment/SetProfileFragment.kt b/app/src/main/java/com/example/hotspotalk/view/fragment/SetProfileFragment.kt
+--- a/app/src/main/java/com/example/hotspotalk/view/fragment/SetProfileFragment.kt	(revision 2f8ff780a8fcceba04c5de70744cc06bb4b894b2)
++++ b/app/src/main/java/com/example/hotspotalk/view/fragment/SetProfileFragment.kt	(date 1636108406349)
+@@ -19,19 +19,21 @@
+ @AndroidEntryPoint
+ class SetProfileFragment : Fragment() {
+ 
+-    private val viewModel: JoinChattingViewModel by viewModels()
+-    private lateinit var binding: FragmentJoinChattingSetProfileBinding
+-
+-    private val navArgs by navArgs<SetProfileFragmentArgs>()
+-
+     private val navController by lazy {
+         findNavController()
+     }
+ 
++    private val viewModel: JoinChattingViewModel by viewModels()
++    private lateinit var binding: FragmentJoinChattingSetProfileBinding
++
++    private var roomId: Int? = null
++
+     override fun onCreateView(
+         inflater: LayoutInflater, container: ViewGroup?,
+         savedInstanceState: Bundle?
+     ): View? {
++        roomId = arguments?.getInt("id")
++
+         binding = FragmentJoinChattingSetProfileBinding.inflate(inflater)
+         binding.vm = viewModel
+         binding.lifecycleOwner = viewLifecycleOwner
+@@ -44,20 +46,20 @@
+         observe()
+ 
+         binding.btnConfirmSetProfile.setOnClickListener {
+-            viewModel.putJoinChatting(navArgs.roomID)
++            viewModel.putJoinChatting(roomId!!)
+         }
+ 
+         binding.btnCloseSetProfile.setOnClickListener {
+-            navController.navigate(R.id.action_setProfileFragment_to_joinChattingFragment)
++            navigateToJoinChatting()
+         }
+     }
+ 
+     private fun observe() = with(viewModel) {
+         isSuccess.observe(viewLifecycleOwner) {
+             when (it) {
+-                // todo
+-                "success" -> ""
+-                "fail" ->
++                "success" -> navigateToChattingRoom()
++
++                else ->
+                     Toast.makeText(requireContext(), "채팅방 참가에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+             }
+         }
+@@ -67,4 +69,14 @@
+             Toast.makeText(requireContext(), "서버 통신에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+         }
+     }
++
++    private fun navigateToJoinChatting() {
++        navController.navigate(R.id.action_setProfileFragment_to_joinChattingFragment)
++    }
++
++    private fun navigateToChattingRoom() {
++        val bundle = Bundle()
++        bundle.putInt("id", roomId!!)
++        navController.navigate(R.id.action_setProfileFragment_to_chattingFragment)
++    }
+ }
+\ No newline at end of file
+Index: app/src/main/java/com/example/hotspotalk/view/adapter/ChattingRoomRecyclerViewAdapter.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.hotspotalk.view.adapter\r\n\r\nimport android.view.LayoutInflater\r\nimport android.view.ViewGroup\r\nimport androidx.recyclerview.widget.RecyclerView\r\nimport com.example.hotspotalk.data.entity.response.RoomInfo\r\nimport com.example.hotspotalk.databinding.FragmentHomeRvItemChattingRoomBinding\r\n\r\nclass ChattingRoomRecyclerViewAdapter(val onClickListener: OnClickChattingRoomListener) :\r\n    RecyclerView.Adapter<ChattingRoomRecyclerViewAdapter.ViewHolder>() {\r\n\r\n    interface OnClickChattingRoomListener {\r\n        fun onClick(id: Int)\r\n    }\r\n\r\n\r\n    private val list = mutableListOf<RoomInfo>()\r\n\r\n    private lateinit var binding: FragmentHomeRvItemChattingRoomBinding\r\n\r\n    inner class ViewHolder : RecyclerView.ViewHolder(binding.root)\r\n\r\n    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {\r\n        binding = FragmentHomeRvItemChattingRoomBinding.inflate(\r\n            LayoutInflater.from(parent.context),\r\n            parent,\r\n            false\r\n        )\r\n        return ViewHolder()\r\n    }\r\n\r\n    override fun onBindViewHolder(holder: ViewHolder, position: Int) {\r\n        binding.data = list[position]\r\n\r\n//        binding.apply {\r\n//            tvUserNicknameRvItemChattingRoom.text = data.\r\n//            tvUserRvItemChattingRoom.text = data.user.toString()\r\n\r\n//            if (data.isNotify) cvNotifyRvItemChattingRoom.visibility = View.VISIBLE\r\n//            if (data.isSecret) ivSecretRvTemChattingRoom.visibility = View.VISIBLE\r\n\r\n//            Glide.with(ivProfileImgRvItemChattingRoom)\r\n//                .load(data.nickname)\r\n//        }\r\n\r\n        binding.layoutRvItemChattingRoom.setOnClickListener {\r\n            onClickListener.onClick(list[position].roomID)\r\n        }\r\n    }\r\n\r\n    override fun getItemCount(): Int = list.size\r\n\r\n    fun setList(list: List<RoomInfo>) {\r\n        this.list.clear()\r\n        this.list.addAll(list)\r\n        notifyDataSetChanged()\r\n    }\r\n\r\n    fun getList() = list\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/hotspotalk/view/adapter/ChattingRoomRecyclerViewAdapter.kt b/app/src/main/java/com/example/hotspotalk/view/adapter/ChattingRoomRecyclerViewAdapter.kt
+--- a/app/src/main/java/com/example/hotspotalk/view/adapter/ChattingRoomRecyclerViewAdapter.kt	(revision 2f8ff780a8fcceba04c5de70744cc06bb4b894b2)
++++ b/app/src/main/java/com/example/hotspotalk/view/adapter/ChattingRoomRecyclerViewAdapter.kt	(date 1636104712180)
+@@ -13,7 +13,6 @@
+         fun onClick(id: Int)
+     }
+ 
+-
+     private val list = mutableListOf<RoomInfo>()
+ 
+     private lateinit var binding: FragmentHomeRvItemChattingRoomBinding
+@@ -32,16 +31,7 @@
+     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+         binding.data = list[position]
+ 
+-//        binding.apply {
+-//            tvUserNicknameRvItemChattingRoom.text = data.
+-//            tvUserRvItemChattingRoom.text = data.user.toString()
+ 
+-//            if (data.isNotify) cvNotifyRvItemChattingRoom.visibility = View.VISIBLE
+-//            if (data.isSecret) ivSecretRvTemChattingRoom.visibility = View.VISIBLE
+-
+-//            Glide.with(ivProfileImgRvItemChattingRoom)
+-//                .load(data.nickname)
+-//        }
+ 
+         binding.layoutRvItemChattingRoom.setOnClickListener {
+             onClickListener.onClick(list[position].roomID)

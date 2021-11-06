@@ -10,9 +10,10 @@
         android:id="@+id/linearLayout3"
         android:layout_width="wrap_content"
         android:paddingRight="24dp"
+        android:scaleX="-1"
+        android:background="@mipmap/bubble"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="@drawable/bubble"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -22,11 +23,12 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_marginVertical="10dp"
+            android:scaleX="-1"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="aaa" />
+            tools:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
