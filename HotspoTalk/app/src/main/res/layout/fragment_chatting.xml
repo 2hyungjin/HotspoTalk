@@ -9,6 +9,7 @@
 
     <androidx.constraintlayout.motion.widget.MotionLayout
         android:id="@+id/constraintLayout2"
+        android:background="@color/grey"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutDescription="@xml/chatting_fragment_xml_constraintlayout2_scene"
@@ -16,9 +17,9 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
+            android:background="@color/deep_grey"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/deep_grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -88,7 +89,7 @@
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/deep_grey"
+            android:background="@color/white"
             android:gravity="center"
             android:orientation="horizontal"
             android:padding="10dp"
@@ -97,12 +98,12 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <EditText
+                android:background="@null"
                 android:id="@+id/editText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/rounded_corner_rectangle"
-                android:padding="5dp" />
+                android:padding="3dp" />
 
             <ImageButton
                 android:id="@+id/btn_send_chatting_chatting_fragment"
@@ -129,6 +130,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:padding="15dp"
+            android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/view_offset_chatting_fragment"
