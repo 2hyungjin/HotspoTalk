@@ -18,7 +18,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.hotspotalk.R
-import com.example.hotspotalk.data.entity.response.RoomInfo
 import com.example.hotspotalk.databinding.FragmentHomeVpItemCoordinateBinding
 import com.example.hotspotalk.view.adapter.ChattingRoomRecyclerViewAdapter
 import com.example.hotspotalk.viewmodel.ChattingViewModel
@@ -51,12 +50,9 @@ class CoordinateRoomFragment : Fragment(),
         savedInstanceState: Bundle?
     ): View {
         binding =
-            DataBindingUtil.inflate(
-                inflater,
-                R.layout.fragment_home_vp_item_coordinate,
-                container,
-                false
-            )
+            DataBindingUtil.inflate(inflater, R.layout.fragment_home_vp_item_coordinate, container, false)
+        binding.vm = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -92,24 +88,19 @@ class CoordinateRoomFragment : Fragment(),
                 LocationManager.GPS_PROVIDER, 1000, 10f
             ) { location ->
                 val latLng = LatLng(location)
-                viewModel.getRoomsByCoordinate(latLng.latitude, latLng.longitude)
+                binding.srlCoordinate.setOnRefreshListener {
+                    viewModel.getRoomsByCoordinate(latLng.latitude , latLng.longitude)
+                }
+                viewModel.getRoomsByCoordinate(latLng.latitude , latLng.longitude)
             }
         }
     }
 
     private fun observe() = with(viewModel) {
         isSuccessCoordinateRooms.observe(viewLifecycleOwner) {
-            when (it) {
-                null -> {
-                    Toast.makeText(requireContext(), "채팅방을 가져오는데 실패했습니다.", Toast.LENGTH_SHORT)
-                        .show()
-                    roomVis.value = false
-                }
-                else -> {
-                    adapter.setList(it)
-                    roomVis.value = it.isEmpty()
-                }
-            }
+            adapter.setList(it)
+            roomVis.value = it.isNotEmpty()
+            binding.srlCoordinate.isRefreshing = false
         }
 
         isFailureCoordinateRooms.observe(viewLifecycleOwner) {
