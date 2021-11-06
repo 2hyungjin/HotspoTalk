@@ -9,10 +9,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout3"
         android:layout_width="wrap_content"
-        android:paddingRight="24dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/bubble"
+        android:layout_margin="8dp"
+        android:background="@drawable/background_my_chatting_bubble"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -20,13 +21,11 @@
             android:id="@+id/tv_content_mine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginVertical="10dp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="aaa" />
+            tools:text="aaaafafd" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
