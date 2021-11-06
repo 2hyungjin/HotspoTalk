@@ -15,7 +15,7 @@ class EnteredRoomViewModel @Inject constructor(
     private val roomsRepository: RoomsRepository
 ) : ViewModel() {
 
-    val roomVis = MutableLiveData(false)
+    val roomVis = MutableLiveData<Boolean>()
 
     private val _isSuccessEnteredRooms = MutableLiveData<List<RoomInfo>>(ArrayList())
     val isSuccessEnteredRooms = _isSuccessEnteredRooms

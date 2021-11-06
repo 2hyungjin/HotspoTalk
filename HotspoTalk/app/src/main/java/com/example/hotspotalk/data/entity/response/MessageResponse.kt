@@ -2,6 +2,8 @@ package com.example.hotspotalk.data.entity.response
 
 import com.example.hotspotalk.data.entity.Message
 import com.example.hotspotalk.data.entity.MessageType
+import java.text.SimpleDateFormat
+import java.util.*
 
 data class MessageResponse(
     val type: String,
@@ -12,6 +14,7 @@ data class MessageResponse(
     val messageId: Int
 ) {
     fun toMessage(): Message {
+
         val message = Message(
             nickname = nickname,
             roomID = roomID,
@@ -23,7 +26,8 @@ data class MessageResponse(
                 message.content = content
                 message.messageType = MessageType.YOURS
                 if (timestamp != null) {
-                    message.timestamp = timestamp
+                    val yyyyMMdd = SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS", Locale.KOREA).parse(timestamp)
+                    message.timestamp = SimpleDateFormat("hh:mm:ss", Locale.KOREA).format(yyyyMMdd!!)
                 }
             }
             "in" -> {
