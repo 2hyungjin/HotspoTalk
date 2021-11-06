@@ -90,6 +90,7 @@
                 android:id="@+id/textView9"
                 style="@style/Base.Widget.AppCompat.TextView.RegularTextView"
                 android:layout_width="wrap_content"
+                android:textColor="@color/deep_grey"
                 android:layout_height="wrap_content"
                 android:text="회원이 아니신가요?" />
 
@@ -97,8 +98,8 @@
                 android:id="@+id/tv_register"
                 style="@style/Base.Widget.AppCompat.TextView.RegularTextView"
                 android:clickable="true"
-                android:textColor="#505050"
-                android:padding="20dp"
+                android:textColor="@color/black"
+                android:layout_marginStart="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="회원가입" />

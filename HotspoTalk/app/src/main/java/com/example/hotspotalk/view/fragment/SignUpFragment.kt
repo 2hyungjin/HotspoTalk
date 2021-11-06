@@ -45,6 +45,8 @@ class SignUpFragment : Fragment() {
         FirebaseMessaging.getInstance().token.addOnSuccessListener {
             viewModel.devToken = it
         }
+        binding.textView4.setOnClickListener { findNavController().navigateUp() }
+
         observe()
     }
 
