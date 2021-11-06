@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="50dp"
                     android:gravity="center"
-                    android:text="참여중인 채팅방이 없어요."
+                    android:text="근처의 채팅방이 없어요."
                     android:textColor="@color/black"
                     android:textSize="20dp" />
 
