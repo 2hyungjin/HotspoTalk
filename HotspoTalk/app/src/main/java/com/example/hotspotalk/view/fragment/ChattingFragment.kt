@@ -22,6 +22,8 @@ import com.example.hotspotalk.viewmodel.ChattingViewModel
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.*
 
 @AndroidEntryPoint
 class ChattingFragment : Fragment() {
@@ -72,6 +74,7 @@ class ChattingFragment : Fragment() {
 
         binding.btnSendChattingChattingFragment.setOnClickListener {
             val content = binding.editText.text.toString()
+            if (content.isBlank()) return@setOnClickListener
             val message = Gson().toJson(
                 MessageRequest(
                     "message",
@@ -90,15 +93,14 @@ class ChattingFragment : Fragment() {
                 "나",
                 content,
                 roomID = roomId!!,
+                timestamp = SimpleDateFormat("hh:mm")
+                    .format(Date(System.currentTimeMillis())),
                 messageType = MessageType.MINE
             )
-            val newList = ArrayList(chattingListAdapter.currentList)
-            newList.add(myMessage)
 
-            chattingListAdapter.submitList(
-                newList
-            )
 
+            chattingListAdapter.addMessage(myMessage)
+            binding.rvChattingChattingFragment.scrollToPosition(chattingListAdapter.itemCount - 1)
         }
 
 
@@ -114,17 +116,14 @@ class ChattingFragment : Fragment() {
     private fun observe() = with(viewModel) {
         chatList.observe(viewLifecycleOwner) {
             chattingListAdapter.submitList(it)
-            binding.tvUserCountChattingFragment.text="${chattingListAdapter.currentList.size}명"
+            binding.tvUserCountChattingFragment.text = "${userListAdapter.itemCount}명"
         }
         memberList.observe(viewLifecycleOwner) {
             userListAdapter.submitList(it)
         }
         chat.observe(viewLifecycleOwner) {
             if (it.roomID == roomId) {
-                chattingListAdapter.submitList(
-                    chattingListAdapter.currentList.toMutableList().apply {
-                        this.add(it)
-                    })
+                chattingListAdapter.addMessage(it)
             }
         }
     }

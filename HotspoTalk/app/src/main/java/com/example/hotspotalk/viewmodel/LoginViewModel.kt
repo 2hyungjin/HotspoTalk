@@ -39,7 +39,7 @@ class LoginViewModel @Inject constructor(
                 loginResponse.isSuccessful ->
                     _isSuccess.value = loginResponse.body()
 
-                loginResponse.code() in 400..499 ->
+                else ->
                     _isFailure.value = loginResponse.message()
             }
         }

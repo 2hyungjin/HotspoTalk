@@ -12,28 +12,33 @@ data class MessageResponse(
     val messageId: Int
 ) {
     fun toMessage(): Message {
-        val message = Message(
-            nickname = nickname,
-            roomID = roomID,
-            messageId = messageId
-        )
+
+        lateinit var message: Message
 
         when (type) {
             "msg" -> {
-                message.content = content
-                message.messageType = MessageType.YOURS
-                if (timestamp != null) {
-                    message.timestamp = timestamp
-                }
+                message = Message(
+                    content = content!!,
+                    nickname = nickname,
+                    roomID = roomID,
+                    messageId = messageId,
+                    timestamp = timestamp,
+                    messageType = MessageType.YOURS
+                )
+
             }
-            "in" -> {
-                message.content = "${nickname}님이 입장하였습니다."
-                message.messageType = MessageType.COMMAND
+            "in", "out" -> {
+                message = Message(
+                    content = if (type == "in") "${nickname}님이 입장하였습니다." else "${nickname}님이 퇴장하였습니다",
+                    nickname = nickname,
+                    roomID = roomID,
+                    messageId = messageId,
+                    timestamp = timestamp,
+                    messageType = MessageType.COMMAND
+
+                )
             }
-            "out" -> {
-                message.content = "${nickname}님이 퇴장하였습니다."
-                message.messageType = MessageType.COMMAND
-            }
+
         }
         return message
     }

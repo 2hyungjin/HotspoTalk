@@ -11,8 +11,12 @@ import javax.inject.Inject
 class ChattingRepositoryImpl @Inject constructor(
     private val service: ChattingService
 ) : ChattingRepository {
-    override suspend fun getMessages(roomId: Int): Response<List<MessageResponse>> {
-        return service.getMessages(roomId)
+    override suspend fun getMessages(
+        roomId: Int,
+        count: Int,
+        start: Int
+    ): Response<List<MessageResponse>> {
+        return service.getMessages(roomId, count, start)
     }
 
     override suspend fun postMessage(message: MessageRequest) {
