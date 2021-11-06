@@ -82,8 +82,14 @@ class HomeFragment : Fragment() {
                 super.onPageSelected(position)
 
                 val id = when (position) {
-                    0 -> binding.radioNotEnterableHome.id
-                    1 -> binding.radioEnterableChatHome.id
+                    0 -> {
+                        binding.btnCreateRoomHome.visibility = View.VISIBLE
+                        binding.radioNotEnterableHome.id
+                    }
+                    1 -> {
+                        binding.btnCreateRoomHome.visibility = View.GONE
+                        binding.radioEnterableChatHome.id
+                    }
                     else -> -1
                 }
 

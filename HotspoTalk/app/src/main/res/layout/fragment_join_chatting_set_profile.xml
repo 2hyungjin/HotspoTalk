@@ -69,6 +69,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout3"
             style="@style/ProfileTextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -80,11 +81,33 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/ProfileTextInputEditText"
-                android:text="@={vm.name}"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="닉네임 입력" />
+                android:gravity="center"
+                android:hint="닉네임 입력"
+                android:text="@={vm.name}" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/et_password_join_chatting_set_profile"
+            style="@style/ProfileTextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="80dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/ProfileTextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="비밀번호 입력"
+                android:inputType="textPassword"
+                android:text="@={vm.pw}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

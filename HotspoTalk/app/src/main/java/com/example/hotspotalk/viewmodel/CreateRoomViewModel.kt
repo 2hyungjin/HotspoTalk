@@ -36,7 +36,7 @@ class CreateRoomViewModel @Inject constructor(
 
         val nickname = nickname.value ?: ""
         val roomName = roomName.value ?: ""
-        val roomPassword = roomPassword.value ?: ""
+        val roomPassword = roomPassword.value
         val memberLimit = memberLimit.value ?: "0"
 
         val areaType = areaType.value ?: 0

@@ -43,6 +43,14 @@ class SetProfileFragment : Fragment() {
         observe()
 
         val roomID = requireArguments().getInt("roomID", 0)
+        val existPW = requireArguments().getBoolean("existPW", false)
+
+        binding.etPasswordJoinChattingSetProfile.visibility =
+            if (existPW) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
 
         binding.btnConfirmSetProfile.setOnClickListener {
             viewModel.putJoinChatting(roomID)
@@ -58,7 +66,7 @@ class SetProfileFragment : Fragment() {
             when (it) {
                 // todo
                 "success" -> {
-
+                    navController.navigateUp()
                 }
                 "fail" ->
                     Toast.makeText(requireContext(), "채팅방 참가에 실패하였습니다", Toast.LENGTH_SHORT).show()

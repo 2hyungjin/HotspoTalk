@@ -27,8 +27,8 @@ interface RoomService {
     @POST("/rooms")
     suspend fun postCreateRoom(@Body createRoom: CreateRoom): Response<Any?>
 
-    @GET("/rooms/in")
-    suspend fun postEnterRoom(@Body enter: Enter): Response<Any?>
+    @POST("/rooms/in/{roomId}")
+    suspend fun postEnterRoom(@Path("roomId") roomId: Int, @Body enter: Enter): Response<Any?>
 
     @GET("/rooms/{roomid}/member")
     suspend fun getMember(@Path("roomid") roomId: Int): Response<List<MemberInfo>>

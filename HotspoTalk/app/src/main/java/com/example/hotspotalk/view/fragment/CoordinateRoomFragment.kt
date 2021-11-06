@@ -125,6 +125,7 @@ class CoordinateRoomFragment : Fragment(),
     override fun onClick(room: RoomInfo) {
         val bundle = Bundle().apply {
             putInt("roomID", room.roomID)
+            putBoolean("existPW", room.existPW ?: false)
         }
         binding.tvTitleJoinChatting.text = room.roomName
         binding.tvUserJoinChatting.text = room.memberLimit.toString()

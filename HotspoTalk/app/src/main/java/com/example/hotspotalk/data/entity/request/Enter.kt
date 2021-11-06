@@ -2,7 +2,6 @@
 package com.example.hotspotalk.data.entity.request
 
 data class Enter(
-    val roomID: Int,
-    val nickname: String?,
+    val nickname: String,
     val password: String?
 )

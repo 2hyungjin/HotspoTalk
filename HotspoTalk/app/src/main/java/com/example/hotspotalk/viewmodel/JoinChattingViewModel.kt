@@ -1,5 +1,6 @@
 package com.example.hotspotalk.viewmodel
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,8 +15,8 @@ class JoinChattingViewModel @Inject constructor(
     private val roomsRepository: RoomsRepository
 ) : ViewModel() {
 
-    val name = MutableLiveData<String>()
-    val pw = MutableLiveData<String>()
+    val name = ObservableField<String>()
+    val pw = ObservableField<String>()
 
     private val _isSuccess = MutableLiveData<String>()
     val isSuccess = _isSuccess
@@ -24,10 +25,10 @@ class JoinChattingViewModel @Inject constructor(
     val isFailure = _isFailure
 
     fun putJoinChatting(id: Int) {
-        val enter = Enter(id, name.value!!, pw.value!!)
+        val enter = Enter(name.get() ?: "", pw.get())
 
         viewModelScope.launch {
-            val res = roomsRepository.postEnterRoom(enter)
+            val res = roomsRepository.postEnterRoom(id, enter)
 
             when {
                 res.isSuccessful ->
