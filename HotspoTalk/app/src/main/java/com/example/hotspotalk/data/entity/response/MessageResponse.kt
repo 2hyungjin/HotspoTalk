@@ -9,7 +9,8 @@ data class MessageResponse(
     val roomID: Int,
     val nickname: String,
     val timestamp: String?,
-    val messageId: Int
+    val messageId: Int,
+    val isMe: Boolean
 ) {
     fun toMessage(): Message {
 
@@ -23,7 +24,7 @@ data class MessageResponse(
                     roomID = roomID,
                     messageId = messageId,
                     timestamp = timestamp,
-                    messageType = MessageType.YOURS
+                    messageType = if (isMe) MessageType.MINE else MessageType.YOURS
                 )
 
             }
