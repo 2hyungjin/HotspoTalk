@@ -50,8 +50,6 @@
                 android:id="@+id/rv_enterable_room_vp_item_home"
                 setVisible="@{!vm.roomVis}"
                 android:overScrollMode="never"
-                android:layout_marginTop="50dp"
-                android:layout_marginBottom="65dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"

@@ -2,6 +2,7 @@ package com.example.hotspotalk.view.fragment
 
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -65,17 +66,20 @@ class ChattingFragment : Fragment() {
         }
 
         binding.btnSendChattingChattingFragment.setOnClickListener {
-            HotspotalkApplication.socket.emit(
-                "message",
-                Gson().toJson(
-                    MessageRequest(
-                        "message",
-                        roomId!!,
-                        binding.editText.text.toString(),
-                        Preference.token
-                    )
+            val message = Gson().toJson(
+                MessageRequest(
+                    "message",
+                    roomId!!,
+                    binding.editText.text.toString(),
+                    Preference.token
                 )
             )
+            HotspotalkApplication.socket.emit(
+                "message",
+                message
+            )
+            binding.editText.text.clear()
+            Log.d("chatting", message)
         }
         binding.btnOutChattingFragment.setOnClickListener {
             viewModel.outChatting(roomId!!)

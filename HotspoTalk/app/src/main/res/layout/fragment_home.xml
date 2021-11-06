@@ -13,47 +13,41 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <RadioGroup
+            android:layout_margin="10dp"
             android:id="@+id/radioGroup_home"
-            android:layout_marginStart="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar2">
+            app:layout_constraintTop_toTopOf="parent">
 
             <RadioButton
                 android:id="@+id/radio_not_enterable_home"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:button="@null"
-                android:textColor="@color/btn_radio_text_color"
                 android:background="@drawable/btn_radio_background"
-                android:paddingHorizontal="40dp"
+                android:button="@null"
                 android:checked="true"
-                android:text="참여중" />
+                android:paddingHorizontal="40dp"
+                android:text="참여중"
+                android:textColor="@color/btn_radio_text_color" />
 
             <RadioButton
                 android:id="@+id/radio_enterable_chat_home"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:button="@null"
-                android:textColor="@color/btn_radio_text_color"
                 android:layout_marginStart="10dp"
-                android:paddingHorizontal="30dp"
                 android:background="@drawable/btn_radio_background"
-                android:text="동네챗팅" />
+                android:button="@null"
+                android:paddingHorizontal="30dp"
+                android:text="동네챗팅"
+                android:textColor="@color/btn_radio_text_color" />
         </RadioGroup>
 
         <androidx.viewpager2.widget.ViewPager2
+            android:layout_marginTop="10dp"
             android:id="@+id/vp_home"
             android:layout_width="0dp"
             android:layout_height="0dp"
