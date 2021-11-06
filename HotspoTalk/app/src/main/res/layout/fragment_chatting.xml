@@ -9,17 +9,17 @@
 
     <androidx.constraintlayout.motion.widget.MotionLayout
         android:id="@+id/constraintLayout2"
-        android:background="@color/grey"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/grey"
         app:layoutDescription="@xml/chatting_fragment_xml_constraintlayout2_scene"
         tools:context=".view.fragment.ChattingFragment">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            android:background="@color/deep_grey"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/tool_bar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -80,6 +80,7 @@
             android:id="@+id/rv_chatting_chatting_fragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:background="@color/chatting"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -98,11 +99,11 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <EditText
-                android:background="@null"
                 android:id="@+id/editText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@null"
                 android:padding="3dp" />
 
             <ImageButton
@@ -117,9 +118,7 @@
             android:id="@+id/view_offset_chatting_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:alpha="0.8"
-
-            android:background="@color/deep_grey"
+            android:background="@color/tool_bar"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -129,8 +128,8 @@
             android:id="@+id/constraintLayout3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:padding="15dp"
             android:background="@color/white"
+            android:padding="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/view_offset_chatting_fragment"

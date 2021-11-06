@@ -30,7 +30,7 @@
                 android:background="@drawable/btn_radio_background"
                 android:button="@null"
                 android:checked="true"
-                android:paddingHorizontal="40dp"
+                android:paddingHorizontal="30dp"
                 android:text="참여중"
                 android:textColor="@color/btn_radio_text_color" />
 
@@ -47,6 +47,7 @@
         </RadioGroup>
 
         <androidx.viewpager2.widget.ViewPager2
+            android:background="@color/white"
             android:layout_marginTop="10dp"
             android:id="@+id/vp_home"
             android:layout_width="0dp"
