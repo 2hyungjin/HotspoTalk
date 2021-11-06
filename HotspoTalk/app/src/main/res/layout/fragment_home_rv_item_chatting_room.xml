@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="data"
             type="com.example.hotspotalk.data.entity.response.RoomInfo" />
@@ -11,17 +12,17 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_rv_item_chatting_room"
-        android:paddingVertical="13dp"
-        android:paddingStart="7dp"
-        android:paddingEnd="30dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingVertical="5dp"
+        android:paddingStart="7dp"
+        android:paddingEnd="30dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="20dp"
+            app:cardCornerRadius="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -55,11 +56,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:text="00"
             app:layout_constraintBottom_toBottomOf="@+id/tv_room_name_rv_item_chatting_room"
             app:layout_constraintStart_toEndOf="@+id/tv_room_name_rv_item_chatting_room"
             app:layout_constraintTop_toTopOf="@+id/tv_room_name_rv_item_chatting_room" />
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -114,6 +114,7 @@ class ChattingFragment : Fragment() {
     private fun observe() = with(viewModel) {
         chatList.observe(viewLifecycleOwner) {
             chattingListAdapter.submitList(it)
+            binding.tvUserCountChattingFragment.text="${chattingListAdapter.currentList.size}명"
         }
         memberList.observe(viewLifecycleOwner) {
             userListAdapter.submitList(it)
