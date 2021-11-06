@@ -32,7 +32,7 @@ class UserListAdapter : ListAdapter<MemberInfo, UserListAdapter.ViewHolder>(Memb
 
 class MemberDiffUtil : DiffUtil.ItemCallback<MemberInfo>() {
     override fun areItemsTheSame(oldItem: MemberInfo, newItem: MemberInfo): Boolean {
-        return oldItem.accountId == newItem.accountId
+        return oldItem.userID == newItem.userID
     }
 
     override fun areContentsTheSame(oldItem: MemberInfo, newItem: MemberInfo): Boolean {
