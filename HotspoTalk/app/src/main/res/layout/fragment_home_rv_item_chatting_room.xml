@@ -21,17 +21,17 @@
             android:id="@+id/cardView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             app:cardCornerRadius="20dp"
-            app:layout_constraintStart_toEndOf="@+id/cv_notify_rv_item_chatting_room"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/iv_profile_img_rv_item_chatting_room"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:background="@color/black"
-                tools:srcCompat="@drawable/ic_baseline_account_circle_24" />
+                android:background="@color/main_color"
+                android:padding="10dp"
+                android:src="@drawable/ic_user" />
         </androidx.cardview.widget.CardView>
 
         <TextView
@@ -47,16 +47,6 @@
             app:layout_constraintTop_toTopOf="@+id/cardView"
             tools:text="title" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_notify_rv_item_chatting_room"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:visibility="invisible"
-            app:cardBackgroundColor="@color/red"
-            app:cardCornerRadius="50dp"
-            app:layout_constraintBottom_toBottomOf="@+id/cardView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/cardView" />
 
         <TextView
             android:id="@+id/tv_user_rv_item_chatting_room"

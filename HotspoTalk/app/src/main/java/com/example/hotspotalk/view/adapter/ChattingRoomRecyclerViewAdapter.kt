@@ -42,7 +42,7 @@ class ChattingRoomRecyclerViewAdapter(private val onClickListener: OnClickChatti
 //            Glide.with(ivProfileImgRvItemChattingRoom)
 //                .load(data.nickname)
 //        }
-
+        binding.tvUserRvItemChattingRoom.text = list[position].memberLimit.toString()
         binding.layoutRvItemChattingRoom.setOnClickListener {
             onClickListener.onClick(list[position])
         }
