@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -22,39 +22,48 @@
 
             <LinearLayout
                 android:id="@+id/layout_no_chat_vp_item_enterable"
-                setVisible="@{vm.roomVis}"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/imageView2"
                     android:layout_width="214dp"
                     android:layout_height="200dp"
+                    setVisible="@{!vm.roomVis}"
                     app:srcCompat="@drawable/ic_no_chatting_img" />
 
                 <TextView
                     android:id="@+id/textView2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="20dp"
+                    setVisible="@{!vm.roomVis}"
                     android:layout_marginBottom="50dp"
                     android:gravity="center"
-                    android:text="근처의 채팅방이 없어요." />
+                    android:text="참여중인 채팅방이 없어요."
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
 
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_enterable_room_vp_item_home"
-                setVisible="@{!vm.roomVis}"
-                android:overScrollMode="never"
+                setVisible="@{vm.roomVis}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
+                android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="@+id/layout_no_chat_vp_item_enterable"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/layout_no_chat_vp_item_enterable"
                 tools:listitem="@layout/fragment_home_rv_item_chatting_room" />
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

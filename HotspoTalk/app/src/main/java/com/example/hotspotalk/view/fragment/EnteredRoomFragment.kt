@@ -41,6 +41,8 @@ class EnteredRoomFragment : Fragment(),
             container,
             false
         )
+        binding.vm = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -69,7 +71,7 @@ class EnteredRoomFragment : Fragment(),
                 }
 
                 else -> {
-                    roomVis.value = it.isEmpty()
+                    roomVis.value = it.isNotEmpty()
                     notEnterableAdapter.setList(it)
                 }
             }
