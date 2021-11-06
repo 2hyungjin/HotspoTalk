@@ -18,6 +18,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.hotspotalk.R
+import com.example.hotspotalk.data.entity.response.RoomInfo
 import com.example.hotspotalk.databinding.FragmentHomeVpItemCoordinateBinding
 import com.example.hotspotalk.view.adapter.ChattingRoomRecyclerViewAdapter
 import com.example.hotspotalk.viewmodel.ChattingViewModel
