@@ -4,24 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="8dp"
     tools:background="@color/deep_grey">
 
     <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="8dp"
         android:orientation="vertical"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cardView4"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/tv_nickname_yours"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="5dp"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:textColor="@color/black"
             tools:text="nickname" />
@@ -30,7 +29,8 @@
             android:id="@+id/linearLayout3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bubble"
+            android:background="@drawable/background_your_chatting_bubble"
+            android:padding="10dp"
             android:scaleX="-1"
             app:layout_constraintStart_toEndOf="@+id/cardView4"
             app:layout_constraintTop_toTopOf="parent">
@@ -39,12 +39,9 @@
                 android:id="@+id/tv_content_yours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="25dp"
                 android:scaleX="-1"
                 android:textColor="@color/black"
-                tools:text="whyranoaaaaaaaaaaaaaa\nsdfsdfasdfasdf>??" />
+                tools:text="whyranoaaaaa>??" />
         </LinearLayout>
 
     </LinearLayout>
