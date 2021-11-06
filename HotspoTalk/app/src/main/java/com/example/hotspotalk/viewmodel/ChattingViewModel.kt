@@ -57,6 +57,7 @@ class ChattingViewModel @Inject constructor(private val messageRepository: Chatt
             isLoading.postValue(true)
             messageRepository.getMessages(roomId, count, start).let { result ->
                 if (result.isSuccessful) {
+                    Log.d("chatting", result.body().toString())
                     result.body()!!.map { it.toMessage() }
                         .let {
                             _chatList.addAll(it)

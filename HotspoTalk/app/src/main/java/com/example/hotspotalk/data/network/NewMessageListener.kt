@@ -20,7 +20,8 @@ class NewMessageListener : Emitter.Listener {
             message.getInt("roomID"),
             message.getString("nickname"),
             message.getString("timestamp"),
-            message.getInt("messageID")
+            message.getInt("messageID"),
+            message.getBoolean("isMe")
         )
 
         Log.d("NewMessageListener", "call: ${messageResponse.type}")
