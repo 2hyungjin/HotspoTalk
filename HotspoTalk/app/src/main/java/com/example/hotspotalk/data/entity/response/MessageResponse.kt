@@ -4,6 +4,7 @@ import com.example.hotspotalk.data.entity.Message
 import com.example.hotspotalk.data.entity.MessageType
 import java.lang.String.format
 import java.text.SimpleDateFormat
+import java.time.Instant
 import java.util.*
 
 data class MessageResponse(
@@ -20,7 +21,7 @@ data class MessageResponse(
         nickname = nickname,
         roomID = roomID,
         messageId = messageId,
-        timestamp = timestamp,
+        timestamp = SimpleDateFormat("hh:mm", Locale.KOREA).format(Date(Instant.parse(timestamp).epochSecond)),
         messageType = if (type == "msg" && isMe) MessageType.MINE else if (type == "msg" && !isMe) MessageType.YOURS else MessageType.COMMAND
     )
 
