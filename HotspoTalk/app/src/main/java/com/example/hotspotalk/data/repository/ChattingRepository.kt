@@ -6,7 +6,7 @@ import com.example.hotspotalk.data.entity.response.MessageResponse
 import retrofit2.Response
 
 interface ChattingRepository {
-    suspend fun getMessages(roomId: Int): Response<List<MessageResponse>>
+    suspend fun getMessages(roomId: Int, count: Int, start: Int): Response<List<MessageResponse>>
     suspend fun postMessage(message: MessageRequest)
     suspend fun getMembers(roomId: Int): Response<List<MemberInfo>>
 

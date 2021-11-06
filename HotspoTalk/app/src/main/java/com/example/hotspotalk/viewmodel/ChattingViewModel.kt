@@ -47,16 +47,17 @@ class ChattingViewModel @Inject constructor(private val messageRepository: Chatt
 
     fun enterChatting(roomId: Int) {
         Log.d("ChattingViewModel", "enterChatting: $roomId")
-        getMessages(roomId)
+        getMessages(roomId, 10, 0)
         getMembers(roomId)
         HotspotalkApplication.socket.emit("in", roomId)
     }
 
-    private fun getMessages(roomId: Int) {
+    private fun getMessages(roomId: Int, count: Int, start: Int) {
         viewModelScope.launch {
             isLoading.postValue(true)
-            messageRepository.getMessages(roomId).let { result ->
+            messageRepository.getMessages(roomId, count, start).let { result ->
                 if (result.isSuccessful) {
+                    Log.d("chatting", result.body().toString())
                     result.body()!!.map { it.toMessage() }
                         .let {
                             _chatList.addAll(it)
@@ -80,7 +81,7 @@ class ChattingViewModel @Inject constructor(private val messageRepository: Chatt
         isLoading.postValue(true)
         job = viewModelScope.launch {
             messageRepository.getMembers(roomId).let { result ->
-                Log.d("chatting",result.body().toString())
+                Log.d("chatting", result.body().toString())
                 if (result.isSuccessful) {
                     _memberList.addAll(result.body()!!)
                     memberList.postValue(_memberList)

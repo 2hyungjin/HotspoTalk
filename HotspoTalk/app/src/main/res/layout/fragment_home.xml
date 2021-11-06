@@ -13,15 +13,47 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/toolbar2"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="채팅"
+                android:textColor="@color/black"
+                android:textSize="28sp"
+                android:layout_marginStart="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btn_logout_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="30dp"
+                android:layout_marginEnd="20dp"
+                android:text="로그아웃"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@drawable/btn_radio_background" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <RadioGroup
-            android:layout_margin="10dp"
             android:id="@+id/radioGroup_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/toolbar2">
 
             <RadioButton
                 android:id="@+id/radio_not_enterable_home"
@@ -30,7 +62,8 @@
                 android:background="@drawable/btn_radio_background"
                 android:button="@null"
                 android:checked="true"
-                android:paddingHorizontal="30dp"
+                android:minHeight="30dp"
+                android:paddingHorizontal="20dp"
                 android:text="참여중"
                 android:textColor="@color/btn_radio_text_color" />
 
@@ -41,14 +74,14 @@
                 android:layout_marginStart="10dp"
                 android:background="@drawable/btn_radio_background"
                 android:button="@null"
-                android:paddingHorizontal="30dp"
+                android:minHeight="30dp"
+                android:paddingHorizontal="20dp"
                 android:text="동네챗팅"
                 android:textColor="@color/btn_radio_text_color" />
         </RadioGroup>
 
         <androidx.viewpager2.widget.ViewPager2
             android:background="@color/white"
-            android:layout_marginTop="10dp"
             android:id="@+id/vp_home"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -61,8 +94,8 @@
             android:id="@+id/btn_create_room_home"
             style="@style/Widget.AppCompat.Button.MainButton"
             android:layout_width="wrap_content"
+            android:layout_marginBottom="20dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
             android:text="@string/create_room"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -66,24 +66,13 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:listitem="@layout/fragment_home_rv_item_chatting_room" />
 
-            <View
-                android:id="@+id/view2"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:alpha="0.3"
-                android:background="@color/grey"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#FBFBFB"
+                android:background="@color/white"
                 android:elevation="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -94,6 +83,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
+                    android:backgroundTint="@color/white"
                     android:background="@drawable/ic_baseline_close_24"
                     android:padding="5dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -130,9 +120,9 @@
                     android:id="@+id/btn_join_chatting"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@color/main_color"
+                    android:background="@color/white"
                     android:text="참여하기"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/main_color"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />

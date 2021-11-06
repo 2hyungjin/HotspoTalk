@@ -14,9 +14,10 @@ import org.w3c.dom.Text
 import java.lang.RuntimeException
 
 class MessageListAdapter :
-    ListAdapter<Message, BaseViewHolder<Message>>(MessageDifferenceUtil()) {
+    RecyclerView.Adapter<BaseViewHolder<Message>>() {
+    var messageList = arrayListOf<Message>()
     override fun getItemViewType(position: Int): Int {
-        return when (getItem(position).messageType) {
+        return when (messageList[position].messageType) {
             MessageType.MINE -> 1
             MessageType.YOURS -> -1
             MessageType.COMMAND -> 0
@@ -51,7 +52,6 @@ class MessageListAdapter :
         BaseViewHolder<Message>(view) {
         override fun bind(item: Message) {
             val command: TextView = view.findViewById(R.id.tv_message_command)
-
             command.text = item.content
         }
     }
@@ -75,16 +75,27 @@ class MessageListAdapter :
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder<Message>, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(messageList[position])
+    }
+
+    override fun getItemCount(): Int = messageList.size
+    fun submitList(list: List<Message>) {
+        messageList.addAll(list)
+        notifyDataSetChanged()
+    }
+
+    fun addMessage(message: Message) {
+        messageList.add(message)
+        notifyDataSetChanged()
     }
 }
 
 class MessageDifferenceUtil : DiffUtil.ItemCallback<Message>() {
     override fun areItemsTheSame(oldItem: Message, newItem: Message): Boolean {
-        return oldItem.hashCode() == newItem.hashCode()
+        return false
     }
 
     override fun areContentsTheSame(oldItem: Message, newItem: Message): Boolean {
-        return oldItem == newItem
+        return false
     }
 }
