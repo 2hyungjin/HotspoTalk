@@ -46,6 +46,7 @@ class ChattingViewModel @Inject constructor(private val messageRepository: Chatt
 
 
     fun enterChatting(roomId: Int) {
+        Log.d("ChattingViewModel", "enterChatting: $roomId")
         getMessages(roomId)
         getMembers(roomId)
         HotspotalkApplication.socket.emit("in", roomId)

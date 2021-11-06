@@ -42,7 +42,7 @@ class ChattingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        roomId = requireArguments().getInt("id")
+        roomId = requireArguments().getInt("id", 0)
 
         try {
             viewModel.enterChatting(roomId ?: throw Exception("방 참가에 오류가 생겼어요"))
