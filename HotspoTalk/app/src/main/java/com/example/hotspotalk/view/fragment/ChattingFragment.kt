@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +22,7 @@ import com.example.hotspotalk.view.util.Preference
 import com.example.hotspotalk.viewmodel.ChattingViewModel
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
+import java.lang.Exception
 
 @AndroidEntryPoint
 class ChattingFragment : Fragment() {
@@ -42,8 +44,12 @@ class ChattingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         roomId = requireArguments().getInt("id")
 
-
-        viewModel.enterChatting(1)
+        try {
+            viewModel.enterChatting(roomId ?: throw Exception("방 참가에 오류가 생겼어요"))
+        } catch (e: Exception) {
+            Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
+            findNavController().navigateUp()
+        }
         chattingListAdapter = MessageListAdapter()
         userListAdapter = UserListAdapter()
 

@@ -59,27 +59,7 @@
             app:layout_constraintStart_toEndOf="@+id/tv_room_name_rv_item_chatting_room"
             app:layout_constraintTop_toTopOf="@+id/tv_room_name_rv_item_chatting_room" />
 
-        <TextView
-            android:id="@+id/tv_user_nickname_rv_item_chatting_room"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textColor="@color/black"
-            tools:text="nickname"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_user_rv_item_chatting_room"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_secret_rv_tem_chatting_room"
-            app:layout_constraintVertical_bias="0.0" />
 
-        <ImageView
-            android:id="@+id/iv_secret_rv_tem_chatting_room"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            setInvisible="@{data.roomPW == null}"
-            android:layout_marginTop="13dp"
-            android:src="@drawable/ic_baseline_lock_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/cardView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -11,7 +11,7 @@ interface ChattingService {
     @GET("/chat/{roomid}")
     suspend fun getMessages(@Path("roomid") roomId: Int): Response<List<MessageResponse>>
 
-    @GET("/member/{roomid}")
+    @GET("/rooms/{roomid}/member")
     suspend fun getMembers(@Path("roomid") roomId: Int): Response<List<MemberInfo>>
 
     @DELETE("/rooms/{roomid}")

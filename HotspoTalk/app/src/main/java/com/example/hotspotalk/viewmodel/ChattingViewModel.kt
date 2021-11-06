@@ -1,5 +1,6 @@
 package com.example.hotspotalk.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -78,6 +79,7 @@ class ChattingViewModel @Inject constructor(private val messageRepository: Chatt
         isLoading.postValue(true)
         job = viewModelScope.launch {
             messageRepository.getMembers(roomId).let { result ->
+                Log.d("chatting",result.body().toString())
                 if (result.isSuccessful) {
                     _memberList.addAll(result.body()!!)
                     memberList.postValue(_memberList)
