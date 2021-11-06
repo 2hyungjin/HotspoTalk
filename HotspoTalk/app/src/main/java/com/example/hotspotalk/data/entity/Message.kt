@@ -6,7 +6,7 @@ data class Message(
     val nickname: String,
     var content: String? = null,
     val roomID: Int,
-    var timestamp: String? = null,
+    var timestamp: String = "",
     var messageType: MessageType = MessageType.YOURS,
     var messageId: Int? = null
 )

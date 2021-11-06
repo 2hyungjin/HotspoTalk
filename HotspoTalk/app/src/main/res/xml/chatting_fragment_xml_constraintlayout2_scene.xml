@@ -40,7 +40,6 @@
             android:layout_height="match_parent"
             motion:layout_constraintBottom_toBottomOf="parent"
             android:visibility="visible"
-            android:alpha="0.8"
             motion:layout_constraintTop_toTopOf="parent"
             motion:layout_constraintStart_toStartOf="parent" />
 

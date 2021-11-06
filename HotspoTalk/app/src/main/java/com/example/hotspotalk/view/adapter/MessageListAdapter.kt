@@ -15,20 +15,19 @@ import java.lang.RuntimeException
 
 class MessageListAdapter :
     ListAdapter<Message, BaseViewHolder<Message>>(MessageDifferenceUtil()) {
-//    override fun getItemViewType(position: Int): Int {
-//        return when (getItem(position).messageType) {
-//            MessageType.MINE -> 1
-//            MessageType.YOURS -> -1
-//            MessageType.COMMAND -> 0
-//        }
-//    }
+    override fun getItemViewType(position: Int): Int {
+        return when (getItem(position).messageType) {
+            MessageType.MINE -> 1
+            MessageType.YOURS -> -1
+            MessageType.COMMAND -> 0
+        }
+    }
 
     inner class MyMessageViewHolder(private val view: View) :
         BaseViewHolder<Message>(view) {
         override fun bind(item: Message) {
             val content: TextView = view.findViewById(R.id.tv_content_mine)
             val time: TextView = view.findViewById(R.id.tv_time_stamp_mine)
-
             content.text = item.content
             time.text = item.timestamp
         }
@@ -44,8 +43,7 @@ class MessageListAdapter :
 
             content.text = item.content
             time.text = item.timestamp
-            // todo nickname
-            nickname.text = ""
+            nickname.text = item.nickname
         }
     }
 
@@ -62,15 +60,15 @@ class MessageListAdapter :
         val viewHolder = when (viewType) {
             1 -> MyMessageViewHolder(
                 LayoutInflater.from(parent.context)
-                    .inflate(R.layout.layout_rv_item_chat_mine, parent)
+                    .inflate(R.layout.layout_rv_item_chat_mine, parent, false)
             )
             -1 -> YourMessageViewHolder(
                 LayoutInflater.from(parent.context)
-                    .inflate(R.layout.layout_rv_item_chat_yours, parent)
+                    .inflate(R.layout.layout_rv_item_chat_yours, parent, false)
             )
             else -> CommandMessageViewHolder(
                 LayoutInflater.from(parent.context)
-                    .inflate(R.layout.layout_rv_item_chat_command, parent)
+                    .inflate(R.layout.layout_rv_item_chat_command, parent, false)
             )
         }
         return viewHolder

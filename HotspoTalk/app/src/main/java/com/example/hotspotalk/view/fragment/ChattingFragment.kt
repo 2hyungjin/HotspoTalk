@@ -1,7 +1,6 @@
 package com.example.hotspotalk.view.fragment
 
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -72,11 +71,12 @@ class ChattingFragment : Fragment() {
         }
 
         binding.btnSendChattingChattingFragment.setOnClickListener {
+            val content = binding.editText.text.toString()
             val message = Gson().toJson(
                 MessageRequest(
                     "message",
                     roomId!!,
-                    binding.editText.text.toString(),
+                    content,
                     Preference.token
                 )
             )
@@ -86,7 +86,22 @@ class ChattingFragment : Fragment() {
             )
             binding.editText.text.clear()
             Log.d("chatting", message)
+            val myMessage = Message(
+                "나",
+                content,
+                roomID = roomId!!,
+                messageType = MessageType.MINE
+            )
+            val newList = ArrayList(chattingListAdapter.currentList)
+            newList.add(myMessage)
+
+            chattingListAdapter.submitList(
+                newList
+            )
+
         }
+
+
         binding.btnOutChattingFragment.setOnClickListener {
             viewModel.outChatting(roomId!!)
             findNavController().navigateUp()
