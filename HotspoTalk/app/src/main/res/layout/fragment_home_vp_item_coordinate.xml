@@ -24,7 +24,6 @@
 
             <LinearLayout
                 android:id="@+id/layout_no_chat_vp_item_home"
-                setVisible="@{!vm.roomVis}"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:gravity="center"
@@ -38,10 +37,12 @@
                     android:id="@+id/imageView2"
                     android:layout_width="214dp"
                     android:layout_height="200dp"
+                    setVisible="@{!vm.roomVis}"
                     app:srcCompat="@drawable/ic_no_chatting_img" />
 
                 <TextView
                     android:id="@+id/textView2"
+                    setVisible="@{!vm.roomVis}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="50dp"
