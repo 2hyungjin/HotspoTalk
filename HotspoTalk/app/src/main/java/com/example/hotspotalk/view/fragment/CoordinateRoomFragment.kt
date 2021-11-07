@@ -62,7 +62,6 @@ class CoordinateRoomFragment : Fragment(),
 
         init()
         observe()
-        chattingViewModelObserve()
     }
 
     private fun init() {
@@ -109,18 +108,6 @@ class CoordinateRoomFragment : Fragment(),
         }
     }
 
-    private fun chattingViewModelObserve() = with(chattingViewModel) {
-        chatList.observe(requireActivity()) {
-            val recentRoomId = it.last().roomID
-            val recentRoom = adapter.getList().find { it.roomID == recentRoomId }
-            val list = adapter.getList()
-            list.apply {
-                remove(recentRoom)
-                add(0, recentRoom!!)
-            }
-            adapter.setList(list)
-        }
-    }
 
     override fun onClick(room: RoomInfo) {
         val bundle = Bundle().apply {
