@@ -38,9 +38,11 @@
                     setVisible="@{!vm.roomVis}"
                     android:layout_width="214dp"
                     android:layout_height="200dp"
+                    android:visibility="invisible"
                     app:srcCompat="@drawable/ic_no_chatting_img" />
 
                 <TextView
+                    android:visibility="invisible"
                     android:id="@+id/textView2"
                     setVisible="@{!vm.roomVis}"
                     android:layout_width="match_parent"
@@ -67,12 +69,11 @@
                 tools:listitem="@layout/fragment_home_rv_item_chatting_room" />
 
 
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/white"
+                android:background="@color/main_color"
                 android:elevation="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -83,8 +84,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:backgroundTint="@color/white"
                     android:background="@drawable/ic_baseline_close_24"
+                    android:backgroundTint="@color/white"
                     android:padding="5dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

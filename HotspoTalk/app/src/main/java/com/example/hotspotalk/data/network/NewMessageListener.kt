@@ -13,7 +13,7 @@ class NewMessageListener : Emitter.Listener {
 
     override fun call(vararg args: Any?) {
         val message = args[0] as JSONObject
-
+        Log.d("message", message.toString())
         val messageResponse = MessageResponse(
             message.getString("type"),
             message.getString("content"),
