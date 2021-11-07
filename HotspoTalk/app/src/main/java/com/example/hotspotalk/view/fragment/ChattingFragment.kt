@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hotspotalk.context.HotspotalkApplication
@@ -28,7 +28,7 @@ import java.util.*
 @AndroidEntryPoint
 class ChattingFragment : Fragment() {
     lateinit var binding: FragmentChattingBinding
-    private val viewModel: ChattingViewModel by viewModels()
+    private val viewModel: ChattingViewModel by activityViewModels()
     lateinit var chattingListAdapter: MessageListAdapter
     lateinit var userListAdapter: UserListAdapter
     var roomId: Int? = null
@@ -44,15 +44,17 @@ class ChattingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         roomId = requireArguments().getInt("id", 0)
+        chattingListAdapter = MessageListAdapter()
+        userListAdapter = UserListAdapter()
 
         try {
             viewModel.enterChatting(roomId ?: throw Exception("방 참가에 오류가 생겼어요"))
+            viewModel.clearList()
+            chattingListAdapter.clearList()
         } catch (e: Exception) {
             Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
             findNavController().navigateUp()
         }
-        chattingListAdapter = MessageListAdapter()
-        userListAdapter = UserListAdapter()
 
         binding.rvChattingChattingFragment.apply {
             adapter = chattingListAdapter
@@ -115,7 +117,7 @@ class ChattingFragment : Fragment() {
 
     private fun observe() = with(viewModel) {
         chatList.observe(viewLifecycleOwner) {
-            chattingListAdapter.submitList(it)
+            chattingListAdapter.addAllMessage(it)
             binding.tvUserCountChattingFragment.text = "${userListAdapter.itemCount}명"
         }
         memberList.observe(viewLifecycleOwner) {
@@ -125,6 +127,9 @@ class ChattingFragment : Fragment() {
             if (it.roomID == roomId) {
                 chattingListAdapter.addMessage(it)
                 binding.rvChattingChattingFragment.scrollToPosition(chattingListAdapter.itemCount - 1)
+            }
+            if (it.messageType == MessageType.BREAK) {
+                findNavController().navigateUp()
             }
             if (it.messageType == MessageType.COMMAND) {
                 viewModel.getMembers(roomId!!)

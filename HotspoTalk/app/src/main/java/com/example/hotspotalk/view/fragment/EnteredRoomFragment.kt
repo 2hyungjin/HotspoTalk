@@ -8,18 +8,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.hotspotalk.R
 import com.example.hotspotalk.data.entity.response.RoomInfo
 import com.example.hotspotalk.databinding.FragmentHomeVpItemEnteredBinding
 import com.example.hotspotalk.view.adapter.ChattingRoomRecyclerViewAdapter
+import com.example.hotspotalk.viewmodel.ChattingViewModel
 import com.example.hotspotalk.viewmodel.EnteredRoomViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class EnteredRoomFragment : Fragment(),
     ChattingRoomRecyclerViewAdapter.OnClickChattingRoomListener {
+    private val chattingViewModel: ChattingViewModel by activityViewModels()
 
     private val navController by lazy {
         findNavController()
@@ -52,6 +55,8 @@ class EnteredRoomFragment : Fragment(),
 
         init()
         observe()
+
+
     }
 
     private fun init() {
@@ -60,6 +65,10 @@ class EnteredRoomFragment : Fragment(),
             viewModel.getEnteredRooms()
         }
         viewModel.getEnteredRooms()
+
+        chattingViewModel.chat.observe(requireActivity()) {
+            Log.d("enteredFragment", it.toString())
+        }
     }
 
     private fun observe() = with(viewModel) {
@@ -82,6 +91,11 @@ class EnteredRoomFragment : Fragment(),
         isFailureEnteredRooms.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getEnteredRooms()
     }
 
     override fun onClick(room: RoomInfo) {

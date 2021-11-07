@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,7 @@ import com.example.hotspotalk.databinding.FragmentHomeBinding
 import com.example.hotspotalk.view.activity.MainActivity
 import com.example.hotspotalk.view.adapter.HomeViewPagerAdapter
 import com.example.hotspotalk.view.util.Preference.token
+import com.example.hotspotalk.viewmodel.ChattingViewModel
 import com.example.hotspotalk.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -65,6 +67,8 @@ class HomeFragment : Fragment() {
         binding.btnCreateRoomHome.setOnClickListener {
             navigateToCreateRoom()
         }
+
+
     }
 
     private fun init() {
@@ -115,7 +119,12 @@ class HomeFragment : Fragment() {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            permissionLauncher.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
+            permissionLauncher.launch(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+            )
         }
     }
 

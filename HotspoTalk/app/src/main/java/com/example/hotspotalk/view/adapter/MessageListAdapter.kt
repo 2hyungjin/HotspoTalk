@@ -21,6 +21,7 @@ class MessageListAdapter :
             MessageType.MINE -> 1
             MessageType.YOURS -> -1
             MessageType.COMMAND -> 0
+            MessageType.BREAK -> 0
         }
     }
 
@@ -79,13 +80,18 @@ class MessageListAdapter :
     }
 
     override fun getItemCount(): Int = messageList.size
-    fun submitList(list: List<Message>) {
+    fun addAllMessage(list: List<Message>) {
         messageList.addAll(list)
         notifyDataSetChanged()
     }
 
     fun addMessage(message: Message) {
         messageList.add(message)
+        notifyDataSetChanged()
+    }
+
+    fun clearList() {
+        messageList.clear()
         notifyDataSetChanged()
     }
 }

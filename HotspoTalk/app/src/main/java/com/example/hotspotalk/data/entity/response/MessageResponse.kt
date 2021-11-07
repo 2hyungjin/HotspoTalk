@@ -27,7 +27,7 @@ data class MessageResponse(
             roomID = roomID,
             messageId = messageId,
             timestamp = SimpleDateFormat("hh:mm", Locale.KOREA).format(Date(time)),
-            messageType = if (type == "msg" && isMe) MessageType.MINE else if (type == "msg" && !isMe) MessageType.YOURS else MessageType.COMMAND
+            messageType = if (type == "msg" && isMe) MessageType.MINE else if (type == "msg" && !isMe) MessageType.YOURS else if (type == "break") MessageType.BREAK else MessageType.COMMAND
         )
     }
 

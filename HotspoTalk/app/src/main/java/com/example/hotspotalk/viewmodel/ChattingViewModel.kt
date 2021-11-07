@@ -52,6 +52,13 @@ class ChattingViewModel @Inject constructor(private val messageRepository: Chatt
         HotspotalkApplication.socket.emit("in", roomId)
     }
 
+    fun clearList(){
+        _chatList.clear()
+        chatList.postValue(_chatList)
+        _memberList.clear()
+        memberList.postValue(_memberList)
+    }
+
     fun getMessages(roomId: Int, count: Int, start: Int) {
         viewModelScope.launch {
             isLoading.postValue(true)

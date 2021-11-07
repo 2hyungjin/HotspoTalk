@@ -10,5 +10,5 @@ data class Message(
 )
 
 enum class MessageType {
-    MINE, YOURS, COMMAND
+    MINE, YOURS, COMMAND, BREAK
 }
