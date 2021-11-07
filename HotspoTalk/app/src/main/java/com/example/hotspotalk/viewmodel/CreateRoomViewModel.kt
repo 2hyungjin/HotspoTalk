@@ -59,8 +59,8 @@ class CreateRoomViewModel @Inject constructor(
             viewModelScope.launch {
                 val createRoom =
                     CreateRoom(
-                        nickname,
                         roomName,
+                        nickname,
                         roomPassword,
                         memberLimit.toInt(),
                         latitude,
