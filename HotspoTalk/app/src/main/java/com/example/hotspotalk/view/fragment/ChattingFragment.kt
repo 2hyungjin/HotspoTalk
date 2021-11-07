@@ -124,6 +124,7 @@ class ChattingFragment : Fragment() {
         chat.observe(viewLifecycleOwner) {
             if (it.roomID == roomId) {
                 chattingListAdapter.addMessage(it)
+                binding.rvChattingChattingFragment.scrollToPosition(chattingListAdapter.itemCount - 1)
             }
             if (it.messageType == MessageType.COMMAND) {
                 viewModel.getMembers(roomId!!)
