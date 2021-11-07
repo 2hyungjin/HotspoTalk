@@ -125,6 +125,9 @@ class ChattingFragment : Fragment() {
             if (it.roomID == roomId) {
                 chattingListAdapter.addMessage(it)
             }
+            if (it.messageType == MessageType.COMMAND) {
+                viewModel.getMembers(roomId!!)
+            }
         }
     }
 }

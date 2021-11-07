@@ -5,7 +5,7 @@ data class Message(
     var content: String,
     val roomID: Int,
     var timestamp: String?,
-    var messageType: MessageType = MessageType.YOURS,
+    var messageType: MessageType,
     var messageId: Int? = null
 )
 
