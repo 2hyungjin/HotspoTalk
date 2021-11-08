@@ -52,7 +52,7 @@ class CreateRoomViewModel @Inject constructor(
         Log.d("TAG", "createRoom: $nickname, $roomName, $roomPassword, $memberLimit, $areaType, $areaDetail, $latitude, $longitude, $address")
 
         if (
-            roomName.isNotEmpty() && memberLimit.toInt() > 0 &&
+            roomName.isNotEmpty() && memberLimit.toInt() > 1 &&
             ((latitude != 0.0 && longitude != 0.0 && areaDetail != 0) || address.isNotEmpty()) &&
             areaDetail > 0 && nickname.isNotEmpty()
         ) {
