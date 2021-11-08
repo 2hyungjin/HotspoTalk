@@ -1,5 +1,6 @@
 package com.example.hotspotalk.view.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -32,9 +33,21 @@ class ChattingRoomRecyclerViewAdapter(private val onClickListener: OnClickChatti
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         binding.data = list[position]
 
-        binding.tvUserRvItemChattingRoom.text = list[position].memberLimit.toString()
-        binding.layoutRvItemChattingRoom.setOnClickListener {
-            onClickListener.onClick(list[position])
+        with(list[position]) {
+            binding.tvUserRvItemChattingRoom.text = memberLimit.toString()
+            binding.layoutRvItemChattingRoom.setOnClickListener {
+                onClickListener.onClick(this)
+            }
+            with(binding.tvUserRvItemChattingRoom) {
+                text = "${memberCount}/${memberLimit}"
+                this.setTextColor(
+                    if (memberCount == memberLimit) {
+                        Color.parseColor("#F44336")
+                    } else {
+                        Color.parseColor("#000000")
+                    }
+                )
+            }
         }
     }
 

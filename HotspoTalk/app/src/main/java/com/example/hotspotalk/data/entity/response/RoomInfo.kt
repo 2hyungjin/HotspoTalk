@@ -6,6 +6,7 @@ data class RoomInfo(
     val roomPW: String?,
     val existPW: Boolean?,
     val memberLimit: Int,
+    val memberCount: Int,
     val areaType: Int,
     val areaDetail: Int
 )
