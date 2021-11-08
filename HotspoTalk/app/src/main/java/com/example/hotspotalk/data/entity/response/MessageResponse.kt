@@ -19,7 +19,7 @@ data class MessageResponse(
 ) {
     fun toMessage(): Message {
         Log.d("Message", "toMessage: $timestamp")
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSS'Z'", Locale.KOREA)
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.KOREA)
         val time = dateFormat.parse(timestamp)?.time ?: 0
         return Message(
             content = content,
