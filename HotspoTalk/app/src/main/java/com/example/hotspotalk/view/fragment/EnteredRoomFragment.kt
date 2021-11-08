@@ -31,7 +31,7 @@ class EnteredRoomFragment : Fragment(),
 
     private lateinit var binding: FragmentHomeVpItemEnteredBinding
 
-    private val viewModel: EnteredRoomViewModel by viewModels()
+    private val viewModel: EnteredRoomViewModel by activityViewModels()
 
     private val enteredChattingAdapter: EnteredChattingRoomRecyclerViewAdapter =
         EnteredChattingRoomRecyclerViewAdapter(this)
@@ -98,27 +98,16 @@ class EnteredRoomFragment : Fragment(),
     }
 
     private fun chattingObserve() = with(chattingViewModel) {
-        chat.observe(requireActivity()) { message ->
+        chat.observe(viewLifecycleOwner) { message ->
             val chatList = enteredChattingAdapter.currentList.toMutableList()
             val target = chatList.find { it.roomID == message.roomID }
-            Log.d("entered",target.toString())
-            target?.lastChatting = message.content
+            Log.d("entered", message.toString())
             chatList.apply {
                 remove(target)
+                target?.lastChatting = message.content
                 add(0, target)
             }
             enteredChattingAdapter.submitList(chatList)
-
-
-//            chatList.add(0,target!!)
-//            enteredChattingAdapter.setList(chatList)
-//            target?.lastChatting = message.content
-//            chatList.removeIf { it.roomID == message.roomID }
-//            var newRoom:EnteredRoomInfo?=null
-//            target?.let { newRoom=EnteredRoomInfo(it.roomID,it.roomName,it.roomPW,it.existPW,it.memberLimit,it.areaType,it.areaDetail,message.content) }
-//            chatList.add(0,newRoom!!)
-//            enteredChattingAdapter.setList(chatList)
-
         }
     }
 
