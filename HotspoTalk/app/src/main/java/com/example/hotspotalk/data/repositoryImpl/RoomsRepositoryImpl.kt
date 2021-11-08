@@ -9,6 +9,7 @@ import com.example.hotspotalk.data.entity.request.CreateRoom
 import com.example.hotspotalk.data.entity.request.Enter
 import com.example.hotspotalk.data.entity.request.ModifyNickname
 import com.example.hotspotalk.data.entity.request.ModifyRoom
+import com.example.hotspotalk.data.entity.response.EnteredRoomInfo
 import com.example.hotspotalk.data.repository.RoomsRepository
 import retrofit2.Response
 import javax.inject.Inject
@@ -16,7 +17,7 @@ import javax.inject.Inject
 class RoomsRepositoryImpl @Inject constructor(
     private val service: RoomService
 ) : RoomsRepository {
-    override suspend fun getEnteredRooms(): Response<List<RoomInfo>> {
+    override suspend fun getEnteredRooms(): Response<List<EnteredRoomInfo>> {
         return service.getRooms()
     }
 

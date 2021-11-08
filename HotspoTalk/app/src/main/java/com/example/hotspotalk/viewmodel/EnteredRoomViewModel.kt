@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.hotspotalk.data.entity.response.EnteredRoomInfo
 import com.example.hotspotalk.data.entity.response.RoomInfo
 import com.example.hotspotalk.data.repository.RoomsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +18,7 @@ class EnteredRoomViewModel @Inject constructor(
 
     val roomVis = MutableLiveData<Boolean>()
 
-    private val _isSuccessEnteredRooms = MutableLiveData<List<RoomInfo>>(ArrayList())
+    private val _isSuccessEnteredRooms = MutableLiveData<List<EnteredRoomInfo>>(ArrayList())
     val isSuccessEnteredRooms = _isSuccessEnteredRooms
 
     private val _isFailureEnteredRooms = MutableLiveData<String>()

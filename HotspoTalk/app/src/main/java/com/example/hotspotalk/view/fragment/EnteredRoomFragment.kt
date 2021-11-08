@@ -12,16 +12,18 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.hotspotalk.R
+import com.example.hotspotalk.data.entity.response.EnteredRoomInfo
 import com.example.hotspotalk.data.entity.response.RoomInfo
 import com.example.hotspotalk.databinding.FragmentHomeVpItemEnteredBinding
 import com.example.hotspotalk.view.adapter.ChattingRoomRecyclerViewAdapter
+import com.example.hotspotalk.view.adapter.EnteredChattingRoomRecyclerViewAdapter
 import com.example.hotspotalk.viewmodel.ChattingViewModel
 import com.example.hotspotalk.viewmodel.EnteredRoomViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class EnteredRoomFragment : Fragment(),
-    ChattingRoomRecyclerViewAdapter.OnClickChattingRoomListener {
+    EnteredChattingRoomRecyclerViewAdapter.OnClickChattingRoomListener {
     private val chattingViewModel: ChattingViewModel by activityViewModels()
 
     private val navController by lazy {
@@ -32,8 +34,8 @@ class EnteredRoomFragment : Fragment(),
 
     private val viewModel: EnteredRoomViewModel by viewModels()
 
-    private val notEnterableAdapter: ChattingRoomRecyclerViewAdapter =
-        ChattingRoomRecyclerViewAdapter(this)
+    private val notEnterableAdapter: EnteredChattingRoomRecyclerViewAdapter =
+        EnteredChattingRoomRecyclerViewAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -98,7 +100,8 @@ class EnteredRoomFragment : Fragment(),
         viewModel.getEnteredRooms()
     }
 
-    override fun onClick(room: RoomInfo) {
+
+    override fun onClick(room: EnteredRoomInfo) {
         val bundle = Bundle()
         bundle.putString("name", room.roomName)
         bundle.putInt("id", room.roomID)

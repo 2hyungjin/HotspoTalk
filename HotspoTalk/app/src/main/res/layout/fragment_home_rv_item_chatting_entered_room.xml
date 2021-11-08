@@ -7,7 +7,7 @@
 
         <variable
             name="data"
-            type="com.example.hotspotalk.data.entity.response.RoomInfo" />
+            type="com.example.hotspotalk.data.entity.response.EnteredRoomInfo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,24 +42,25 @@
             android:layout_marginStart="10dp"
             android:text="@{data.roomName}"
             android:textColor="@color/black"
-            android:textSize="16dp"
+            android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/cardView"
             app:layout_constraintStart_toEndOf="@+id/cardView"
             app:layout_constraintTop_toTopOf="@+id/cardView"
             tools:text="title" />
 
-
         <TextView
-            android:text="@{data.memberLimit}"
-            android:id="@+id/tv_user_rv_item_chatting_room"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_room_name_rv_item_chatting_room"
-            app:layout_constraintStart_toEndOf="@+id/tv_room_name_rv_item_chatting_room"
-            app:layout_constraintTop_toTopOf="@+id/tv_room_name_rv_item_chatting_room" />
+            android:maxLines="1"
+            android:text="@{data.lastChatting}"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/deep_grey"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/cardView"
+            app:layout_constraintTop_toBottomOf="@+id/tv_room_name_rv_item_chatting_room"
+            tools:text="content" />
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

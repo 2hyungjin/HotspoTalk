@@ -3,25 +3,26 @@ package com.example.hotspotalk.view.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hotspotalk.data.entity.response.EnteredRoomInfo
 import com.example.hotspotalk.data.entity.response.RoomInfo
-import com.example.hotspotalk.databinding.FragmentHomeRvItemChattingRoomBinding
+import com.example.hotspotalk.databinding.FragmentHomeRvItemChattingEnteredRoomBinding
 
-class ChattingRoomRecyclerViewAdapter(private val onClickListener: OnClickChattingRoomListener) :
-    RecyclerView.Adapter<ChattingRoomRecyclerViewAdapter.ViewHolder>() {
+class EnteredChattingRoomRecyclerViewAdapter(private val onClickListener: OnClickChattingRoomListener) :
+    RecyclerView.Adapter<EnteredChattingRoomRecyclerViewAdapter.ViewHolder>() {
 
     interface OnClickChattingRoomListener {
-        fun onClick(room: RoomInfo)
+        fun onClick(room: EnteredRoomInfo)
     }
 
 
-    private val list = mutableListOf<RoomInfo>()
+    private val list = mutableListOf<EnteredRoomInfo>()
 
-    private lateinit var binding: FragmentHomeRvItemChattingRoomBinding
+    private lateinit var binding: FragmentHomeRvItemChattingEnteredRoomBinding
 
     inner class ViewHolder : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        binding = FragmentHomeRvItemChattingRoomBinding.inflate(
+        binding = FragmentHomeRvItemChattingEnteredRoomBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -32,7 +33,7 @@ class ChattingRoomRecyclerViewAdapter(private val onClickListener: OnClickChatti
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         binding.data = list[position]
 
-        binding.tvUserRvItemChattingRoom.text = list[position].memberLimit.toString()
+        binding.tvRoomNameRvItemChattingRoom.text = list[position].memberLimit.toString()
         binding.layoutRvItemChattingRoom.setOnClickListener {
             onClickListener.onClick(list[position])
         }
@@ -40,7 +41,7 @@ class ChattingRoomRecyclerViewAdapter(private val onClickListener: OnClickChatti
 
     override fun getItemCount(): Int = list.size
 
-    fun setList(list: List<RoomInfo>) {
+    fun setList(list: List<EnteredRoomInfo>) {
         this.list.clear()
         this.list.addAll(list)
         notifyDataSetChanged()
