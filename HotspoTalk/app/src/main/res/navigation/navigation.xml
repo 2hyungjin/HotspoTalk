@@ -89,5 +89,10 @@
             android:name="roomID"
             app:argType="integer"
             android:defaultValue="0"/>
+        <action
+            android:id="@+id/action_setProfileFragment_to_chattingFragment"
+            app:destination="@id/chattingFragment"
+            app:popUpTo="@id/setProfileFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
 </navigation>

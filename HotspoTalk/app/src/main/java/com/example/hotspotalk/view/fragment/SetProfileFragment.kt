@@ -21,7 +21,7 @@ class SetProfileFragment : Fragment() {
 
     private val viewModel: JoinChattingViewModel by viewModels()
     private lateinit var binding: FragmentJoinChattingSetProfileBinding
-
+    private var roomID: Int = 0
 
     private val navController by lazy {
         findNavController()
@@ -42,7 +42,7 @@ class SetProfileFragment : Fragment() {
 
         observe()
 
-        val roomID = requireArguments().getInt("roomID", 0)
+        roomID = requireArguments().getInt("roomID", 0)
         val existPW = requireArguments().getBoolean("existPW", false)
 
         binding.etPasswordJoinChattingSetProfile.visibility =
@@ -63,7 +63,9 @@ class SetProfileFragment : Fragment() {
 
     private fun observe() = with(viewModel) {
         isSuccess.observe(viewLifecycleOwner) {
-            navController.navigateUp()
+            val bundle = Bundle()
+            bundle.putInt("id", roomID)
+            navController.navigate(R.id.action_setProfileFragment_to_chattingFragment, bundle)
         }
 
         isFailure.observe(viewLifecycleOwner) {
