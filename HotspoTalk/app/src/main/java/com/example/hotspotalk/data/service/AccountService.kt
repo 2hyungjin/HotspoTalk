@@ -6,10 +6,7 @@ import com.example.hotspotalk.data.entity.request.Login
 import com.example.hotspotalk.data.entity.request.SignUp
 import com.example.hotspotalk.data.entity.response.Token
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface AccountService {
     @POST("account/login")
@@ -26,4 +23,8 @@ interface AccountService {
 
     @POST("account/autoLogin")
     suspend fun postAutoLogin(): Response<Any?>
+
+    @FormUrlEncoded
+    @PUT("account/device")
+    suspend fun postDevToken(@Field("deviceToken") deviceToken: String): Response<Any?>
 }

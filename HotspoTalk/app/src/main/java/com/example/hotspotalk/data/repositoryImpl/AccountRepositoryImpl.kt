@@ -33,4 +33,8 @@ class AccountRepositoryImpl @Inject constructor(
     override suspend fun deleteBan(ban: Ban): Response<Message> {
         return service.deleteBan(ban)
     }
+
+    override suspend fun postDevToken(deviceToken: String): Response<Any?> {
+        return service.postDevToken(deviceToken)
+    }
 }
