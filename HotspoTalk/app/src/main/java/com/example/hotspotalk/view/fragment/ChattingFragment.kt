@@ -29,9 +29,11 @@ import java.util.*
 class ChattingFragment : Fragment() {
     lateinit var binding: FragmentChattingBinding
     private val viewModel: ChattingViewModel by activityViewModels()
-    lateinit var chattingListAdapter: MessageListAdapter
-    lateinit var userListAdapter: UserListAdapter
+    private lateinit var chattingListAdapter: MessageListAdapter
+    private lateinit var userListAdapter: UserListAdapter
+
     var roomId: Int? = null
+    lateinit var roomName: String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,8 +46,11 @@ class ChattingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         roomId = requireArguments().getInt("id", 0)
+        roomName = requireArguments().getString("name", "채팅")
+
         chattingListAdapter = MessageListAdapter()
         userListAdapter = UserListAdapter()
+
 
         try {
             viewModel.enterChatting(roomId ?: throw Exception("방 참가에 오류가 생겼어요"))
@@ -55,7 +60,12 @@ class ChattingFragment : Fragment() {
             Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
             findNavController().navigateUp()
         }
+        initBinding()
+        observe()
 
+    }
+
+    private fun initBinding() {
         binding.rvChattingChattingFragment.apply {
             adapter = chattingListAdapter
             layoutManager = LinearLayoutManager(requireContext())
@@ -76,44 +86,51 @@ class ChattingFragment : Fragment() {
 
         binding.btnSendChattingChattingFragment.setOnClickListener {
             val content = binding.editText.text.toString()
-            if (content.isBlank()) return@setOnClickListener
-            val message = Gson().toJson(
-                MessageRequest(
-                    "message",
-                    roomId!!,
-                    content,
-                    Preference.token
-                )
-            )
-            HotspotalkApplication.socket.emit(
-                "message",
-                message
-            )
-            binding.editText.text.clear()
-            Log.d("chatting", message)
-            val myMessage = Message(
-                "나",
-                content,
-                roomID = roomId!!,
-                timestamp = SimpleDateFormat("hh:mm")
-                    .format(Date(System.currentTimeMillis())),
-                messageType = MessageType.MINE
-            )
+            postChat(content)
 
-
-            chattingListAdapter.addMessage(myMessage)
             binding.rvChattingChattingFragment.scrollToPosition(chattingListAdapter.itemCount - 1)
         }
-
-
         binding.btnOutChattingFragment.setOnClickListener {
             viewModel.outChatting(roomId!!)
             findNavController().navigateUp()
         }
+        binding.tvTitleChattingFragment.text = roomName
+    }
 
-        observe()
+    private fun postChat(content: String) {
+        if (content.isBlank()) return
+
+        val message = Gson().toJson(
+            MessageRequest(
+                "message",
+                roomId!!,
+                content,
+                Preference.token
+            )
+        )
+
+        HotspotalkApplication.socket.emit(
+            "message",
+            message
+        )
+
+        binding.editText.text.clear()
+        addMyChatting(content)
+    }
+
+    private fun addMyChatting(content: String) {
+        val myMessage = Message(
+            "나",
+            content,
+            roomID = roomId!!,
+            timestamp = SimpleDateFormat("hh:mm")
+                .format(Date(System.currentTimeMillis())),
+            messageType = MessageType.MINE
+        )
+        chattingListAdapter.addMessage(myMessage)
 
     }
+
 
     private fun observe() = with(viewModel) {
         chatList.observe(viewLifecycleOwner) {

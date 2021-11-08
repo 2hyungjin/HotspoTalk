@@ -100,6 +100,7 @@ class EnteredRoomFragment : Fragment(),
 
     override fun onClick(room: RoomInfo) {
         val bundle = Bundle()
+        bundle.putString("name", room.roomName)
         bundle.putInt("id", room.roomID)
         navController.navigate(R.id.action_homeFragment_to_chattingFragment, bundle)
     }

@@ -24,7 +24,6 @@ class NewMessageListener : Emitter.Listener {
             message.getBoolean("isMe")
         )
 
-        Log.d("NewMessageListener", "call: ${messageResponse.type}")
         onMessageReceived(messageResponse)
     }
 
