@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/background_my_chatting_bubble"
         android:scaleX="-1"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -36,10 +36,9 @@
         android:id="@+id/tv_time_stamp_mine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout3"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
+        android:textColor="@color/deep_grey"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
         tools:text="00:00" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

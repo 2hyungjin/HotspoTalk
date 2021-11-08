@@ -170,7 +170,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:hint="@string/nickname"
-                            app:hintEnabled="false"
                             android:maxLines="1"
                             android:minHeight="48dp"
                             android:paddingStart="20dp"
@@ -268,7 +267,7 @@
                                 <RadioButton
                                     android:id="@+id/radioButton_distance"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="48dp"
+                                    android:layout_height="35dp"
                                     android:background="@drawable/btn_radio_background"
                                     android:button="@null"
                                     android:checked="true"
@@ -280,7 +279,7 @@
                                 <RadioButton
                                     android:id="@+id/radioButton_area"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="48dp"
+                                    android:layout_height="35dp"
                                     android:layout_marginStart="10dp"
                                     android:background="@drawable/btn_radio_background"
                                     android:button="@null"

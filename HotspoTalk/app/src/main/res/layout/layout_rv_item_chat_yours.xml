@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:background="@color/deep_grey"
     android:padding="10dp">
 
     <LinearLayout
@@ -13,7 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cardView4"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -21,8 +19,7 @@
             android:id="@+id/tv_nickname_yours"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="3dp"
             android:layout_weight="1"
             android:textColor="@color/black"
             tools:text="nickname" />
@@ -50,9 +47,10 @@
         android:id="@+id/cardView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         app:cardElevation="0dp"
         android:elevation="0dp"
-        app:cardCornerRadius="10dp"
+        app:cardCornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/linearLayout4">
@@ -68,10 +66,10 @@
         android:id="@+id/tv_time_stamp_yours"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout4"
-        app:layout_constraintStart_toEndOf="@+id/linearLayout4"
+        android:textColor="@color/deep_grey"
+        android:layout_marginStart="3dp"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout4"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
         tools:text="00:00" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

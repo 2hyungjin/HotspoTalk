@@ -14,6 +14,7 @@
     <color name="progress_grey">#B3B3B3</color>
     <color name="deep_grey">#8E8D8D</color>
     <color name="main_color">#FF5157EB</color>
+    <color name="main_dark_color">#FF454ACF</color>
     <color name="tool_bar">#858BD4</color>
     <color name="chatting">#8E94DC</color>
 </resources>
