@@ -1,6 +1,7 @@
 package com.example.hotspotalk.view.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -91,12 +92,13 @@ class EnteredRoomFragment : Fragment(),
 
     private fun chattingObserve() = with(chattingViewModel) {
         chat.observe(requireActivity()) { message ->
-            val chatList = enteredChattingAdapter.getList()
-            val target = chatList.find { it.roomID == message.roomID }
-            target?.lastChatting = message.content
-            chatList.remove(target)
-            chatList.add(0, target!!)
-            enteredChattingAdapter.setList(chatList)
+            Log.d("enteredRoom",message.content)
+//            val chatList = enteredChattingAdapter.getList()
+//            val target = chatList.find { it.roomID == message.roomID }
+//            target?.lastChatting = message.content
+//            chatList.remove(target)
+//            chatList.add(0, target!!)
+//            enteredChattingAdapter.setList(chatList)
         }
     }
 
