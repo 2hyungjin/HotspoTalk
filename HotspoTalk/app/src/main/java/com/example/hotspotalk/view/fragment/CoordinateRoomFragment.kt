@@ -3,6 +3,7 @@ package com.example.hotspotalk.view.fragment
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -87,6 +88,7 @@ class CoordinateRoomFragment : Fragment(),
             val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
             fusedLocationClient.lastLocation
                 .addOnSuccessListener { location ->
+                    Log.d("Coordinate", "init: $location")
                     viewModel.getRoomsByCoordinate(location.latitude, location.longitude)
                 }
             binding.srlCoordinate.setOnRefreshListener {
