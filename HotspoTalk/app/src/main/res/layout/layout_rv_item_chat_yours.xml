@@ -24,15 +24,15 @@
             android:layout_marginStart="10dp"
             android:layout_marginBottom="5dp"
             android:layout_weight="1"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             tools:text="nickname" />
 
         <LinearLayout
             android:id="@+id/linearLayout3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:background="@drawable/bubble"
+            android:background="@drawable/background_your_chatting_bubble"
+            android:padding="10dp"
             app:layout_constraintStart_toEndOf="@+id/cardView4"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                tools:text="whyranoaaaaaaaaaaaaaasdfsdfasdfasdf>??" />
+                tools:text="whyranoaaaaaaaaaaaaaa\nsdfsdfasdfasdf>??" />
         </LinearLayout>
 
     </LinearLayout>
@@ -69,7 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout4"
         app:layout_constraintStart_toEndOf="@+id/linearLayout4"
         tools:text="00:00" />
