@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.hotspotalk.R
 import com.example.hotspotalk.context.HotspotalkApplication
+import com.example.hotspotalk.data.entity.Message
 import com.example.hotspotalk.data.entity.response.EnteredRoomInfo
 import com.example.hotspotalk.databinding.FragmentHomeVpItemEnteredBinding
 import com.example.hotspotalk.view.adapter.EnteredChattingRoomRecyclerViewAdapter
@@ -24,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class EnteredRoomFragment : Fragment(),
     EnteredChattingRoomRecyclerViewAdapter.OnClickChattingRoomListener {
     private val chattingViewModel: ChattingViewModel by activityViewModels()
-
+    var enteredRoomList = arrayListOf<EnteredRoomInfo>()
     private val navController by lazy {
         findNavController()
     }
@@ -81,8 +82,10 @@ class EnteredRoomFragment : Fragment(),
                 }
 
                 else -> {
+                    enteredRoomList.clear()
                     roomVis.value = it.isNotEmpty()
-                    enteredChattingAdapter.submitList(it)
+                    enteredRoomList.addAll(it)
+                    enteredChattingAdapter.submitList(enteredRoomList)
 
                     it.forEach {
                         HotspotalkApplication.socket.emit("in", it.roomID)
@@ -99,15 +102,14 @@ class EnteredRoomFragment : Fragment(),
 
     private fun chattingObserve() = with(chattingViewModel) {
         chat.observe(viewLifecycleOwner) { message ->
-            val chatList = enteredChattingAdapter.currentList.toMutableList()
-            val target = chatList.find { it.roomID == message.roomID }
+            val target = enteredRoomList.find { it.roomID == message.roomID }
             Log.d("entered", message.toString())
-            chatList.apply {
-                remove(target)
-                target?.lastChatting = message.content
-                add(0, target)
-            }
-            enteredChattingAdapter.submitList(chatList)
+            enteredRoomList.remove(target)
+            target!!.lastChatting = message.content
+            enteredRoomList.add(target)
+
+            enteredChattingAdapter.submitList(enteredRoomList)
+
         }
     }
 
