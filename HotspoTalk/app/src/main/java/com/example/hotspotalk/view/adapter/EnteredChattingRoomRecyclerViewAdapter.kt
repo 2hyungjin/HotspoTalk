@@ -7,19 +7,24 @@ import com.example.hotspotalk.data.entity.response.EnteredRoomInfo
 import com.example.hotspotalk.data.entity.response.RoomInfo
 import com.example.hotspotalk.databinding.FragmentHomeRvItemChattingEnteredRoomBinding
 
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+
 class EnteredChattingRoomRecyclerViewAdapter(private val onClickListener: OnClickChattingRoomListener) :
-    RecyclerView.Adapter<EnteredChattingRoomRecyclerViewAdapter.ViewHolder>() {
+    ListAdapter<EnteredRoomInfo, EnteredChattingRoomRecyclerViewAdapter.ViewHolder>(
+        EnteredRoomInfoDiff()
+    ) {
+    private lateinit var binding: FragmentHomeRvItemChattingEnteredRoomBinding
+
+    inner class ViewHolder() :
+        RecyclerView.ViewHolder(binding.root) {
+
+    }
 
     interface OnClickChattingRoomListener {
         fun onClick(room: EnteredRoomInfo)
     }
 
-
-    private val list = mutableListOf<EnteredRoomInfo>()
-
-    private lateinit var binding: FragmentHomeRvItemChattingEnteredRoomBinding
-
-    inner class ViewHolder : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding = FragmentHomeRvItemChattingEnteredRoomBinding.inflate(
@@ -31,21 +36,22 @@ class EnteredChattingRoomRecyclerViewAdapter(private val onClickListener: OnClic
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        binding.data = list[position]
+        val room = getItem(position)
+        binding.data = room
 
-        binding.tvRoomNameRvItemChattingRoom.text = list[position].memberLimit.toString()
+        binding.tvRoomNameRvItemChattingRoom.text = room.memberLimit.toString()
         binding.layoutRvItemChattingRoom.setOnClickListener {
-            onClickListener.onClick(list[position])
+            onClickListener.onClick(room)
         }
     }
+}
 
-    override fun getItemCount(): Int = list.size
-
-    fun setList(list: List<EnteredRoomInfo>) {
-        this.list.clear()
-        this.list.addAll(list)
-        notifyDataSetChanged()
+class EnteredRoomInfoDiff : DiffUtil.ItemCallback<EnteredRoomInfo>() {
+    override fun areItemsTheSame(oldItem: EnteredRoomInfo, newItem: EnteredRoomInfo): Boolean {
+        return oldItem.lastChatting == newItem.lastChatting
     }
 
-    fun getList() = list
+    override fun areContentsTheSame(oldItem: EnteredRoomInfo, newItem: EnteredRoomInfo): Boolean {
+        return oldItem.lastChatting == newItem.lastChatting
+    }
 }

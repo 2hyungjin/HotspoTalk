@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.hotspotalk.R
+import com.example.hotspotalk.context.HotspotalkApplication
 import com.example.hotspotalk.data.entity.response.EnteredRoomInfo
 import com.example.hotspotalk.databinding.FragmentHomeVpItemEnteredBinding
 import com.example.hotspotalk.view.adapter.EnteredChattingRoomRecyclerViewAdapter
@@ -60,6 +61,8 @@ class EnteredRoomFragment : Fragment(),
     }
 
     private fun init() {
+        HotspotalkApplication.connectSocket()
+
         binding.rvEnterableRoomVpItemHome.adapter = enteredChattingAdapter
         binding.srlEntered.setOnRefreshListener {
             viewModel.getEnteredRooms()
@@ -79,7 +82,11 @@ class EnteredRoomFragment : Fragment(),
 
                 else -> {
                     roomVis.value = it.isNotEmpty()
-                    enteredChattingAdapter.setList(it)
+                    enteredChattingAdapter.submitList(it)
+
+                    it.forEach {
+                        HotspotalkApplication.socket.emit("in", it.roomID)
+                    }
                 }
             }
             binding.srlEntered.isRefreshing = false
@@ -92,13 +99,26 @@ class EnteredRoomFragment : Fragment(),
 
     private fun chattingObserve() = with(chattingViewModel) {
         chat.observe(requireActivity()) { message ->
-            Log.d("enteredRoom",message.content)
-//            val chatList = enteredChattingAdapter.getList()
-//            val target = chatList.find { it.roomID == message.roomID }
-//            target?.lastChatting = message.content
-//            chatList.remove(target)
-//            chatList.add(0, target!!)
+            val chatList = enteredChattingAdapter.currentList.toMutableList()
+            val target = chatList.find { it.roomID == message.roomID }
+            Log.d("entered",target.toString())
+            target?.lastChatting = message.content
+            chatList.apply {
+                remove(target)
+                add(0, target)
+            }
+            enteredChattingAdapter.submitList(chatList)
+
+
+//            chatList.add(0,target!!)
 //            enteredChattingAdapter.setList(chatList)
+//            target?.lastChatting = message.content
+//            chatList.removeIf { it.roomID == message.roomID }
+//            var newRoom:EnteredRoomInfo?=null
+//            target?.let { newRoom=EnteredRoomInfo(it.roomID,it.roomName,it.roomPW,it.existPW,it.memberLimit,it.areaType,it.areaDetail,message.content) }
+//            chatList.add(0,newRoom!!)
+//            enteredChattingAdapter.setList(chatList)
+
         }
     }
 

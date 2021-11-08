@@ -48,12 +48,15 @@ class ChattingViewModel @Inject constructor(private val messageRepository: Chatt
     fun enterChatting(roomId: Int) {
         getMessages(roomId, 1000, 0)
         getMembers(roomId)
-        HotspotalkApplication.socket.emit("in", roomId)
     }
 
     fun clearList() {
         _chatList.clear()
         chatList.postValue(_chatList)
+        _memberList.clear()
+        memberList.postValue(_memberList)
+    }
+    fun clearMemberList(){
         _memberList.clear()
         memberList.postValue(_memberList)
     }
@@ -87,7 +90,6 @@ class ChattingViewModel @Inject constructor(private val messageRepository: Chatt
         isLoading.postValue(true)
         job = viewModelScope.launch {
             messageRepository.getMembers(roomId).let { result ->
-                Log.d("chatting", result.body().toString())
                 if (result.isSuccessful) {
                     _memberList.addAll(result.body()!!)
                     memberList.postValue(_memberList)
