@@ -21,8 +21,9 @@ import com.example.hotspotalk.databinding.FragmentHomeVpItemCoordinateBinding
 import com.example.hotspotalk.view.adapter.ChattingRoomRecyclerViewAdapter
 import com.example.hotspotalk.viewmodel.ChattingViewModel
 import com.example.hotspotalk.viewmodel.CoordinateRoomViewModel
+import com.example.hotspotalk.viewmodel.EnteredRoomViewModel
+import com.naver.maps.geometry.LatLng
 import dagger.hilt.android.AndroidEntryPoint
-
 import com.google.android.gms.location.LocationServices
 
 
@@ -36,6 +37,7 @@ class CoordinateRoomFragment : Fragment(),
 
     private val viewModel: CoordinateRoomViewModel by viewModels()
     private val chattingViewModel: ChattingViewModel by activityViewModels()
+    private val enteredRoomViewModel: EnteredRoomViewModel by activityViewModels()
 
     private val permissionLauncher: ActivityResultLauncher<Array<String>> =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
@@ -87,12 +89,19 @@ class CoordinateRoomFragment : Fragment(),
                 .addOnSuccessListener { location ->
                     viewModel.getRoomsByCoordinate(location.latitude, location.longitude)
                 }
+                viewModel.getRoomsByCoordinate(latLng.latitude , latLng.longitude)
+            }
         }
     }
 
     private fun observe() = with(viewModel) {
         isSuccessCoordinateRooms.observe(viewLifecycleOwner) {
-            adapter.setList(it)
+            val notEnteredRoom =
+                it.filterNot { enteredRoomViewModel.enteredRoom.value?.any { entered -> it.roomID == entered.roomID } == true }
+            adapter.setList(notEnteredRoom)
+            if (notEnteredRoom.isEmpty()) {
+                roomVis.postValue(false)
+            }
             roomVis.value = it.isNotEmpty()
             binding.srlCoordinate.isRefreshing = false
         }

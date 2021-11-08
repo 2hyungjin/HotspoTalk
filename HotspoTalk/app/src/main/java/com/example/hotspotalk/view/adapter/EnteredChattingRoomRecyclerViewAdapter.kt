@@ -1,51 +1,63 @@
 package com.example.hotspotalk.view.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hotspotalk.data.entity.response.EnteredRoomInfo
 import com.example.hotspotalk.data.entity.response.RoomInfo
 import com.example.hotspotalk.databinding.FragmentHomeRvItemChattingEnteredRoomBinding
 
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import com.example.hotspotalk.R
+
 class EnteredChattingRoomRecyclerViewAdapter(private val onClickListener: OnClickChattingRoomListener) :
-    RecyclerView.Adapter<EnteredChattingRoomRecyclerViewAdapter.ViewHolder>() {
+    RecyclerView.Adapter<EnteredChattingRoomRecyclerViewAdapter.ViewHolder>(
+    ) {
+    val enteredRoomList = arrayListOf<EnteredRoomInfo>()
+
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val tvRoomNameRvItemChattingRoom =
+            view.findViewById<TextView>(R.id.tv_room_name_rv_item_chatting_room)
+        val layoutRvItemChattingRoom = view.findViewById<View>(R.id.layout_rv_item_chatting_room)
+        val tvLastChattingRvItemChattingRoom =
+            view.findViewById<TextView>(R.id.tv_last_chatting_rv_item_chatting_room)
+
+    }
 
     interface OnClickChattingRoomListener {
         fun onClick(room: EnteredRoomInfo)
     }
 
 
-    private val list = mutableListOf<EnteredRoomInfo>()
-
-    private lateinit var binding: FragmentHomeRvItemChattingEnteredRoomBinding
-
-    inner class ViewHolder : RecyclerView.ViewHolder(binding.root)
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        binding = FragmentHomeRvItemChattingEnteredRoomBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
+        return ViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.fragment_home_rv_item_chatting_entered_room, parent,
+                false
+            )
         )
-        return ViewHolder()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        binding.data = list[position]
-
-        binding.tvRoomNameRvItemChattingRoom.text = list[position].memberLimit.toString()
-        binding.layoutRvItemChattingRoom.setOnClickListener {
-            onClickListener.onClick(list[position])
+        val room = enteredRoomList[position]
+        holder.tvRoomNameRvItemChattingRoom.text = room.roomName
+        holder.layoutRvItemChattingRoom.setOnClickListener {
+            onClickListener.onClick(room)
         }
+        holder.tvLastChattingRvItemChattingRoom.text = room.lastChatting
     }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int = enteredRoomList.size
 
-    fun setList(list: List<EnteredRoomInfo>) {
-        this.list.clear()
-        this.list.addAll(list)
+    fun submitList(list: List<EnteredRoomInfo>) {
+        enteredRoomList.clear()
+        enteredRoomList.addAll(list)
         notifyDataSetChanged()
     }
 
-    fun getList() = list
 }
+
+

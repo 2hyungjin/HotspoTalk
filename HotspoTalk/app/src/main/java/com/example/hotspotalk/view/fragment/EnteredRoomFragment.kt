@@ -12,6 +12,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.hotspotalk.R
+import com.example.hotspotalk.context.HotspotalkApplication
+import com.example.hotspotalk.data.entity.Message
 import com.example.hotspotalk.data.entity.response.EnteredRoomInfo
 import com.example.hotspotalk.databinding.FragmentHomeVpItemEnteredBinding
 import com.example.hotspotalk.view.adapter.EnteredChattingRoomRecyclerViewAdapter
@@ -23,14 +25,13 @@ import dagger.hilt.android.AndroidEntryPoint
 class EnteredRoomFragment : Fragment(),
     EnteredChattingRoomRecyclerViewAdapter.OnClickChattingRoomListener {
     private val chattingViewModel: ChattingViewModel by activityViewModels()
-
     private val navController by lazy {
         findNavController()
     }
 
     private lateinit var binding: FragmentHomeVpItemEnteredBinding
 
-    private val viewModel: EnteredRoomViewModel by viewModels()
+    private val viewModel: EnteredRoomViewModel by activityViewModels()
 
     private val enteredChattingAdapter: EnteredChattingRoomRecyclerViewAdapter =
         EnteredChattingRoomRecyclerViewAdapter(this)
@@ -60,6 +61,8 @@ class EnteredRoomFragment : Fragment(),
     }
 
     private fun init() {
+        HotspotalkApplication.connectSocket()
+
         binding.rvEnterableRoomVpItemHome.adapter = enteredChattingAdapter
         binding.srlEntered.setOnRefreshListener {
             viewModel.getEnteredRooms()
@@ -79,7 +82,11 @@ class EnteredRoomFragment : Fragment(),
 
                 else -> {
                     roomVis.value = it.isNotEmpty()
-                    enteredChattingAdapter.setList(it)
+                    enteredChattingAdapter.submitList(it)
+
+                    it.forEach {
+                        HotspotalkApplication.socket.emit("in", it.roomID)
+                    }
                 }
             }
             binding.srlEntered.isRefreshing = false
@@ -91,21 +98,9 @@ class EnteredRoomFragment : Fragment(),
     }
 
     private fun chattingObserve() = with(chattingViewModel) {
-        chat.observe(requireActivity()) { message ->
-            Log.d("enteredRoom",message.content)
-//            val chatList = enteredChattingAdapter.getList()
-//            val target = chatList.find { it.roomID == message.roomID }
-//            target?.lastChatting = message.content
-//            chatList.remove(target)
-//            chatList.add(0, target!!)
-//            enteredChattingAdapter.setList(chatList)
+        chat.observe(viewLifecycleOwner) { message ->
+            viewModel.getEnteredRooms()
         }
-    }
-
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.getEnteredRooms()
     }
 
 

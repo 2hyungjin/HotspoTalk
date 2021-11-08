@@ -12,17 +12,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private val viewModel: ChattingViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        HotspotalkApplication.connectSocket()
-        viewModel.chatList.observe(this,{
-            Log.d("MainActivity","message is arrived $it")
-        })
-
-
-
     }
 }

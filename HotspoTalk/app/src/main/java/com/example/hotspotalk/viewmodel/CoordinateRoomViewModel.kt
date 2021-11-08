@@ -15,7 +15,7 @@ class CoordinateRoomViewModel @Inject constructor(
     private val roomsRepository: RoomsRepository
 ) : ViewModel() {
 
-    val roomVis = MutableLiveData(false)
+    val roomVis = MutableLiveData(true)
 
     private val _isSuccessCoordinateRooms = MutableLiveData<List<RoomInfo>>()
     val isSuccessCoordinateRooms = _isSuccessCoordinateRooms

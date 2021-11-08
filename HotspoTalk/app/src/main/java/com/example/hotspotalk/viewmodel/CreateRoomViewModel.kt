@@ -77,12 +77,12 @@ class CreateRoomViewModel @Inject constructor(
                         _isSuccess.postValue(msgResponse.message())
                     }
                     msgResponse.code() == 400 -> {
-                        _isFailure.postValue("중복된 닉네임이 존재합니다.")
+                        _isFailure.postValue("중복된 닉네임이 존재합니다")
                     }
                 }
             }
         } else {
-            _isFailure.postValue("빈 칸이 없는지 확인해주세요.")
+            _isFailure.postValue("올바른 값을 입력해주세요")
         }
     }
 }

@@ -17,6 +17,7 @@ class EnteredRoomViewModel @Inject constructor(
 ) : ViewModel() {
 
     val roomVis = MutableLiveData<Boolean>()
+    val enteredRoom = MutableLiveData<List<EnteredRoomInfo>>()
 
     private val _isSuccessEnteredRooms = MutableLiveData<List<EnteredRoomInfo>>(ArrayList())
     val isSuccessEnteredRooms = _isSuccessEnteredRooms
@@ -29,6 +30,7 @@ class EnteredRoomViewModel @Inject constructor(
             val roomsResponse = roomsRepository.getEnteredRooms()
             when {
                 roomsResponse.isSuccessful -> {
+                    enteredRoom.postValue(roomsResponse.body())
                     _isSuccessEnteredRooms.value = roomsResponse.body()
                 }
                 roomsResponse.code() in 400..499 -> {

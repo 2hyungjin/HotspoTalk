@@ -141,7 +141,7 @@ class ChattingFragment : Fragment() {
         memberList.observe(viewLifecycleOwner) {
             userListAdapter.submitList(it)
         }
-        chat.observe(viewLifecycleOwner) {
+        chat.observe(requireActivity()) {
             if (it.roomID == roomId) {
                 chattingListAdapter.addMessage(it)
                 scrollRv()
@@ -150,11 +150,13 @@ class ChattingFragment : Fragment() {
                 findNavController().navigateUp()
             }
             if (it.messageType == MessageType.COMMAND) {
+                viewModel.clearMemberList()
                 viewModel.getMembers(roomId!!)
             }
         }
     }
-    private fun scrollRv(){
+
+    private fun scrollRv() {
         binding.rvChattingChattingFragment.scrollToPosition(chattingListAdapter.itemCount - 1)
     }
 }
