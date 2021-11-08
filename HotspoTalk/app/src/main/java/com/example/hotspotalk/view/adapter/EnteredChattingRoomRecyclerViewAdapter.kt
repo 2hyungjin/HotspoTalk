@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 
 class EnteredChattingRoomRecyclerViewAdapter(private val onClickListener: OnClickChattingRoomListener) :
-    ListAdapter<EnteredRoomInfo, EnteredChattingRoomRecyclerViewAdapter.ViewHolder>(
-        EnteredRoomInfoDiff()
+    RecyclerView.Adapter<EnteredChattingRoomRecyclerViewAdapter.ViewHolder>(
     ) {
     private lateinit var binding: FragmentHomeRvItemChattingEnteredRoomBinding
+    val enteredRoomList = arrayListOf<EnteredRoomInfo>()
 
     inner class ViewHolder() :
         RecyclerView.ViewHolder(binding.root) {
@@ -36,22 +36,22 @@ class EnteredChattingRoomRecyclerViewAdapter(private val onClickListener: OnClic
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val room = getItem(position)
-        binding.data = room
-
-        binding.tvRoomNameRvItemChattingRoom.text = room.memberLimit.toString()
+        val room = enteredRoomList[position]
+        binding.tvRoomNameRvItemChattingRoom.text = room.roomName
         binding.layoutRvItemChattingRoom.setOnClickListener {
             onClickListener.onClick(room)
         }
-    }
-}
-
-class EnteredRoomInfoDiff : DiffUtil.ItemCallback<EnteredRoomInfo>() {
-    override fun areItemsTheSame(oldItem: EnteredRoomInfo, newItem: EnteredRoomInfo): Boolean {
-        return oldItem.lastChatting == newItem.lastChatting
+        binding.tvLastChattingRvItemChattingRoom.text = room.lastChatting
     }
 
-    override fun areContentsTheSame(oldItem: EnteredRoomInfo, newItem: EnteredRoomInfo): Boolean {
-        return oldItem.lastChatting == newItem.lastChatting
+    override fun getItemCount(): Int = enteredRoomList.size
+
+    fun submitList(list: List<EnteredRoomInfo>) {
+        enteredRoomList.clear()
+        enteredRoomList.addAll(list)
+        notifyDataSetChanged()
     }
+
 }
+
+

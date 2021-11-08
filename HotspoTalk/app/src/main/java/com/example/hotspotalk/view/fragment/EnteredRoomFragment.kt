@@ -25,7 +25,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class EnteredRoomFragment : Fragment(),
     EnteredChattingRoomRecyclerViewAdapter.OnClickChattingRoomListener {
     private val chattingViewModel: ChattingViewModel by activityViewModels()
-    var enteredRoomList = arrayListOf<EnteredRoomInfo>()
     private val navController by lazy {
         findNavController()
     }
@@ -82,10 +81,8 @@ class EnteredRoomFragment : Fragment(),
                 }
 
                 else -> {
-                    enteredRoomList.clear()
                     roomVis.value = it.isNotEmpty()
-                    enteredRoomList.addAll(it)
-                    enteredChattingAdapter.submitList(enteredRoomList)
+                    enteredChattingAdapter.submitList(it)
 
                     it.forEach {
                         HotspotalkApplication.socket.emit("in", it.roomID)
@@ -102,14 +99,7 @@ class EnteredRoomFragment : Fragment(),
 
     private fun chattingObserve() = with(chattingViewModel) {
         chat.observe(viewLifecycleOwner) { message ->
-            val target = enteredRoomList.find { it.roomID == message.roomID }
-            Log.d("entered", message.toString())
-            enteredRoomList.remove(target)
-            target!!.lastChatting = message.content
-            enteredRoomList.add(target)
-
-            enteredChattingAdapter.submitList(enteredRoomList)
-
+            viewModel.getEnteredRooms()
         }
     }
 
