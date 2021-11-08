@@ -25,15 +25,12 @@ class SignUpViewModel @Inject constructor(
     private val _isFailure = MutableLiveData<String>()
     val isFailure = _isFailure
 
-    var devToken: String? = null
-
     fun signUp() {
         viewModelScope.launch {
             try {
                 val signUp = SignUp(
                     id.get() ?: "",
-                    pw.get() ?: "",
-                    devToken ?: throw java.lang.Exception("디바이스 토큰이 생성되지 않음")
+                    pw.get() ?: ""
                 )
                 val response = accountRepository.postSignUp(signUp)
 

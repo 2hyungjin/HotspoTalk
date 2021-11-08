@@ -17,4 +17,6 @@ interface AccountRepository {
     suspend fun getId(id: String): Response<Message>
 
     suspend fun deleteBan(ban: Ban): Response<Message>
+
+    suspend fun postDevToken(deviceToken: String): Response<Any?>
 }

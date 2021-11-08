@@ -42,9 +42,6 @@ class SignUpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        FirebaseMessaging.getInstance().token.addOnSuccessListener {
-            viewModel.devToken = it
-        }
         binding.textView4.setOnClickListener { findNavController().navigateUp() }
 
         observe()

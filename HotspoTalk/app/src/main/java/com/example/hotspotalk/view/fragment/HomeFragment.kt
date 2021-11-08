@@ -26,6 +26,7 @@ import com.example.hotspotalk.view.adapter.HomeViewPagerAdapter
 import com.example.hotspotalk.view.util.Preference.token
 import com.example.hotspotalk.viewmodel.ChattingViewModel
 import com.example.hotspotalk.viewmodel.HomeViewModel
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -68,10 +69,17 @@ class HomeFragment : Fragment() {
             navigateToCreateRoom()
         }
 
+        viewModel.isFailure.observe(viewLifecycleOwner) {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+        }
 
     }
 
     private fun init() {
+        FirebaseMessaging.getInstance().token.addOnSuccessListener {
+            viewModel.postToken(it)
+        }
+
         adapter = HomeViewPagerAdapter(this)
         adapter.setList(listOf(EnteredRoomFragment(), CoordinateRoomFragment()))
         binding.vpHome.adapter = adapter
