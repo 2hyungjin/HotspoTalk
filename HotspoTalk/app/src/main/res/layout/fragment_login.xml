@@ -50,6 +50,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout5"
             style="@style/MainTextInputLayout"
+            android:layout_marginTop="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="@+id/textInputLayout4"
@@ -97,12 +98,15 @@
             <TextView
                 android:id="@+id/tv_register"
                 style="@style/Base.Widget.AppCompat.TextView.RegularTextView"
-                android:clickable="true"
-                android:textColor="@color/black"
-                android:layout_marginStart="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="회원가입" />
+                android:layout_marginStart="20dp"
+                android:clickable="true"
+                android:gravity="center"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:text="회원가입"
+                android:textColor="@drawable/selector_text_view_sign" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

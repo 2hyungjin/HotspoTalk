@@ -7,13 +7,13 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="red">#FF6D6D</color>
+    <color name="red">#F44336</color>
     <color name="grey">#C4C4C4</color>
     <color name="thumb_grey">#EAEAEA</color>
     <color name="tick_grey">#7C7C7C</color>
     <color name="progress_grey">#B3B3B3</color>
     <color name="deep_grey">#8E8D8D</color>
     <color name="main_color">#FF5157EB</color>
-    <color name="tool_bar">#797DB1</color>
-    <color name="chatting">#6D71A0</color>
+    <color name="tool_bar">#858BD4</color>
+    <color name="chatting">#8E94DC</color>
 </resources>

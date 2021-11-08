@@ -3,7 +3,7 @@
     <style name="Theme.HotspoTalk" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/main_color</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimaryVariant">@color/black</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -18,14 +18,13 @@
     <style name="Widget.AppCompat.Button.MainButton">
         <item name="android:background">@drawable/main_btn_selector</item>
         <item name="android:textColor">@color/white</item>
-        <item name="elevation">5dp</item>
-        <item name="android:translationZ" tools:targetApi="lollipop">10dp</item>
+        <item name="android:stateListAnimator">@null</item>
     </style>
 
     <!-- TextView -->
     <style name="TitleTextView" parent="Widget.AppCompat.TextView">
         <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">30sp</item>
+        <item name="android:textSize">25sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -36,7 +35,7 @@
 
     <style name="Base.Widget.AppCompat.TextView.RegularTextView">
         <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="Base.Widget.AppCompat.TextView.SmallTextView">
@@ -47,7 +46,6 @@
     <!-- TextInputLayout -->
     <style name="MainTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="hintEnabled">false</item>
-        <item name="errorEnabled">true</item>
         <item name="android:layout_marginTop">5dp</item>
         <item name="boxCornerRadiusBottomEnd">40dp</item>
         <item name="boxCornerRadiusBottomStart">40dp</item>
@@ -60,6 +58,7 @@
 
     <!-- EditText -->
     <style name="MainTextInputEditText" parent="Widget.AppCompat.EditText">
+        <item name="hintEnabled">false</item>
         <item name="android:maxLines">1</item>
         <item name="android:singleLine">true</item>
         <item name="android:textColor">@color/black</item>
@@ -67,6 +66,7 @@
         <item name="android:includeFontPadding">true</item>
         <item name="android:paddingStart">24dp</item>
         <item name="android:paddingEnd">24dp</item>
+        <item name="borderWidth">1dp</item>
     </style>
 
     <style name="ProfileTextInputEditText" parent="Widget.AppCompat.EditText">
