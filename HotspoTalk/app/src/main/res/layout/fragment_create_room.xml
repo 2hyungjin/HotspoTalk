@@ -46,20 +46,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:paddingHorizontal="30dp"
+                    android:paddingHorizontal="24dp"
                     android:paddingVertical="5dp">
 
                     <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
+                        android:layout_width="@dimen/create_dot"
+                        android:layout_height="@dimen/create_dot"
                         android:src="@drawable/ic_red_dot" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_chatting_room_name_create_room"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        app:hintEnabled="false"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="30dp"
+                        android:layout_marginStart="16dp"
                         app:boxCornerRadiusBottomEnd="25dp"
                         app:boxCornerRadiusBottomStart="25dp"
                         app:boxCornerRadiusTopEnd="25dp"
@@ -67,12 +68,12 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_chatting_room_name_create_room"
+                            style="@style/MainTextInputEditText"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:hint="@string/chatting_room_name"
                             android:maxLines="1"
                             android:minHeight="48dp"
-                            android:paddingVertical="10dp"
                             android:paddingStart="20dp"
                             android:paddingEnd="20dp"
                             android:text="@={vm.roomName}"
@@ -87,21 +88,22 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="30dp"
+                    android:paddingHorizontal="24dp"
                     android:paddingVertical="5dp">
 
                     <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
+                        android:layout_width="@dimen/create_dot"
+                        android:layout_height="@dimen/create_dot"
                         android:src="@drawable/ic_red_dot" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/til_total_number_create_room"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="0dp"
+                        app:hintEnabled="false"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:layout_marginStart="30dp"
+                        android:layout_marginStart="16dp"
                         app:boxCornerRadiusBottomEnd="25dp"
                         app:boxCornerRadiusBottomStart="25dp"
                         app:boxCornerRadiusTopEnd="25dp"
@@ -109,6 +111,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_total_number_create_room"
+                            style="@style/MainTextInputEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/total_people_number"
@@ -127,13 +130,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
+                        android:textColor="@color/black"
                         android:text="명" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:src="@drawable/ic_user" />
+                        android:backgroundTint="@color/black"
+                        android:background="@drawable/ic_user"/>
 
                 </LinearLayout>
 
@@ -141,12 +146,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:paddingHorizontal="30dp"
+                    android:paddingHorizontal="24dp"
                     android:paddingVertical="5dp">
 
                     <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
+                        android:layout_width="@dimen/create_dot"
+                        android:layout_height="@dimen/create_dot"
                         android:src="@drawable/ic_red_dot" />
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -154,16 +159,18 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="30dp"
+                        android:layout_marginStart="16dp"
                         app:boxCornerRadiusBottomEnd="25dp"
                         app:boxCornerRadiusBottomStart="25dp"
                         app:boxCornerRadiusTopEnd="25dp"
                         app:boxCornerRadiusTopStart="25dp">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            style="@style/MainTextInputEditText"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:hint="@string/nickname"
+                            app:hintEnabled="false"
                             android:maxLines="1"
                             android:minHeight="48dp"
                             android:paddingStart="20dp"
@@ -180,7 +187,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="75dp"
+                    android:layout_marginStart="47dp"
                     android:layout_marginTop="4dp"
                     app:boxCornerRadiusBottomEnd="25dp"
                     app:boxCornerRadiusBottomStart="25dp"
@@ -189,11 +196,13 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_password_create_room"
+                        style="@style/MainTextInputEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="5dp"
-                        android:layout_marginEnd="30dp"
+                        android:layout_marginEnd="25dp"
                         android:hint="@string/password"
+                        app:hintEnabled="false"
                         android:text="@={vm.roomPassword}"
                         android:inputType="textPassword"
                         android:maxLines="1"
