@@ -24,6 +24,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.hotspotalk.databinding.FragmentCreateRoomBinding
 import com.example.hotspotalk.viewmodel.CreateRoomViewModel
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.chip.Chip
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
@@ -140,109 +141,106 @@ class CreateRoomFragment : Fragment() {
             )
             return@with
         } else {
-            val locationManager = getSystemService(requireContext(), LocationManager::class.java)
             viewModel.isMapLoading.postValue(true)
-            locationManager?.requestLocationUpdates(
-                LocationManager.GPS_PROVIDER, 1000, 10f
-            ) { location ->
+            val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener { location ->
+                    val latLng = LatLng(location)
 
-                val latLng = LatLng(location)
-
-                radioGroupPosition.setOnCheckedChangeListener { _, checkedId ->
-                    when (checkedId) {
-                        radioButtonDistance.id -> {
-                            viewModel.areaType.value = 0
-                            linearLayoutDistanceCreateRoom.visibility = View.VISIBLE
-                            linearLayoutRadioCreateRoom.visibility = View.GONE
-                        }
-                        radioButtonArea.id -> {
-                            viewModel.areaType.value = 1
-                            linearLayoutRadioCreateRoom.visibility = View.VISIBLE
-                            linearLayoutDistanceCreateRoom.visibility = View.GONE
-                        }
-                    }
-                    Log.d("TAG", "settingMap: ${viewModel.areaType.value}")
-                }
-
-                mapCreateRoom.getMapAsync {
-
-                    val marker = Marker()
-                    with(marker) {
-                        position = latLng
-                        map = it
-                    }
-                    viewModel.latitude.value = latLng.latitude
-                    viewModel.longitude.value = latLng.longitude
-                    viewModel.isMapLoading.postValue(false)
-
-                    val geocoder = Geocoder(context)
-                    val address = geocoder.getFromLocation(
-                        latLng.latitude,
-                        latLng.longitude,
-                        10
-                    )[0].getAddressLine(0)
-                    val addressList = address.split(" ")
-                    for (i in 1 until addressList.lastIndex) {
-                        val chip = Chip(context)
-                        chip.text = addressList[i]
-                        chip.isCheckable = true
-                        chip.addOnLayoutChangeListener { v, _, _, _, _, _, _, _, _ ->
-                            var chipAddress = ""
-                            val chipItem = v as Chip
-                            if (chipItem.isChecked && i > 1) {
-                                for (j in 0 until i) {
-                                    val unCheckedChip = chipGroupAddressCreateRoom[j] as Chip
-                                    Log.d("CreateRoomFragment", "settingMap: ${unCheckedChip.text}")
-                                    if (!unCheckedChip.isChecked) {
-                                        unCheckedChip.isChecked = true
-                                    }
-                                    chipAddress += unCheckedChip.text.toString() + " "
-                                    viewModel.address.value =
-                                        chipAddress.substring(0, chipAddress.length - 1)
-                                }
+                    radioGroupPosition.setOnCheckedChangeListener { _, checkedId ->
+                        when (checkedId) {
+                            radioButtonDistance.id -> {
+                                viewModel.areaType.value = 0
+                                linearLayoutDistanceCreateRoom.visibility = View.VISIBLE
+                                linearLayoutRadioCreateRoom.visibility = View.GONE
+                            }
+                            radioButtonArea.id -> {
+                                viewModel.areaType.value = 1
+                                linearLayoutRadioCreateRoom.visibility = View.VISIBLE
+                                linearLayoutDistanceCreateRoom.visibility = View.GONE
                             }
                         }
-                        chipGroupAddressCreateRoom.addView(chip)
+                        Log.d("TAG", "settingMap: ${viewModel.areaType.value}")
                     }
 
+                    mapCreateRoom.getMapAsync {
 
-                    it.moveCamera(CameraUpdate.scrollTo(latLng))
+                        val marker = Marker()
+                        with(marker) {
+                            position = latLng
+                            map = it
+                        }
+                        viewModel.latitude.value = latLng.latitude
+                        viewModel.longitude.value = latLng.longitude
+                        viewModel.isMapLoading.postValue(false)
 
-                    val circle = CircleOverlay(latLng, MAX_RADIUS)
-                    with(circle) {
-                        outlineColor = Color.BLACK
-                        outlineWidth = 3
-                        color = ResourcesCompat.getColor(
-                            resources,
-                            android.R.color.transparent,
-                            resources.newTheme()
-                        )
-                        map = it
+                        val geocoder = Geocoder(context)
+                        val address = geocoder.getFromLocation(
+                            latLng.latitude,
+                            latLng.longitude,
+                            10
+                        )[0].getAddressLine(0)
+                        val addressList = address.split(" ")
+                        for (i in 1 until addressList.lastIndex) {
+                            val chip = Chip(context)
+                            chip.text = addressList[i]
+                            chip.isCheckable = true
+                            chip.addOnLayoutChangeListener { v, _, _, _, _, _, _, _, _ ->
+                                var chipAddress = ""
+                                val chipItem = v as Chip
+                                if (chipItem.isChecked && i > 1) {
+                                    for (j in 0 until i) {
+                                        val unCheckedChip = chipGroupAddressCreateRoom[j] as Chip
+                                        Log.d("CreateRoomFragment", "settingMap: ${unCheckedChip.text}")
+                                        if (!unCheckedChip.isChecked) {
+                                            unCheckedChip.isChecked = true
+                                        }
+                                        chipAddress += unCheckedChip.text.toString() + " "
+                                        viewModel.address.value =
+                                            chipAddress.substring(0, chipAddress.length - 1)
+                                    }
+                                }
+                            }
+                            chipGroupAddressCreateRoom.addView(chip)
+                        }
+
+
+                        it.moveCamera(CameraUpdate.scrollTo(latLng))
+
+                        val circle = CircleOverlay(latLng, MAX_RADIUS)
+                        with(circle) {
+                            outlineColor = Color.BLACK
+                            outlineWidth = 3
+                            color = ResourcesCompat.getColor(
+                                resources,
+                                android.R.color.transparent,
+                                resources.newTheme()
+                            )
+                            map = it
+                        }
+                        circle.radius = 500.0
+
+                        seekbarCreateRoom.focusable = View.FOCUSABLE
+                        seekbarCreateRoom.setOnSeekBarChangeListener(object :
+                            SeekBar.OnSeekBarChangeListener {
+                            override fun onProgressChanged(
+                                seekBar: SeekBar?,
+                                progress: Int,
+                                fromUser: Boolean
+                            ) {
+                                val radius =
+                                    (((progress + 1).toDouble() / (seekBar?.max!! + 1).toDouble()) * MAX_RADIUS)
+                                viewModel.areaDetail.value = radius.toInt()
+                                circle.radius = radius
+                            }
+
+                            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+                            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+
+                            }
+                        })
                     }
-                    circle.radius = 500.0
-
-                    seekbarCreateRoom.focusable = View.FOCUSABLE
-                    seekbarCreateRoom.setOnSeekBarChangeListener(object :
-                        SeekBar.OnSeekBarChangeListener {
-                        override fun onProgressChanged(
-                            seekBar: SeekBar?,
-                            progress: Int,
-                            fromUser: Boolean
-                        ) {
-                            val radius =
-                                (((progress + 1).toDouble() / (seekBar?.max!! + 1).toDouble()) * MAX_RADIUS)
-                            viewModel.areaDetail.value = radius.toInt()
-                            circle.radius = radius
-                        }
-
-                        override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-                        override fun onStopTrackingTouch(seekBar: SeekBar?) {
-
-                        }
-                    })
                 }
             }
         }
     }
-
-}

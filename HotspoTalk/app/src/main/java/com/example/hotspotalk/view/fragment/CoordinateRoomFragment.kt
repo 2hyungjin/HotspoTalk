@@ -2,7 +2,6 @@ package com.example.hotspotalk.view.fragment
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.location.LocationManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -23,8 +21,10 @@ import com.example.hotspotalk.databinding.FragmentHomeVpItemCoordinateBinding
 import com.example.hotspotalk.view.adapter.ChattingRoomRecyclerViewAdapter
 import com.example.hotspotalk.viewmodel.ChattingViewModel
 import com.example.hotspotalk.viewmodel.CoordinateRoomViewModel
-import com.naver.maps.geometry.LatLng
 import dagger.hilt.android.AndroidEntryPoint
+
+import com.google.android.gms.location.LocationServices
+
 
 @AndroidEntryPoint
 class CoordinateRoomFragment : Fragment(),
@@ -82,17 +82,11 @@ class CoordinateRoomFragment : Fragment(),
                 )
             )
         } else {
-            val locationManager =
-                ContextCompat.getSystemService(requireContext(), LocationManager::class.java)
-            locationManager?.requestLocationUpdates(
-                LocationManager.GPS_PROVIDER, 1000, 10f
-            ) { location ->
-                val latLng = LatLng(location)
-                binding.srlCoordinate.setOnRefreshListener {
-                    viewModel.getRoomsByCoordinate(latLng.latitude , latLng.longitude)
+            val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener { location ->
+                    viewModel.getRoomsByCoordinate(location.latitude, location.longitude)
                 }
-                viewModel.getRoomsByCoordinate(latLng.latitude , latLng.longitude)
-            }
         }
     }
 
