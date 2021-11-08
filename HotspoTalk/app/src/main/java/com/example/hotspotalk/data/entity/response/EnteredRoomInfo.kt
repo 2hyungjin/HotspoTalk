@@ -8,5 +8,5 @@ data class EnteredRoomInfo(
     val memberLimit: Int,
     val areaType: Int,
     val areaDetail: Int,
-    val lastChatting: String
+    var lastChatting: String
 )

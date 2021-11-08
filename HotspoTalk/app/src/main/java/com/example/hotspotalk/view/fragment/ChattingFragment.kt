@@ -88,7 +88,7 @@ class ChattingFragment : Fragment() {
             val content = binding.editText.text.toString()
             postChat(content)
 
-            binding.rvChattingChattingFragment.scrollToPosition(chattingListAdapter.itemCount - 1)
+            scrollRv()
         }
         binding.btnOutChattingFragment.setOnClickListener {
             viewModel.outChatting(roomId!!)
@@ -136,6 +136,7 @@ class ChattingFragment : Fragment() {
         chatList.observe(viewLifecycleOwner) {
             chattingListAdapter.addAllMessage(it)
             binding.tvUserCountChattingFragment.text = "${userListAdapter.itemCount}명"
+            scrollRv()
         }
         memberList.observe(viewLifecycleOwner) {
             userListAdapter.submitList(it)
@@ -143,7 +144,7 @@ class ChattingFragment : Fragment() {
         chat.observe(viewLifecycleOwner) {
             if (it.roomID == roomId) {
                 chattingListAdapter.addMessage(it)
-                binding.rvChattingChattingFragment.scrollToPosition(chattingListAdapter.itemCount - 1)
+                scrollRv()
             }
             if (it.messageType == MessageType.BREAK) {
                 findNavController().navigateUp()
@@ -152,5 +153,8 @@ class ChattingFragment : Fragment() {
                 viewModel.getMembers(roomId!!)
             }
         }
+    }
+    private fun scrollRv(){
+        binding.rvChattingChattingFragment.scrollToPosition(chattingListAdapter.itemCount - 1)
     }
 }

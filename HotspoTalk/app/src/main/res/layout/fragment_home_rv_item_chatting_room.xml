@@ -50,7 +50,6 @@
 
 
         <TextView
-            android:text="@{data.memberLimit}"
             android:id="@+id/tv_user_rv_item_chatting_room"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
