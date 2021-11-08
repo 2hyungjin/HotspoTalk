@@ -104,12 +104,6 @@ class EnteredRoomFragment : Fragment(),
     }
 
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.getEnteredRooms()
-    }
-
-
     override fun onClick(room: EnteredRoomInfo) {
         val bundle = Bundle()
         bundle.putString("name", room.roomName)
