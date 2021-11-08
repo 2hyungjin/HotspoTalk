@@ -89,7 +89,11 @@ class CoordinateRoomFragment : Fragment(),
                 .addOnSuccessListener { location ->
                     viewModel.getRoomsByCoordinate(location.latitude, location.longitude)
                 }
-                viewModel.getRoomsByCoordinate(latLng.latitude , latLng.longitude)
+            binding.srlCoordinate.setOnRefreshListener {
+                fusedLocationClient.lastLocation
+                    .addOnSuccessListener { location ->
+                        viewModel.getRoomsByCoordinate(location.latitude, location.longitude)
+                    }
             }
         }
     }
