@@ -65,6 +65,7 @@
     </style>
 
     <style name="ProfileTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="hintEnabled">false</item>
     </style>
 
     <!-- EditText -->
