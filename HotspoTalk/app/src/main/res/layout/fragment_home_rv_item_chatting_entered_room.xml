@@ -25,7 +25,7 @@
                     android:id="@+id/cardView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="30dp"
+                    app:cardCornerRadius="25dp"
                     android:elevation="0dp"
                     app:cardElevation="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
