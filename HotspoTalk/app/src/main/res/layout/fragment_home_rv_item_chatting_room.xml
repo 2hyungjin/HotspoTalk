@@ -14,7 +14,7 @@
         android:id="@+id/layout_rv_item_chatting_room"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="16dp"
+        android:paddingVertical="10dp"
         android:paddingHorizontal="16dp">
 
         <androidx.cardview.widget.CardView
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:elevation="0dp"
-            app:cardCornerRadius="50dp"
+            app:cardCornerRadius="20dp"
             app:cardElevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

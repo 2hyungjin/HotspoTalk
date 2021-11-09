@@ -10,7 +10,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:paddingTop="@dimen/padding_top_sign"
+        android:paddingTop="50dp"
         android:paddingBottom="@dimen/padding_top_sign"
         android:paddingStart="@dimen/padding_start_sign"
         android:paddingEnd="@dimen/padding_start_sign"
@@ -21,6 +21,7 @@
         <TextView
             android:id="@+id/textView7"
             style="@style/TitleTextView"
+            android:textSize="32sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sign_in"
@@ -106,7 +107,7 @@
                 android:minWidth="48dp"
                 android:minHeight="48dp"
                 android:text="회원가입"
-                android:textColor="@drawable/selector_text_view_sign" />
+                android:textColor="@color/main_color" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -56,6 +56,7 @@
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
+                android:overScrollMode="never"
                 android:id="@+id/rv_enterable_room_vp_item_home"
                 setVisible="@{vm.roomVis}"
                 android:layout_width="match_parent"

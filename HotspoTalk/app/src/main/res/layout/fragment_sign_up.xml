@@ -14,12 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingStart="@dimen/padding_start_sign"
-        android:paddingTop="@dimen/padding_top_sign"
+        android:paddingTop="50dp"
         android:paddingEnd="@dimen/padding_start_sign"
         android:paddingBottom="@dimen/padding_top_sign"
         tools:context=".view.fragment.SignUpFragment">
 
         <TextView
+            android:textSize="32sp"
             android:id="@+id/textView3"
             style="@style/TitleTextView"
             android:layout_width="wrap_content"
@@ -103,7 +104,7 @@
                 android:minWidth="48dp"
                 android:minHeight="48dp"
                 android:text="로그인하기"
-                android:textColor="@drawable/selector_text_view_sign" />
+                android:textColor="@color/main_dark_color" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
