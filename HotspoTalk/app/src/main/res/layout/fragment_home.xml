@@ -74,13 +74,13 @@
                 android:id="@+id/radio_not_enterable_home"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_radio_background"
+                android:background="@drawable/btn_tab_background"
                 android:button="@null"
                 android:checked="true"
                 android:minHeight="40dp"
                 android:paddingHorizontal="30dp"
                 android:text="참여중"
-                android:textColor="@color/btn_radio_text_color" />
+                android:textColor="@color/btn_tab_text_color" />
 
             <RadioButton
                 android:textSize="18sp"
@@ -88,12 +88,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:background="@drawable/btn_radio_background"
+                android:background="@drawable/btn_tab_background"
                 android:button="@null"
                 android:minHeight="40dp"
                 android:paddingHorizontal="30dp"
                 android:text="동네챗팅"
-                android:textColor="@color/btn_radio_text_color" />
+                android:textColor="@color/btn_tab_text_color" />
         </RadioGroup>
 
         <androidx.viewpager2.widget.ViewPager2
