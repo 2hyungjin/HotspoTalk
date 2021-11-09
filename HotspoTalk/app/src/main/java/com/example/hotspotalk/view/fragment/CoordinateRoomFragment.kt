@@ -1,9 +1,15 @@
 package com.example.hotspotalk.view.fragment
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
+import android.location.LocationRequest
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,9 +29,8 @@ import com.example.hotspotalk.view.adapter.ChattingRoomRecyclerViewAdapter
 import com.example.hotspotalk.viewmodel.ChattingViewModel
 import com.example.hotspotalk.viewmodel.CoordinateRoomViewModel
 import com.example.hotspotalk.viewmodel.EnteredRoomViewModel
-import com.naver.maps.geometry.LatLng
 import dagger.hilt.android.AndroidEntryPoint
-import com.google.android.gms.location.LocationServices
+import java.util.function.Consumer
 
 
 @AndroidEntryPoint
@@ -84,18 +89,32 @@ class CoordinateRoomFragment : Fragment(),
                     Manifest.permission.ACCESS_COARSE_LOCATION
                 )
             )
+        } else if (!isEnabledSetting()) {
+            val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+            startActivity(intent)
         } else {
-            val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
-            fusedLocationClient.lastLocation
-                .addOnSuccessListener { location ->
-                    Log.d("Coordinate", "init: $location")
-                    viewModel.getRoomsByCoordinate(location.latitude, location.longitude)
-                }
-            binding.srlCoordinate.setOnRefreshListener {
-                fusedLocationClient.lastLocation
-                    .addOnSuccessListener { location ->
+            val locationManager = requireContext().getSystemService(LocationManager::class.java)
+            val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+
+            if (location == null) {
+                val locationListener = object : LocationListener {
+                    override fun onLocationChanged(location: Location) {
                         viewModel.getRoomsByCoordinate(location.latitude, location.longitude)
                     }
+
+                    override fun onProviderDisabled(provider: String) {}
+                    override fun onProviderEnabled(provider: String) {}
+                    override fun onLocationChanged(locations: MutableList<Location>) {}
+                }
+                locationManager.requestLocationUpdates(
+                    LocationManager.GPS_PROVIDER,
+                    500L,
+                    1f,
+                    locationListener
+
+                )
+            } else {
+                viewModel.getRoomsByCoordinate(location.latitude, location.longitude)
             }
         }
     }
@@ -109,7 +128,6 @@ class CoordinateRoomFragment : Fragment(),
                 roomVis.postValue(false)
             }
             roomVis.value = it.isNotEmpty()
-            binding.srlCoordinate.isRefreshing = false
         }
 
         isFailureCoordinateRooms.observe(viewLifecycleOwner) {
@@ -132,5 +150,10 @@ class CoordinateRoomFragment : Fragment(),
                 bundle
             )
         }
+    }
+
+    private fun isEnabledSetting(): Boolean {
+        val locationManager = requireContext().getSystemService(LocationManager::class.java)
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
     }
 }
