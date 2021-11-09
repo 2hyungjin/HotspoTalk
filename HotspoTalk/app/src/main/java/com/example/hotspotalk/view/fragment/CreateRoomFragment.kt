@@ -142,13 +142,11 @@ class CreateRoomFragment : Fragment() {
                     Manifest.permission.ACCESS_COARSE_LOCATION
                 )
             )
-            return@with
         } else if (!isEnabledSetting()) {
             val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
             startActivity(intent)
             viewModel.isMapLoading.value = false
         } else {
-            viewModel.isMapLoading.value = false
             val locationManager = requireContext().getSystemService(LocationManager::class.java)
             val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
 
@@ -156,6 +154,7 @@ class CreateRoomFragment : Fragment() {
                 val locationListener = object : LocationListener {
                     override fun onLocationChanged(location: Location) {
                         settingMapByLocation(location)
+                        viewModel.isMapLoading.value = false
                     }
 
                     override fun onProviderDisabled(provider: String) {}
@@ -164,12 +163,20 @@ class CreateRoomFragment : Fragment() {
                 }
                 locationManager.requestLocationUpdates(
                     LocationManager.GPS_PROVIDER,
-                    500L,
-                    1f,
+                    1000,
+                    0f,
+                    locationListener
+                )
+
+                locationManager.requestLocationUpdates(
+                    LocationManager.NETWORK_PROVIDER,
+                    1000,
+                    0f,
                     locationListener
                 )
             } else {
                 settingMapByLocation(location)
+                viewModel.isMapLoading.value = false
             }
         }
     }

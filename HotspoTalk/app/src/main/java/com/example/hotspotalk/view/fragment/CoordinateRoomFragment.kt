@@ -108,10 +108,16 @@ class CoordinateRoomFragment : Fragment(),
                 }
                 locationManager.requestLocationUpdates(
                     LocationManager.GPS_PROVIDER,
-                    500L,
-                    1f,
+                    1000,
+                    0f,
                     locationListener
+                )
 
+                locationManager.requestLocationUpdates(
+                    LocationManager.NETWORK_PROVIDER,
+                    1000,
+                    0f,
+                    locationListener
                 )
             } else {
                 viewModel.getRoomsByCoordinate(location.latitude, location.longitude)
