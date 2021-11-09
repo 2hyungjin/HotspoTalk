@@ -103,18 +103,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/btn_close_join_chatting"
                     tools:text="채팅방명" />
 
-
-                <TextView
-                    android:id="@+id/tv_user_join_chatting"
-                    style="@style/Base.Widget.AppCompat.TextView.SmallTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:text="0명"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_title_join_chatting"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tv_title_join_chatting" />
-
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_join_chatting"
                     android:layout_width="0dp"
