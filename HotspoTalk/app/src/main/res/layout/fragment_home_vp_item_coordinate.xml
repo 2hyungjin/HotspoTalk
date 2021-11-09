@@ -21,7 +21,6 @@
             android:layout_height="match_parent"
             app:layoutDescription="@xml/fragment_home_vp_item_coordinate_xml_constraintlayout_scene">
 
-
             <LinearLayout
                 android:id="@+id/layout_no_chat_vp_item_home"
                 android:layout_width="0dp"
@@ -69,13 +68,12 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:listitem="@layout/fragment_home_rv_item_chatting_room" />
 
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout4"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/main_color"
-                android:elevation="10dp"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:elevation="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
@@ -86,7 +84,6 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:background="@drawable/ic_baseline_close_24"
-                    android:backgroundTint="@color/white"
                     android:padding="5dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -124,13 +121,12 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:text="참여하기"
-                    android:textColor="@color/main_color"
+                    android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         </androidx.constraintlayout.motion.widget.MotionLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
