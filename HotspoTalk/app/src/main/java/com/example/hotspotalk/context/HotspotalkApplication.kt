@@ -11,7 +11,7 @@ import io.socket.client.Socket
 class HotspotalkApplication : Application() {
     companion object {
         val socket: Socket by lazy {
-            IO.socket("http://10.80.161.222:4000")
+            IO.socket("http://ec2-18-219-111-210.us-east-2.compute.amazonaws.com:4000")
         }
         val newMessageListener: NewMessageListener = NewMessageListener()
 
