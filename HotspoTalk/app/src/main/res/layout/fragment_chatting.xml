@@ -102,7 +102,7 @@
             android:background="@drawable/background_chatting_edit_text"
             android:layout_marginHorizontal="16dp"
             android:padding="10dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -129,6 +129,7 @@
             android:id="@+id/view_offset_chatting_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/main_dark_color"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
