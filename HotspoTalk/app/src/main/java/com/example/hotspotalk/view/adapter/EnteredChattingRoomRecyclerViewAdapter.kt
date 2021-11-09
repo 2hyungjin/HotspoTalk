@@ -5,13 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.hotspotalk.data.entity.response.EnteredRoomInfo
-import com.example.hotspotalk.data.entity.response.RoomInfo
-import com.example.hotspotalk.databinding.FragmentHomeRvItemChattingEnteredRoomBinding
-
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import com.example.hotspotalk.R
+import com.example.hotspotalk.data.entity.response.EnteredRoomInfo
 
 class EnteredChattingRoomRecyclerViewAdapter(private val onClickListener: OnClickChattingRoomListener) :
     RecyclerView.Adapter<EnteredChattingRoomRecyclerViewAdapter.ViewHolder>(
