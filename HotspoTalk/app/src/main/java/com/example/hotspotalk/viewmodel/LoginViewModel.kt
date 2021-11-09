@@ -29,8 +29,6 @@ class LoginViewModel @Inject constructor(
     private val _isFailure = MutableLiveData<String>()
     val isFailure = _isFailure
 
-    var devToken = ""
-
     fun login() {
         viewModelScope.launch {
             val login = Login(id.get() ?: "", pw.get() ?: "")

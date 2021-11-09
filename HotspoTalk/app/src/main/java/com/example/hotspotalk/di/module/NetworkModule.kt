@@ -30,7 +30,7 @@ object NetworkModule  {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
         Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("http://10.80.161.222:4000")
+            .baseUrl("http://ec2-18-219-111-210.us-east-2.compute.amazonaws.com:4000")
             .client(okHttpClient)
             .build()
 }

@@ -64,9 +64,6 @@ class LoginFragment : Fragment() {
     }
 
     private fun init() {
-        FirebaseMessaging.getInstance().token.addOnSuccessListener {
-            viewModel.devToken = it
-        }
 
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
