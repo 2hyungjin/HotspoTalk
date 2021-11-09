@@ -126,6 +126,7 @@
         </LinearLayout>
 
         <View
+            android:alpha="0.7"
             android:id="@+id/view_offset_chatting_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

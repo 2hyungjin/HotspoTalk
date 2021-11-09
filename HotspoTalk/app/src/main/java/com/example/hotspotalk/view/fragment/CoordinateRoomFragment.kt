@@ -124,7 +124,6 @@ class CoordinateRoomFragment : Fragment(),
             putBoolean("existPW", room.existPW ?: false)
         }
         binding.tvTitleJoinChatting.text = room.roomName
-        binding.tvUserJoinChatting.text = room.memberLimit.toString()
         binding.constraintLayout.transitionToEnd()
         binding.btnCloseJoinChatting.setOnClickListener { binding.constraintLayout.transitionToStart() }
         binding.btnJoinChatting.setOnClickListener {
