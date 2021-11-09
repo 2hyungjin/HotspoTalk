@@ -6,9 +6,13 @@
 
         motion:constraintSetEnd="@+id/end"
         motion:constraintSetStart="@id/start"
-        motion:duration="250">
+        motion:duration="350">
         <KeyFrameSet>
 
+            <KeyAttribute
+                motion:motionTarget="@+id/constraintLayout3"
+                motion:framePosition="70"
+                android:alpha="0.0" />
         </KeyFrameSet>
     </Transition>
 
