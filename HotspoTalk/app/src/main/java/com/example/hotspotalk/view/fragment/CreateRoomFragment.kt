@@ -45,6 +45,10 @@ class CreateRoomFragment : Fragment() {
         private const val MAX_RADIUS = 2000.0
     }
 
+    private var radius = 500.0
+    private val circle = CircleOverlay()
+    private val marker = Marker()
+
     private val viewModel: CreateRoomViewModel by viewModels()
     private lateinit var binding: FragmentCreateRoomBinding
     private val permissionLauncher: ActivityResultLauncher<Array<String>> =
@@ -152,7 +156,6 @@ class CreateRoomFragment : Fragment() {
             val locationListener = object : LocationListener {
                 override fun onLocationChanged(location: Location) {
                     settingMapByLocation(location)
-                    Log.d("TAG", "onLocationChanged: $location")
                     viewModel.isMapLoading.value = false
                 }
 
@@ -195,13 +198,20 @@ class CreateRoomFragment : Fragment() {
             Log.d("TAG", "settingMap: ${viewModel.areaType.value}")
         }
 
-        mapCreateRoom.getMapAsync {
+        circle.radius = radius
+        marker.position = latLng
+        with(circle) {
+            center = latLng
+            outlineColor = Color.BLACK
+            outlineWidth = 3
+            color = ResourcesCompat.getColor(
+                resources,
+                android.R.color.transparent,
+                resources.newTheme()
+            )
+        }
 
-            val marker = Marker()
-            with(marker) {
-                position = latLng
-                map = it
-            }
+        mapCreateRoom.getMapAsync {
             viewModel.latitude.value = latLng.latitude
             viewModel.longitude.value = latLng.longitude
             viewModel.isMapLoading.postValue(false)
@@ -239,18 +249,8 @@ class CreateRoomFragment : Fragment() {
 
             it.moveCamera(CameraUpdate.scrollTo(latLng))
 
-            val circle = CircleOverlay(latLng, MAX_RADIUS)
-            with(circle) {
-                outlineColor = Color.BLACK
-                outlineWidth = 3
-                color = ResourcesCompat.getColor(
-                    resources,
-                    android.R.color.transparent,
-                    resources.newTheme()
-                )
-                map = it
-            }
-            circle.radius = 500.0
+            circle.map = it
+            marker.map = it
 
             seekbarCreateRoom.focusable = View.FOCUSABLE
             seekbarCreateRoom.setOnSeekBarChangeListener(object :
@@ -260,7 +260,7 @@ class CreateRoomFragment : Fragment() {
                     progress: Int,
                     fromUser: Boolean
                 ) {
-                    val radius =
+                    radius =
                         (((progress + 1).toDouble() / (seekBar?.max!! + 1).toDouble()) * MAX_RADIUS)
                     viewModel.areaDetail.value = radius.toInt()
                     circle.radius = radius
