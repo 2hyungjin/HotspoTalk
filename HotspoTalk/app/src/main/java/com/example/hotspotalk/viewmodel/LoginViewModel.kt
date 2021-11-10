@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.hotspotalk.data.entity.request.Login
 import com.example.hotspotalk.data.entity.response.Token
 import com.example.hotspotalk.data.repository.AccountRepository
+import com.example.hotspotalk.view.util.Event
 import com.example.hotspotalk.view.util.Preference.token
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -23,10 +24,10 @@ class LoginViewModel @Inject constructor(
     val id = ObservableField<String>()
     val pw = ObservableField<String>()
 
-    private val _isSuccess = MutableLiveData<Any?>()
+    private val _isSuccess = MutableLiveData<Event<Any?>>()
     val isSuccess = _isSuccess
 
-    private val _isFailure = MutableLiveData<String>()
+    private val _isFailure = MutableLiveData<Event<String>>()
     val isFailure = _isFailure
 
     fun login() {
@@ -35,10 +36,10 @@ class LoginViewModel @Inject constructor(
             val loginResponse = accountRepository.postLogin(login)
             when {
                 loginResponse.isSuccessful ->
-                    _isSuccess.value = loginResponse.body()
+                    _isSuccess.value = Event(loginResponse.body())
 
                 else ->
-                    _isFailure.value = loginResponse.message()
+                    _isFailure.value = Event(loginResponse.message())
             }
         }
     }
@@ -48,7 +49,7 @@ class LoginViewModel @Inject constructor(
             val loginResponse = accountRepository.postAutoLogin()
             when {
                 loginResponse.isSuccessful ->
-                    _isSuccess.value = loginResponse.body()
+                    _isSuccess.value = Event(loginResponse.body())
             }
         }
     }

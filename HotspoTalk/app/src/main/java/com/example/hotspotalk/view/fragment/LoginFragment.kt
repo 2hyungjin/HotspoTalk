@@ -19,6 +19,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.hotspotalk.R
 import com.example.hotspotalk.data.entity.response.Token
 import com.example.hotspotalk.databinding.FragmentLoginBinding
+import com.example.hotspotalk.view.util.EventObserver
 import com.example.hotspotalk.view.util.Preference
 import com.example.hotspotalk.view.util.Preference.token
 import com.example.hotspotalk.viewmodel.LoginViewModel
@@ -84,7 +85,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun observe() = with(viewModel) {
-        isSuccess.observe(viewLifecycleOwner) {
+        isSuccess.observe(viewLifecycleOwner, EventObserver {
             when (it) {
                 null ->
                     Toast.makeText(requireContext(), "아이디 또는 비밀번호가 옳지 않습니다.", Toast.LENGTH_SHORT)
@@ -95,11 +96,11 @@ class LoginFragment : Fragment() {
                     findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                 }
             }
-        }
+        })
 
-        isFailure.observe(viewLifecycleOwner) {
+        isFailure.observe(viewLifecycleOwner, EventObserver {
             Log.d("login", it)
             Toast.makeText(requireContext(), "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
-        }
+        })
     }
 }
