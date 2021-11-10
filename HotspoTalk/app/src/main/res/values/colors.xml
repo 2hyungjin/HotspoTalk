@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#F44336</color>
     <color name="grey">#C4C4C4</color>
+    <color name="light_grey">#ECECEC</color>
     <color name="thumb_grey">#EAEAEA</color>
     <color name="tick_grey">#7C7C7C</color>
     <color name="progress_grey">#B3B3B3</color>
