@@ -17,6 +17,7 @@ import com.example.hotspotalk.data.entity.Message
 import com.example.hotspotalk.data.entity.response.EnteredRoomInfo
 import com.example.hotspotalk.databinding.FragmentHomeVpItemEnteredBinding
 import com.example.hotspotalk.view.adapter.EnteredChattingRoomRecyclerViewAdapter
+import com.example.hotspotalk.view.util.EventObserver
 import com.example.hotspotalk.viewmodel.ChattingViewModel
 import com.example.hotspotalk.viewmodel.EnteredRoomViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class EnteredRoomFragment : Fragment(),
     EnteredChattingRoomRecyclerViewAdapter.OnClickChattingRoomListener {
-    private val chattingViewModel: ChattingViewModel by activityViewModels()
+    private val chattingViewModel: ChattingViewModel by viewModels()
     private val navController by lazy {
         findNavController()
     }
@@ -40,6 +41,7 @@ class EnteredRoomFragment : Fragment(),
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        viewModelStore.clear()
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_home_vp_item_entered,
@@ -57,7 +59,6 @@ class EnteredRoomFragment : Fragment(),
         init()
         observe()
         chattingObserve()
-
     }
 
     private fun init() {
@@ -67,36 +68,25 @@ class EnteredRoomFragment : Fragment(),
             viewModel.getEnteredRooms()
         }
         viewModel.getEnteredRooms()
-
     }
 
     private fun observe() = with(viewModel) {
-        isSuccessEnteredRooms.observe(viewLifecycleOwner) {
-            when (it) {
-                null -> {
-                    Toast.makeText(requireContext(), "채팅방을 가져오는데 실패했습니다.", Toast.LENGTH_SHORT)
-                        .show()
-                    roomVis.value = false
-                }
-
-                else -> {
-                    roomVis.value = it.isNotEmpty()
-                    enteredChattingAdapter.submitList(it)
-
-                    it.forEach {
-                        HotspotalkApplication.socket.emit("in", it.roomID)
-                    }
-                }
+        isSuccessEnteredRooms.observe(viewLifecycleOwner, EventObserver {
+            roomVis.value = it.isNotEmpty()
+            enteredChattingAdapter.submitList(it)
+            it.forEach {
+                HotspotalkApplication.socket.emit("in", it.roomID)
             }
             binding.srlEntered.isRefreshing = false
-        }
+        })
 
-        isFailureEnteredRooms.observe(viewLifecycleOwner) {
+        isFailureEnteredRooms.observe(viewLifecycleOwner, EventObserver {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-        }
+        })
     }
 
     private fun chattingObserve() = with(chattingViewModel) {
+        chattingViewModel.socketInit()
         chat.observe(viewLifecycleOwner) { message ->
             viewModel.getEnteredRooms()
         }

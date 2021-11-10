@@ -22,6 +22,7 @@ class SetProfileFragment : Fragment() {
     private val viewModel: JoinChattingViewModel by viewModels()
     private lateinit var binding: FragmentJoinChattingSetProfileBinding
     private var roomID: Int = 0
+    private var name = ""
 
     private val navController by lazy {
         findNavController()
@@ -43,6 +44,7 @@ class SetProfileFragment : Fragment() {
         observe()
 
         roomID = requireArguments().getInt("roomID", 0)
+        name = requireArguments().getString("name", "")
         val existPW = requireArguments().getBoolean("existPW", false)
 
         binding.etPasswordJoinChattingSetProfile.visibility =
@@ -61,14 +63,15 @@ class SetProfileFragment : Fragment() {
         }
     }
 
-    private fun observe() = with(viewModel) {
-        isSuccess.observe(viewLifecycleOwner) {
+    private fun observe() {
+        viewModel.isSuccess.observe(viewLifecycleOwner) {
             val bundle = Bundle()
             bundle.putInt("id", roomID)
+            bundle.putString("name", name)
             navController.navigate(R.id.action_setProfileFragment_to_chattingFragment, bundle)
         }
 
-        isFailure.observe(viewLifecycleOwner) {
+        viewModel.isFailure.observe(viewLifecycleOwner) {
             Log.d("joinChatting", it)
             Toast.makeText(requireContext(), "이미 참여 중인 채팅방입니다.", Toast.LENGTH_SHORT).show()
             navController.navigateUp()

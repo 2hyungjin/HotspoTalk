@@ -17,8 +17,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ChattingViewModel @Inject constructor(private val messageRepository: ChattingRepository) :
-    ViewModel() {
+class ChattingViewModel @Inject constructor(
+    private val messageRepository: ChattingRepository
+): ViewModel() {
 
     val chatList = MutableLiveData<List<Message>>()
     private val _chatList = mutableListOf<Message>()
@@ -36,11 +37,14 @@ class ChattingViewModel @Inject constructor(private val messageRepository: Chatt
 
     var job: Job? = null
 
-    init {
-        HotspotalkApplication.newMessageListener.eventHandler = { newMessageEventHandle(it) }
+    fun socketInit() {
+        HotspotalkApplication.newMessageListener.eventHandler = {
+            newMessageEventHandle(it)
+        }
     }
 
     private fun newMessageEventHandle(message: MessageResponse) {
+        Log.d("chatting View Model", message.toString())
         _chat.postValue(message.toMessage())
     }
 
@@ -68,7 +72,6 @@ class ChattingViewModel @Inject constructor(private val messageRepository: Chatt
                 if (result.isSuccessful) {
                     result.body()!!.map { it.toMessage() }
                         .let {
-                            Log.d("chatting", it.toString())
                             _chatList.addAll(it)
                             chatList.postValue(_chatList)
                         }

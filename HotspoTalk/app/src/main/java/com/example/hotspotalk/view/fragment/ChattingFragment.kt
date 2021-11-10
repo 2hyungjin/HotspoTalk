@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hotspotalk.context.HotspotalkApplication
@@ -28,7 +29,7 @@ import java.util.*
 @AndroidEntryPoint
 class ChattingFragment : Fragment() {
     lateinit var binding: FragmentChattingBinding
-    private val viewModel: ChattingViewModel by activityViewModels()
+    private val viewModel: ChattingViewModel by viewModels()
     private lateinit var chattingListAdapter: MessageListAdapter
     private lateinit var userListAdapter: UserListAdapter
 
@@ -38,6 +39,7 @@ class ChattingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        viewModelStore.clear()
         binding = FragmentChattingBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -47,6 +49,8 @@ class ChattingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         roomId = requireArguments().getInt("id", 0)
         roomName = requireArguments().getString("name", "채팅")
+
+        Log.d("TAG", "onViewCreated: ")
 
         chattingListAdapter = MessageListAdapter()
         userListAdapter = UserListAdapter()
@@ -62,7 +66,8 @@ class ChattingFragment : Fragment() {
         }
         initBinding()
         observe()
-
+        viewModel.socketInit()
+        HotspotalkApplication.socket.emit("in", roomId)
     }
 
     private fun initBinding() {
@@ -135,23 +140,24 @@ class ChattingFragment : Fragment() {
     private fun observe() = with(viewModel) {
         chatList.observe(viewLifecycleOwner) {
             chattingListAdapter.addAllMessage(it)
-            binding.tvUserCountChattingFragment.text = "${userListAdapter.itemCount}명"
             scrollRv()
         }
         memberList.observe(viewLifecycleOwner) {
+            binding.tvUserCountChattingFragment.text = "${userListAdapter.itemCount}명"
             userListAdapter.submitList(it)
         }
         chat.observe(viewLifecycleOwner) {
-            if (it.roomID == roomId) {
-                chattingListAdapter.addMessage(it)
-                scrollRv()
-            }
+            Log.d("TAG", "observe: $it")
             if (it.messageType == MessageType.BREAK) {
                 findNavController().navigateUp()
             }
             if (it.messageType == MessageType.COMMAND) {
                 viewModel.clearMemberList()
                 viewModel.getMembers(roomId!!)
+            }
+            if (chatList.value?.contains(it) == false) {
+                chattingListAdapter.addMessage(it)
+                scrollRv()
             }
         }
     }

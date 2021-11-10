@@ -43,7 +43,6 @@ class CoordinateRoomFragment : Fragment(),
     private lateinit var binding: FragmentHomeVpItemCoordinateBinding
 
     private val viewModel: CoordinateRoomViewModel by viewModels()
-    private val chattingViewModel: ChattingViewModel by activityViewModels()
     private val enteredRoomViewModel: EnteredRoomViewModel by activityViewModels()
 
     private val permissionLauncher: ActivityResultLauncher<Array<String>> =
@@ -108,14 +107,14 @@ class CoordinateRoomFragment : Fragment(),
             }
             locationManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER,
-                1000,
+                5000,
                 0f,
                 locationListener
             )
 
             locationManager.requestLocationUpdates(
                 LocationManager.NETWORK_PROVIDER,
-                1000,
+                5000,
                 0f,
                 locationListener
             )
@@ -142,6 +141,7 @@ class CoordinateRoomFragment : Fragment(),
     override fun onClick(room: RoomInfo) {
         val bundle = Bundle().apply {
             putInt("roomID", room.roomID)
+            putString("name", room.roomName)
             putBoolean("existPW", room.existPW ?: false)
         }
         binding.tvTitleJoinChatting.text = room.roomName
