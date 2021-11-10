@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
@@ -73,6 +74,14 @@ class HomeFragment : Fragment() {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         }
 
+        requireActivity().onBackPressedDispatcher.addCallback(object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (navController.previousBackStackEntry?.destination?.label == "fragment_login") {
+                    requireActivity().finish()
+                }
+            }
+
+        })
     }
 
     private fun init() {
