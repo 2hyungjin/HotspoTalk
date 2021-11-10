@@ -38,18 +38,10 @@ import java.util.function.Consumer
 class CoordinateRoomFragment : Fragment(),
     ChattingRoomRecyclerViewAdapter.OnClickChattingRoomListener {
 
-    private val navController by lazy { findNavController() }
-
     private lateinit var binding: FragmentHomeVpItemCoordinateBinding
 
-    private val viewModel: CoordinateRoomViewModel by viewModels()
+    private val viewModel: CoordinateRoomViewModel by activityViewModels()
     private val enteredRoomViewModel: EnteredRoomViewModel by activityViewModels()
-
-    private val permissionLauncher: ActivityResultLauncher<Array<String>> =
-        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
-            if (!it.all { permission -> permission.value })
-                Toast.makeText(context, "권한 거부", Toast.LENGTH_SHORT).show()
-        }
 
     private val adapter: ChattingRoomRecyclerViewAdapter =
         ChattingRoomRecyclerViewAdapter(this)
@@ -74,51 +66,6 @@ class CoordinateRoomFragment : Fragment(),
 
     private fun init() {
         binding.rvEnterableRoomVpItemHome.adapter = adapter
-
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            permissionLauncher.launch(
-                arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                )
-            )
-        } else if (!isEnabledSetting()) {
-            val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-            startActivity(intent)
-        } else {
-            val locationManager = requireContext().getSystemService(LocationManager::class.java)
-
-            val locationListener = object : LocationListener {
-                override fun onLocationChanged(location: Location) {
-                    Log.d("TAG", "onLocationChanged: $location")
-                    viewModel.getRoomsByCoordinate(location.latitude, location.longitude)
-                }
-
-                override fun onProviderDisabled(provider: String) {}
-                override fun onProviderEnabled(provider: String) {}
-                override fun onLocationChanged(locations: MutableList<Location>) {}
-            }
-            locationManager.requestLocationUpdates(
-                LocationManager.GPS_PROVIDER,
-                5000,
-                0f,
-                locationListener
-            )
-
-            locationManager.requestLocationUpdates(
-                LocationManager.NETWORK_PROVIDER,
-                5000,
-                0f,
-                locationListener
-            )
-        }
     }
 
     private fun observe() = with(viewModel) {
@@ -153,10 +100,5 @@ class CoordinateRoomFragment : Fragment(),
                 bundle
             )
         }
-    }
-
-    private fun isEnabledSetting(): Boolean {
-        val locationManager = requireContext().getSystemService(LocationManager::class.java)
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
     }
 }

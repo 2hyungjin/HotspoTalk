@@ -55,7 +55,11 @@ class SetProfileFragment : Fragment() {
             }
 
         binding.btnConfirmSetProfile.setOnClickListener {
-            viewModel.putJoinChatting(roomID)
+            if ((viewModel.name.get()?:"").isNotEmpty()) {
+                viewModel.putJoinChatting(roomID)
+            } else {
+                Toast.makeText(context, "회원님의 닉네임을 입력해 주세요.", Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.btnCloseSetProfile.setOnClickListener {

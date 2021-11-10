@@ -3,7 +3,11 @@ package com.example.hotspotalk.view.fragment
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +31,7 @@ import com.example.hotspotalk.view.activity.MainActivity
 import com.example.hotspotalk.view.adapter.HomeViewPagerAdapter
 import com.example.hotspotalk.view.util.Preference.token
 import com.example.hotspotalk.viewmodel.ChattingViewModel
+import com.example.hotspotalk.viewmodel.CoordinateRoomViewModel
 import com.example.hotspotalk.viewmodel.HomeViewModel
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,6 +53,8 @@ class HomeFragment : Fragment() {
             if (!it.all { permission -> permission.value == true })
                 Toast.makeText(context, "권한 거부", Toast.LENGTH_SHORT).show()
         }
+
+    private val coordinateViewModel: CoordinateRoomViewModel by activityViewModels()
 
     private lateinit var adapter: HomeViewPagerAdapter
 
@@ -80,7 +87,6 @@ class HomeFragment : Fragment() {
                     requireActivity().finish()
                 }
             }
-
         })
     }
 
@@ -140,10 +146,44 @@ class HomeFragment : Fragment() {
                     Manifest.permission.ACCESS_COARSE_LOCATION
                 )
             )
+        } else if (!isEnabledSetting()) {
+            val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+            startActivity(intent)
+        } else {
+            val locationManager = requireContext().getSystemService(LocationManager::class.java)
+
+            val locationListener = object : LocationListener {
+                override fun onLocationChanged(location: Location) {
+                    Log.d("TAG", "onLocationChanged: $location")
+                    coordinateViewModel.getRoomsByCoordinate(location.latitude, location.longitude)
+                }
+
+                override fun onProviderDisabled(provider: String) {}
+                override fun onProviderEnabled(provider: String) {}
+                override fun onLocationChanged(locations: MutableList<Location>) {}
+            }
+            locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                5000,
+                0f,
+                locationListener
+            )
+
+            locationManager.requestLocationUpdates(
+                LocationManager.NETWORK_PROVIDER,
+                5000,
+                0f,
+                locationListener
+            )
         }
     }
 
     private fun navigateToCreateRoom() {
         navController.navigate(R.id.action_homeFragment_to_createRoomFragment)
+    }
+
+    private fun isEnabledSetting(): Boolean {
+        val locationManager = requireContext().getSystemService(LocationManager::class.java)
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
     }
 }
