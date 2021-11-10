@@ -87,6 +87,7 @@ class ChattingViewModel @Inject constructor(private val messageRepository: Chatt
     }
 
     fun getMembers(roomId: Int) {
+        _memberList.clear()
         isLoading.postValue(true)
         job = viewModelScope.launch {
             messageRepository.getMembers(roomId).let { result ->
