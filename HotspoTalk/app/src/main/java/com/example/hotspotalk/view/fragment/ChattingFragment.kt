@@ -142,6 +142,7 @@ class ChattingFragment : Fragment() {
             userListAdapter.submitList(it)
         }
         chat.observe(requireActivity()) {
+            Log.d("chat",it.toString())
             if (it.roomID == roomId) {
                 chattingListAdapter.addMessage(it)
                 scrollRv()
