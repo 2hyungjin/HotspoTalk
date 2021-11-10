@@ -19,7 +19,6 @@ class HotspotalkApplication : Application() {
             socket.connect()
             socket.on("message", newMessageListener)
         }
-
     }
 
     override fun onCreate() {

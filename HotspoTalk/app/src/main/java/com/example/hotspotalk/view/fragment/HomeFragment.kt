@@ -20,6 +20,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.hotspotalk.R
+import com.example.hotspotalk.context.HotspotalkApplication
 import com.example.hotspotalk.databinding.FragmentHomeBinding
 import com.example.hotspotalk.view.activity.MainActivity
 import com.example.hotspotalk.view.adapter.HomeViewPagerAdapter
@@ -62,7 +63,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         init()
 
         binding.btnCreateRoomHome.setOnClickListener {

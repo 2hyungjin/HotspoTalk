@@ -141,7 +141,7 @@ class ChattingFragment : Fragment() {
         memberList.observe(viewLifecycleOwner) {
             userListAdapter.submitList(it)
         }
-        chat.observe(requireActivity()) {
+        chat.observe(viewLifecycleOwner) {
             if (it.roomID == roomId) {
                 chattingListAdapter.addMessage(it)
                 scrollRv()

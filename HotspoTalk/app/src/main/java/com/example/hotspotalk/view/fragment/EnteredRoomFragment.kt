@@ -61,7 +61,6 @@ class EnteredRoomFragment : Fragment(),
     }
 
     private fun init() {
-        HotspotalkApplication.connectSocket()
 
         binding.rvEnterableRoomVpItemHome.adapter = enteredChattingAdapter
         binding.srlEntered.setOnRefreshListener {

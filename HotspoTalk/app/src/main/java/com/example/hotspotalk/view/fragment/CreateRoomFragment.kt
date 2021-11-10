@@ -148,36 +148,31 @@ class CreateRoomFragment : Fragment() {
             viewModel.isMapLoading.value = false
         } else {
             val locationManager = requireContext().getSystemService(LocationManager::class.java)
-            val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
 
-            if (location == null) {
-                val locationListener = object : LocationListener {
-                    override fun onLocationChanged(location: Location) {
-                        settingMapByLocation(location)
-                        viewModel.isMapLoading.value = false
-                    }
-
-                    override fun onProviderDisabled(provider: String) {}
-                    override fun onProviderEnabled(provider: String) {}
-                    override fun onLocationChanged(locations: MutableList<Location>) {}
+            val locationListener = object : LocationListener {
+                override fun onLocationChanged(location: Location) {
+                    settingMapByLocation(location)
+                    Log.d("TAG", "onLocationChanged: $location")
+                    viewModel.isMapLoading.value = false
                 }
-                locationManager.requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER,
-                    1000,
-                    0f,
-                    locationListener
-                )
 
-                locationManager.requestLocationUpdates(
-                    LocationManager.NETWORK_PROVIDER,
-                    1000,
-                    0f,
-                    locationListener
-                )
-            } else {
-                settingMapByLocation(location)
-                viewModel.isMapLoading.value = false
+                override fun onProviderDisabled(provider: String) {}
+                override fun onProviderEnabled(provider: String) {}
+                override fun onLocationChanged(locations: MutableList<Location>) {}
             }
+            locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                1000,
+                0f,
+                locationListener
+            )
+
+            locationManager.requestLocationUpdates(
+                LocationManager.NETWORK_PROVIDER,
+                1000,
+                0f,
+                locationListener
+            )
         }
     }
 

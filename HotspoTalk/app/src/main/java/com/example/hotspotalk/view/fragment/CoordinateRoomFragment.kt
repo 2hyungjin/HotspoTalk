@@ -10,6 +10,7 @@ import android.location.LocationRequest
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -94,34 +95,30 @@ class CoordinateRoomFragment : Fragment(),
             startActivity(intent)
         } else {
             val locationManager = requireContext().getSystemService(LocationManager::class.java)
-            val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
 
-            if (location == null) {
-                val locationListener = object : LocationListener {
-                    override fun onLocationChanged(location: Location) {
-                        viewModel.getRoomsByCoordinate(location.latitude, location.longitude)
-                    }
-
-                    override fun onProviderDisabled(provider: String) {}
-                    override fun onProviderEnabled(provider: String) {}
-                    override fun onLocationChanged(locations: MutableList<Location>) {}
+            val locationListener = object : LocationListener {
+                override fun onLocationChanged(location: Location) {
+                    Log.d("TAG", "onLocationChanged: $location")
+                    viewModel.getRoomsByCoordinate(location.latitude, location.longitude)
                 }
-                locationManager.requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER,
-                    1000,
-                    0f,
-                    locationListener
-                )
 
-                locationManager.requestLocationUpdates(
-                    LocationManager.NETWORK_PROVIDER,
-                    1000,
-                    0f,
-                    locationListener
-                )
-            } else {
-                viewModel.getRoomsByCoordinate(location.latitude, location.longitude)
+                override fun onProviderDisabled(provider: String) {}
+                override fun onProviderEnabled(provider: String) {}
+                override fun onLocationChanged(locations: MutableList<Location>) {}
             }
+            locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                1000,
+                0f,
+                locationListener
+            )
+
+            locationManager.requestLocationUpdates(
+                LocationManager.NETWORK_PROVIDER,
+                1000,
+                0f,
+                locationListener
+            )
         }
     }
 
