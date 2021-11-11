@@ -155,7 +155,7 @@ class ChattingFragment : Fragment() {
                 viewModel.clearMemberList()
                 viewModel.getMembers(roomId!!)
             }
-            if (chatList.value?.contains(it) == false) {
+            if (chatList.value?.contains(it) == false && it.roomID == this@ChattingFragment.roomId) {
                 chattingListAdapter.addMessage(it)
                 scrollRv()
             }

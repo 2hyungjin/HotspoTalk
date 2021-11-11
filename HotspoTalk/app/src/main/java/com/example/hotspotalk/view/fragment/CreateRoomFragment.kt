@@ -48,6 +48,7 @@ class CreateRoomFragment : Fragment() {
     private var radius = 500.0
     private val circle = CircleOverlay()
     private val marker = Marker()
+    private lateinit var address: String
 
     private val viewModel: CreateRoomViewModel by viewModels()
     private lateinit var binding: FragmentCreateRoomBinding
@@ -210,35 +211,14 @@ class CreateRoomFragment : Fragment() {
                 resources.newTheme()
             )
         }
-        chipGroupAddressCreateRoom.removeAllViews()
-        val geocoder = Geocoder(context)
-        val address = geocoder.getFromLocation(
-            latLng.latitude,
-            latLng.longitude,
-            10
-        )[0].getAddressLine(0)
-        val addressList = address.split(" ")
-        for (i in 1 until addressList.lastIndex) {
-            val chip = Chip(context)
-            chip.text = addressList[i]
-            chip.isCheckable = true
-            chip.addOnLayoutChangeListener { v, _, _, _, _, _, _, _, _ ->
-                var chipAddress = ""
-                val chipItem = v as Chip
-                if (chipItem.isChecked && i > 1) {
-                    for (j in 0 until i) {
-                        val unCheckedChip = chipGroupAddressCreateRoom[j] as Chip
-                        Log.d("CreateRoomFragment", "settingMap: ${unCheckedChip.text}")
-                        if (!unCheckedChip.isChecked) {
-                            unCheckedChip.isChecked = true
-                        }
-                        chipAddress += unCheckedChip.text.toString() + " "
-                        viewModel.address.value =
-                            chipAddress.substring(0, chipAddress.length - 1)
-                    }
-                }
-            }
-            chipGroupAddressCreateRoom.addView(chip)
+
+        if (!this@CreateRoomFragment::address.isInitialized) {
+            chipInit(latLng)
+        }
+
+        btnChipRefreshCreateRoom.setOnClickListener {
+            chipInit(latLng)
+            viewModel.address.value = null
         }
 
         mapCreateRoom.getMapAsync {
@@ -271,6 +251,41 @@ class CreateRoomFragment : Fragment() {
 
                 }
             })
+        }
+    }
+
+    private fun chipInit(latLng: LatLng) = with(binding) {
+        val geocoder = Geocoder(context)
+        address = geocoder.getFromLocation(
+            latLng.latitude,
+            latLng.longitude,
+            10
+        )[0].getAddressLine(0)
+        chipGroupAddressCreateRoom.removeAllViews()
+        val addressList = address.split(" ")
+        for (i in 1 until addressList.lastIndex) {
+            val chip = Chip(context)
+            chip.text = addressList[i]
+            chip.isCheckable = true
+            chip.addOnLayoutChangeListener { v, _, _, _, _, _, _, _, _ ->
+                val chipItem = v as Chip
+                if (chipItem.isChecked && i > 1) {
+                    var chipAddress = ""
+                    viewModel.address.value = ""
+                    for (j in 0 until i) {
+                        val unCheckedChip = chipGroupAddressCreateRoom[j] as Chip
+                        if (!unCheckedChip.isChecked) {
+                            unCheckedChip.isChecked = true
+                        }
+                        chipAddress += unCheckedChip.text.toString() + " "
+                        viewModel.address.value =
+                            chipAddress.substring(0, chipAddress.length - 1)
+                    }
+
+                    Log.d("CreateRoomFragment", "settingMap: ${viewModel.address.value}")
+                }
+            }
+            chipGroupAddressCreateRoom.addView(chip)
         }
     }
 
